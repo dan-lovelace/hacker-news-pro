@@ -8,7 +8,6 @@ import { ROUTES } from "./lib/routes";
 import { handleSandboxLoad } from "./lib/sandbox";
 
 const router = createBrowserRouter(ROUTES);
-
 const sandboxUrl = browser.runtime.getURL("sandbox.html");
 
 export default function App({ config }: { config: TConfig }) {

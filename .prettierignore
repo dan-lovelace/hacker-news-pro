@@ -1,0 +1,11 @@
+.vscode
+*.hbs
+*.log
+coverage
+dist
+node_modules
+packages/**/*.d.ts
+packages/**/*.js
+packages/**/*.mjs
+temp
+yarn.lock
