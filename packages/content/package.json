@@ -23,8 +23,6 @@
     "@hnp/types": "*",
     "@vitejs/plugin-react": "^4.0.4",
     "rollup-plugin-copy": "^3.4.0",
-    "sass": "^1.55.0",
-    "typescript": "^4.8.4",
-    "vite": "^4.4.9"
+    "sass": "^1.55.0"
   }
 }

@@ -16,8 +16,6 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@hnp/types": "*",
-    "typescript": "^4.8.4",
-    "vite": "^4.4.9"
+    "@hnp/types": "*"
   }
 }

@@ -14,8 +14,6 @@
     "@hnp/core": "*"
   },
   "devDependencies": {
-    "@hnp/types": "*",
-    "typescript": "^4.8.4",
-    "vite": "^4.4.9"
+    "@hnp/types": "*"
   }
 }
