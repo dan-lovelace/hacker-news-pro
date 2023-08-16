@@ -1,4 +1,4 @@
-# Hacker News Plus
+# Hacker News Pro
 
 A browser extension for developers to create their own custom Hacker News
 interfaces using HTML and CSS. The built-in code editor makes theme creation a
@@ -21,7 +21,7 @@ TBD
 
 # Contributing
 
-Hacker News Plus is open source and looking for contributors! If you'd like to
+Hacker News Pro is open source and looking for contributors! If you'd like to
 make changes, first check
 [open issues](https://github.com/dan-lovelace/hacker-news-pro/issues) to see if
 anyone else is working in a similar area. To make a change:

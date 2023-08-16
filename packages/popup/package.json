@@ -3,7 +3,7 @@
   "author": "dan-lovelace",
   "version": "0.0.0",
   "type": "module",
-  "description": "Browser popup for Hacker News Plus",
+  "description": "Browser popup for Hacker News Pro",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
