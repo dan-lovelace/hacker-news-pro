@@ -1,0 +1,21 @@
+{
+  "name": "@hnp/background",
+  "author": "dan-lovelace",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Background script for Hacker News Pro",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc && vite build",
+    "build:watch": "yarn build --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@hnp/core": "*"
+  },
+  "devDependencies": {
+    "@hnp/types": "*",
+    "typescript": "^4.8.4",
+    "vite": "^4.4.9"
+  }
+}

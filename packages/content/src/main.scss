@@ -1,0 +1,28 @@
+#rts-root {
+  background-color: white;
+}
+
+iframe#rts-sandbox {
+  display: none;
+}
+
+/* -------------------- OLD -------------------- */
+html.legacy {
+  body {
+    display: none;
+  }
+}
+
+/* -------------------- REDESIGN -------------------- */
+html.redesign {
+  body {
+    /*
+      NOTE: the redesign is JS-heavy and tries very hard to inject its tracking
+      scripts. it will do so indefinitely if the body is completely hidden so
+      we just move it out of view.
+    */
+    position: absolute;
+    left: -99999px;
+    z-index: -1;
+  }
+}

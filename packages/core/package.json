@@ -1,0 +1,19 @@
+{
+  "name": "@hnp/core",
+  "author": "dan-lovelace",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Core library for Hacker News Pro",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "echo \"Info: no build specified\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@hnp/types": "*",
+    "@types/webextension-polyfill": "^0.9.1"
+  }
+}

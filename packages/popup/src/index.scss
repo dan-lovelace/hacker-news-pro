@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  min-width: 500px;
+  min-height: 292px; // helps with flashing between tab changes
+}
+
+#root {
+  margin: 0;
+  padding: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: unset;
+}
+
+// styles for react-simple-code-editor
+.code-editor {
+  flex: 1 1 auto;
+  font-family: "Fira code", "Fira Mono", monospace;
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+  min-height: 150px;
+
+  textarea {
+    &:focus,
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}

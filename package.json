@@ -1,0 +1,95 @@
+{
+  "name": "hacker-news-pro",
+  "author": {
+    "name": "dan-lovelace",
+    "url": "https://github.com/dan-lovelace/hacker-news-pro"
+  },
+  "description": "A browser extension for Hacker News",
+  "license": "MIT",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn clean && ts-node --esm scripts/build.ts",
+    "clean": "rimraf dist",
+    "lint": "eslint .",
+    "package": "ts-node --esm scripts/package.ts",
+    "start": "yarn clean && yarn start:background & yarn start:content & yarn start:popup & yarn start:sandbox",
+    "start:background": "yarn workspace @hnp/background build:watch",
+    "start:content": "yarn workspace @hnp/content build:watch",
+    "start:popup": "yarn workspace @hnp/popup build:watch",
+    "start:sandbox": "yarn workspace @hnp/sandbox build:watch"
+  },
+  "devDependencies": {
+    "@types/archiver": "^5.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "archiver": "^5.3.1",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "eslint-plugin-import"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "no-console": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
+      "import/order": [
+        "error",
+        {
+          "groups": [
+            "builtin",
+            "external",
+            "internal"
+          ],
+          "pathGroups": [
+            {
+              "pattern": "react",
+              "group": "external",
+              "position": "before"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": [
+            "react"
+          ],
+          "newlines-between": "always",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ]
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2021": true
+    },
+    "ignorePatterns": [
+      "node_modules",
+      "dist"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

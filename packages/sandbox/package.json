@@ -1,0 +1,23 @@
+{
+  "name": "@hnp/sandbox",
+  "author": "dan-lovelace",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Sandbox for Hacker News Pro",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc && vite build",
+    "build:watch": "yarn build --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@hnp/core": "*",
+    "handlebars": "^4.7.7",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@hnp/types": "*",
+    "typescript": "^4.8.4",
+    "vite": "^4.4.9"
+  }
+}

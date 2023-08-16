@@ -1,0 +1,38 @@
+{
+  "name": "Hacker News Pro",
+  "version": "0.0.0",
+  "description": "A browser extension for Hacker News",
+  "homepage_url": "https://github.com/dan-lovelace/hacker-news-pro",
+  "manifest_version": 3,
+  "icons": {
+    "16": "img/logo_16.png",
+    "48": "img/logo_48.png",
+    "128": "img/logo_128.png",
+    "256": "img/logo_256.png",
+    "512": "img/logo_512.png"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://news.ycombinator.com/*"],
+      "css": ["main.css"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["declarativeContent", "declarativeNetRequest", "storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["img/*", "sandbox.html"],
+      "matches": ["https://news.ycombinator.com/*"]
+    }
+  ],
+  "sandbox": {
+    "pages": ["sandbox.html"]
+  }
+}
