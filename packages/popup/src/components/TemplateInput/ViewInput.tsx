@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Box, Button, InputLabel } from "@mui/material";
 import { browser, STORAGE_KEYS } from "@hnp/core";
 import { TTheme, TView, TViewInputValue } from "@hnp/types";
+import { Box, Button, InputLabel } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
@@ -38,12 +38,12 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
       if (
         Object.prototype.hasOwnProperty.call(
           storedCurrentTheme,
-          CURRENT_THEME
+          CURRENT_THEME,
         ) &&
         Object.prototype.hasOwnProperty.call(storedCustomThemes, CUSTOM_THEMES)
       ) {
         const customTheme: TTheme = storedCustomThemes[CUSTOM_THEMES].find(
-          (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id
+          (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id,
         );
 
         if (!customTheme) {
@@ -92,7 +92,7 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
     const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
     const existing: TTheme[] = storedCustomThemes[CUSTOM_THEMES];
     const existingIdx = existing.findIndex(
-      (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id
+      (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id,
     );
 
     existing[existingIdx].inputs[view] = {

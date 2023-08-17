@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { browser, STORAGE_KEYS } from "@hnp/core";
+import { TView } from "@hnp/types";
 import {
   Box,
   FormControl,
@@ -8,8 +10,6 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { browser, STORAGE_KEYS } from "@hnp/core";
-import { TView } from "@hnp/types";
 
 import Comments from "./Comments";
 import Subreddit from "./Subreddit";
@@ -18,13 +18,12 @@ const { SELECTED_VIEW } = STORAGE_KEYS;
 
 export function TemplateInput() {
   const [initialized, setInitialized] = useState<boolean>(false);
-  const [viewValue, setViewValue] = useState<TView>("subreddit");
+  const [viewValue, setViewValue] = useState<TView>("list");
 
   useEffect(() => {
     async function init() {
-      const view: Record<string, TView> = await browser.storage.local.get(
-        SELECTED_VIEW
-      );
+      const view: Record<string, TView> =
+        await browser.storage.local.get(SELECTED_VIEW);
       if (Object.prototype.hasOwnProperty.call(view, SELECTED_VIEW)) {
         setViewValue(view[SELECTED_VIEW]);
       }
@@ -61,8 +60,8 @@ export function TemplateInput() {
               <MenuItem value="comments">Comments</MenuItem>
             </Select>
           </FormControl>
-          {viewValue === "comments" && <Comments />}
-          {viewValue === "subreddit" && <Subreddit />}
+          {viewValue === "item" && <Comments />}
+          {viewValue === "list" && <Subreddit />}
         </Box>
       )}
     </>

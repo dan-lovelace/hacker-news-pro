@@ -12,23 +12,38 @@ export const ROUTES: Route[] = [
   {
     path: "/",
     element: false,
-    view: "subreddit",
+    view: "list",
   },
   {
-    path: "/r/:subreddit",
+    path: "/ask",
     element: false,
-    view: "subreddit",
+    view: "list",
   },
   {
-    path: "/r/:subreddit/comments/:author/:post/*",
+    path: "/item",
     element: false,
-    view: "comments",
+    view: "item",
+  },
+  {
+    path: "/jobs",
+    element: false,
+    view: "jobs",
+  },
+  {
+    path: "/newcomments",
+    element: false,
+    view: "item",
+  },
+  {
+    path: "/show",
+    element: false,
+    view: "list",
   },
 ];
 
 export const getJson: (
   config: TConfig,
-  params?: Record<string, string>
+  params?: Record<string, string>,
 ) => any = async (config, params) => {
   const {
     location: { pathname, search },

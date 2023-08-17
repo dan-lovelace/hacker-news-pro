@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Box, Button } from "@mui/material";
 import { browser, STORAGE_KEYS } from "@hnp/core";
 import { TTheme } from "@hnp/types";
+import { Box, Button } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
@@ -28,12 +28,12 @@ export function StyleInput() {
       if (
         Object.prototype.hasOwnProperty.call(
           storedCurrentTheme,
-          CURRENT_THEME
+          CURRENT_THEME,
         ) &&
         Object.prototype.hasOwnProperty.call(storedCustomThemes, CUSTOM_THEMES)
       ) {
         const customTheme: TTheme = storedCustomThemes[CUSTOM_THEMES].find(
-          (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id
+          (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id,
         );
 
         if (!customTheme) {
@@ -69,7 +69,7 @@ export function StyleInput() {
     const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
     const existing: TTheme[] = storedCustomThemes[CUSTOM_THEMES];
     const existingIdx = existing.findIndex(
-      (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id
+      (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id,
     );
 
     existing[existingIdx].inputs.style = valueRef.current ?? "";

@@ -14,5 +14,5 @@ const initialState: TViewInputValue = {
 };
 
 export default function Comments() {
-  return <ViewInput initialState={initialState} view="comments" />;
+  return <ViewInput initialState={initialState} view="item" />;
 }

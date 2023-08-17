@@ -1,4 +1,9 @@
-import { getCurrentTheme } from "@hnp/core";
+import {
+  HNP_HTML_ELEMENT_CLASS_NAME,
+  HNP_ROOT_ELEMENT_ID,
+  HNP_STYLE_ELEMENT_ID,
+  getCurrentTheme,
+} from "@hnp/core";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
@@ -15,44 +20,17 @@ async function main() {
   const currentTheme = await getCurrentTheme(config);
 
   if (currentTheme) {
-    // add configuration mode to html element class list to support styling
-    // legacy and redesign separately
-    documentElement.classList.add(config.mode);
-
-    // remove reddit styles to reduce clashing with theme styles
-    switch (config.mode) {
-      case "redesign": {
-        // redesign styles exist in head, just remove them. attempting to block
-        // stylsheet resources, as seen in the legacy handler, creates an
-        // infinite loop with reddit's javascript and will eventually crash the
-        // browser.
-        const styles = (
-          document.head || document.getElementsByTagName("head")[0]
-        ).querySelectorAll("style");
-        for (const styleEl of styles) {
-          styleEl.remove();
-        }
-        break;
-      }
-
-      case "legacy": {
-        // legacy styles are loaded through stylesheet files. they are blocked
-        // at the network level using the declarativeNetRequest API and ruleset
-        // in manifest v3 (see: packages/content/public/request_rules.json).
-        // v2 uses web request blocking (see: packages/background/src/index.ts).
-        break;
-      }
-    }
+    documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
   }
 
   // create style element
   const style = document.createElement("style");
-  style.id = "rts-style";
+  style.id = HNP_STYLE_ELEMENT_ID;
   documentElement.appendChild(style);
 
   // create root element
   const root = document.createElement("div");
-  root.id = "rts-root";
+  root.id = HNP_ROOT_ELEMENT_ID;
   documentElement.appendChild(root);
 
   ReactDOM.createRoot(root).render(<App config={config} />);

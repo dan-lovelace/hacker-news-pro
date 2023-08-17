@@ -8,11 +8,6 @@ export type TConfig = {
   hostname: string;
 
   /**
-   * @example legacy
-   */
-  mode: TMode;
-
-  /**
    * @example subreddit
    */
   view: TView;
@@ -30,8 +25,6 @@ export type TMessageEvent<T> = {
   action: TMessageAction;
   value: T;
 };
-
-export type TMode = "legacy" | "redesign";
 
 export type TSandboxContext<T> = {
   config: TConfig;
@@ -55,7 +48,7 @@ export type TSandboxMessageEvent = {
 
 export type TSandboxMessage<T> = {
   context: TSandboxContext<T>;
-  event: TMessageEvent<TTheme | null>;
+  event: TMessageEvent<TTheme | undefined>;
 };
 
 export type TSandboxPartial = {
@@ -71,16 +64,8 @@ export type TStorageItem = {
 };
 
 export type TTheme = TCurrentTheme & {
-  inputs: {
-    comments: TViewInputValue;
-    style: string;
-    subreddit: TViewInputValue;
-  };
-  outputs?: {
-    comments: TViewInputValue;
-    style: string;
-    subreddit: TViewInputValue;
-  };
+  inputs: TThemeViewInputs;
+  outputs?: TThemeViewInputs;
 };
 
 export type TThemeChanged = {
@@ -90,7 +75,11 @@ export type TThemeChanged = {
 
 export type TThemeType = "custom" | "premade";
 
-export type TView = "comments" | "subreddit";
+export type TThemeViewInputs = Record<TView, TViewInputValue> & {
+  style: string;
+};
+
+export type TView = "item" | "jobs" | "list" | "other" | "submit" | "user";
 
 export type TViewInputValue = {
   template: string;

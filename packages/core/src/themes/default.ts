@@ -5,7 +5,7 @@ const theme: TTheme = {
   label: "Default",
   type: "premade",
   inputs: {
-    comments: {
+    list: {
       partials: [
         {
           label: "Comments partial",
@@ -295,7 +295,7 @@ button {
   max-width: 440px;
 }
     `,
-    subreddit: {
+    item: {
       partials: [],
       template: `
 <div class="page-layout">
@@ -384,6 +384,22 @@ button {
   </footer>
 </div>
       `,
+    },
+    jobs: {
+      template: "",
+      partials: [],
+    },
+    other: {
+      template: "",
+      partials: [],
+    },
+    submit: {
+      template: "",
+      partials: [],
+    },
+    user: {
+      template: "",
+      partials: [],
     },
   },
 };

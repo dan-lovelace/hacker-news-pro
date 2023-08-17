@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-import { browser } from "@hnp/core";
+import {
+  browser,
+  HNP_CONTENT_ELEMENT_ID,
+  HNP_SANDBOX_ELEMENT_ID,
+} from "@hnp/core";
 import { TConfig } from "@hnp/types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -16,9 +20,9 @@ export default function App({ config }: { config: TConfig }) {
   return (
     <>
       {initialized && <RouterProvider router={router} />}
-      <div id="rts-content"></div>
+      <div id={HNP_CONTENT_ELEMENT_ID}></div>
       <iframe
-        id="rts-sandbox"
+        id={HNP_SANDBOX_ELEMENT_ID}
         src={sandboxUrl}
         onLoad={handleSandboxLoad({
           config,

@@ -8,7 +8,7 @@ import "./helpers";
 
 window.addEventListener("message", (message) => {
   const { data, origin, source } = message;
-  const { context, event }: TSandboxMessage<any> = data;
+  const { context, event }: TSandboxMessage<unknown> = data;
 
   if (event.value === null) {
     return source?.postMessage(event, { targetOrigin: origin });
@@ -16,7 +16,9 @@ window.addEventListener("message", (message) => {
 
   switch (event.action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const inputValue = event.value.inputs[context.config.view];
+      const inputValue = event.value?.inputs[context.config.view];
+
+      if (!inputValue) return;
 
       for (const partial of inputValue.partials) {
         Handlebars.registerPartial(partial.name, partial.template);
@@ -28,11 +30,11 @@ window.addEventListener("message", (message) => {
         {
           action: event.action,
           value: {
-            style: event.value.inputs.style,
+            style: event.value?.inputs.style,
             compiled,
           },
         },
-        { targetOrigin: origin }
+        { targetOrigin: origin },
       );
       break;
     }

@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { applyTheme, browser, STORAGE_KEYS } from "@hnp/core";
+import { TCurrentTheme, TTheme } from "@hnp/types";
 import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -10,8 +12,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { applyTheme, browser, STORAGE_KEYS } from "@hnp/core";
-import { TCurrentTheme, TTheme } from "@hnp/types";
 import { useNavigate } from "react-router-dom";
 
 import { useToastContext } from "../../contexts/toast";

@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 
+import { browser, premadeThemes, STORAGE_KEYS } from "@hnp/core";
+import { TCurrentTheme, TTheme } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Alert,
@@ -12,12 +14,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { browser, premadeThemes, STORAGE_KEYS } from "@hnp/core";
-import { TCurrentTheme, TTheme } from "@hnp/types";
 import { kebabCase } from "lodash";
 
-import { useToastContext } from "../../contexts/toast";
 import ThemeItem from "./ThemeItem";
+import { useToastContext } from "../../contexts/toast";
 
 const { CURRENT_THEME, CUSTOM_THEMES } = STORAGE_KEYS;
 
@@ -50,7 +50,7 @@ export default function ThemePage() {
   }, []);
 
   const handleCreate = async (
-    event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>
+    event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
     const trimmed = creatingName.trim();
@@ -65,7 +65,8 @@ export default function ThemePage() {
       id,
       label: trimmed,
       inputs: {
-        comments: {
+        style: "",
+        item: {
           partials: [
             {
               label: "Comments partial",
@@ -75,8 +76,23 @@ export default function ThemePage() {
           ],
           template: "",
         },
-        style: "",
-        subreddit: {
+        jobs: {
+          partials: [],
+          template: "",
+        },
+        list: {
+          partials: [],
+          template: "",
+        },
+        other: {
+          partials: [],
+          template: "",
+        },
+        submit: {
+          partials: [],
+          template: "",
+        },
+        user: {
           partials: [],
           template: "",
         },
@@ -111,7 +127,7 @@ export default function ThemePage() {
   };
 
   const handleCreatingNameChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setCreatingName(event.target.value);
   };

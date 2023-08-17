@@ -8,5 +8,5 @@ const initialState: TViewInputValue = {
 };
 
 export default function Subreddit() {
-  return <ViewInput initialState={initialState} view="subreddit" />;
+  return <ViewInput initialState={initialState} view="list" />;
 }

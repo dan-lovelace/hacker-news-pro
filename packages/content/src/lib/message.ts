@@ -1,6 +1,8 @@
 import {
   browser,
   getCurrentTheme,
+  HNP_CONTENT_ELEMENT_ID,
+  HNP_HTML_ELEMENT_CLASS_NAME,
   MESSAGE_ACTIONS,
   STORAGE_KEYS,
 } from "@hnp/core";
@@ -11,7 +13,6 @@ import {
   TThemeChanged,
 } from "@hnp/types";
 
-import { getConfig } from "./config";
 import { getTemplateContext } from "./sandbox";
 
 export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
@@ -19,21 +20,19 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
 
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const config = getConfig();
-
       const styleEl = document.getElementById("rts-style") as HTMLStyleElement;
       const contentEl = document.getElementById(
-        "rts-content"
+        HNP_CONTENT_ELEMENT_ID,
       ) as HTMLDivElement;
 
       if (value === null) {
         styleEl.innerHTML = "";
         contentEl.innerHTML = "";
-        document.documentElement.classList.remove(config.mode);
+        document.documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
       } else {
         styleEl.innerHTML = value.style;
         contentEl.innerHTML = value.compiled;
-        document.documentElement.classList.add(config.mode);
+        document.documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
       }
       break;
     }
@@ -54,7 +53,7 @@ export function startListeners<T>(data: T, config: TConfig) {
   browser.runtime.onMessage.addListener(
     (event: TMessageEvent<TThemeChanged>) => {
       handleMessageEvent(event);
-    }
+    },
   );
 
   browser.storage.onChanged.addListener(async (event) => {
@@ -97,6 +96,6 @@ export function startListeners<T>(data: T, config: TConfig) {
     "message",
     (event: MessageEvent<TMessageEvent<TThemeChanged>>) => {
       handleMessageEvent(event.data);
-    }
+    },
   );
 }

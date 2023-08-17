@@ -2,9 +2,6 @@ import { browser, STORAGE_KEYS } from "@hnp/core";
 import { TConfig, TCurrentTheme, TTheme } from "@hnp/types";
 
 import defaultTheme from "./default";
-import hackerNewsTheme from "./hackerNews";
-import makoTheme from "./mako";
-import rusticTheme from "./rustic";
 
 const { CURRENT_THEME, CUSTOM_THEMES } = STORAGE_KEYS;
 
@@ -13,24 +10,35 @@ const helpTheme: TTheme = {
   label: "Help",
   type: "premade",
   inputs: {
-    comments: {
-      partials: [],
-      template: `<div>Error: No template found for view 'comments'. Use the editor to create one.</div>`,
-    },
     style: "",
-    subreddit: {
+    item: {
       partials: [],
-      template: `<div>Error: No template found for view 'subreddit'. Use the editor to create one.</div>`,
+      template: `<div>Error: No template found for view 'item'. Use the editor to create one.</div>`,
+    },
+    list: {
+      partials: [],
+      template: `<div>Error: No template found for view 'list'. Use the editor to create one.</div>`,
+    },
+    jobs: {
+      template: "",
+      partials: [],
+    },
+    other: {
+      template: "",
+      partials: [],
+    },
+    submit: {
+      template: "",
+      partials: [],
+    },
+    user: {
+      template: "",
+      partials: [],
     },
   },
 };
 
-export const premadeThemes = [
-  defaultTheme,
-  hackerNewsTheme,
-  makoTheme,
-  rusticTheme,
-];
+export const premadeThemes = [defaultTheme];
 
 export function applyTheme(theme: TTheme) {
   const newTheme: TCurrentTheme = {
@@ -49,7 +57,7 @@ export async function getCurrentTheme(config: TConfig) {
   const currentTheme: TTheme = storedCurrentTheme[CURRENT_THEME];
 
   if (!currentTheme) {
-    return null;
+    return undefined;
   }
 
   let returnTheme = helpTheme;
