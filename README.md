@@ -44,7 +44,7 @@ anyone else is working in a similar area. To make a change:
 
 ## 1. Install
 
-```shell
+```sh
 $ git clone https://github.com/dan-lovelace/hacker-news-pro.git
 $ cd hacker-news-pro
 $ yarn
@@ -79,6 +79,28 @@ Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
 
 Firefox:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing
+
+## Hot reloading
+
+In development mode via `yarn start`, hot reloading is enabled by default. All
+changes to the `dist` directory automatically reload the extension and the
+browser page after a brief wait. You may turn this off using a `NO_WATCH`
+environment variable like so:
+
+```sh
+$ NO_WATCH=true yarn start
+```
+
+There are several other configurations in the
+[reload script itself](./scripts/hot-reload/src/index.ts) such as on which port
+to start the websocket server and any files to exclude from the watch list.
+
+### All options
+
+| Option          | Description                       |
+| --------------- | --------------------------------- |
+| `NO_WATCH=true` | Disables hot reloading altogether |
+| `QUIET=true`    | Disables console output messages  |
 
 ## Tips
 
