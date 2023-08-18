@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { browser, STORAGE_KEYS } from "@hnp/core";
+import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TView } from "@hnp/types";
 import {
   Box,
@@ -14,18 +14,16 @@ import {
 import Comments from "./Comments";
 import Subreddit from "./Subreddit";
 
-const { SELECTED_VIEW } = STORAGE_KEYS;
-
 export function TemplateInput() {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [viewValue, setViewValue] = useState<TView>("list");
 
   useEffect(() => {
     async function init() {
-      const view: Record<string, TView> =
-        await browser.storage.local.get(SELECTED_VIEW);
-      if (Object.prototype.hasOwnProperty.call(view, SELECTED_VIEW)) {
-        setViewValue(view[SELECTED_VIEW]);
+      const view = await storageGetByKey("SELECTED_VIEW");
+
+      if (view) {
+        setViewValue(view);
       }
 
       setInitialized(true);
@@ -38,7 +36,7 @@ export function TemplateInput() {
     const value = event.target.value as TView;
 
     setViewValue(value);
-    browser.storage.local.set({ [SELECTED_VIEW]: value });
+    storageSetByKeys({ SELECTED_VIEW: value });
   };
 
   return (

@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 
-import { browser, premadeThemes, STORAGE_KEYS } from "@hnp/core";
+import { premadeThemes, storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TCurrentTheme, TTheme } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import {
@@ -19,8 +19,6 @@ import { kebabCase } from "lodash";
 import ThemeItem from "./ThemeItem";
 import { useToastContext } from "../../contexts/toast";
 
-const { CURRENT_THEME, CUSTOM_THEMES } = STORAGE_KEYS;
-
 export default function ThemePage() {
   const [creating, setCreating] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<TCurrentTheme>();
@@ -31,14 +29,12 @@ export default function ThemePage() {
 
   useEffect(() => {
     async function init() {
-      const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
-      const customThemes: TTheme[] = storedCustomThemes[CUSTOM_THEMES];
+      const customThemes = await storageGetByKey("CUSTOM_THEMES");
       if (customThemes) {
         setCustomThemes(customThemes);
       }
 
-      const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-      const currentTheme: TCurrentTheme = storedCurrentTheme[CURRENT_THEME];
+      const currentTheme = await storageGetByKey("CURRENT_THEME");
       if (currentTheme) {
         setCurrentTheme(currentTheme);
       }
@@ -101,10 +97,10 @@ export default function ThemePage() {
     };
 
     let existingThemes: TTheme[] = [];
-    const themes = await browser.storage.local.get(CUSTOM_THEMES);
+    const themes = await storageGetByKey("CUSTOM_THEMES");
 
-    if (Object.prototype.hasOwnProperty.call(themes, CUSTOM_THEMES)) {
-      existingThemes = themes[CUSTOM_THEMES];
+    if (themes) {
+      existingThemes = themes;
     }
 
     if (existingThemes.some((t: TTheme) => t.id === id)) {
@@ -114,10 +110,9 @@ export default function ThemePage() {
 
     const newThemes = [...existingThemes, newTheme];
 
-    await browser.storage.local.set({
-      [CUSTOM_THEMES]: newThemes,
+    storageSetByKeys({
+      CUSTOM_THEMES: newThemes,
     });
-
     setCustomThemes(newThemes);
     handleEndCreate();
   };

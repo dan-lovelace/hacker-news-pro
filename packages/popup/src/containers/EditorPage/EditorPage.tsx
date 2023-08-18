@@ -1,14 +1,12 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 
-import { Box, Stack, Tab, Tabs, TextField, useTheme } from "@mui/material";
-import { browser, STORAGE_KEYS } from "@hnp/core";
+import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TCurrentTheme, TTheme } from "@hnp/types";
+import { Box, Stack, Tab, Tabs, TextField, useTheme } from "@mui/material";
 import { kebabCase } from "lodash";
 
 import { StyleInput, TemplateInput } from "../../components/TemplateInput";
 import { useToastContext } from "../../contexts/toast";
-
-const { CURRENT_THEME, CUSTOM_THEMES, SELECTED_TAB } = STORAGE_KEYS;
 
 export default function EditorPage() {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -20,13 +18,12 @@ export default function EditorPage() {
 
   useEffect(() => {
     async function init() {
-      const tab = await browser.storage.local.get(SELECTED_TAB);
-      if (tab[SELECTED_TAB]) {
-        setActiveTab(tab[SELECTED_TAB]);
+      const tab = await storageGetByKey("SELECTED_TAB");
+      if (tab) {
+        setActiveTab(tab);
       }
 
-      const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-      const currentTheme: TCurrentTheme = storedCurrentTheme[CURRENT_THEME];
+      const currentTheme = await storageGetByKey("CURRENT_THEME");
       if (currentTheme) {
         setLabel(currentTheme.label);
         setCurrentTheme(currentTheme);
@@ -43,7 +40,7 @@ export default function EditorPage() {
   };
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setLabel(event.target.value);
   };
@@ -73,13 +70,11 @@ export default function EditorPage() {
       id,
       label: trimmed,
     };
-    const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
-    const existingThemes: TTheme[] = storedCustomThemes[CUSTOM_THEMES];
-    const customThemeIdx = existingThemes.findIndex(
-      (t: TTheme) => t.id === currentTheme.id
-    );
+    const existingThemes = await storageGetByKey("CUSTOM_THEMES");
+    const customThemeIdx =
+      existingThemes?.findIndex((t: TTheme) => t.id === currentTheme.id) ?? -1;
 
-    if (customThemeIdx < 0) {
+    if (!existingThemes || customThemeIdx < 0) {
       notify("Error finding custom theme");
       return;
     }
@@ -95,17 +90,16 @@ export default function EditorPage() {
       ...newCurrentTheme,
     };
 
-    browser.storage.local.set({
-      [CUSTOM_THEMES]: existingThemes,
-      [CURRENT_THEME]: newCurrentTheme,
+    storageSetByKeys({
+      CUSTOM_THEMES: existingThemes,
+      CURRENT_THEME: newCurrentTheme,
     });
     setCurrentTheme(newCurrentTheme);
   };
 
   const handleTabChange = (_: React.SyntheticEvent, newIndex: number) => {
     setActiveTab(newIndex);
-
-    browser.storage.local.set({ [SELECTED_TAB]: newIndex });
+    storageSetByKeys({ SELECTED_TAB: newIndex });
   };
 
   return (
@@ -126,8 +120,8 @@ export default function EditorPage() {
                 },
               }}
               sx={{
-                width: "100%",
-                paddingRight: "6rem",
+                "width": "100%",
+                "paddingRight": "6rem",
                 "& .MuiInput-root": {
                   "&:before": {
                     display: "none",

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-import { browser, STORAGE_KEYS } from "@hnp/core";
-import { TTheme } from "@hnp/types";
+import { getStoredTheme } from "@hnp/core";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 
 import PageLayout from "./containers/PageLayout/PageLayout";
@@ -13,11 +12,7 @@ function AppContent() {
 
   useEffect(() => {
     async function init() {
-      const storage = await browser.storage.local.get(
-        STORAGE_KEYS.CURRENT_THEME
-      );
-
-      const currentTheme: TTheme = storage[STORAGE_KEYS.CURRENT_THEME];
+      const currentTheme = await getStoredTheme();
 
       if (currentTheme && currentTheme.type === "custom") {
         // current theme exists, show editor

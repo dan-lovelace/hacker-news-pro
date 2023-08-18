@@ -1,15 +1,6 @@
-/**
- * App configuration
- */
 export type TConfig = {
-  /**
-   * @example news.ycombinator.com
-   */
   hostname: string;
 
-  /**
-   * @example subreddit
-   */
   view: TView;
 };
 
@@ -58,9 +49,17 @@ export type TSandboxPartial = {
 
 export type TSandboxTemplate = string;
 
-export type TStorageItem = {
-  value: string;
-  view: TView;
+export type TStorage = Partial<{
+  [key in TStorageKey]: TStorageKeyMap[key];
+}>;
+
+export type TStorageKey = keyof TStorageKeyMap;
+
+export type TStorageKeyMap = {
+  CURRENT_THEME: TCurrentTheme;
+  CUSTOM_THEMES: TTheme[];
+  SELECTED_TAB: number;
+  SELECTED_VIEW: TView;
 };
 
 export type TTheme = TCurrentTheme & {

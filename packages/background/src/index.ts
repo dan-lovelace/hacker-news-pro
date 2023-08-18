@@ -1,15 +1,13 @@
-import { browser, STORAGE_KEYS } from "@hnp/core";
+import { browser, getStoredTheme, storageSetByKey } from "@hnp/core";
 import { TCurrentTheme } from "@hnp/types";
 
-const { CURRENT_THEME } = STORAGE_KEYS;
-
 function main() {
-  const { manifest_version } = browser.runtime.getManifest();
+  const { action, declarativeContent, runtime, tabs, webRequest } = browser;
+  const { manifest_version } = runtime.getManifest();
 
-  browser.runtime.onInstalled.addListener(async () => {
+  runtime.onInstalled.addListener(async () => {
     // apply default theme if no current theme exists such as in a fresh install
-    const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-    const currentTheme = storedCurrentTheme[CURRENT_THEME];
+    const currentTheme = getStoredTheme();
 
     if (!currentTheme) {
       const defaultTheme: TCurrentTheme = {
@@ -18,50 +16,48 @@ function main() {
         type: "premade",
       };
 
-      await browser.storage.local.set({
-        [CURRENT_THEME]: defaultTheme,
-      });
+      await storageSetByKey({ CURRENT_THEME: defaultTheme });
     }
 
     // enable/disable browser action based on selected tab
-    browser.action.disable();
-    browser.declarativeContent.onPageChanged.removeRules(undefined, () => {
-      browser.declarativeContent.onPageChanged.addRules([
+    action.disable();
+    declarativeContent.onPageChanged.removeRules(undefined, () => {
+      declarativeContent.onPageChanged.addRules([
         {
           conditions: [
-            new browser.declarativeContent.PageStateMatcher({
+            new declarativeContent.PageStateMatcher({
               pageUrl: { hostSuffix: "news.ycombinator.com" },
             }),
           ],
-          actions: [new browser.declarativeContent.ShowAction()],
+          actions: [new declarativeContent.ShowAction()],
         },
       ]);
     });
 
     if (process.env.NODE_ENV === "development") {
-      browser.runtime.onMessage.addListener((message) => {
+      runtime.onMessage.addListener((message) => {
         if (message === "reload") {
-          browser.tabs.query({ active: true }).then(() => {
-            browser.runtime.reload();
-            browser.tabs.reload();
+          tabs.query({ active: true }).then(() => {
+            runtime.reload();
+            tabs.reload();
           });
         }
       });
     }
   });
 
-  browser.runtime.onMessage.addListener(async (message) => {
-    const tabs = await browser.tabs.query({
+  runtime.onMessage.addListener(async (message) => {
+    const tabsQuery = await tabs.query({
       active: true,
       currentWindow: true,
     });
-    const tabId = tabs[0].id ?? -1;
+    const tabId = tabsQuery[0].id ?? -1;
 
-    browser.tabs.sendMessage(tabId, message);
+    tabs.sendMessage(tabId, message);
   });
 
   if (manifest_version === 2) {
-    browser.webRequest.onBeforeRequest.addListener(
+    webRequest.onBeforeRequest.addListener(
       () => ({ cancel: true }),
       {
         // urls must include initiator origin

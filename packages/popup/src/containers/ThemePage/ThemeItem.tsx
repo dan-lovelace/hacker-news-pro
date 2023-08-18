@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { applyTheme, browser, STORAGE_KEYS } from "@hnp/core";
+import { applyTheme, storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TCurrentTheme, TTheme } from "@hnp/types";
 import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -26,8 +26,6 @@ type ThemeItemProps = {
   setCustomThemes?: (newValue: TTheme[]) => void;
 };
 
-const { CURRENT_THEME, CUSTOM_THEMES: SAVED_THEMES } = STORAGE_KEYS;
-
 export default function ThemeItem({
   editable = false,
   selected,
@@ -44,27 +42,26 @@ export default function ThemeItem({
   };
 
   const handleConfirmDeleteClick = async () => {
-    const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-    const currentTheme = storedCurrentTheme[CURRENT_THEME];
-    const themes = await browser.storage.local.get(SAVED_THEMES);
-    const newThemes: TTheme[] = themes[SAVED_THEMES];
-    const themeIdx = newThemes.findIndex((t: TTheme) => t.id === themeData.id);
+    const currentTheme = await storageGetByKey("CURRENT_THEME");
+    const customThemes = await storageGetByKey("CUSTOM_THEMES");
+    const themeIdx =
+      customThemes?.findIndex((t: TTheme) => t.id === themeData.id) ?? -1;
 
-    if (themeIdx < 0) {
+    if (!customThemes || themeIdx < 0) {
       notify("Error deleting theme");
       return;
     }
 
-    newThemes.splice(themeIdx, 1);
+    customThemes.splice(themeIdx, 1);
 
-    await browser.storage.local.set({
-      [SAVED_THEMES]: newThemes,
-
+    storageSetByKeys({
+      CUSTOM_THEMES: customThemes,
       // unset current theme if it was deleted
-      [CURRENT_THEME]: currentTheme?.id === themeData.id ? null : currentTheme,
+      CURRENT_THEME:
+        currentTheme?.id === themeData.id ? undefined : currentTheme,
     });
 
-    setCustomThemes?.(newThemes);
+    setCustomThemes?.(customThemes);
     handleCancelConfirmDelete();
   };
 

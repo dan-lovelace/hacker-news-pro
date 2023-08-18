@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-import { browser, STORAGE_KEYS } from "@hnp/core";
+import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TTheme, TView, TViewInputValue } from "@hnp/types";
 import { Box, Button, InputLabel } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
-
-const { CURRENT_THEME, CUSTOM_THEMES } = STORAGE_KEYS;
 
 type ViewInputProps = {
   initialState: TViewInputValue;
@@ -32,27 +30,17 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
 
   useEffect(() => {
     async function init() {
-      const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-      const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
+      const currentTheme = await storageGetByKey("CURRENT_THEME");
+      const customThemes = await storageGetByKey("CUSTOM_THEMES");
+      const customTheme: TTheme | undefined = customThemes?.find(
+        (t: TTheme) => t.id === currentTheme?.id,
+      );
 
-      if (
-        Object.prototype.hasOwnProperty.call(
-          storedCurrentTheme,
-          CURRENT_THEME,
-        ) &&
-        Object.prototype.hasOwnProperty.call(storedCustomThemes, CUSTOM_THEMES)
-      ) {
-        const customTheme: TTheme = storedCustomThemes[CUSTOM_THEMES].find(
-          (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id,
-        );
-
-        if (!customTheme) {
-          return notify("Error loading custom theme template");
-        }
-
-        setTemplateValues(customTheme.inputs[view]);
+      if (!customTheme) {
+        return notify("Error loading custom theme template");
       }
 
+      setTemplateValues(customTheme.inputs[view]);
       setInitialized(true);
     }
 
@@ -88,23 +76,20 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
   };
 
   const handleSave = async () => {
-    const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-    const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
-    const existing: TTheme[] = storedCustomThemes[CUSTOM_THEMES];
-    const existingIdx = existing.findIndex(
-      (t: TTheme) => t.id === storedCurrentTheme[CURRENT_THEME].id,
+    const storedCurrentTheme = await storageGetByKey("CURRENT_THEME");
+    const customThemes = await storageGetByKey("CUSTOM_THEMES");
+    const existingIdx = customThemes?.findIndex(
+      (t: TTheme) => t.id === storedCurrentTheme?.id,
     );
 
-    existing[existingIdx].inputs[view] = {
-      ...existing[existingIdx].inputs[view],
-      ...templateValuesRef.current,
-    };
+    if (customThemes && existingIdx && existingIdx > -1) {
+      customThemes[existingIdx].inputs[view] = {
+        ...customThemes[existingIdx].inputs[view],
+        ...templateValuesRef.current,
+      };
+    }
 
-    const newValue = {
-      [CUSTOM_THEMES]: existing,
-    };
-
-    browser.storage.local.set(newValue);
+    storageSetByKeys({ CUSTOM_THEMES: customThemes });
   };
 
   return (

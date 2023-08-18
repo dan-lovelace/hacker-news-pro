@@ -4,12 +4,12 @@ import {
   HNP_CONTENT_ELEMENT_ID,
   HNP_HTML_ELEMENT_CLASS_NAME,
   MESSAGE_ACTIONS,
-  STORAGE_KEYS,
 } from "@hnp/core";
 import {
   TConfig,
   TMessageEvent,
   TSandboxMessage,
+  TStorageKey,
   TThemeChanged,
 } from "@hnp/types";
 
@@ -57,9 +57,9 @@ export function startListeners<T>(data: T, config: TConfig) {
   );
 
   browser.storage.onChanged.addListener(async (event) => {
-    for (const key of Object.keys(event)) {
+    for (const key of Object.keys(event) as Array<TStorageKey>) {
       switch (key) {
-        case STORAGE_KEYS.CURRENT_THEME: {
+        case "CURRENT_THEME": {
           // current theme changed or was removed
           const themeToApply = await getCurrentTheme(config);
 
@@ -73,7 +73,7 @@ export function startListeners<T>(data: T, config: TConfig) {
           break;
         }
 
-        case STORAGE_KEYS.CUSTOM_THEMES: {
+        case "CUSTOM_THEMES": {
           // custom theme changed
           const themeToApply = await getCurrentTheme(config);
 

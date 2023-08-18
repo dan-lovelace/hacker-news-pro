@@ -1,9 +1,7 @@
-import { browser, STORAGE_KEYS } from "@hnp/core";
+import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TConfig, TCurrentTheme, TTheme } from "@hnp/types";
 
 import defaultTheme from "./default";
-
-const { CURRENT_THEME, CUSTOM_THEMES } = STORAGE_KEYS;
 
 const helpTheme: TTheme = {
   id: "help",
@@ -47,14 +45,11 @@ export function applyTheme(theme: TTheme) {
     type: theme.type,
   };
 
-  browser.storage.local.set({
-    [CURRENT_THEME]: newTheme,
-  });
+  return storageSetByKeys({ CURRENT_THEME: newTheme });
 }
 
 export async function getCurrentTheme(config: TConfig) {
-  const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
-  const currentTheme: TTheme = storedCurrentTheme[CURRENT_THEME];
+  const currentTheme = await getStoredTheme();
 
   if (!currentTheme) {
     return undefined;
@@ -65,8 +60,7 @@ export async function getCurrentTheme(config: TConfig) {
   switch (currentTheme.type) {
     case "custom": {
       // load from storage
-      const storedCustomThemes = await browser.storage.local.get(CUSTOM_THEMES);
-      const customThemes: TTheme[] = storedCustomThemes[CUSTOM_THEMES];
+      const customThemes = await storageGetByKey("CUSTOM_THEMES");
 
       if (customThemes && customThemes.length) {
         const customTheme = customThemes.find((t) => t.id === currentTheme.id);
@@ -93,4 +87,12 @@ export async function getCurrentTheme(config: TConfig) {
   }
 
   return returnTheme;
+}
+
+export function getStoredTheme() {
+  return storageGetByKey("CURRENT_THEME");
+}
+
+export function setStoredTheme(theme: TCurrentTheme) {
+  return storageSetByKeys({ CURRENT_THEME: theme });
 }
