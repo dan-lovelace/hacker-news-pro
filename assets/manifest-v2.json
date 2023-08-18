@@ -30,6 +30,7 @@
     "tabs",
     "storage",
     "webRequest",
+    "webRequestBlocking",
     "https://news.ycombinator.com/*"
   ],
   "web_accessible_resources": ["img/*", "sandbox.html"],

@@ -35,5 +35,14 @@
   ],
   "sandbox": {
     "pages": ["sandbox.html"]
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "block_stylesheets",
+        "enabled": true,
+        "path": "request_rules.json"
+      }
+    ]
   }
 }
