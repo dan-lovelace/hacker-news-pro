@@ -1,28 +1,13 @@
-#rts-root {
-  background-color: white;
-}
-
-iframe#rts-sandbox {
+iframe#hnp-sandbox {
   display: none;
 }
 
-/* -------------------- OLD -------------------- */
-html.legacy {
+html.hnp {
   body {
-    display: none;
-  }
-}
+    margin: 0;
 
-/* -------------------- REDESIGN -------------------- */
-html.redesign {
-  body {
-    /*
-      NOTE: the redesign is JS-heavy and tries very hard to inject its tracking
-      scripts. it will do so indefinitely if the body is completely hidden so
-      we just move it out of view.
-    */
-    position: absolute;
-    left: -99999px;
-    z-index: -1;
+    #hnmain {
+      display: none;
+    }
   }
 }
