@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 
 /*
-  # DESCRIPTION
-
   This script takes a given manifest version (2 or 3) and generates a
   supported `manifest.json` file. Output is placed in the `dist` directory.
 
@@ -43,12 +41,12 @@ function main() {
 
   const manifestJson = fs.readFileSync(
     path.join(__dirname, "assets", `manifest-v${manifestVersion}.json`),
-    "utf-8"
+    "utf-8",
   );
 
   const packageJson = fs.readFileSync(
     path.join(__dirname, "package.json"),
-    "utf-8"
+    "utf-8",
   );
   const packageVersion = JSON.parse(packageJson).version;
   const json = JSON.parse(manifestJson);
@@ -65,7 +63,7 @@ function main() {
     fs.writeFileSync(
       path.join(__dirname, "dist", "manifest.json"),
       JSON.stringify(json, undefined, 2),
-      "utf-8"
+      "utf-8",
     );
 
     console.log(stdout);

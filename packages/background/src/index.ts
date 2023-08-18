@@ -4,6 +4,8 @@ import { TCurrentTheme } from "@hnp/types";
 const { CURRENT_THEME } = STORAGE_KEYS;
 
 function main() {
+  const { manifest_version } = browser.runtime.getManifest();
+
   browser.runtime.onInstalled.addListener(async () => {
     // apply default theme if no current theme exists such as in a fresh install
     const storedCurrentTheme = await browser.storage.local.get(CURRENT_THEME);
@@ -35,6 +37,17 @@ function main() {
         },
       ]);
     });
+
+    if (process.env.NODE_ENV === "development") {
+      browser.runtime.onMessage.addListener((message) => {
+        if (message === "reload") {
+          browser.tabs.query({ active: true }).then(() => {
+            browser.runtime.reload();
+            browser.tabs.reload();
+          });
+        }
+      });
+    }
   });
 
   browser.runtime.onMessage.addListener(async (message) => {
@@ -46,6 +59,18 @@ function main() {
 
     browser.tabs.sendMessage(tabId, message);
   });
+
+  if (manifest_version === 2) {
+    browser.webRequest.onBeforeRequest.addListener(
+      () => ({ cancel: true }),
+      {
+        // urls must include initiator origin
+        urls: ["https://news.ycombinator.com/*"],
+        types: ["stylesheet"],
+      },
+      ["blocking"],
+    );
+  }
 }
 
 main();
