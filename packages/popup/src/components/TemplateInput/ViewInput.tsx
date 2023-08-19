@@ -76,13 +76,12 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
   };
 
   const handleSave = async () => {
-    const storedCurrentTheme = await storageGetByKey("CURRENT_THEME");
+    const currentTheme = await storageGetByKey("CURRENT_THEME");
     const customThemes = await storageGetByKey("CUSTOM_THEMES");
-    const existingIdx = customThemes?.findIndex(
-      (t: TTheme) => t.id === storedCurrentTheme?.id,
-    );
+    const existingIdx =
+      customThemes?.findIndex((t: TTheme) => t.id === currentTheme?.id) ?? -1;
 
-    if (customThemes && existingIdx && existingIdx > -1) {
+    if (customThemes && existingIdx > -1) {
       customThemes[existingIdx].inputs[view] = {
         ...customThemes[existingIdx].inputs[view],
         ...templateValuesRef.current,

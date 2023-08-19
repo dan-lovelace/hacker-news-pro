@@ -7,6 +7,8 @@ import handlebars from "highlight.js/lib/languages/handlebars";
 import xml from "highlight.js/lib/languages/xml";
 import Editor from "react-simple-code-editor";
 
+import { useAppContext } from "../../contexts/app";
+
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("handlebars", handlebars);
 hljs.registerLanguage("xml", xml);
@@ -25,6 +27,7 @@ export default function CodeEditor({
   value,
   handleChange,
 }: CodeEditorProps) {
+  const { popout } = useAppContext();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
@@ -46,6 +49,10 @@ export default function CodeEditor({
         borderColor: "primary.main",
         borderRadius: 1,
         mb: 1,
+        width: "100%",
+        height: "100%",
+        overflow: "auto",
+        maxWidth: popout ? "auto" : "500px",
       }}
     >
       <Editor
@@ -55,6 +62,12 @@ export default function CodeEditor({
         onValueChange={handleChange}
         highlight={(code) => hljs.highlight(code, { language }).value}
         padding={10}
+        preClassName="code-editor-pre"
+        style={{
+          float: "left",
+          minHeight: "100%",
+          minWidth: "100%",
+        }}
       />
     </Box>
   );
