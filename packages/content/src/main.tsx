@@ -10,6 +10,8 @@ import ReactDOM from "react-dom/client";
 
 import App from "./App";
 import { getConfig } from "./lib/config";
+import { initializeWebComponents } from "./web-components";
+
 import "./main.scss";
 
 if (process.env.NODE_ENV === "development") {
@@ -40,6 +42,8 @@ if (process.env.NODE_ENV === "development") {
   const root = document.createElement("div");
   root.id = HNP_ROOT_ELEMENT_ID;
   document.body.appendChild(root);
+
+  await initializeWebComponents();
 
   ReactDOM.createRoot(root).render(<App config={config} />);
 })();

@@ -28,7 +28,7 @@
   "permissions": ["declarativeContent", "declarativeNetRequest", "storage"],
   "web_accessible_resources": [
     {
-      "resources": ["img/*", "sandbox.html"],
+      "resources": ["img/*", "sandbox.html", "webcomponents-bundle.js"],
       "matches": ["https://news.ycombinator.com/*"]
     }
   ],
