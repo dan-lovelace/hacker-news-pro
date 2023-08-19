@@ -57,8 +57,7 @@ export default function ThemeItem({
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
       // unset current theme if it was deleted
-      CURRENT_THEME:
-        currentTheme?.id === themeData.id ? undefined : currentTheme,
+      CURRENT_THEME: currentTheme?.id === themeData.id ? null : currentTheme,
     });
 
     setCustomThemes?.(customThemes);

@@ -3,6 +3,8 @@ import {
   getCurrentTheme,
   HNP_CONTENT_ELEMENT_ID,
   HNP_HTML_ELEMENT_CLASS_NAME,
+  HNP_SANDBOX_ELEMENT_ID,
+  HNP_STYLE_ELEMENT_ID,
   MESSAGE_ACTIONS,
 } from "@hnp/core";
 import {
@@ -20,7 +22,9 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
 
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const styleEl = document.getElementById("rts-style") as HTMLStyleElement;
+      const styleEl = document.getElementById(
+        HNP_STYLE_ELEMENT_ID,
+      ) as HTMLStyleElement;
       const contentEl = document.getElementById(
         HNP_CONTENT_ELEMENT_ID,
       ) as HTMLDivElement;
@@ -43,7 +47,9 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
 }
 
 export function sendSandboxMessage<T>(message: TSandboxMessage<T>) {
-  const sandbox = document.getElementById("rts-sandbox") as HTMLIFrameElement;
+  const sandbox = document.getElementById(
+    HNP_SANDBOX_ELEMENT_ID,
+  ) as HTMLIFrameElement;
   const { contentWindow } = sandbox;
 
   contentWindow?.postMessage(message, "*");

@@ -1,23 +1,53 @@
-import { RouteObject } from "react-router-dom";
+import { RouteObject, createBrowserRouter } from "react-router-dom";
 
+import App from "../App";
 import EditorPage from "../containers/EditorPage";
+import HomePage from "../containers/HomePage";
 import ThemePage from "../containers/ThemePage";
 
 type Route = RouteObject & {
   path: string;
 };
 
-export const ROUTES: { [key: string]: Route } = {
+export const basename = "/popup.html";
+
+export const ROUTES: { [key: string]: Route } = Object.freeze({
   HOME: {
     path: "/",
-    element: false,
   },
   EDITOR: {
     path: "/editor",
-    element: <EditorPage />,
+  },
+  OPTIONS: {
+    path: "/options",
   },
   THEME: {
     path: "/theme",
-    element: <ThemePage />,
   },
-};
+});
+
+export const router = createBrowserRouter(
+  [
+    {
+      path: ROUTES.HOME.path,
+      element: <App />,
+      children: [
+        {
+          path: ROUTES.EDITOR.path,
+          element: <EditorPage />,
+        },
+        {
+          path: ROUTES.HOME.path,
+          element: <HomePage />,
+        },
+        {
+          path: ROUTES.THEME.path,
+          element: <ThemePage />,
+        },
+      ],
+    },
+  ],
+  {
+    basename,
+  },
+);

@@ -56,7 +56,7 @@ export type TStorage = Partial<{
 export type TStorageKey = keyof TStorageKeyMap;
 
 export type TStorageKeyMap = {
-  CURRENT_THEME: TCurrentTheme;
+  CURRENT_THEME: TCurrentTheme | null;
   CUSTOM_THEMES: TTheme[];
   SELECTED_TAB: number;
   SELECTED_VIEW: TView;

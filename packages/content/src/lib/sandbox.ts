@@ -1,5 +1,5 @@
 import { browser, getCurrentTheme, MESSAGE_ACTIONS } from "@hnp/core";
-import { TConfig, TSandboxContext } from "@hnp/types";
+import { List, TConfig, TSandboxContext } from "@hnp/types";
 
 import { sendSandboxMessage, startListeners } from "./message";
 
@@ -156,6 +156,8 @@ export function handleSandboxLoad({
       }
 
       case "list": {
+        const list = new List().parse(document);
+        initSandbox(config, list);
         break;
       }
     }

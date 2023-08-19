@@ -5,6 +5,7 @@ import { TCurrentTheme, TTheme } from "@hnp/types";
 import { Box, Stack, Tab, Tabs, TextField, useTheme } from "@mui/material";
 import { kebabCase } from "lodash";
 
+import BackButton from "../../components/BackButton/BackButton";
 import { StyleInput, TemplateInput } from "../../components/TemplateInput";
 import { useToastContext } from "../../contexts/toast";
 
@@ -107,28 +108,32 @@ export default function EditorPage() {
       {initialized && (
         <Stack className="editor-page">
           <Box sx={{ flex: "1 1 auto" }}>
-            <TextField
-              size="small"
-              value={label}
-              variant="standard"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              inputProps={{
-                sx: {
-                  fontSize: theme.typography.h6.fontSize,
-                },
-              }}
-              sx={{
-                "width": "100%",
-                "paddingRight": "6rem",
-                "& .MuiInput-root": {
-                  "&:before": {
-                    display: "none",
+            <Stack direction="row" spacing={1}>
+              <BackButton />
+              <TextField
+                size="small"
+                value={label}
+                variant="standard"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                inputProps={{
+                  sx: {
+                    fontSize: theme.typography.h6.fontSize,
+                    marginTop: 0.5,
                   },
-                },
-              }}
-            />
+                }}
+                sx={{
+                  width: "100%",
+                  paddingRight: "6rem",
+                  "& .MuiInput-root": {
+                    "&:before": {
+                      display: "none",
+                    },
+                  },
+                }}
+              />
+            </Stack>
             <Tabs value={activeTab} onChange={handleTabChange} sx={{ mb: 1 }}>
               <Tab label="HTML" />
               <Tab label="CSS" />

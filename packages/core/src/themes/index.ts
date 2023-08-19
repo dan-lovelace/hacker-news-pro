@@ -49,7 +49,7 @@ export function applyTheme(theme: TTheme) {
 }
 
 export async function getCurrentTheme(config: TConfig) {
-  const currentTheme = await getStoredTheme();
+  const currentTheme = await storageGetByKey("CURRENT_THEME");
 
   if (!currentTheme) {
     return undefined;
@@ -87,12 +87,4 @@ export async function getCurrentTheme(config: TConfig) {
   }
 
   return returnTheme;
-}
-
-export function getStoredTheme() {
-  return storageGetByKey("CURRENT_THEME");
-}
-
-export function setStoredTheme(theme: TCurrentTheme) {
-  return storageSetByKeys({ CURRENT_THEME: theme });
 }

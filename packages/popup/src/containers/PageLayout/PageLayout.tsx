@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import OptionsMenu from "../../components/OptionsMenu";
 import { useAppContext } from "../../contexts/app";
 import { themeComponents } from "../../lib/muiTheme";
-import { ROUTES } from "../../lib/routes";
+import { basename, ROUTES } from "../../lib/routes";
 
 export default function PageLayout({ children }: { children: ReactNode }) {
   const [popoutError, setPopoutError] = useState<boolean>(false);
@@ -32,13 +32,13 @@ export default function PageLayout({ children }: { children: ReactNode }) {
         },
         components: themeComponents,
       }),
-    [prefersDarkMode]
+    [prefersDarkMode],
   );
 
   useEffect(() => {
     function init() {
       setPopout(
-        new URLSearchParams(window.location.search).get("expanded") === "true"
+        new URLSearchParams(window.location.search).get("expanded") === "true",
       );
     }
 
@@ -48,9 +48,9 @@ export default function PageLayout({ children }: { children: ReactNode }) {
   const handlePopout = () => {
     navigate(ROUTES.HOME.path);
     const open = window.open(
-      "popup.html?expanded=true",
+      `${basename}?expanded=true`,
       "popup",
-      "popup=true,width=600,height=700"
+      "popup=true,width=600,height=700",
     );
 
     if (!open) return setPopoutError(true);
