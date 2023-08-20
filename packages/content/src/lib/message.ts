@@ -1,21 +1,20 @@
 import {
   browser,
-  getCurrentTheme,
   HNP_CONTENT_ELEMENT_ID,
   HNP_HTML_ELEMENT_CLASS_NAME,
   HNP_SANDBOX_ELEMENT_ID,
   HNP_STYLE_ELEMENT_ID,
   MESSAGE_ACTIONS,
+  SELECTORS,
 } from "@hnp/core";
 import {
-  TConfig,
   TMessageEvent,
   TSandboxMessage,
   TStorageKey,
   TThemeChanged,
 } from "@hnp/types";
 
-import { getTemplateContext } from "./sandbox";
+import { renderContent } from "./sandbox";
 
 export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
   const { action, value } = event;
@@ -55,7 +54,7 @@ export function sendSandboxMessage<T>(message: TSandboxMessage<T>) {
   contentWindow?.postMessage(message, "*");
 }
 
-export function startListeners<T>(data: T, config: TConfig) {
+export function startListeners() {
   browser.runtime.onMessage.addListener(
     (event: TMessageEvent<TThemeChanged>) => {
       handleMessageEvent(event);
@@ -65,33 +64,9 @@ export function startListeners<T>(data: T, config: TConfig) {
   browser.storage.onChanged.addListener(async (event) => {
     for (const key of Object.keys(event) as Array<TStorageKey>) {
       switch (key) {
-        case "CURRENT_THEME": {
-          // current theme changed or was removed
-          const themeToApply = await getCurrentTheme(config);
-
-          sendSandboxMessage({
-            context: getTemplateContext(data, config),
-            event: {
-              action: MESSAGE_ACTIONS.UPDATE_THEME,
-              value: themeToApply,
-            },
-          });
-          break;
-        }
-
+        case "CURRENT_THEME":
         case "CUSTOM_THEMES": {
-          // custom theme changed
-          const themeToApply = await getCurrentTheme(config);
-
-          if (!themeToApply) return;
-
-          sendSandboxMessage({
-            context: getTemplateContext(data, config),
-            event: {
-              action: MESSAGE_ACTIONS.UPDATE_THEME,
-              value: themeToApply,
-            },
-          });
+          renderContent();
           break;
         }
       }
@@ -104,4 +79,22 @@ export function startListeners<T>(data: T, config: TConfig) {
       handleMessageEvent(event.data);
     },
   );
+
+  // observe changes to HN content to handle content re-rendering
+  const targetNode = SELECTORS.HN.main();
+  if (targetNode) {
+    const observerConfig: MutationObserverInit = {
+      childList: true,
+      subtree: true,
+    };
+    const observer = new MutationObserver((mutationList: MutationRecord[]) => {
+      for (const mutation of mutationList) {
+        if (mutation.type === "childList") {
+          renderContent();
+        }
+      }
+    });
+
+    observer.observe(targetNode, observerConfig);
+  }
 }

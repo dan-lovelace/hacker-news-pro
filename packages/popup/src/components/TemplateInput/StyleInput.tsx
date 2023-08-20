@@ -9,8 +9,8 @@ import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
 export function StyleInput() {
-  const [styleValue, setStyleValue] = useState<string>("");
-  const [initialized, setInitialized] = useState<boolean>(false);
+  const [styleValue, setStyleValue] = useState("");
+  const [initialized, setInitialized] = useState(false);
   const { notify } = useToastContext();
 
   // configure a ref for styleValue so the latest value can be accessed within
@@ -56,11 +56,11 @@ export function StyleInput() {
   const handleSave = async () => {
     const storedCurrentTheme = await storageGetByKey("CURRENT_THEME");
     const customThemes = await storageGetByKey("CUSTOM_THEMES");
-    const existingIdx = customThemes?.findIndex(
-      (t: TTheme) => t.id === storedCurrentTheme?.id,
-    );
+    const existingIdx =
+      customThemes?.findIndex((t: TTheme) => t.id === storedCurrentTheme?.id) ??
+      -1;
 
-    if (customThemes && existingIdx && existingIdx > -1) {
+    if (customThemes && existingIdx > -1) {
       customThemes[existingIdx].inputs.style = valueRef.current ?? "";
     }
 

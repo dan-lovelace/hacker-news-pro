@@ -6,8 +6,6 @@ type Route = RouteObject & {
   view: TView;
 };
 
-export const DEFAULT_PAGE_LIMIT = 30;
-
 export const ROUTES: Route[] = [
   {
     path: "/",
@@ -33,6 +31,16 @@ export const ROUTES: Route[] = [
     path: "/newcomments",
     element: false,
     view: "item",
+  },
+  {
+    path: "/newest",
+    element: false,
+    view: "list",
+  },
+  {
+    path: "/news",
+    element: false,
+    view: "list",
   },
   {
     path: "/show",

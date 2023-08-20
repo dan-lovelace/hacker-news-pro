@@ -45,5 +45,5 @@ if (process.env.NODE_ENV === "development") {
 
   await initializeWebComponents();
 
-  ReactDOM.createRoot(root).render(<App config={config} />);
+  ReactDOM.createRoot(root).render(<App />);
 })();

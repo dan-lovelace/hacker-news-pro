@@ -54,8 +54,8 @@ export function TemplateInput() {
               }}
               sx={{ mb: 1 }}
             >
-              <MenuItem value="list">Subreddit</MenuItem>
-              <MenuItem value="item">Comments</MenuItem>
+              <MenuItem value="list">List</MenuItem>
+              <MenuItem value="item">Item</MenuItem>
             </Select>
           </FormControl>
           {viewValue === "item" && <Comments />}

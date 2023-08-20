@@ -7,7 +7,7 @@ const voteDirections = ["down", "up", undefined] as const;
 export type TComment = {
   author: string;
   body: string;
-  createdAt: Date;
+  createdHumanized: number;
   nextUrl?: string;
   parentUrl?: string;
   replyUrl?: string;
@@ -36,8 +36,20 @@ export type TListItem = {
   /** Number of comments */
   commentsCount: number;
 
-  /** When the item was created */
-  createdAt: Date;
+  /** When the item was created
+   * @todo The UTC dates returned by HN do not align with their humanized
+   * counterparts. It will show "2 hours ago" for things that have dates
+   * several days old. We could calculate an estimated time by parsing the
+   * humanized time and subtracting it from the current time. Leaving this as a
+   * nice-to-have for now.
+   */
+  createdAt?: string;
+
+  /**
+   * When the item was created in humanized format
+   * @example 2 hours ago
+   */
+  createdHumanized: string;
 
   /** URL of flag requests */
   flagUrl?: string;
@@ -121,10 +133,8 @@ export class List implements IParsable<TList> {
             isNaN(parseRes) ? 0 : parseRes,
           ),
       );
-      const createdAt = pipe(
-        metadataEle?.querySelector(".age")?.getAttribute("title"),
-        (dateString) => new Date(dateString),
-      );
+      const createdHumanized =
+        metadataEle?.querySelector(".age a")?.textContent ?? "";
       const flagUrl =
         metadataEle?.querySelector("[href^='flag']")?.getAttribute("href") ??
         undefined;
@@ -172,7 +182,7 @@ export class List implements IParsable<TList> {
         author,
         authorUrl,
         commentsCount,
-        createdAt,
+        createdHumanized,
         flagUrl,
         fromUrl,
         interactions: {

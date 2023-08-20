@@ -18,18 +18,11 @@ export type TMessageEvent<T> = {
 };
 
 export type TSandboxContext<T> = {
-  config: TConfig;
-  data: T;
-  logo: {
-    color: string;
-    white: string;
+  assets: {
+    originalLogoUrl: string;
   };
-  nextUrl?: string;
-  prevUrl?: string;
-  subreddits: {
-    text: string;
-    to: string;
-  }[];
+  config: TConfig;
+  pageData: T;
 };
 
 export type TSandboxMessageEvent = {

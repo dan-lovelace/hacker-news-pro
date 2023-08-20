@@ -5,8 +5,9 @@ export const HNP_SANDBOX_ELEMENT_ID = "hnp-sandbox";
 export const HNP_STYLE_ELEMENT_ID = "hnp-style";
 
 export const SELECTORS = Object.freeze({
-  contentRoot: () => document.getElementById(HNP_ROOT_ELEMENT_ID),
-  styleRoot: () => document.getElementById(HNP_STYLE_ELEMENT_ID),
+  HN: {
+    main: () => document.getElementById("hnmain"),
+  },
 });
 
 export function waitForElement(selector: string) {
