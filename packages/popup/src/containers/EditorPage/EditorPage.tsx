@@ -6,7 +6,11 @@ import { Box, Stack, Tab, Tabs, TextField, useTheme } from "@mui/material";
 import { kebabCase } from "lodash";
 
 import BackButton from "../../components/BackButton/BackButton";
-import { StyleInput, TemplateInput } from "../../components/TemplateInput";
+import {
+  ComponentsInput,
+  StyleInput,
+  TemplateInput,
+} from "../../components/TemplateInput";
 import { useToastContext } from "../../contexts/toast";
 
 export default function EditorPage() {
@@ -135,11 +139,16 @@ export default function EditorPage() {
               />
             </Stack>
             <Tabs value={activeTab} onChange={handleTabChange} sx={{ mb: 1 }}>
+              <Tab label="Components" />
               <Tab label="HTML" />
               <Tab label="CSS" />
             </Tabs>
           </Box>
-          <Box>{activeTab === 0 ? <TemplateInput /> : <StyleInput />}</Box>
+          <Box>
+            {activeTab === 0 && <ComponentsInput />}
+            {activeTab === 1 && <TemplateInput />}
+            {activeTab === 2 && <StyleInput />}
+          </Box>
         </Stack>
       )}
     </>

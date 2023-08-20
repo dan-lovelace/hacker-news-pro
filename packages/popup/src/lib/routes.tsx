@@ -10,6 +10,7 @@ type Route = RouteObject & {
 };
 
 export const basename = "/popup.html";
+export const initialRedirectState = "initial-redirect";
 
 export const ROUTES: { [key: string]: Route } = Object.freeze({
   HOME: {

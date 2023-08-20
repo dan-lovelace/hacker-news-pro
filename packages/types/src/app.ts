@@ -1,6 +1,11 @@
+export type TComponent = {
+  label: string;
+  name: string;
+  template: string;
+};
+
 export type TConfig = {
   hostname: string;
-
   view: TView;
 };
 
@@ -49,8 +54,11 @@ export type TStorage = Partial<{
 export type TStorageKey = keyof TStorageKeyMap;
 
 export type TStorageKeyMap = {
+  COMPONENTS: TComponent[];
   CURRENT_THEME: TCurrentTheme | null;
+  CURRENT_PAGE: string;
   CUSTOM_THEMES: TTheme[];
+  SELECTED_COMPONENT: TComponent;
   SELECTED_TAB: number;
   SELECTED_VIEW: TView;
 };
@@ -75,9 +83,5 @@ export type TView = "item" | "jobs" | "list" | "other" | "submit" | "user";
 
 export type TViewInputValue = {
   template: string;
-  partials: {
-    label: string;
-    name: string;
-    template: string;
-  }[];
+  partials: TComponent[];
 };

@@ -1,14 +1,19 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { ROUTES } from "../../lib/routes";
+import { ROUTES, initialRedirectState } from "../../lib/routes";
 
 export default function BackButton() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBackClick = () => {
-    navigate(ROUTES.HOME.path);
+    if (location.state === initialRedirectState) {
+      navigate(ROUTES.HOME.path);
+    } else {
+      navigate(-1);
+    }
   };
 
   return (

@@ -1,29 +1,36 @@
 import { useEffect } from "react";
 
-import { storageGetByKey } from "@hnp/core";
-import { Outlet, useNavigate } from "react-router-dom";
+import { storageGetByKey, storageSetByKeys } from "@hnp/core";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import PageLayout from "./containers/PageLayout/PageLayout";
 import { AppProvider } from "./contexts/app";
-import { ROUTES } from "./lib/routes";
+import { ROUTES, initialRedirectState } from "./lib/routes";
 
 export default function App() {
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function init() {
-      const currentTheme = await storageGetByKey("CURRENT_THEME");
+      const currentPage = await storageGetByKey("CURRENT_PAGE");
 
-      if (currentTheme && currentTheme.type === "custom") {
-        // default to editor page when the current theme is custom
-        navigate(ROUTES.EDITOR.path);
-      } else {
-        navigate(ROUTES.THEME.path);
-      }
+      navigate(currentPage ?? ROUTES.HOME.path, {
+        state: initialRedirectState,
+      });
     }
 
     init();
   }, []);
+
+  useEffect(() => {
+    // keep track of current page, ignore default index load
+    if (location.key !== "default") {
+      storageSetByKeys({
+        CURRENT_PAGE: location.pathname,
+      });
+    }
+  }, [location.pathname]);
 
   return (
     <AppProvider>

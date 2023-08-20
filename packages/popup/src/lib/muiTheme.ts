@@ -9,6 +9,9 @@ export const themeComponents: Components<Omit<Theme, "components">> = {
       },
     },
   },
+  MuiInputBase: {
+    defaultProps: { autoComplete: "off" },
+  },
   MuiMenuItem: {
     defaultProps: { disableRipple: true },
   },

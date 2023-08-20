@@ -17,6 +17,7 @@ import {
 import { kebabCase } from "lodash";
 
 import ThemeItem from "./ThemeItem";
+import BackButton from "../../components/BackButton/BackButton";
 import { useToastContext } from "../../contexts/toast";
 
 export default function ThemePage() {
@@ -136,7 +137,14 @@ export default function ThemePage() {
     <>
       {initialized && (
         <Stack className="theme-page">
-          <Typography variant="h6">Themes</Typography>
+          <Stack direction="row" spacing={1}>
+            <BackButton />
+            <Box>
+              <Typography variant="h6" sx={{ marginTop: 0.5 }}>
+                Themes
+              </Typography>
+            </Box>
+          </Stack>
           <Typography variant="caption">Custom</Typography>
           <List>
             {customThemes.length > 0 ? (

@@ -98,13 +98,17 @@ export default function ThemeItem({
       </MenuItem>
       {editable && (
         <Stack direction="row" spacing={1}>
-          <IconButton aria-label="edit" title="Edit" onClick={handleEditClick}>
+          <IconButton
+            aria-label="edit theme"
+            title="Edit"
+            onClick={handleEditClick}
+          >
             <EditIcon />
           </IconButton>
           {confirmingDelete ? (
             <ClickAwayListener onClickAway={handleCancelConfirmDelete}>
               <IconButton
-                aria-label="confirm delete"
+                aria-label="confirm delete theme"
                 color="error"
                 title="Confirm delete"
                 onClick={handleConfirmDeleteClick}
@@ -114,7 +118,7 @@ export default function ThemeItem({
             </ClickAwayListener>
           ) : (
             <IconButton
-              aria-label="delete"
+              aria-label="delete theme"
               title="Delete"
               onClick={handleDeleteClick}
             >

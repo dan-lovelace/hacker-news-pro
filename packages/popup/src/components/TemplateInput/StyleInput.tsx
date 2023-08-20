@@ -22,7 +22,7 @@ export function StyleInput() {
     async function init() {
       const currentTheme = await storageGetByKey("CURRENT_THEME");
       const customThemes = await storageGetByKey("CUSTOM_THEMES");
-      const customTheme: TTheme | undefined = customThemes?.find(
+      const customTheme = customThemes?.find(
         (t: TTheme) => t.id === currentTheme?.id,
       );
 

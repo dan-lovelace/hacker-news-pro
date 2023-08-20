@@ -50,9 +50,8 @@ export default function CodeEditor({
         borderRadius: 1,
         mb: 1,
         width: "100%",
-        height: "100%",
         overflow: "auto",
-        maxWidth: popout ? "auto" : "500px",
+        maxWidth: popout ? "auto" : 600, // matches `body` width in `index.scss`
       }}
     >
       <Editor
@@ -65,7 +64,6 @@ export default function CodeEditor({
         preClassName="code-editor-pre"
         style={{
           float: "left",
-          minHeight: "100%",
           minWidth: "100%",
         }}
       />

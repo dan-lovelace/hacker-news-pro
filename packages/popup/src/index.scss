@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  min-width: 500px;
+  min-width: 600px;
   min-height: 292px; // helps with flashing between tab changes
 }
 
@@ -20,7 +20,7 @@ a {
   font-family: "Fira code", "Fira Mono", monospace;
   font-size: 12px;
   margin-bottom: 0.5rem;
-  min-height: 150px;
+  min-height: 130px;
 
   textarea {
     &:focus,

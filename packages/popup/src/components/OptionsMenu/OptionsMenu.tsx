@@ -25,11 +25,20 @@ export default function OptionsMenu() {
 
   return (
     <Box>
-      <IconButton onClick={handleOpen}>
+      <IconButton
+        id="options-menu-button"
+        aria-controls={open ? "options-menu" : undefined}
+        aria-label="options menu"
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleOpen}
+      >
         <MenuIcon />
       </IconButton>
       <Menu
+        id="options-menu-button"
         anchorEl={anchorEl}
+        aria-labelledby="options-menu"
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",

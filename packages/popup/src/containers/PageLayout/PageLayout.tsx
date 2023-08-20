@@ -50,7 +50,7 @@ export default function PageLayout({ children }: { children: ReactNode }) {
     const open = window.open(
       `${basename}?expanded=true`,
       "popup",
-      "popup=true,width=600,height=700",
+      "popup=true,width=800,height=700",
     );
 
     if (!open) return setPopoutError(true);

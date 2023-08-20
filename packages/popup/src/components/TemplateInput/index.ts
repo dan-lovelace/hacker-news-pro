@@ -15,5 +15,6 @@ export function saveListener(event: KeyboardEvent, handleSave: () => void) {
   }
 }
 
+export * from "./ComponentsInput";
 export * from "./StyleInput";
 export * from "./TemplateInput";
