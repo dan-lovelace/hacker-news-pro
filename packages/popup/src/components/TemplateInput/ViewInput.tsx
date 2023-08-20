@@ -2,29 +2,25 @@ import { useEffect, useRef, useState } from "react";
 
 import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TTheme, TView, TViewInputValue } from "@hnp/types";
-import { Box, Button, InputLabel } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
 type ViewInputProps = {
-  initialState: TViewInputValue;
   view: TView;
 };
 
-export default function ViewInput({ initialState, view }: ViewInputProps) {
-  const [templateValues, setTemplateValues] =
-    useState<TViewInputValue>(initialState);
+export default function ViewInput({ view }: ViewInputProps) {
+  const [templateValues, setTemplateValues] = useState<TViewInputValue>({
+    template: "",
+  });
   const [initialized, setInitialized] = useState<boolean>(false);
   const { notify } = useToastContext();
-  const canSave =
-    templateValues.template ||
-    !templateValues.partials ||
-    templateValues.partials.some((partial) => partial.template);
+  const saveShortcut = getSaveShortcut();
 
-  // configure a ref for templateValues so the latest value can be accessed
-  // within save listener
+  // state references to use when handling save by keyboard shortcut
   const templateValuesRef = useRef<TViewInputValue>();
   templateValuesRef.current = templateValues;
 
@@ -65,16 +61,6 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
     setTemplateValues(newValues);
   };
 
-  const handlePartialChange = (idx: number) => (newValue: string) => {
-    const newValues = { ...templateValues };
-
-    if (!newValues.partials) return;
-
-    newValues.partials[idx].template = newValue;
-
-    setTemplateValues(newValues);
-  };
-
   const handleSave = async () => {
     const currentTheme = await storageGetByKey("CURRENT_THEME");
     const customThemes = await storageGetByKey("CUSTOM_THEMES");
@@ -94,8 +80,7 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
   return (
     <>
       {initialized && (
-        <Box>
-          <InputLabel shrink>Layout</InputLabel>
+        <>
           <CodeEditor
             id="template"
             language="handlebars"
@@ -103,27 +88,15 @@ export default function ViewInput({ initialState, view }: ViewInputProps) {
             handleChange={handleTemplateChange}
             handleSave={handleSave}
           />
-          {templateValues.partials?.map(({ label, name, template }, idx) => (
-            <Box key={name}>
-              <InputLabel shrink>{label}</InputLabel>
-              <CodeEditor
-                id={name}
-                language="handlebars"
-                value={template}
-                handleChange={handlePartialChange(idx)}
-                handleSave={handleSave}
-              />
-            </Box>
-          ))}
           <Button
             variant="contained"
             fullWidth
-            disabled={Boolean(!canSave)}
+            disabled={Boolean(!templateValues.template)}
             onClick={handleSave}
           >
-            Save ({getSaveShortcut()})
+            Save ({saveShortcut})
           </Button>
-        </Box>
+        </>
       )}
     </>
   );

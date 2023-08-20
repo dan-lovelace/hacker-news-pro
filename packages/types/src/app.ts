@@ -83,5 +83,4 @@ export type TView = "item" | "jobs" | "list" | "other" | "submit" | "user";
 
 export type TViewInputValue = {
   template: string;
-  partials: TComponent[];
 };

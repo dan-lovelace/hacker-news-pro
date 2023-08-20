@@ -53,6 +53,7 @@ export function ComponentsInput() {
   const canSave = () => modifyValue?.name?.trim() && modifyValue?.label?.trim();
   const menuOpen = Boolean(menuAnchorEl);
   const modifyText = isCreating ? "Create" : "Edit";
+  const saveShortcut = getSaveShortcut();
 
   // state references to use when handling save by keyboard shortcut
   const componentsValueRef = useRef<TComponent[]>();
@@ -415,6 +416,12 @@ export function ComponentsInput() {
             id="component-menu"
             anchorEl={menuAnchorEl}
             aria-labelledby="component-menu-button"
+            disableScrollLock
+            MenuListProps={{
+              sx: {
+                minWidth: 150,
+              },
+            }}
             open={menuOpen}
             anchorOrigin={{
               vertical: "bottom",
@@ -462,7 +469,7 @@ export function ComponentsInput() {
               disabled={Boolean(!componentsValue)}
               onClick={handleTemplateSave}
             >
-              Save ({getSaveShortcut()})
+              Save ({saveShortcut})
             </Button>
           </Box>
         )}

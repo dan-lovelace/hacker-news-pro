@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TTheme } from "@hnp/types";
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
@@ -12,9 +12,9 @@ export function StyleInput() {
   const [styleValue, setStyleValue] = useState("");
   const [initialized, setInitialized] = useState(false);
   const { notify } = useToastContext();
+  const saveShortcut = getSaveShortcut();
 
-  // configure a ref for styleValue so the latest value can be accessed within
-  // save listener
+  // state references to use when handling save by keyboard shortcut
   const valueRef = useRef<string>();
   valueRef.current = styleValue;
 
@@ -31,7 +31,6 @@ export function StyleInput() {
       }
 
       setStyleValue(customTheme.inputs.style);
-
       setInitialized(true);
     }
 
@@ -70,7 +69,7 @@ export function StyleInput() {
   return (
     <>
       {initialized && (
-        <Box>
+        <>
           <CodeEditor
             id="css"
             language="css"
@@ -84,9 +83,9 @@ export function StyleInput() {
             disabled={Boolean(!styleValue)}
             onClick={handleSave}
           >
-            Save ({getSaveShortcut()})
+            Save ({saveShortcut})
           </Button>
-        </Box>
+        </>
       )}
     </>
   );

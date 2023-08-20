@@ -1,8 +1,16 @@
 import { MouseEvent, useState } from "react";
 
+import BrushIcon from "@mui/icons-material/Brush";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Box, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../lib/routes";
@@ -44,6 +52,11 @@ export default function OptionsMenu() {
           horizontal: "right",
         }}
         disableScrollLock
+        MenuListProps={{
+          sx: {
+            minWidth: 150,
+          },
+        }}
         open={open}
         transformOrigin={{
           vertical: "top",
@@ -54,9 +67,18 @@ export default function OptionsMenu() {
         <Link to={ROUTES.THEME.path}>
           <MenuItem dense onClick={handleItemClick}>
             <ListItemIcon>
+              <BrushIcon />
+            </ListItemIcon>
+            Themes
+          </MenuItem>
+        </Link>
+        <Divider sx={{ my: 1 }} />
+        <Link to={ROUTES.HOME.path}>
+          <MenuItem dense onClick={handleItemClick}>
+            <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            Manage themes
+            Settings
           </MenuItem>
         </Link>
       </Menu>

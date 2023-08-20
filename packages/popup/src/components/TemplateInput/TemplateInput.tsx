@@ -11,8 +11,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import Comments from "./Comments";
-import Subreddit from "./Subreddit";
+import ViewInput from "./ViewInput";
 
 export function TemplateInput() {
   const [initialized, setInitialized] = useState<boolean>(false);
@@ -58,8 +57,7 @@ export function TemplateInput() {
               <MenuItem value="item">Item</MenuItem>
             </Select>
           </FormControl>
-          {viewValue === "item" && <Comments />}
-          {viewValue === "list" && <Subreddit />}
+          <ViewInput view={viewValue} />
         </Box>
       )}
     </>
