@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TTheme, TView, TViewInputValue } from "@hnp/types";
+import { fetchThemeData, storageSetByKeys } from "@hnp/core";
+import { TView, TViewInputValue } from "@hnp/types";
 import { Button } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
@@ -26,17 +26,13 @@ export default function ViewInput({ view }: ViewInputProps) {
 
   useEffect(() => {
     async function init() {
-      const currentTheme = await storageGetByKey("CURRENT_THEME");
-      const customThemes = await storageGetByKey("CUSTOM_THEMES");
-      const customTheme: TTheme | undefined = customThemes?.find(
-        (t: TTheme) => t.id === currentTheme?.id,
-      );
+      const { currentTheme } = await fetchThemeData();
 
-      if (!customTheme) {
+      if (!currentTheme) {
         return notify("Error loading custom theme template");
       }
 
-      setTemplateValues(customTheme.inputs[view]);
+      setTemplateValues(currentTheme.inputs[view]);
       setInitialized(true);
     }
 
@@ -62,14 +58,11 @@ export default function ViewInput({ view }: ViewInputProps) {
   };
 
   const handleSave = async () => {
-    const currentTheme = await storageGetByKey("CURRENT_THEME");
-    const customThemes = await storageGetByKey("CUSTOM_THEMES");
-    const existingIdx =
-      customThemes?.findIndex((t: TTheme) => t.id === currentTheme?.id) ?? -1;
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
 
-    if (customThemes && existingIdx > -1) {
-      customThemes[existingIdx].inputs[view] = {
-        ...customThemes[existingIdx].inputs[view],
+    if (customThemes && currentThemeIndex > -1) {
+      customThemes[currentThemeIndex].inputs[view] = {
+        ...customThemes[currentThemeIndex].inputs[view],
         ...templateValuesRef.current,
       };
     }

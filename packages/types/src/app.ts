@@ -1,18 +1,12 @@
 export type TComponent = {
   label: string;
-  name: string;
+  id: string;
   template: string;
 };
 
 export type TConfig = {
   hostname: string;
   view: TView;
-};
-
-export type TCurrentTheme = {
-  id: string;
-  label: string;
-  type: TThemeType;
 };
 
 export type TMessageAction = "update-theme";
@@ -37,7 +31,7 @@ export type TSandboxMessageEvent = {
 
 export type TSandboxMessage<T> = {
   context: TSandboxContext<T>;
-  event: TMessageEvent<TTheme | undefined>;
+  event: TMessageEvent<TTheme>;
 };
 
 export type TSandboxPartial = {
@@ -47,6 +41,10 @@ export type TSandboxPartial = {
 
 export type TSandboxTemplate = string;
 
+export type TSelectedComponent = TComponent["id"] | null;
+
+export type TSelectedTheme = TTheme["id"] | null;
+
 export type TStorage = Partial<{
   [key in TStorageKey]: TStorageKeyMap[key];
 }>;
@@ -54,18 +52,19 @@ export type TStorage = Partial<{
 export type TStorageKey = keyof TStorageKeyMap;
 
 export type TStorageKeyMap = {
-  COMPONENTS: TComponent[];
-  CURRENT_THEME: TCurrentTheme | null;
   CURRENT_PAGE: string;
   CUSTOM_THEMES: TTheme[];
-  SELECTED_COMPONENT: TComponent;
+  SELECTED_COMPONENT_ID: TSelectedComponent;
   SELECTED_TAB: number;
+  SELECTED_THEME_ID: TSelectedTheme;
   SELECTED_VIEW: TView;
 };
 
-export type TTheme = TCurrentTheme & {
+export type TTheme = {
+  id: string;
   inputs: TThemeViewInputs;
-  outputs?: TThemeViewInputs;
+  label: string;
+  type: TThemeType;
 };
 
 export type TThemeChanged = {
@@ -76,6 +75,7 @@ export type TThemeChanged = {
 export type TThemeType = "custom" | "premade";
 
 export type TThemeViewInputs = Record<TView, TViewInputValue> & {
+  components: TComponent[];
   style: string;
 };
 

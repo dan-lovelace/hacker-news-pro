@@ -1,7 +1,8 @@
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 
 import {
-  storageGetByKey,
+  fetchComponentsData,
+  fetchThemeData,
   storageRemoveByKeys,
   storageSetByKeys,
 } from "@hnp/core";
@@ -39,7 +40,7 @@ import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
 export function ComponentsInput() {
-  const [componentsValue, setComponentsValue] = useState<TComponent[]>([]);
+  const [componentsValue, setComponentsValue] = useState<TComponent[]>();
   const [editComponent, setEditComponent] = useState<TComponent>();
   const [isCreating, setIsCreating] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -50,7 +51,7 @@ export function ComponentsInput() {
   const { transitions } = useTheme();
   const { notify } = useToastContext();
 
-  const canSave = () => modifyValue?.name?.trim() && modifyValue?.label?.trim();
+  const canSave = () => modifyValue?.id?.trim() && modifyValue?.label?.trim();
   const menuOpen = Boolean(menuAnchorEl);
   const modifyText = isCreating ? "Create" : "Edit";
   const saveShortcut = getSaveShortcut();
@@ -63,15 +64,11 @@ export function ComponentsInput() {
 
   useEffect(() => {
     async function init() {
-      const currentComponents = (await storageGetByKey("COMPONENTS")) || [];
-      const currentSelected = await storageGetByKey("SELECTED_COMPONENT");
+      const { currentComponent, currentThemeComponents } =
+        await fetchComponentsData();
 
-      if (!currentComponents) {
-        return notify("Error loading components");
-      }
-
-      setComponentsValue(currentComponents);
-      setSelectedComponent(currentSelected);
+      setComponentsValue(currentThemeComponents);
+      setSelectedComponent(currentComponent);
       setInitialized(true);
     }
 
@@ -90,12 +87,11 @@ export function ComponentsInput() {
   }, []);
 
   const getComponentByName = (name: string) => {
-    const componentIdx =
-      componentsValue.findIndex((c) => c.name === name) ?? -1;
+    const componentIdx = componentsValue?.findIndex((c) => c.id === name) ?? -1;
 
     if (componentIdx < 0) return undefined;
 
-    return componentsValue[componentIdx];
+    return componentsValue?.[componentIdx];
   };
 
   const getMenuAnchorElName = () => {
@@ -111,31 +107,37 @@ export function ComponentsInput() {
 
     setSelectedComponent(component);
     storageSetByKeys({
-      SELECTED_COMPONENT: component,
+      SELECTED_COMPONENT_ID: component.id,
     });
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
     const name = getMenuAnchorElName();
-    const componentIdx =
-      componentsValue.findIndex((c) => c.name === name) ?? -1;
+    const componentIdx = componentsValue?.findIndex((c) => c.id === name) ?? -1;
 
     if (componentIdx < 0) {
       return notify("Error deleting component");
     }
 
-    const newComponentsValue = [...componentsValue];
+    const newComponentsValue = [...(componentsValue || [])];
     newComponentsValue.splice(componentIdx, 1);
 
-    if (selectedComponent?.name === name) {
+    if (selectedComponent?.id === name) {
       setSelectedComponent(undefined);
-      storageRemoveByKeys("SELECTED_COMPONENT");
+      storageRemoveByKeys("SELECTED_COMPONENT_ID");
     }
 
     setMenuAnchorEl(null);
     setComponentsValue(newComponentsValue);
+
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
+
+    if (customThemes && currentThemeIndex > -1) {
+      customThemes[currentThemeIndex].inputs.components = newComponentsValue;
+    }
+
     storageSetByKeys({
-      COMPONENTS: newComponentsValue,
+      CUSTOM_THEMES: customThemes,
     });
   };
 
@@ -171,7 +173,7 @@ export function ComponentsInput() {
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     let newValue = value;
 
-    if (name === "name") {
+    if (name === "id") {
       if (!newValue.endsWith("_")) {
         newValue = snakeCase(newValue);
       }
@@ -192,35 +194,35 @@ export function ComponentsInput() {
     }
   };
 
-  const handleModifySave = () => {
+  const handleModifySave = async () => {
     if (!canSave()) {
       return notify("Error creating component");
     }
 
     const label = modifyValue?.label?.trim() ?? "";
-    const name = snakeCase(modifyValue?.name?.trim()) ?? "";
+    const name = snakeCase(modifyValue?.id?.trim()) ?? "";
 
-    const newComponentsValue: TComponent[] = [...componentsValue];
+    const newComponentsValue: TComponent[] = [...(componentsValue || [])];
     if (isEditing) {
       if (
-        componentsValue.some(
-          (c) => c.name !== editComponent?.name && c.name === name,
+        newComponentsValue.some(
+          (c) => c.id !== editComponent?.id && c.id === name,
         )
       ) {
         return notify(`A component with the name ${name} already exists`);
       }
 
       const componentIdx = newComponentsValue.findIndex(
-        (c) => c.name === editComponent?.name,
+        (c) => c.id === editComponent?.id,
       );
 
       if (!editComponent || componentIdx < 0) {
         return notify("Error editing component");
       }
 
-      const updatedFields = {
+      const updatedFields: Partial<TComponent> = {
         label,
-        name,
+        id: name,
       };
 
       newComponentsValue[componentIdx] = {
@@ -228,7 +230,7 @@ export function ComponentsInput() {
         ...updatedFields,
       };
 
-      if (selectedComponent?.name === editComponent.name) {
+      if (selectedComponent?.id === editComponent.id) {
         // updating the selected component
         const newSelectedComponent: TComponent = {
           ...editComponent,
@@ -237,37 +239,45 @@ export function ComponentsInput() {
 
         setSelectedComponent(newSelectedComponent);
         storageSetByKeys({
-          SELECTED_COMPONENT: newSelectedComponent,
+          SELECTED_COMPONENT_ID: newSelectedComponent.id,
         });
       }
     } else {
-      if (componentsValue.some((c) => c.name === name)) {
+      if (componentsValue?.some((c) => c.id === name)) {
         return notify(`A component with the name ${name} already exists`);
       }
 
-      const newPartial: TComponent = {
+      const newComponent: TComponent = {
         label,
-        name,
+        id: name,
         template: "",
       };
-      newComponentsValue.push(newPartial);
+      newComponentsValue.push(newComponent);
 
       /**
        * @note Careful not to throw away unsaved changes. Only update selected
        * if this new one is the only one that exists.
        */
       if (newComponentsValue.length === 1) {
-        setSelectedComponent(newPartial);
+        setSelectedComponent(newComponent);
         storageSetByKeys({
-          SELECTED_COMPONENT: newPartial,
+          SELECTED_COMPONENT_ID: newComponent.id,
         });
       }
     }
 
     setComponentsValue(newComponentsValue);
+
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
+
+    if (customThemes && currentThemeIndex > -1) {
+      customThemes[currentThemeIndex].inputs.components = newComponentsValue;
+    }
+
     storageSetByKeys({
-      COMPONENTS: newComponentsValue,
+      CUSTOM_THEMES: customThemes,
     });
+
     handleModalClose();
   };
 
@@ -276,7 +286,7 @@ export function ComponentsInput() {
 
     setModifyValue({
       label,
-      name: snakeCase(label),
+      id: snakeCase(label),
       template: "",
     });
     setIsCreating(true);
@@ -301,7 +311,7 @@ export function ComponentsInput() {
     const newComponentsValue = [...(componentsValueRef.current || [])];
     const componentIdx =
       newComponentsValue?.findIndex(
-        (c) => c.name === currentSelectedComponent.name,
+        (c) => c.id === currentSelectedComponent.id,
       ) ?? -1;
 
     if (componentIdx < 0) {
@@ -311,14 +321,21 @@ export function ComponentsInput() {
     newComponentsValue[componentIdx] = currentSelectedComponent;
 
     setComponentsValue(newComponentsValue);
+
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
+    if (customThemes && currentThemeIndex > -1) {
+      customThemes[currentThemeIndex].inputs.components = newComponentsValue;
+    }
+
     storageSetByKeys({
-      COMPONENTS: newComponentsValue,
+      CUSTOM_THEMES: customThemes,
+      SELECTED_COMPONENT_ID: newComponentsValue[componentIdx].id,
     });
   };
 
   if (!initialized) return <></>;
 
-  if (!componentsValue.length && !isCreating) {
+  if (!componentsValue?.length && !isCreating) {
     return (
       <Alert severity="info">
         <AlertTitle>No components</AlertTitle>
@@ -338,21 +355,21 @@ export function ComponentsInput() {
       <Stack direction="row" spacing={1}>
         <Box>
           <List sx={{ width: 250 }}>
-            {componentsValue.map(({ label, name, template }) => {
-              const selected = selectedComponent?.name === name;
+            {componentsValue?.map(({ label, id, template }) => {
+              const selected = selectedComponent?.id === id;
               const modified =
-                selected && template !== selectedComponent.template;
+                selected && template !== selectedComponent?.template;
 
               return (
                 <Stack
-                  key={name}
+                  key={id}
                   direction="row"
                   spacing={1}
                   sx={{ alignItems: "center" }}
                 >
                   <ListItemButton
                     selected={selected}
-                    onClick={handleComponentClick(name)}
+                    onClick={handleComponentClick(id)}
                     sx={{
                       flex: "1 1 auto",
                       position: "relative",
@@ -360,7 +377,7 @@ export function ComponentsInput() {
                     }}
                   >
                     <Stack
-                      title={`Label: ${label}\nName: ${name}`}
+                      title={`Label: ${label}\nName: ${id}`}
                       sx={{ overflow: "hidden" }}
                     >
                       <Box
@@ -379,7 +396,7 @@ export function ComponentsInput() {
                           textOverflow: "ellipsis",
                         }}
                       >
-                        {name}
+                        {id}
                       </Typography>
                       <Box
                         sx={{
@@ -403,7 +420,7 @@ export function ComponentsInput() {
                     aria-label="component options menu"
                     aria-haspopup="true"
                     aria-expanded={menuOpen ? "true" : undefined}
-                    name={name}
+                    name={id}
                     onClick={handleMenuOpen}
                   >
                     <MoreVertIcon />
@@ -454,7 +471,7 @@ export function ComponentsInput() {
         {selectedComponent && (
           <Box sx={{ flex: "1 1 auto" }}>
             <InputLabel shrink>
-              <strong>Usage:</strong> {`{{> ${selectedComponent.name}}}`}
+              <strong>Usage:</strong> {`{{> ${selectedComponent.id}}}`}
             </InputLabel>
             <CodeEditor
               id="css"
@@ -514,10 +531,10 @@ export function ComponentsInput() {
               }}
               fullWidth
               label="Name"
-              name="name"
+              name="id"
               size="small"
               required
-              value={modifyValue?.name ?? ""}
+              value={modifyValue?.id ?? ""}
               onChange={handleModifyChange}
               onKeyDown={handleModalInputKeyDown}
             />

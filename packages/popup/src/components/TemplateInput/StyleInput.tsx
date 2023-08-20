@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TTheme } from "@hnp/types";
+import { fetchThemeData, storageSetByKeys } from "@hnp/core";
 import { Button } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
@@ -20,17 +19,13 @@ export function StyleInput() {
 
   useEffect(() => {
     async function init() {
-      const currentTheme = await storageGetByKey("CURRENT_THEME");
-      const customThemes = await storageGetByKey("CUSTOM_THEMES");
-      const customTheme = customThemes?.find(
-        (t: TTheme) => t.id === currentTheme?.id,
-      );
+      const { currentTheme } = await fetchThemeData();
 
-      if (!customTheme) {
+      if (!currentTheme) {
         return notify("Error loading custom theme template");
       }
 
-      setStyleValue(customTheme.inputs.style);
+      setStyleValue(currentTheme.inputs.style);
       setInitialized(true);
     }
 
@@ -53,14 +48,10 @@ export function StyleInput() {
   };
 
   const handleSave = async () => {
-    const storedCurrentTheme = await storageGetByKey("CURRENT_THEME");
-    const customThemes = await storageGetByKey("CUSTOM_THEMES");
-    const existingIdx =
-      customThemes?.findIndex((t: TTheme) => t.id === storedCurrentTheme?.id) ??
-      -1;
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
 
-    if (customThemes && existingIdx > -1) {
-      customThemes[existingIdx].inputs.style = valueRef.current ?? "";
+    if (customThemes && currentThemeIndex > -1) {
+      customThemes[currentThemeIndex].inputs.style = valueRef.current ?? "";
     }
 
     storageSetByKeys({ CUSTOM_THEMES: customThemes });

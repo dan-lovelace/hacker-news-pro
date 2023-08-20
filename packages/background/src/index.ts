@@ -1,5 +1,5 @@
-import { browser, storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TCurrentTheme } from "@hnp/types";
+import { browser, fetchThemeData, storageSetByKeys } from "@hnp/core";
+import { TSelectedTheme } from "@hnp/types";
 
 function main() {
   const { action, declarativeContent, runtime, tabs, webRequest } = browser;
@@ -7,16 +7,14 @@ function main() {
 
   runtime.onInstalled.addListener(async () => {
     // apply default theme if no current theme exists such as in a fresh install
-    const currentTheme = await storageGetByKey("CURRENT_THEME");
+    const { currentTheme } = await fetchThemeData();
 
     if (!currentTheme) {
-      const defaultTheme: TCurrentTheme = {
-        id: "default",
-        label: "Default",
-        type: "premade",
-      };
+      const defaultTheme: TSelectedTheme = "default";
 
-      await storageSetByKeys({ CURRENT_THEME: defaultTheme });
+      await storageSetByKeys({
+        SELECTED_THEME_ID: defaultTheme,
+      });
     }
 
     // enable/disable browser action based on selected tab

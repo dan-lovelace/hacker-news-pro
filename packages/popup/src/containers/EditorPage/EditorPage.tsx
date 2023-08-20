@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 
-import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TCurrentTheme, TTheme } from "@hnp/types";
+import { fetchThemeData, storageGetByKey, storageSetByKeys } from "@hnp/core";
+import { TTheme } from "@hnp/types";
 import { Box, Stack, Tab, Tabs, TextField, useTheme } from "@mui/material";
 import { kebabCase } from "lodash";
 
@@ -16,7 +16,7 @@ import { useToastContext } from "../../contexts/toast";
 export default function EditorPage() {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [label, setLabel] = useState("");
-  const [currentTheme, setCurrentTheme] = useState<TCurrentTheme>();
+  const [currentTheme, setCurrentTheme] = useState<TTheme>();
   const [initialized, setInitialized] = useState<boolean>(false);
   const theme = useTheme();
   const { notify } = useToastContext();
@@ -28,10 +28,10 @@ export default function EditorPage() {
         setActiveTab(tab);
       }
 
-      const currentTheme = await storageGetByKey("CURRENT_THEME");
-      if (currentTheme) {
-        setLabel(currentTheme.label);
-        setCurrentTheme(currentTheme);
+      const { currentTheme: storedCurrentTheme } = await fetchThemeData();
+      if (storedCurrentTheme) {
+        setLabel(storedCurrentTheme.label);
+        setCurrentTheme(storedCurrentTheme);
       }
 
       setInitialized(true);
@@ -70,7 +70,7 @@ export default function EditorPage() {
     }
 
     const id = kebabCase(trimmed);
-    const newCurrentTheme: TCurrentTheme = {
+    const newCurrentTheme: TTheme = {
       ...currentTheme,
       id,
       label: trimmed,
@@ -97,7 +97,7 @@ export default function EditorPage() {
 
     storageSetByKeys({
       CUSTOM_THEMES: existingThemes,
-      CURRENT_THEME: newCurrentTheme,
+      SELECTED_THEME_ID: newCurrentTheme.id,
     });
     setCurrentTheme(newCurrentTheme);
   };

@@ -64,7 +64,7 @@ export function startListeners() {
   browser.storage.onChanged.addListener(async (event) => {
     for (const key of Object.keys(event) as Array<TStorageKey>) {
       switch (key) {
-        case "CURRENT_THEME":
+        case "SELECTED_THEME_ID":
         case "CUSTOM_THEMES": {
           renderContent();
           break;

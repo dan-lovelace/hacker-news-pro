@@ -1,7 +1,12 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 
-import { premadeThemes, storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TCurrentTheme, TTheme } from "@hnp/types";
+import {
+  fetchThemeData,
+  premadeThemes,
+  storageGetByKey,
+  storageSetByKeys,
+} from "@hnp/core";
+import { TTheme } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Alert,
@@ -22,7 +27,7 @@ import { useToastContext } from "../../contexts/toast";
 
 export default function ThemePage() {
   const [creating, setCreating] = useState<boolean>(false);
-  const [currentTheme, setCurrentTheme] = useState<TCurrentTheme>();
+  const [currentTheme, setCurrentTheme] = useState<TTheme>();
   const [initialized, setInitialized] = useState<boolean>(false);
   const [customThemes, setCustomThemes] = useState<TTheme[]>([]);
   const [creatingName, setCreatingName] = useState<string>("");
@@ -30,12 +35,12 @@ export default function ThemePage() {
 
   useEffect(() => {
     async function init() {
-      const customThemes = await storageGetByKey("CUSTOM_THEMES");
+      const { currentTheme, customThemes } = await fetchThemeData();
+
       if (customThemes) {
         setCustomThemes(customThemes);
       }
 
-      const currentTheme = await storageGetByKey("CURRENT_THEME");
       if (currentTheme) {
         setCurrentTheme(currentTheme);
       }
@@ -63,34 +68,23 @@ export default function ThemePage() {
       label: trimmed,
       inputs: {
         style: "",
+        components: [],
         item: {
-          partials: [
-            {
-              label: "Comments partial",
-              name: "comments",
-              template: "",
-            },
-          ],
           template: "",
         },
         jobs: {
-          partials: [],
           template: "",
         },
         list: {
-          partials: [],
           template: "",
         },
         other: {
-          partials: [],
           template: "",
         },
         submit: {
-          partials: [],
           template: "",
         },
         user: {
-          partials: [],
           template: "",
         },
       },
