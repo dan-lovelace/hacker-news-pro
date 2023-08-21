@@ -1,12 +1,11 @@
 import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TConfig, TTheme } from "@hnp/types";
+import { z } from "zod";
 
 import defaultTheme from "./default";
 
 const helpTheme: TTheme = {
   id: "help",
-  label: "Help",
-  type: "premade",
   inputs: {
     style: "",
     components: [],
@@ -29,6 +28,12 @@ const helpTheme: TTheme = {
       template: "",
     },
   },
+  label: "Help",
+  options: {
+    disableHNStyle: true,
+  },
+  type: "premade",
+  version: "1.0.0",
 };
 
 export const premadeThemes = [defaultTheme];
@@ -117,4 +122,44 @@ export async function getCurrentTheme(config: TConfig) {
   }
 
   return returnTheme;
+}
+
+export function parseThemeExport(json: any) {
+  const parser: z.ZodType<TTheme> = z.lazy(() =>
+    z.object({
+      id: z.string(),
+      inputs: z.object({
+        item: z.object({ template: z.string() }),
+        jobs: z.object({ template: z.string() }),
+        list: z.object({ template: z.string() }),
+        other: z.object({ template: z.string() }),
+        submit: z.object({ template: z.string() }),
+        user: z.object({ template: z.string() }),
+        components: z.array(
+          z.object({
+            id: z.string(),
+            label: z.string(),
+            template: z.string(),
+          }),
+        ),
+        style: z.string(),
+      }),
+      label: z.string(),
+      options: z.object({
+        disableHNStyle: z.boolean(),
+      }),
+      type: z.union([z.literal("custom"), z.literal("premade")]),
+      version: z.literal("1.0.0"),
+    }),
+  );
+
+  try {
+    return parser.parse(json);
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      throw new Error("Invalid theme format");
+    }
+
+    throw new Error("Something went terribly wrong");
+  }
 }

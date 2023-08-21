@@ -2,12 +2,14 @@ import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 
 import {
   fetchThemeData,
+  parseThemeExport,
   premadeThemes,
   storageGetByKey,
   storageSetByKeys,
 } from "@hnp/core";
 import { TTheme } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import {
   Alert,
   AlertTitle,
@@ -65,7 +67,6 @@ export default function ThemePage() {
     const id = kebabCase(trimmed);
     const newTheme: TTheme = {
       id,
-      label: trimmed,
       inputs: {
         style: "",
         components: [],
@@ -88,7 +89,12 @@ export default function ThemePage() {
           template: "",
         },
       },
+      label: trimmed,
+      options: {
+        disableHNStyle: true,
+      },
       type: "custom",
+      version: "1.0.0",
     };
 
     let existingThemes: TTheme[] = [];
@@ -125,6 +131,44 @@ export default function ThemePage() {
   const handleEndCreate = () => {
     setCreating(false);
     setCreatingName("");
+  };
+
+  const handleImport = ({
+    target: { files },
+  }: ChangeEvent<HTMLInputElement>) => {
+    if (!files || files.length !== 1) {
+      return notify("You must upload a file");
+    }
+
+    const [file] = files;
+    const fileReader = new FileReader();
+
+    fileReader.onloadend = async () => {
+      const { result } = fileReader;
+
+      try {
+        const themeExport = parseThemeExport(JSON.parse(String(result)));
+        const { customThemes } = await fetchThemeData();
+
+        if (customThemes?.some((t) => t.id.trim() === themeExport.id.trim())) {
+          throw new Error(
+            `A theme with the name '${themeExport.id}' already exists`,
+          );
+        }
+
+        const newCustomThemes = [...(customThemes || []), themeExport];
+
+        setCreating(false);
+        setCustomThemes(newCustomThemes);
+        storageSetByKeys({
+          CUSTOM_THEMES: newCustomThemes,
+        });
+      } catch (err) {
+        notify(String(err) || "Error importing theme");
+      }
+    };
+
+    fileReader.readAsText(file);
   };
 
   return (
@@ -170,7 +214,6 @@ export default function ThemePage() {
                   sx={{ alignItems: "center", width: "100%" }}
                 >
                   <TextField
-                    autoComplete="off"
                     autoFocus
                     label="Name"
                     size="small"
@@ -186,20 +229,35 @@ export default function ThemePage() {
                   >
                     Create
                   </Button>
+                  <Button
+                    component="label"
+                    startIcon={<FileUploadIcon />}
+                    variant="outlined"
+                  >
+                    Import
+                    <input
+                      accept=".hnp"
+                      type="file"
+                      hidden
+                      onChange={handleImport}
+                    />
+                  </Button>
                   <Button onClick={handleEndCreate}>Cancel</Button>
                 </Stack>
               </form>
             ) : (
-              <Button
-                startIcon={<AddIcon />}
-                variant="contained"
-                onClick={handleCreateClick}
-              >
-                New theme
-              </Button>
+              <Stack direction="row" spacing={1}>
+                <Button
+                  startIcon={<AddIcon />}
+                  variant="contained"
+                  onClick={handleCreateClick}
+                >
+                  New theme
+                </Button>
+              </Stack>
             )}
           </Box>
-          <Divider sx={{ my: 1 }} />
+          <Divider sx={{ mb: 1, mt: creating ? 1 : "11px" }} />
           <Typography variant="caption">Premade</Typography>
           <List>
             {premadeThemes.map((theme) => (

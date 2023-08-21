@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import PageLayout from "./containers/PageLayout/PageLayout";
+import PageLayout from "./containers/PageLayout";
 import { AppProvider } from "./contexts/app";
 import { ROUTES, initialRedirectState } from "./lib/routes";
 

@@ -42,15 +42,14 @@ export default function ThemeItem({
   };
 
   const handleConfirmDeleteClick = async () => {
-    const { currentTheme, currentThemeIndex, customThemes } =
-      await fetchThemeData();
+    const { currentTheme, customThemes } = await fetchThemeData();
+    const itemIdx = customThemes?.findIndex((t) => t.id === themeData.id) ?? -1;
 
-    if (!customThemes || currentThemeIndex < 0) {
-      notify("Error deleting theme");
-      return;
+    if (!customThemes || itemIdx < 0) {
+      return notify("Error deleting theme");
     }
 
-    customThemes.splice(currentThemeIndex, 1);
+    customThemes.splice(itemIdx, 1);
 
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,

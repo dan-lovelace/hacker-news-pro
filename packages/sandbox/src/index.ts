@@ -16,15 +16,16 @@ window.addEventListener("message", (message) => {
 
   switch (event.action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const inputValue = event.value?.inputs[context.config.view];
+      const viewInputValue = event.value?.inputs[context.config.view];
 
-      if (!inputValue) return;
+      if (!viewInputValue) return;
 
-      for (const partial of inputValue.partials) {
-        Handlebars.registerPartial(partial.name, partial.template);
+      const { components } = event.value?.inputs ?? [];
+      for (const component of components) {
+        Handlebars.registerPartial(component.id, component.template);
       }
 
-      const compiled = Handlebars.compile(inputValue.template)(context);
+      const compiled = Handlebars.compile(viewInputValue.template)(context);
 
       source?.postMessage(
         {

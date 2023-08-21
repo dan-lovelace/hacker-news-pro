@@ -496,7 +496,7 @@ export function ComponentsInput() {
           sx={{
             bgcolor: "background.paper",
             border: "1px solid",
-            borderColor: "primary.main",
+            borderColor: "info.main",
             left: "50%",
             padding: 2,
             position: "absolute",

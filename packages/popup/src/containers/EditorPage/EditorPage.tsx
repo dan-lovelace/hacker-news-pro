@@ -10,7 +10,7 @@ import {
   ComponentsInput,
   StyleInput,
   TemplateInput,
-} from "../../components/TemplateInput";
+} from "../../components/ThemeEditor";
 import { useToastContext } from "../../contexts/toast";
 
 export default function EditorPage() {

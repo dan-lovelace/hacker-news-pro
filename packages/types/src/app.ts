@@ -1,6 +1,6 @@
 export type TComponent = {
-  label: string;
   id: string;
+  label: string;
   template: string;
 };
 
@@ -64,13 +64,19 @@ export type TTheme = {
   id: string;
   inputs: TThemeViewInputs;
   label: string;
+  options: TThemeOptions;
   type: TThemeType;
+  version: "1.0.0";
 };
 
 export type TThemeChanged = {
   style: string;
   compiled: string;
 } | null;
+
+export type TThemeOptions = {
+  disableHNStyle: boolean;
+};
 
 export type TThemeType = "custom" | "premade";
 
