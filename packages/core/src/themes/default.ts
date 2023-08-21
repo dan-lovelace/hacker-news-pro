@@ -1,6 +1,10 @@
 import { TTheme } from "@hnp/types";
 
 const theme: TTheme = {
+  version: "1.0.0",
+  options: {
+    disableHNStyle: true,
+  },
   id: "default",
   label: "Hacker News Pro Default",
   type: "premade",

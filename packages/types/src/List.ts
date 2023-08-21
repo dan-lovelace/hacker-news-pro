@@ -202,7 +202,6 @@ export class List implements IParsable<TList> {
       });
     });
 
-    console.log("items", items);
     return { items };
   }
 }

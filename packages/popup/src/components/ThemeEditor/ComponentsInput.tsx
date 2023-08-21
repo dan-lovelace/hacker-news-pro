@@ -31,11 +31,11 @@ import {
   TextField,
   Tooltip,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { snakeCase } from "lodash";
 
 import { getSaveShortcut, saveListener } from ".";
+import ModifiedIndicator from "./ModifiedIndicator";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
@@ -48,7 +48,6 @@ export function ComponentsInput() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [modifyValue, setModifyValue] = useState<Partial<TComponent>>();
   const [selectedComponent, setSelectedComponent] = useState<TComponent>();
-  const { transitions } = useTheme();
   const { notify } = useToastContext();
 
   const canSave = () => modifyValue?.id?.trim() && modifyValue?.label?.trim();
@@ -398,20 +397,7 @@ export function ComponentsInput() {
                       >
                         {id}
                       </Typography>
-                      <Box
-                        sx={{
-                          bgcolor: "info.main",
-                          borderRadius: "100%",
-                          height: 8,
-                          opacity: modified ? 1 : 0,
-                          position: "absolute",
-                          right: "0.5rem",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                          transition: `all ${transitions.duration.shortest}ms ${transitions.easing.easeInOut}`,
-                          width: 8,
-                        }}
-                      />
+                      <ModifiedIndicator modified={modified} />
                     </Stack>
                   </ListItemButton>
                   <IconButton
@@ -469,7 +455,7 @@ export function ComponentsInput() {
           </IconButton>
         </Box>
         {selectedComponent && (
-          <Box sx={{ flex: "1 1 auto" }}>
+          <Box sx={{ flex: "1 1 auto", width: 150 }}>
             <InputLabel shrink>
               <strong>Usage:</strong> {`{{> ${selectedComponent.id}}}`}
             </InputLabel>
