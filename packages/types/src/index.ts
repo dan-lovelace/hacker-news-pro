@@ -3,4 +3,4 @@ export interface IParsable<T> {
 }
 
 export * from "./app";
-export * from "./ListRename";
+export * from "./List";
