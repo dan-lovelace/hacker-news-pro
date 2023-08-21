@@ -10,10 +10,10 @@ const helpTheme: TTheme = {
     style: "",
     components: [],
     item: {
-      template: `<div>Error: No template found for view 'item'. Use the editor to create one.</div>`,
+      template: "",
     },
     list: {
-      template: `<div>Error: No template found for view 'list'. Use the editor to create one.</div>`,
+      template: "",
     },
     jobs: {
       template: "",

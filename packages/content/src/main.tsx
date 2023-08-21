@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "development") {
   const { documentElement } = document;
   const currentTheme = await getCurrentTheme(config);
 
-  if (currentTheme) {
+  if (currentTheme && currentTheme.inputs[config.view].template) {
     documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
   }
 

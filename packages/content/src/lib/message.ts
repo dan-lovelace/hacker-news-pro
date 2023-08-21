@@ -31,11 +31,15 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
       if (value === null) {
         styleEl.innerHTML = "";
         contentEl.innerHTML = "";
-        document.documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
       } else {
         styleEl.innerHTML = value.style;
         contentEl.innerHTML = value.compiled;
+      }
+
+      if (value?.compiled) {
         document.documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
+      } else {
+        document.documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
       }
       break;
     }
