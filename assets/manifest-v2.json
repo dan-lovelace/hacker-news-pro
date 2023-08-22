@@ -26,13 +26,7 @@
       "run_at": "document_start"
     }
   ],
-  "permissions": [
-    "tabs",
-    "storage",
-    "webRequest",
-    "webRequestBlocking",
-    "https://news.ycombinator.com/*"
-  ],
+  "permissions": ["tabs", "storage", "https://news.ycombinator.com/*"],
   "web_accessible_resources": ["img/*", "sandbox.html"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

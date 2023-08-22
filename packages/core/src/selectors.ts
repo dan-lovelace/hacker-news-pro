@@ -7,6 +7,7 @@ export const HNP_STYLE_ELEMENT_ID = "hnp-style";
 export const SELECTORS = Object.freeze({
   HN: {
     main: () => document.getElementById("hnmain"),
+    stylesheet: () => document.head.querySelector("link[href^='news.css']"),
   },
 });
 

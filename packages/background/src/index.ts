@@ -2,8 +2,7 @@ import { browser, fetchThemeData, storageSetByKeys } from "@hnp/core";
 import { TSelectedTheme } from "@hnp/types";
 
 function main() {
-  const { action, declarativeContent, runtime, tabs, webRequest } = browser;
-  const { manifest_version } = runtime.getManifest();
+  const { action, declarativeContent, runtime, tabs } = browser;
 
   runtime.onInstalled.addListener(async () => {
     // apply default theme if no current theme exists such as in a fresh install
@@ -53,18 +52,6 @@ function main() {
 
     tabs.sendMessage(tabId, message);
   });
-
-  if (manifest_version === 2) {
-    webRequest.onBeforeRequest.addListener(
-      () => ({ cancel: true }),
-      {
-        // urls must include initiator origin
-        urls: ["https://news.ycombinator.com/*"],
-        types: ["stylesheet"],
-      },
-      ["blocking"],
-    );
-  }
 }
 
 main();

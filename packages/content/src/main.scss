@@ -2,12 +2,12 @@ iframe#hnp-sandbox {
   display: none;
 }
 
+#hnmain {
+  display: none;
+}
+
 html.hnp {
   body {
     margin: 0;
-
-    #hnmain {
-      display: none;
-    }
   }
 }

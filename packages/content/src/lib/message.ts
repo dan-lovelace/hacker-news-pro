@@ -36,10 +36,19 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         contentEl.innerHTML = value.compiled;
       }
 
-      if (value?.compiled) {
-        document.documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
+      const templateExists = !!value?.compiled;
+      const { documentElement } = document;
+      const hnMain = SELECTORS.HN.main();
+      const hnStylesheet = SELECTORS.HN.stylesheet();
+
+      if (templateExists) {
+        documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
+        if (hnMain) hnMain.style.display = "none";
+        if (hnStylesheet) hnStylesheet.setAttribute("disabled", "true");
       } else {
-        document.documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
+        documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
+        if (hnMain) hnMain.style.display = "block";
+        if (hnStylesheet) hnStylesheet.removeAttribute("disabled");
       }
       break;
     }
