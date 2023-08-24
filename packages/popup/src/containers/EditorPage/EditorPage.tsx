@@ -139,16 +139,16 @@ export default function EditorPage() {
               />
             </Stack>
             <Tabs value={activeTab} onChange={handleTabChange} sx={{ mb: 1 }}>
+              <Tab label="Views" />
               <Tab label="Components" />
-              <Tab label="HTML" />
-              <Tab label="CSS" />
+              <Tab label="Style" />
             </Tabs>
           </Box>
           <Box
             sx={{ display: "flex", flexDirection: "column", height: "100%" }}
           >
-            {activeTab === 0 && <ComponentsInput />}
-            {activeTab === 1 && <TemplateInput />}
+            {activeTab === 0 && <TemplateInput />}
+            {activeTab === 1 && <ComponentsInput />}
             {activeTab === 2 && <StyleInput />}
           </Box>
         </Stack>

@@ -34,7 +34,7 @@ import {
 } from "@mui/material";
 import { snakeCase } from "lodash";
 
-import { getSaveShortcut, saveListener } from ".";
+import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from ".";
 import ModifiedIndicator from "./ModifiedIndicator";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
@@ -200,8 +200,8 @@ export function ComponentsInput() {
 
     const label = modifyValue?.label?.trim() ?? "";
     const name = snakeCase(modifyValue?.id?.trim()) ?? "";
-
     const newComponentsValue: TComponent[] = [...(componentsValue || [])];
+
     if (isEditing) {
       if (
         newComponentsValue.some(
@@ -358,7 +358,7 @@ export function ComponentsInput() {
         sx={{ height: "100%" }}
       >
         <Box>
-          <List sx={{ width: 250 }}>
+          <List sx={{ width: LEFT_COLUMN_WIDTH }}>
             {componentsValue?.map(({ label, id, template }) => {
               const selected = selectedComponent?.id === id;
               const modified =
@@ -396,6 +396,7 @@ export function ComponentsInput() {
                         variant="subtitle2"
                         sx={{
                           color: "text.secondary",
+                          fontSize: "0.75rem",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                         }}
@@ -465,7 +466,6 @@ export function ComponentsInput() {
               display: "flex",
               flexDirection: "column",
               flex: "1 1 auto",
-              width: 150,
             }}
           >
             <InputLabel shrink>

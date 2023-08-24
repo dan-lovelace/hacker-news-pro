@@ -4,14 +4,13 @@ import { storageGetByKey, storageSetByKeys } from "@hnp/core";
 import { TView } from "@hnp/types";
 import {
   Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  MenuItemProps,
-  Select,
-  SelectChangeEvent,
+  List,
+  ListItemButton,
+  ListItemButtonProps,
+  Stack,
 } from "@mui/material";
 
+import { LEFT_COLUMN_WIDTH } from ".";
 import ModifiedIndicator from "./ModifiedIndicator";
 import ViewInput from "./ViewInput";
 
@@ -39,14 +38,14 @@ const viewOptions: { label: string; value: TView }[] = [
 ];
 
 const ViewItem = forwardRef<
-  HTMLLIElement,
-  MenuItemProps & {
+  HTMLDivElement,
+  ListItemButtonProps & {
     modified: boolean;
   }
 >(({ modified, ...props }, ref) => (
   <Box sx={{ position: "relative" }}>
-    <MenuItem ref={ref} {...props} />
-    <ModifiedIndicator modified={modified} sx={{ right: "2rem" }} />
+    <ListItemButton ref={ref} {...props} />
+    <ModifiedIndicator modified={modified} sx={{ right: "1rem" }} />
   </Box>
 ));
 
@@ -69,48 +68,45 @@ export function TemplateInput() {
     init();
   }, []);
 
-  const handleViewChange = async (event: SelectChangeEvent) => {
-    const value = event.target.value as TView;
-
+  const handleViewChange = (view: TView) => () => {
     setModified(undefined);
-    setViewValue(value);
-    storageSetByKeys({ SELECTED_VIEW: value });
+    setViewValue(view);
+    storageSetByKeys({ SELECTED_VIEW: view });
   };
 
   return (
     <>
       {initialized && (
-        <Box
-          sx={{ display: "flex", flexDirection: "column", flex: "1 1 auto" }}
+        <Stack
+          className="template-input"
+          direction="row"
+          spacing={1}
+          sx={{ height: "100%" }}
         >
-          <FormControl variant="standard" sx={{ minWidth: 250 }}>
-            <InputLabel>View</InputLabel>
-            <Select
-              value={viewValue}
-              onChange={handleViewChange}
-              label="Template"
-              MenuProps={{
-                disableScrollLock: true,
-              }}
-              sx={{ mb: 1 }}
-            >
+          <Box>
+            <List sx={{ width: LEFT_COLUMN_WIDTH }}>
               {viewOptions.map(({ label, value }) => (
                 <ViewItem
                   key={value}
-                  value={value}
                   modified={modified === value}
+                  selected={viewValue === value}
+                  onClick={handleViewChange(value)}
                 >
                   {label}
                 </ViewItem>
               ))}
-            </Select>
-            <ModifiedIndicator
-              modified={modified === viewValue}
-              sx={{ right: "2rem", bottom: "1rem", top: "auto" }}
-            />
-          </FormControl>
-          <ViewInput view={viewValue} setModified={setModified} />
-        </Box>
+            </List>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              flex: "1 1 auto",
+            }}
+          >
+            <ViewInput view={viewValue} setModified={setModified} />
+          </Box>
+        </Stack>
       )}
     </>
   );

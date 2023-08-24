@@ -1,3 +1,5 @@
+export const LEFT_COLUMN_WIDTH = 225;
+
 function detectMac(): boolean {
   return Boolean(navigator.platform.match("Mac"));
 }
