@@ -6,6 +6,7 @@ import {
   HNP_STYLE_ELEMENT_ID,
   MESSAGE_ACTIONS,
   SELECTORS,
+  toggleStylesheet,
 } from "@hnp/core";
 import {
   TMessageEvent,
@@ -13,6 +14,7 @@ import {
   TStorageKey,
   TThemeChanged,
 } from "@hnp/types";
+import { debounce } from "lodash";
 
 import { renderContent } from "./sandbox";
 
@@ -39,16 +41,16 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
       const templateExists = !!value?.compiled;
       const { documentElement } = document;
       const hnMain = SELECTORS.HN.main();
-      const hnStylesheet = SELECTORS.HN.stylesheet();
+      const hnStyleSelector = "link[href^='news.css']";
 
       if (templateExists) {
         documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
         if (hnMain) hnMain.style.display = "none";
-        if (hnStylesheet) hnStylesheet.setAttribute("disabled", "true");
+        toggleStylesheet(hnStyleSelector, false);
       } else {
         documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
         if (hnMain) hnMain.style.display = "block";
-        if (hnStylesheet) hnStylesheet.removeAttribute("disabled");
+        toggleStylesheet(hnStyleSelector, true);
       }
       break;
     }
@@ -101,8 +103,7 @@ export function startListeners() {
       subtree: true,
     };
 
-    let lastRendered: number = 0;
-    const maximumFPS = 120;
+    const render = debounce(renderContent, 100);
     const observer = new MutationObserver((mutationList: MutationRecord[]) => {
       for (const mutation of mutationList) {
         if (mutation.type === "childList") {
@@ -111,10 +112,7 @@ export function startListeners() {
            * which can trigger thousands of mutations at once that cause the
            * window to get stuck in an infinite loader and crash the page.
            */
-          if (new Date().getTime() - lastRendered > maximumFPS / 1000) {
-            renderContent();
-            lastRendered = new Date().getTime();
-          }
+          render();
         }
       }
     });

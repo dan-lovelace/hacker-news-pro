@@ -9,6 +9,9 @@ export default function () {
        */
       const from = this.from;
 
+      // remove the node if no interaction exists
+      if (!from) this.remove();
+
       // convert the `from` attribute string to a ChildNode
       const fromTemplate = document.createElement("template");
       fromTemplate.innerHTML = from;
