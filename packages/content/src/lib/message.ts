@@ -100,10 +100,21 @@ export function startListeners() {
       childList: true,
       subtree: true,
     };
+
+    let lastRendered: number = 0;
+    const maximumFPS = 120;
     const observer = new MutationObserver((mutationList: MutationRecord[]) => {
       for (const mutation of mutationList) {
         if (mutation.type === "childList") {
-          renderContent();
+          /**
+           * Content rendering is throttled because HN lazily loads comments
+           * which can trigger thousands of mutations at once that cause the
+           * window to get stuck in an infinite loader and crash the page.
+           */
+          if (new Date().getTime() - lastRendered > maximumFPS / 1000) {
+            renderContent();
+            lastRendered = new Date().getTime();
+          }
         }
       }
     });

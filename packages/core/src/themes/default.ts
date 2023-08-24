@@ -143,9 +143,6 @@ a .vote-button, .voted {
     jobs: {
       template: "",
     },
-    other: {
-      template: "",
-    },
     submit: {
       template: "",
     },
