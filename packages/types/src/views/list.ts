@@ -1,4 +1,4 @@
-import { getNodeHTML, pipe } from "@hnp/core";
+import { SELECTORS, getNodeHTML, pipe } from "@hnp/core";
 
 import { IParsable } from "..";
 
@@ -6,6 +6,9 @@ const voteDirections = ["down", "up", undefined] as const;
 
 export type TList = {
   items: TListItem[];
+
+  /** URL to the next page */
+  moreUrl?: string;
 };
 
 export type TListItem = {
@@ -195,6 +198,10 @@ export class List implements IParsable<TList> {
       });
     });
 
-    return { items };
+    const moreUrl =
+      SELECTORS.HN.main()?.querySelector(".morelink")?.getAttribute("href") ??
+      undefined;
+
+    return { items, moreUrl };
   }
 }

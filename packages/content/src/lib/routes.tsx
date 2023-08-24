@@ -23,6 +23,11 @@ export const ROUTES: Route[] = [
     view: "item",
   },
   {
+    path: "/front",
+    element: false,
+    view: "list",
+  },
+  {
     path: "/jobs",
     element: false,
     view: "jobs",
@@ -30,7 +35,7 @@ export const ROUTES: Route[] = [
   {
     path: "/newcomments",
     element: false,
-    view: "item",
+    view: "list",
   },
   {
     path: "/newest",
@@ -46,5 +51,15 @@ export const ROUTES: Route[] = [
     path: "/show",
     element: false,
     view: "list",
+  },
+  {
+    path: "/submit",
+    element: false,
+    view: "submit",
+  },
+  {
+    path: "/user",
+    element: false,
+    view: "user",
   },
 ];
