@@ -9,6 +9,17 @@ export type TConfig = {
   view: TView;
 };
 
+export type TContentContext = {
+  user: {
+    isLoggedIn: boolean;
+    karma: number;
+    loginUrl: string;
+    logoutUrl: string;
+    name: string;
+    userUrl: string;
+  };
+};
+
 export type TMessageAction = "update-theme";
 
 export type TMessageEvent<T> = {
@@ -85,7 +96,7 @@ export type TThemeViewInputs = Record<TView, TViewInputValue> & {
   style: string;
 };
 
-export type TView = "item" | "jobs" | "list" | "other" | "submit" | "user";
+export type TView = "item" | "jobs" | "list" | "submit" | "user";
 
 export type TViewInputValue = {
   template: string;

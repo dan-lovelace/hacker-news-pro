@@ -24,8 +24,7 @@ Handlebars.registerHelper("capitalize", (a) => {
 });
 
 Handlebars.registerHelper("inject", (a: string) => {
-  const withoutClass = a.replace(/class=".*"/g, "");
-  const unescaped = unescape(withoutClass);
+  const unescaped = unescape(a);
 
   return Handlebars.compile(unescaped)({});
 });

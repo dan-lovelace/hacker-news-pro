@@ -1,26 +1,8 @@
 import { getNodeHTML, pipe } from "@hnp/core";
 
-import { IParsable } from ".";
+import { IParsable } from "..";
 
 const voteDirections = ["down", "up", undefined] as const;
-
-export type TComment = {
-  author: string;
-  body: string;
-  createdHumanized: number;
-  nextUrl?: string;
-  parentUrl?: string;
-  replyUrl?: string;
-};
-
-export type TCurrentUser = {
-  karma: number;
-  username: string;
-};
-
-export type TItem = TListItem & {
-  comments: TComment[];
-};
 
 export type TList = {
   items: TListItem[];
@@ -50,6 +32,9 @@ export type TListItem = {
    * @example 2 hours ago
    */
   createdHumanized: string;
+
+  /** URL to add the item to favorites */
+  favoriteUrl?: string;
 
   /** URL of flag requests */
   flagUrl?: string;
@@ -82,7 +67,7 @@ export type TListItem = {
   pastUrl?: string;
 
   /** Item's position in the list */
-  position: number;
+  position?: number;
 
   /** Items score based on number of votes */
   score?: number;
@@ -114,7 +99,7 @@ export class List implements IParsable<TList> {
       // parents
       const metadataEle = node.nextElementSibling?.querySelector(".subtext");
       const commentsEle = pipe(
-        metadataEle?.querySelectorAll("[href^='item?id=']"),
+        metadataEle?.querySelectorAll("a[href^='item?id=']"),
         (nodes?: NodeListOf<Element>) => nodes?.[nodes.length - 1],
       );
       const titleEle = node.querySelector(".titleline a");
@@ -135,8 +120,11 @@ export class List implements IParsable<TList> {
       );
       const createdHumanized =
         metadataEle?.querySelector(".age a")?.textContent ?? "";
+      const favoriteUrl =
+        metadataEle?.querySelector("a[href^='fave']")?.getAttribute("href") ??
+        undefined;
       const flagUrl =
-        metadataEle?.querySelector("[href^='flag']")?.getAttribute("href") ??
+        metadataEle?.querySelector("a[href^='flag']")?.getAttribute("href") ??
         undefined;
       const fromUrl =
         node.querySelector(".sitebit a")?.getAttribute("href") ?? "";
@@ -144,7 +132,11 @@ export class List implements IParsable<TList> {
       const pastUrl =
         metadataEle?.querySelector(".hnpast")?.getAttribute("href") ??
         undefined;
-      const position = parseInt(node.querySelector(".rank")?.textContent ?? "");
+      // const position = parseInt(node.querySelector(".rank")?.textContent ?? "");
+      const position = pipe(
+        parseInt(node.querySelector(".rank")?.textContent ?? ""),
+        (parseRes) => (isNaN(parseRes) ? undefined : parseRes),
+      );
       const score = pipe(
         metadataEle
           ?.querySelector("[id^='score_']")
@@ -166,7 +158,7 @@ export class List implements IParsable<TList> {
 
       // interactions
       const hide = pipe(
-        metadataEle?.querySelector(".hider")?.cloneNode(),
+        metadataEle?.querySelector("a[href^='hide']")?.cloneNode(),
         (node?: Node) => getNodeHTML(node),
       );
       const voteDown = pipe(
@@ -183,6 +175,7 @@ export class List implements IParsable<TList> {
         authorUrl,
         commentsCount,
         createdHumanized,
+        favoriteUrl,
         flagUrl,
         fromUrl,
         interactions: {
