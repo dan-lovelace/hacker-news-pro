@@ -1,41 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, useMediaQuery } from "@mui/material";
-import hljs from "highlight.js/lib/core";
-import css from "highlight.js/lib/languages/css";
-import handlebars from "highlight.js/lib/languages/handlebars";
-import xml from "highlight.js/lib/languages/xml";
-import Editor from "react-simple-code-editor";
+import AceEditor from "react-ace";
 
 import { useAppContext } from "../../contexts/app";
 
-hljs.registerLanguage("css", css);
-hljs.registerLanguage("handlebars", handlebars);
-hljs.registerLanguage("xml", xml);
+import "ace-builds/src-noconflict/mode-css";
+import "ace-builds/src-noconflict/mode-handlebars";
 
 type CodeEditorProps = {
-  id: string;
-  language: string;
+  language: "css" | "handlebars";
   value: string;
   handleChange: (value: string) => void;
   handleSave: () => void;
 };
 
 export default function CodeEditor({
-  id,
   language,
   value,
   handleChange,
 }: CodeEditorProps) {
+  const [theme, setTheme] = useState<string>();
   const { popout } = useAppContext();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
     async function setStyle() {
       if (prefersDarkMode) {
-        await import("highlight.js/styles/a11y-dark.css");
+        await import("ace-builds/src-noconflict/theme-solarized_dark");
+        setTheme("solarized_dark");
       } else {
-        await import("highlight.js/styles/a11y-light.css");
+        await import("ace-builds/src-noconflict/theme-solarized_light");
+        setTheme("solarized_light");
       }
     }
 
@@ -48,24 +44,20 @@ export default function CodeEditor({
         border: "1px solid",
         borderColor: "primary.main",
         borderRadius: 1,
-        mb: 1,
-        width: "100%",
-        overflow: "auto",
+        flex: "1 1 auto",
         maxWidth: popout ? "auto" : 600, // matches `body` width in `index.scss`
+        mb: 1,
+        overflow: "auto",
+        width: "100%",
       }}
     >
-      <Editor
-        id={id}
-        className="code-editor"
+      <AceEditor
+        mode={language}
+        theme={theme}
         value={value}
-        onValueChange={handleChange}
-        highlight={(code) => hljs.highlight(code, { language }).value}
-        padding={10}
-        preClassName="code-editor-pre"
-        style={{
-          float: "left",
-          minWidth: "100%",
-        }}
+        width="100%"
+        height="100%"
+        onChange={handleChange}
       />
     </Box>
   );

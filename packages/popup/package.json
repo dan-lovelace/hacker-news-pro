@@ -15,15 +15,15 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@hnp/core": "*",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
-    "@hnp/core": "*",
-    "highlight.js": "^11.6.0",
+    "ace-builds": "^1.24.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
+    "react-ace": "^10.1.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
-    "react-simple-code-editor": "^0.13.1",
     "sass": "^1.55.0"
   },
   "devDependencies": {

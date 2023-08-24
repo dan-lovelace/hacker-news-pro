@@ -36,10 +36,6 @@ const viewOptions: { label: string; value: TView }[] = [
     label: "Jobs",
     value: "jobs",
   },
-  {
-    label: "Other",
-    value: "other",
-  },
 ];
 
 const ViewItem = forwardRef<
@@ -84,7 +80,9 @@ export function TemplateInput() {
   return (
     <>
       {initialized && (
-        <Box>
+        <Box
+          sx={{ display: "flex", flexDirection: "column", flex: "1 1 auto" }}
+        >
           <FormControl variant="standard" sx={{ minWidth: 250 }}>
             <InputLabel>View</InputLabel>
             <Select

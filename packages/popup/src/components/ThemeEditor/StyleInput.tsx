@@ -62,7 +62,6 @@ export function StyleInput() {
       {initialized && (
         <>
           <CodeEditor
-            id="css"
             language="css"
             value={styleValue}
             handleChange={handleChange}

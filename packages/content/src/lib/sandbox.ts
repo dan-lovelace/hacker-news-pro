@@ -1,5 +1,5 @@
 import { browser, getCurrentTheme, MESSAGE_ACTIONS } from "@hnp/core";
-import { List, TConfig, TSandboxContext } from "@hnp/types";
+import { getPageData, TConfig, TSandboxContext } from "@hnp/types";
 
 import { getConfig } from "./config";
 import { sendSandboxMessage, startListeners } from "./message";
@@ -29,21 +29,9 @@ export function handleSandboxLoad({ initialize }: { initialize: () => void }) {
 
 export async function renderContent() {
   const config = getConfig();
-
-  let pageData;
   const { view } = config;
-
-  switch (view) {
-    case "item": {
-      break;
-    }
-
-    case "list": {
-      pageData = new List().parse(document);
-      break;
-    }
-  }
-
+  const pageData = getPageData(view);
+  console.log("pageData", pageData);
   const context = getTemplateContext(config, pageData);
   const themeToApply = await getCurrentTheme(config);
 

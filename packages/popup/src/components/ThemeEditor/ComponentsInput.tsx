@@ -351,7 +351,12 @@ export function ComponentsInput() {
 
   return (
     <>
-      <Stack direction="row" spacing={1}>
+      <Stack
+        className="components-input"
+        direction="row"
+        spacing={1}
+        sx={{ height: "100%" }}
+      >
         <Box>
           <List sx={{ width: 250 }}>
             {componentsValue?.map(({ label, id, template }) => {
@@ -455,13 +460,19 @@ export function ComponentsInput() {
           </IconButton>
         </Box>
         {selectedComponent && (
-          <Box sx={{ flex: "1 1 auto", width: 150 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              flex: "1 1 auto",
+              width: 150,
+            }}
+          >
             <InputLabel shrink>
               <strong>Usage:</strong> {`{{> ${selectedComponent.id}}}`}
             </InputLabel>
             <CodeEditor
-              id="css"
-              language="css"
+              language="handlebars"
               value={selectedComponent.template}
               handleChange={handleTemplateChange}
               handleSave={handleTemplateSave}

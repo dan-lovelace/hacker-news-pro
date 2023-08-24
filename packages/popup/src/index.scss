@@ -5,6 +5,7 @@ body {
 }
 
 #root {
+  height: 100vh;
   margin: 0;
   padding: 1rem;
 }
@@ -12,24 +13,4 @@ body {
 a {
   color: inherit;
   text-decoration: unset;
-}
-
-// styles for react-simple-code-editor
-.code-editor {
-  flex: 1 1 auto;
-  font-family: "Fira code", "Fira Mono", monospace;
-  font-size: 12px;
-  margin-bottom: 0.5rem;
-  min-height: 130px;
-
-  textarea {
-    &:focus,
-    &:focus-visible {
-      outline: none;
-    }
-  }
-}
-
-.code-editor-pre {
-  white-space: pre !important;
 }

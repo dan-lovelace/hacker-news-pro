@@ -18,9 +18,6 @@ const helpTheme: TTheme = {
     jobs: {
       template: "",
     },
-    other: {
-      template: "",
-    },
     submit: {
       template: "",
     },

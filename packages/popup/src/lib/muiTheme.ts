@@ -4,7 +4,11 @@ export const themeComponents: Components<Omit<Theme, "components">> = {
   MuiButton: {
     styleOverrides: {
       root: {
+        boxShadow: "none",
         textTransform: "none",
+        "&:hover": {
+          boxShadow: "none",
+        },
       },
     },
   },

@@ -110,7 +110,7 @@ export default function EditorPage() {
   return (
     <>
       {initialized && (
-        <Stack className="editor-page">
+        <Stack className="editor-page" sx={{ height: "100%" }}>
           <Box sx={{ flex: "1 1 auto" }}>
             <Stack direction="row" spacing={1}>
               <BackButton />
@@ -144,7 +144,9 @@ export default function EditorPage() {
               <Tab label="CSS" />
             </Tabs>
           </Box>
-          <Box>
+          <Box
+            sx={{ display: "flex", flexDirection: "column", height: "100%" }}
+          >
             {activeTab === 0 && <ComponentsInput />}
             {activeTab === 1 && <TemplateInput />}
             {activeTab === 2 && <StyleInput />}

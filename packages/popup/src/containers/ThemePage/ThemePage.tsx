@@ -79,9 +79,6 @@ export default function ThemePage() {
         list: {
           template: "",
         },
-        other: {
-          template: "",
-        },
         submit: {
           template: "",
         },

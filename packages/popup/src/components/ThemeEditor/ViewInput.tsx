@@ -107,7 +107,6 @@ export default function ViewInput({ view, setModified }: ViewInputProps) {
       {initialized && (
         <>
           <CodeEditor
-            id="template"
             language="handlebars"
             value={templateValues.template}
             handleChange={handleTemplateChange}
