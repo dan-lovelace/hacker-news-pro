@@ -24,10 +24,11 @@ export type TComment = {
 };
 
 export type TItem = TListItem & {
+  bodyHTML?: string;
   comments: TComment[];
 };
 
-const getRowId = (id: string) => `item_${id.replace("#", "")}`;
+const getRowId = (id: string) => `item_${id.replaceAll(/(#|item_)/g, "")}`;
 
 const getRowIndent = (row: Element) =>
   pipe(
@@ -153,10 +154,12 @@ export class Item implements IParsable<TItem> {
       results.push([rowData, rowIndent]);
     }
 
+    const bodyHTML = document.querySelector(".toptext")?.innerHTML;
     const comments = buildCommentTree(results, 0, 0)[0];
 
     return {
       ...listItem,
+      bodyHTML,
       comments,
     };
   }

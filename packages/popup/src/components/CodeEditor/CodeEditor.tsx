@@ -45,7 +45,7 @@ export default function CodeEditor({
         borderColor: "primary.main",
         borderRadius: 1,
         flex: "1 1 auto",
-        maxWidth: popout ? "auto" : 600, // matches `body` width in `index.scss`
+        maxWidth: popout ? "auto" : 775, // matches `body` width in `index.scss`
         mb: 1,
         overflow: "auto",
         width: "100%",
@@ -57,6 +57,7 @@ export default function CodeEditor({
         value={value}
         width="100%"
         height="100%"
+        tabSize={2}
         onChange={handleChange}
       />
     </Box>
