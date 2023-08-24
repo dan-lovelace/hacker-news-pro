@@ -3,7 +3,6 @@ import { RouteObject, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import EditorPage from "../containers/EditorPage";
 import HomePage from "../containers/HomePage";
-import ThemePage from "../containers/ThemePage";
 
 type Route = RouteObject & {
   path: string;
@@ -13,17 +12,11 @@ export const basename = "/popup.html";
 export const initialRedirectState = "initial-redirect";
 
 export const ROUTES: { [key: string]: Route } = Object.freeze({
-  HOME: {
-    path: "/",
-  },
   EDITOR: {
     path: "/editor",
   },
-  OPTIONS: {
-    path: "/options",
-  },
-  THEME: {
-    path: "/theme",
+  HOME: {
+    path: "/",
   },
 });
 
@@ -40,10 +33,6 @@ export const router = createBrowserRouter(
         {
           path: ROUTES.HOME.path,
           element: <HomePage />,
-        },
-        {
-          path: ROUTES.THEME.path,
-          element: <ThemePage />,
         },
       ],
     },

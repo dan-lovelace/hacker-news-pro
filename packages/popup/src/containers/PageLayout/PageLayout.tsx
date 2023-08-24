@@ -12,18 +12,15 @@ import {
   ThemeProvider,
   useMediaQuery,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
-import OptionsMenu from "../../components/OptionsMenu";
 import { useAppContext } from "../../contexts/app";
 import { themeComponents } from "../../lib/muiTheme";
-import { basename, ROUTES } from "../../lib/routes";
+import { basename } from "../../lib/routes";
 
 export default function PageLayout({ children }: { children: ReactNode }) {
   const [popoutError, setPopoutError] = useState<boolean>(false);
   const { popout, setPopout } = useAppContext();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const navigate = useNavigate();
   const theme = useMemo(
     () =>
       createTheme({
@@ -46,7 +43,6 @@ export default function PageLayout({ children }: { children: ReactNode }) {
   }, []);
 
   const handlePopout = () => {
-    navigate(ROUTES.HOME.path);
     const open = window.open(
       `${basename}?expanded=true`,
       "popup",
@@ -89,7 +85,6 @@ export default function PageLayout({ children }: { children: ReactNode }) {
                 </IconButton>
               </Box>
             )}
-            <OptionsMenu />
           </Stack>
         </Box>
       </Stack>
