@@ -1,38 +1,54 @@
 import { forwardRef, useEffect, useState } from "react";
 
 import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TView } from "@hnp/types";
+import { TView, viewRouteMap } from "@hnp/types";
 import {
   Box,
   List,
   ListItemButton,
   ListItemButtonProps,
   Stack,
+  Typography,
 } from "@mui/material";
 
 import { LEFT_COLUMN_WIDTH } from ".";
 import ModifiedIndicator from "./ModifiedIndicator";
 import ViewInput from "./ViewInput";
 
-const viewOptions: { label: string; value: TView }[] = [
+const viewOptions: { label: string; routes: string[]; value: TView }[] = [
   {
     label: "List",
+    routes: Object.keys(viewRouteMap).filter(
+      (key) => viewRouteMap[key] === "list",
+    ),
     value: "list",
   },
   {
     label: "Item",
+    routes: Object.keys(viewRouteMap).filter(
+      (key) => viewRouteMap[key] === "item",
+    ),
     value: "item",
   },
   {
     label: "User",
+    routes: Object.keys(viewRouteMap).filter(
+      (key) => viewRouteMap[key] === "user",
+    ),
     value: "user",
   },
   {
     label: "Submit",
+    routes: Object.keys(viewRouteMap).filter(
+      (key) => viewRouteMap[key] === "submit",
+    ),
     value: "submit",
   },
   {
     label: "Jobs",
+    routes: Object.keys(viewRouteMap).filter(
+      (key) => viewRouteMap[key] === "jobs",
+    ),
     value: "jobs",
   },
 ];
@@ -41,13 +57,36 @@ const ViewItem = forwardRef<
   HTMLDivElement,
   ListItemButtonProps & {
     modified: boolean;
+    routes: string[];
   }
->(({ modified, ...props }, ref) => (
-  <Box sx={{ position: "relative" }}>
-    <ListItemButton ref={ref} {...props} />
-    <ModifiedIndicator modified={modified} sx={{ right: "1rem" }} />
-  </Box>
-));
+>(({ modified, routes, ...props }, ref) => {
+  const routesString = routes.join(", ");
+
+  return (
+    <Box sx={{ position: "relative", whiteSpace: "nowrap" }}>
+      <ListItemButton ref={ref} {...props}>
+        <Stack
+          title={`Route${routes.length > 1 ? "s" : ""}: ${routesString}`}
+          sx={{ overflow: "hidden" }}
+        >
+          <Box>{props.children}</Box>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              color: "text.secondary",
+              fontSize: "0.75rem",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {routesString}
+          </Typography>
+        </Stack>
+      </ListItemButton>
+      <ModifiedIndicator modified={modified} sx={{ right: "1rem" }} />
+    </Box>
+  );
+});
 
 export function TemplateInput() {
   const [initialized, setInitialized] = useState<boolean>(false);
@@ -85,10 +124,11 @@ export function TemplateInput() {
         >
           <Box>
             <List sx={{ width: LEFT_COLUMN_WIDTH }}>
-              {viewOptions.map(({ label, value }) => (
+              {viewOptions.map(({ label, routes, value }) => (
                 <ViewItem
                   key={value}
                   modified={modified === value}
+                  routes={routes}
                   selected={viewValue === value}
                   onClick={handleViewChange(value)}
                 >

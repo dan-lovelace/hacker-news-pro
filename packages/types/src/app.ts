@@ -65,6 +65,8 @@ export type TStorageKey = keyof TStorageKeyMap;
 export type TStorageKeyMap = {
   CURRENT_PAGE: string;
   CUSTOM_THEMES: TTheme[];
+  NAVIGATION_TYPE: NavigationTimingType;
+  SCROLL_POSITIONS: Record<string, number>;
   SELECTED_COMPONENT_ID: TSelectedComponent;
   SELECTED_TAB: number;
   SELECTED_THEME_ID: TSelectedTheme;

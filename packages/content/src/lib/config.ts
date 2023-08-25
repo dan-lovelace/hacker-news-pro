@@ -1,13 +1,13 @@
 import type { TConfig } from "@hnp/types";
 import { matchRoutes } from "react-router-dom";
 
-import { ROUTES } from "./routes";
+import { CONTENT_ROUTES } from "./routes";
 
 export function getConfig(): TConfig {
   const {
     location: { hostname },
   } = window;
-  const route = matchRoutes(ROUTES, window.location.pathname);
+  const route = matchRoutes(CONTENT_ROUTES, window.location.pathname);
 
   if (!route) throw new Error("Invalid route provided to getConfig()");
 
