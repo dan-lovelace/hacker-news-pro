@@ -28,10 +28,10 @@ import { useToastContext } from "../../contexts/toast";
 
 export default function HomePage() {
   const [creating, setCreating] = useState<boolean>(false);
-  const [currentTheme, setCurrentTheme] = useState<TTheme>();
-  const [initialized, setInitialized] = useState<boolean>(false);
-  const [customThemes, setCustomThemes] = useState<TTheme[]>([]);
   const [creatingName, setCreatingName] = useState<string>("");
+  const [currentTheme, setCurrentTheme] = useState<TTheme>();
+  const [customThemes, setCustomThemes] = useState<TTheme[]>([]);
+  const [initialized, setInitialized] = useState<boolean>(false);
   const { notify } = useToastContext();
 
   useEffect(() => {
@@ -51,6 +51,40 @@ export default function HomePage() {
 
     init();
   }, []);
+
+  const handleClone = async (id: string) => {
+    const { customThemes: storedCustomThemes } = await fetchThemeData();
+    const themeData =
+      storedCustomThemes?.find((theme) => theme.id === id) ||
+      premadeThemes.find((theme) => theme.id === id);
+
+    if (!themeData) {
+      return notify("Error cloning theme");
+    }
+
+    let newThemeLabel = `${themeData.label} Copy`;
+    let newThemeId = kebabCase(newThemeLabel);
+    let copyCount = 1;
+
+    while (storedCustomThemes?.some((theme) => theme.id === newThemeId)) {
+      newThemeLabel = `${themeData.label} Copy (${copyCount})`;
+      newThemeId = kebabCase(newThemeLabel);
+      copyCount++;
+    }
+
+    const newTheme: TTheme = {
+      ...themeData,
+      id: newThemeId,
+      label: newThemeLabel,
+      type: "custom",
+    };
+    const newCustomThemes = [newTheme, ...(storedCustomThemes || [])];
+
+    setCustomThemes(newCustomThemes);
+    storageSetByKeys({
+      CUSTOM_THEMES: newCustomThemes,
+    });
+  };
 
   const handleCreate = async (
     event: MouseEvent<HTMLButtonElement> | FormEvent<HTMLFormElement>,
@@ -171,9 +205,7 @@ export default function HomePage() {
     <>
       {initialized && (
         <Stack className="home-page">
-          <Typography variant="h6" sx={{ marginTop: 0.5 }}>
-            Themes
-          </Typography>
+          <Typography variant="h6">Themes</Typography>
           <Typography variant="caption">Custom</Typography>
           <List>
             {customThemes.length > 0 ? (
@@ -184,6 +216,7 @@ export default function HomePage() {
                   customThemes={customThemes}
                   selected={currentTheme?.id === theme.id}
                   themeData={theme}
+                  handleClone={handleClone}
                   setCurrentTheme={setCurrentTheme}
                   setCustomThemes={setCustomThemes}
                 />
@@ -256,6 +289,7 @@ export default function HomePage() {
                 key={theme.id}
                 selected={currentTheme?.id === theme.id}
                 themeData={theme}
+                handleClone={handleClone}
                 setCurrentTheme={setCurrentTheme}
               />
             ))}

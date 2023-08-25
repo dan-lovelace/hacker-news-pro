@@ -3,8 +3,10 @@ import { useState } from "react";
 import { applyTheme, fetchThemeData, storageSetByKeys } from "@hnp/core";
 import { TTheme } from "@hnp/types";
 import ClearIcon from "@mui/icons-material/Clear";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import {
   ClickAwayListener,
   IconButton,
@@ -22,6 +24,7 @@ type ThemeItemProps = {
   editable?: boolean;
   selected: boolean;
   themeData: TTheme;
+  handleClone: (id: string) => void;
   setCurrentTheme: (newValue: TTheme) => void;
   setCustomThemes?: (newValue: TTheme[]) => void;
 };
@@ -30,6 +33,7 @@ export default function ThemeItem({
   editable = false,
   selected,
   themeData,
+  handleClone,
   setCurrentTheme,
   setCustomThemes,
 }: ThemeItemProps) {
@@ -62,6 +66,10 @@ export default function ThemeItem({
     handleCancelConfirmDelete();
   };
 
+  const handleCloneClick = async () => {
+    handleClone(themeData.id);
+  };
+
   const handleDeleteClick = () => {
     setConfirmingDelete(true);
   };
@@ -69,6 +77,19 @@ export default function ThemeItem({
   const handleEditClick = () => {
     applyTheme(themeData);
     navigate(ROUTES.EDITOR.path);
+  };
+
+  const handleExportClick = () => {
+    const href = `data:text/json;charset=utf-8,${encodeURIComponent(
+      JSON.stringify(themeData),
+    )}`;
+    const anchor = document.createElement("a");
+
+    anchor.setAttribute("href", href);
+    anchor.setAttribute("download", `${themeData.id}.hnp`);
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
   };
 
   const handleThemeClick = () => {
@@ -94,37 +115,61 @@ export default function ThemeItem({
           {themeData.label}
         </Typography>
       </MenuItem>
-      {editable && (
-        <Stack direction="row" spacing={1}>
-          <IconButton
-            aria-label="edit theme"
-            title="Edit"
-            onClick={handleEditClick}
-          >
-            <EditIcon />
-          </IconButton>
-          {confirmingDelete ? (
-            <ClickAwayListener onClickAway={handleCancelConfirmDelete}>
-              <IconButton
-                aria-label="confirm delete theme"
-                color="error"
-                title="Confirm delete"
-                onClick={handleConfirmDeleteClick}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ClickAwayListener>
-          ) : (
+      <Stack direction="row" spacing={1}>
+        {editable ? (
+          <>
             <IconButton
-              aria-label="delete theme"
-              title="Delete"
-              onClick={handleDeleteClick}
+              aria-label="edit theme"
+              title="Edit"
+              onClick={handleEditClick}
             >
-              <ClearIcon />
+              <EditIcon />
             </IconButton>
-          )}
-        </Stack>
-      )}
+            <IconButton
+              aria-label="export theme"
+              title="Export"
+              onClick={handleExportClick}
+            >
+              <FileDownloadIcon />
+            </IconButton>
+            <IconButton
+              aria-label="clone theme"
+              title="Clone"
+              onClick={handleCloneClick}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+            {confirmingDelete ? (
+              <ClickAwayListener onClickAway={handleCancelConfirmDelete}>
+                <IconButton
+                  aria-label="confirm delete theme"
+                  color="error"
+                  title="Confirm delete"
+                  onClick={handleConfirmDeleteClick}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ClickAwayListener>
+            ) : (
+              <IconButton
+                aria-label="delete theme"
+                title="Delete"
+                onClick={handleDeleteClick}
+              >
+                <ClearIcon />
+              </IconButton>
+            )}
+          </>
+        ) : (
+          <IconButton
+            aria-label="clone theme"
+            title="Clone"
+            onClick={handleCloneClick}
+          >
+            <ContentCopyIcon />
+          </IconButton>
+        )}
+      </Stack>
     </Stack>
   );
 }

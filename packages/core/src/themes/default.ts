@@ -9,8 +9,7 @@ const theme: TTheme = {
   label: "Hacker News Pro Default",
   type: "premade",
   inputs: {
-    style: `
-body {
+    style: `body {
   font-family: Verdana;
 }
 
@@ -65,12 +64,10 @@ a .vote-button, .voted {
 
 .voted {
   color: green;
-}
-    `,
+}`,
     components: [],
     list: {
-      template: `
-<div>
+      template: `<div>
   <img class="logo" src="{{assets.originalLogoUrl}}" />
   <div class="list-container">
     <ul>
@@ -134,8 +131,7 @@ a .vote-button, .voted {
       {{/each}}
     </ul>
   </div>
-</div>
-      `,
+</div>`,
     },
     item: {
       template: "",
