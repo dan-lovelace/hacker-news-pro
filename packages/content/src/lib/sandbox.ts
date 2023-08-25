@@ -2,7 +2,7 @@ import { browser, getCurrentTheme, MESSAGE_ACTIONS } from "@hnp/core";
 import { getPageData, TConfig, TSandboxContext } from "@hnp/types";
 
 import { getConfig } from "./config";
-import { sendSandboxMessage, startListeners } from "./message";
+import { sendSandboxMessage, startContentListeners } from "./message";
 
 const originalLogoUrl = browser.runtime.getURL("img/hn_logo.svg");
 
@@ -21,7 +21,7 @@ export function getTemplateContext<T>(
 
 export function handleSandboxLoad({ initialize }: { initialize: () => void }) {
   return () => {
-    startListeners();
+    startContentListeners();
     renderContent();
     initialize();
   };

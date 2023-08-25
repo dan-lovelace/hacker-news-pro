@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { ROUTES } from "./lib/routes";
 import { handleSandboxLoad } from "./lib/sandbox";
+import "./lib/windowListeners";
 
 const router = createBrowserRouter(ROUTES);
 const sandboxUrl = browser.runtime.getURL("sandbox.html");

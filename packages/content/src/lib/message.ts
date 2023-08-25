@@ -6,6 +6,7 @@ import {
   HNP_STYLE_ELEMENT_ID,
   MESSAGE_ACTIONS,
   SELECTORS,
+  storageGetByKey,
   toggleStylesheet,
 } from "@hnp/core";
 import {
@@ -36,6 +37,18 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
       } else {
         styleEl.innerHTML = value.style;
         contentEl.innerHTML = value.compiled;
+
+        /** @note Do not block here */
+        storageGetByKey("NAVIGATION_TYPE").then(async (navigationType) => {
+          if (navigationType === "back_forward") {
+            const scrollPositions = await storageGetByKey("SCROLL_POSITIONS");
+            const scrollPosition = scrollPositions?.[window.location.href];
+
+            if (scrollPosition !== undefined) {
+              window.scrollTo(0, scrollPosition);
+            }
+          }
+        });
       }
 
       const templateExists = !!value?.compiled;
@@ -69,13 +82,7 @@ export function sendSandboxMessage<T>(message: TSandboxMessage<T>) {
   contentWindow?.postMessage(message, "*");
 }
 
-export function startListeners() {
-  browser.runtime.onMessage.addListener(
-    (event: TMessageEvent<TThemeChanged>) => {
-      handleMessageEvent(event);
-    },
-  );
-
+export function startContentListeners() {
   browser.storage.onChanged.addListener(async (event) => {
     for (const key of Object.keys(event) as Array<TStorageKey>) {
       switch (key) {
@@ -87,13 +94,6 @@ export function startListeners() {
       }
     }
   });
-
-  window.addEventListener(
-    "message",
-    (event: MessageEvent<TMessageEvent<TThemeChanged>>) => {
-      handleMessageEvent(event.data);
-    },
-  );
 
   // observe changes to HN content to handle content re-rendering
   const targetNode = SELECTORS.HN.main();
