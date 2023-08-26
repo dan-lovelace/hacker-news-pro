@@ -23,7 +23,7 @@ const port = 9012; // port changes should be applied to `packages/content/src/ma
 const distDirectory = "dist";
 const exclude: string[] = [];
 const quiet = process.env.QUIET?.toLowerCase() === "true";
-const noWatch = process.env.NO_WATCH?.toLowerCase() === "true";
+const watch = process.env.WATCH?.toLowerCase() === "true";
 
 const directoryPath = path.resolve(__dirname, "../../..", distDirectory);
 const excludePaths = exclude.map((file) => path.join(directoryPath, file));
@@ -31,7 +31,7 @@ const excludePaths = exclude.map((file) => path.join(directoryPath, file));
 const wss = new WebSocket.Server({ port });
 
 function log(message: string) {
-  if (quiet) return;
+  if (quiet || !watch) return;
 
   console.log(message);
 }
@@ -45,7 +45,7 @@ wss.on("close", () => {
 });
 
 wss.on("connection", (ws) => {
-  if (noWatch) return;
+  if (!watch) return;
 
   const watcher = chokidar.watch(directoryPath, {
     ignoreInitial: true,
@@ -55,10 +55,7 @@ wss.on("connection", (ws) => {
     "all",
     debounce((_, path) => {
       if (!excludePaths.includes(path)) {
-        if (!quiet) {
-          log(`File change detected: ${path}`);
-        }
-
+        log(`File change detected: ${path}`);
         ws.send("file-change");
       }
     }, debounceMs),

@@ -82,25 +82,36 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_firs
 
 ## Hot reloading
 
-In development mode via `yarn start`, hot reloading is enabled by default. All
-changes to the `dist` directory automatically reload the extension and the
-browser page after a brief wait. You may turn this off using a `NO_WATCH`
-environment variable like so:
+Hot reloading allows you to save time by automatically restarting the extension
+and refreshing the page when changes are made. If you are working on the `popup`
+package, simply close the popup window and reopen it. However, other packages
+require the hot reload server running in the background. To enable the server,
+add `WATCH=true` to the `yarn start` command like this:
 
 ```sh
-$ NO_WATCH=true yarn start
+$ WATCH=true yarn start
 ```
 
-There are several other configurations in the
-[reload script itself](./scripts/hot-reload/src/index.ts) such as on which port
-to start the websocket server and any files to exclude from the watch list.
+### Notes
 
-### All options
+Hot reloading is not perfect and you'll likely need to manually refresh the
+extension from time to time. If it seems like it's refreshing before files are
+done building, you may change the debounce timing in the
+[reload script itself](./scripts/hot-reload/src/index.ts) by modifying the
+`debounceMs` variable. You may also notice the error
+`Extension context invalidated` which seems to be caused by selecting the
+"Extensions" page where the extension is loaded. If possible, avoid focusing
+this page and let the hot reload feature do it's thing.
 
-| Option          | Description                       |
-| --------------- | --------------------------------- |
-| `NO_WATCH=true` | Disables hot reloading altogether |
-| `QUIET=true`    | Disables console output messages  |
+There are several other configurations in the script such as on which port to
+start the websocket server and any files to exclude from the watch list.
+
+### CLI options
+
+| Option       | Description                      |
+| ------------ | -------------------------------- |
+| `WATCH=true` | Enables the file watcher         |
+| `QUIET=true` | Disables console output messages |
 
 ## Tips
 
