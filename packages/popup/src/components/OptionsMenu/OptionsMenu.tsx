@@ -2,7 +2,7 @@ import { MouseEvent, useState } from "react";
 
 import BrushIcon from "@mui/icons-material/Brush";
 import MenuIcon from "@mui/icons-material/Menu";
-import SettingsIcon from "@mui/icons-material/Settings";
+import SupportIcon from "@mui/icons-material/Support";
 import {
   Box,
   Divider,
@@ -64,7 +64,7 @@ export default function OptionsMenu() {
         }}
         onClose={handleClose}
       >
-        <Link to={ROUTES.THEME.path}>
+        <Link to={ROUTES.HOME.path}>
           <MenuItem dense onClick={handleItemClick}>
             <ListItemIcon>
               <BrushIcon />
@@ -73,12 +73,12 @@ export default function OptionsMenu() {
           </MenuItem>
         </Link>
         <Divider sx={{ my: 1 }} />
-        <Link to={ROUTES.HOME.path}>
+        <Link to={ROUTES.SUPPORT.path}>
           <MenuItem dense onClick={handleItemClick}>
             <ListItemIcon>
-              <SettingsIcon />
+              <SupportIcon />
             </ListItemIcon>
-            Settings
+            Support
           </MenuItem>
         </Link>
       </Menu>

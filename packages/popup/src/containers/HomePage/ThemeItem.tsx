@@ -161,13 +161,23 @@ export default function ThemeItem({
             )}
           </>
         ) : (
-          <IconButton
-            aria-label="clone theme"
-            title="Clone"
-            onClick={handleCloneClick}
-          >
-            <ContentCopyIcon />
-          </IconButton>
+          <>
+            <IconButton
+              aria-label="export theme"
+              title="Export"
+              onClick={handleExportClick}
+            >
+              <FileDownloadIcon />
+            </IconButton>
+            <IconButton
+              aria-label="clone theme"
+              title="Clone"
+              onClick={handleCloneClick}
+              sx={{ marginRight: "3rem !important" }}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+          </>
         )}
       </Stack>
     </Stack>

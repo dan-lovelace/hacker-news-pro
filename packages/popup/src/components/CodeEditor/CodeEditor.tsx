@@ -4,6 +4,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import AceEditor from "react-ace";
 
 import { useAppContext } from "../../contexts/app";
+import { PAGE_MIN_WIDTH } from "../../lib/vars";
 
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-handlebars";
@@ -45,7 +46,7 @@ export default function CodeEditor({
         borderColor: "primary.main",
         borderRadius: 1,
         flex: "1 1 auto",
-        maxWidth: popout ? "auto" : 775, // matches `body` width in `index.scss`
+        maxWidth: popout ? "auto" : PAGE_MIN_WIDTH,
         mb: 1,
         overflow: "auto",
         width: "100%",

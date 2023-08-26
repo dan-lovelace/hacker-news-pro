@@ -27,6 +27,7 @@ import { kebabCase } from "lodash";
 
 import ThemeItem from "./ThemeItem";
 import { useToastContext } from "../../contexts/toast";
+import { PAGE_CONTENT_WIDTH } from "../../lib/vars";
 
 export default function HomePage() {
   const [creating, setCreating] = useState<boolean>(false);
@@ -190,7 +191,7 @@ export default function HomePage() {
 
         if (customThemes?.some((t) => t.id.trim() === themeExport.id.trim())) {
           throw new Error(
-            `A theme with the name '${themeExport.id}' already exists`,
+            `A theme with the name '${themeExport.label}' already exists`,
           );
         }
 
@@ -237,94 +238,96 @@ export default function HomePage() {
             </IconButton>
             <Typography variant="h6">Themes</Typography>
           </Stack>
-          <Typography variant="caption">Custom</Typography>
-          <List>
-            {customThemes.length > 0 ? (
-              customThemes.map((theme) => (
+          <Box sx={{ width: PAGE_CONTENT_WIDTH }}>
+            <Typography variant="caption">Custom</Typography>
+            <List>
+              {customThemes.length > 0 ? (
+                customThemes.map((theme) => (
+                  <ThemeItem
+                    key={theme.id}
+                    editable
+                    customThemes={customThemes}
+                    selected={currentTheme?.id === theme.id}
+                    themeData={theme}
+                    handleClone={handleClone}
+                    setCurrentTheme={setCurrentTheme}
+                    setCustomThemes={setCustomThemes}
+                  />
+                ))
+              ) : (
+                <Alert severity="info">
+                  <AlertTitle>No custom themes</AlertTitle>
+                  You haven't created any themes yet. Click the button below to
+                  get started.
+                </Alert>
+              )}
+            </List>
+            <Box>
+              {creating ? (
+                <form onSubmit={handleCreate}>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ alignItems: "center", width: "100%" }}
+                  >
+                    <TextField
+                      autoFocus
+                      label="Name"
+                      size="small"
+                      value={creatingName}
+                      onChange={handleCreatingNameChange}
+                      required
+                      sx={{ flex: "1 1 auto" }}
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      onClick={handleCreate}
+                    >
+                      Create
+                    </Button>
+                    <Button
+                      component="label"
+                      startIcon={<FileUploadIcon />}
+                      variant="outlined"
+                    >
+                      Import
+                      <input
+                        accept=".hnp"
+                        type="file"
+                        hidden
+                        onChange={handleImport}
+                      />
+                    </Button>
+                    <Button onClick={handleEndCreate}>Cancel</Button>
+                  </Stack>
+                </form>
+              ) : (
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    startIcon={<AddIcon />}
+                    variant="contained"
+                    onClick={handleCreateClick}
+                  >
+                    New theme
+                  </Button>
+                </Stack>
+              )}
+            </Box>
+            <Divider sx={{ mb: 1, mt: creating ? 1 : "11px" }} />
+            <Typography variant="caption">Premade</Typography>
+            <List>
+              {premadeThemes.map((theme) => (
                 <ThemeItem
                   key={theme.id}
-                  editable
-                  customThemes={customThemes}
                   selected={currentTheme?.id === theme.id}
                   themeData={theme}
                   handleClone={handleClone}
                   setCurrentTheme={setCurrentTheme}
-                  setCustomThemes={setCustomThemes}
                 />
-              ))
-            ) : (
-              <Alert severity="info">
-                <AlertTitle>No custom themes</AlertTitle>
-                You haven't created any themes yet. Click the button below to
-                get started.
-              </Alert>
-            )}
-          </List>
-          <Box>
-            {creating ? (
-              <form onSubmit={handleCreate}>
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  sx={{ alignItems: "center", width: "100%" }}
-                >
-                  <TextField
-                    autoFocus
-                    label="Name"
-                    size="small"
-                    value={creatingName}
-                    onChange={handleCreatingNameChange}
-                    required
-                    sx={{ flex: "1 1 auto" }}
-                  />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    onClick={handleCreate}
-                  >
-                    Create
-                  </Button>
-                  <Button
-                    component="label"
-                    startIcon={<FileUploadIcon />}
-                    variant="outlined"
-                  >
-                    Import
-                    <input
-                      accept=".hnp"
-                      type="file"
-                      hidden
-                      onChange={handleImport}
-                    />
-                  </Button>
-                  <Button onClick={handleEndCreate}>Cancel</Button>
-                </Stack>
-              </form>
-            ) : (
-              <Stack direction="row" spacing={1}>
-                <Button
-                  startIcon={<AddIcon />}
-                  variant="contained"
-                  onClick={handleCreateClick}
-                >
-                  New theme
-                </Button>
-              </Stack>
-            )}
+              ))}
+            </List>
           </Box>
-          <Divider sx={{ mb: 1, mt: creating ? 1 : "11px" }} />
-          <Typography variant="caption">Premade</Typography>
-          <List>
-            {premadeThemes.map((theme) => (
-              <ThemeItem
-                key={theme.id}
-                selected={currentTheme?.id === theme.id}
-                themeData={theme}
-                handleClone={handleClone}
-                setCurrentTheme={setCurrentTheme}
-              />
-            ))}
-          </List>
         </Stack>
       )}
     </>
