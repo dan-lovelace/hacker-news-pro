@@ -62,7 +62,7 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         toggleStylesheet(hnStyleSelector, false);
       } else {
         documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
-        if (hnMain) hnMain.style.display = "block";
+        if (hnMain) hnMain.style.display = "table";
         toggleStylesheet(hnStyleSelector, true);
       }
       break;
