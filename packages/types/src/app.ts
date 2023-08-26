@@ -24,7 +24,12 @@ export type TMessageAction = "update-theme";
 
 export type TMessageEvent<T> = {
   action: TMessageAction;
+  options?: TPopupOptions;
   value: T;
+};
+
+export type TPopupOptions = {
+  themesEnabled: boolean;
 };
 
 export type TSandboxContext<T> = {
@@ -66,6 +71,7 @@ export type TStorageKeyMap = {
   CURRENT_PAGE: string;
   CUSTOM_THEMES: TTheme[];
   NAVIGATION_TYPE: NavigationTimingType;
+  OPTIONS: TPopupOptions;
   SCROLL_POSITIONS: Record<string, number>;
   SELECTED_COMPONENT_ID: TSelectedComponent;
   SELECTED_TAB: number;

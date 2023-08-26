@@ -9,18 +9,32 @@ import "./helpers";
 window.addEventListener("message", (message) => {
   const { data, origin, source } = message;
   const { context, event }: TSandboxMessage<unknown> = data;
+  const { action, options, value } = event;
 
-  if (event.value === null) {
+  if (value === null) {
     return source?.postMessage(event, { targetOrigin: origin });
   }
 
-  switch (event.action) {
+  if (options?.themesEnabled === false) {
+    return source?.postMessage(
+      {
+        action,
+        value: {
+          style: "",
+          compiled: "",
+        },
+      },
+      { targetOrigin: origin },
+    );
+  }
+
+  switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const viewInputValue = event.value?.inputs[context.config.view];
+      const viewInputValue = value.inputs[context.config.view];
 
       if (!viewInputValue) return;
 
-      const { components } = event.value?.inputs ?? [];
+      const { components } = value.inputs ?? [];
       for (const component of components) {
         Handlebars.registerPartial(component.id, component.template);
       }
@@ -29,9 +43,9 @@ window.addEventListener("message", (message) => {
 
       source?.postMessage(
         {
-          action: event.action,
+          action,
           value: {
-            style: event.value?.inputs.style,
+            style: value.inputs.style,
             compiled,
           },
         },

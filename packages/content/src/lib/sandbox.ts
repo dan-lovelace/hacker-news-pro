@@ -1,4 +1,9 @@
-import { browser, getCurrentTheme, MESSAGE_ACTIONS } from "@hnp/core";
+import {
+  browser,
+  getCurrentTheme,
+  MESSAGE_ACTIONS,
+  storageGetByKey,
+} from "@hnp/core";
 import { getPageData, TConfig, TSandboxContext } from "@hnp/types";
 
 import { getConfig } from "./config";
@@ -34,6 +39,7 @@ export async function renderContent() {
   console.log("pageData", pageData);
   const context = getTemplateContext(config, pageData);
   const themeToApply = await getCurrentTheme(config);
+  const options = await storageGetByKey("OPTIONS");
 
   if (!themeToApply) return;
 
@@ -41,6 +47,7 @@ export async function renderContent() {
     context,
     event: {
       action: MESSAGE_ACTIONS.UPDATE_THEME,
+      options,
       value: themeToApply,
     },
   });

@@ -135,10 +135,9 @@ export class List implements IParsable<TList> {
       const pastUrl =
         metadataEle?.querySelector(".hnpast")?.getAttribute("href") ??
         undefined;
-      // const position = parseInt(node.querySelector(".rank")?.textContent ?? "");
       const position = pipe(
         parseInt(node.querySelector(".rank")?.textContent ?? ""),
-        (parseRes) => (isNaN(parseRes) ? undefined : parseRes),
+        (parseString) => (isNaN(parseString) ? undefined : parseString),
       );
       const score = pipe(
         metadataEle

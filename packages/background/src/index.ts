@@ -12,6 +12,9 @@ function main() {
       const defaultTheme: TSelectedTheme = "default";
 
       await storageSetByKeys({
+        OPTIONS: {
+          themesEnabled: true,
+        },
         SELECTED_THEME_ID: defaultTheme,
       });
     }

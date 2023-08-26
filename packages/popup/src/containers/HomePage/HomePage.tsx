@@ -10,12 +10,14 @@ import {
 import { TTheme } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import {
   Alert,
   AlertTitle,
   Box,
   Button,
   Divider,
+  IconButton,
   List,
   Stack,
   TextField,
@@ -32,18 +34,24 @@ export default function HomePage() {
   const [currentTheme, setCurrentTheme] = useState<TTheme>();
   const [customThemes, setCustomThemes] = useState<TTheme[]>([]);
   const [initialized, setInitialized] = useState<boolean>(false);
+  const [themesEnabled, setThemesEnabled] = useState<boolean>(true);
   const { notify } = useToastContext();
 
   useEffect(() => {
     async function init() {
       const { currentTheme, customThemes } = await fetchThemeData();
+      const options = await storageGetByKey("OPTIONS");
+
+      if (currentTheme) {
+        setCurrentTheme(currentTheme);
+      }
 
       if (customThemes) {
         setCustomThemes(customThemes);
       }
 
-      if (currentTheme) {
-        setCurrentTheme(currentTheme);
+      if (options) {
+        setThemesEnabled(options.themesEnabled);
       }
 
       setInitialized(true);
@@ -201,11 +209,34 @@ export default function HomePage() {
     fileReader.readAsText(file);
   };
 
+  const handleThemesEnabledClick = async () => {
+    const options = await storageGetByKey("OPTIONS");
+    const newThemesEnabled = !themesEnabled;
+
+    setThemesEnabled(newThemesEnabled);
+    storageSetByKeys({
+      OPTIONS: {
+        ...options,
+        themesEnabled: newThemesEnabled,
+      },
+    });
+  };
+
   return (
     <>
       {initialized && (
         <Stack className="home-page">
-          <Typography variant="h6">Themes</Typography>
+          <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+            <IconButton
+              aria-label={`themes ${themesEnabled ? "enabled" : "disabled"}`}
+              title={`Turn themes ${themesEnabled ? "off" : "on"}`}
+              onClick={handleThemesEnabledClick}
+              sx={{ color: themesEnabled ? "success.main" : "error.main" }}
+            >
+              <PowerSettingsNewIcon />
+            </IconButton>
+            <Typography variant="h6">Themes</Typography>
+          </Stack>
           <Typography variant="caption">Custom</Typography>
           <List>
             {customThemes.length > 0 ? (
