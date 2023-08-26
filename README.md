@@ -35,6 +35,21 @@ anyone else is working in a similar area. To make a change:
    [create a new PR](https://github.com/dan-lovelace/hacker-news-pro/compare),
    fill out the template and assign another contributor
 
+## Other methods
+
+If writing code is not your thing and you're considering a monetary
+contribution, the easiest way is through Buy Me a Coffee.
+
+<a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
+   <img
+      src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+      alt="Buy Me A Coffee"
+      style="aspect-ratio: 1 / .276; height: 50px"
+   />
+</a>
+
+<br />
+
 # Local Development
 
 ## Requirements
