@@ -30,7 +30,7 @@ window.addEventListener("message", (message) => {
 
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const viewInputValue = value.inputs[context.config.view];
+      const viewInputValue = value.inputs.views[context.config.view];
 
       if (!viewInputValue) return;
 

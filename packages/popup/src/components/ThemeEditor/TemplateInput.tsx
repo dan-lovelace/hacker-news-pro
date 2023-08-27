@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 
 import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TView, viewRouteMap } from "@hnp/types";
+import { TView } from "@hnp/types";
 import {
   Box,
   List,
@@ -17,39 +17,54 @@ import ViewInput from "./ViewInput";
 
 const viewOptions: { label: string; routes: string[]; value: TView }[] = [
   {
-    label: "List",
-    routes: Object.keys(viewRouteMap).filter(
-      (key) => viewRouteMap[key] === "list",
-    ),
-    value: "list",
+    label: "Comment Item",
+    routes: [],
+    value: "commentItem",
   },
   {
-    label: "Item",
-    routes: Object.keys(viewRouteMap).filter(
-      (key) => viewRouteMap[key] === "item",
-    ),
-    value: "item",
+    label: "Comment List",
+    routes: [],
+    value: "commentList",
   },
   {
-    label: "User",
-    routes: Object.keys(viewRouteMap).filter(
-      (key) => viewRouteMap[key] === "user",
-    ),
-    value: "user",
+    label: "Job Item",
+    routes: [],
+    value: "jobItem",
+  },
+  {
+    label: "Job List",
+    routes: [],
+    value: "jobList",
+  },
+  {
+    label: "Poll Item",
+    routes: [],
+    value: "pollItem",
+  },
+  {
+    label: "Poll Option Item",
+    routes: [],
+    value: "pollOptItem",
+  },
+  {
+    label: "Story Item",
+    routes: [],
+    value: "storyItem",
+  },
+  {
+    label: "Story List",
+    routes: [],
+    value: "storyList",
   },
   {
     label: "Submit",
-    routes: Object.keys(viewRouteMap).filter(
-      (key) => viewRouteMap[key] === "submit",
-    ),
+    routes: [],
     value: "submit",
   },
   {
-    label: "Jobs",
-    routes: Object.keys(viewRouteMap).filter(
-      (key) => viewRouteMap[key] === "jobs",
-    ),
-    value: "jobs",
+    label: "User",
+    routes: [],
+    value: "user",
   },
 ];
 
@@ -91,7 +106,7 @@ const ViewItem = forwardRef<
 export function TemplateInput() {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [modified, setModified] = useState<TView>();
-  const [viewValue, setViewValue] = useState<TView>("list");
+  const [viewValue, setViewValue] = useState<TView>("storyList");
 
   useEffect(() => {
     async function init() {

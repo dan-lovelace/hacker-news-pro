@@ -66,8 +66,30 @@ a .vote-button, .voted {
   color: green;
 }`,
     components: [],
-    list: {
-      template: `<div>
+    views: {
+      commentItem: {
+        template: "",
+      },
+      commentList: {
+        template: "",
+      },
+      jobItem: {
+        template: "",
+      },
+      jobList: {
+        template: "",
+      },
+      pollItem: {
+        template: "",
+      },
+      pollOptItem: {
+        template: "",
+      },
+      storyItem: {
+        template: "",
+      },
+      storyList: {
+        template: `<div>
   <img class="logo" src="{{assets.originalLogoUrl}}" />
   <div class="list-container">
     <ul>
@@ -132,18 +154,13 @@ a .vote-button, .voted {
     </ul>
   </div>
 </div>`,
-    },
-    item: {
-      template: "",
-    },
-    jobs: {
-      template: "",
-    },
-    submit: {
-      template: "",
-    },
-    user: {
-      template: "",
+      },
+      submit: {
+        template: "",
+      },
+      user: {
+        template: "",
+      },
     },
   },
 };

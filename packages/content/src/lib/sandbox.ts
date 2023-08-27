@@ -24,20 +24,17 @@ export function getTemplateContext<T>(
   };
 }
 
-export function handleSandboxLoad({ initialize }: { initialize: () => void }) {
-  return () => {
-    startContentListeners();
-    renderContent();
-    initialize();
-  };
+export function handleSandboxLoad() {
+  startContentListeners();
+  renderContent();
 }
 
 export async function renderContent() {
   const config = getConfig();
   const { view } = config;
   const pageData = getPageData(view);
-  console.log("pageData", pageData);
   const context = getTemplateContext(config, pageData);
+  console.log("context", context);
   const themeToApply = await getCurrentTheme(config);
   const options = await storageGetByKey("OPTIONS");
 

@@ -1,6 +1,8 @@
 import { pipe } from "@hnp/core";
 
-import { IParsable, Item, Jobs, List, Submit, User } from "..";
+import { CommentItem } from "./commentItem";
+import { StoryItem } from "./storyItem";
+import { IParsable, Item, List, Submit, User } from "..";
 import { TContentContext, TView } from "../app";
 
 export type TViewRoute = {
@@ -9,15 +11,25 @@ export type TViewRoute = {
 };
 
 export const viewRouteMap: Record<string, TView> = {
-  "/": "list",
-  "/ask": "list",
-  "/item": "item",
-  "/front": "list",
-  "/jobs": "jobs",
-  "/newcomments": "list",
-  "/newest": "list",
-  "/news": "list",
-  "/show": "list",
+  "/": "storyList",
+  "/active": "storyList",
+  "/ask": "storyList",
+  "/asknew": "storyList",
+  "/best": "storyList",
+  "/bestcomments": "commentList",
+  "/front": "storyList",
+  "/invited": "storyList",
+  "/jobs": "jobList",
+  "/launches": "storyList",
+  "/newcomments": "commentList",
+  "/newest": "storyList",
+  "/news": "storyList",
+  "/noobcomments": "commentList",
+  "/noobstories": "storyList",
+  "/past": "storyList",
+  "/pool": "storyList",
+  "/show": "storyList",
+  "/shownew": "storyList",
   "/submit": "submit",
   "/user": "user",
 };
@@ -28,7 +40,7 @@ class PageData<T> implements IParsable<T> {
   parse(document: Document): T & TContentContext {
     return {
       ...this.parser.parse(document),
-      user: {
+      currentUser: {
         isLoggedIn: !!document.querySelector(".pagetop a#me"),
         karma: pipe(
           document.querySelector(".pagetop #karma")?.textContent,
@@ -43,7 +55,7 @@ class PageData<T> implements IParsable<T> {
             .querySelector(".pagetop a[href^='logout']")
             ?.getAttribute("href") ?? "",
         name: document.querySelector(".pagetop a#me")?.textContent ?? "",
-        userUrl:
+        link:
           document.querySelector(".pagetop a#me")?.getAttribute("href") ?? "",
       },
     };
@@ -51,9 +63,14 @@ class PageData<T> implements IParsable<T> {
 }
 
 const parsers: Record<TView, IParsable<any>> = {
-  item: new Item(),
-  jobs: new Jobs(),
-  list: new List(),
+  commentItem: new CommentItem(),
+  commentList: new List(),
+  jobItem: new Item(),
+  jobList: new List(),
+  pollItem: new Item(),
+  pollOptItem: new Item(),
+  storyItem: new StoryItem(),
+  storyList: new List(),
   submit: new Submit(),
   user: new User(),
 };
@@ -76,7 +93,6 @@ export function getPageData<T extends TView>(view: T) {
 }
 
 export * from "./item";
-export * from "./jobs";
 export * from "./list";
 export * from "./submit";
 export * from "./user";

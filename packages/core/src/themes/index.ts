@@ -9,20 +9,37 @@ const helpTheme: TTheme = {
   inputs: {
     style: "",
     components: [],
-    item: {
-      template: "",
-    },
-    list: {
-      template: "",
-    },
-    jobs: {
-      template: "",
-    },
-    submit: {
-      template: "",
-    },
-    user: {
-      template: "",
+    views: {
+      commentItem: {
+        template: "",
+      },
+      commentList: {
+        template: "",
+      },
+      jobItem: {
+        template: "",
+      },
+      jobList: {
+        template: "",
+      },
+      pollItem: {
+        template: "",
+      },
+      pollOptItem: {
+        template: "",
+      },
+      storyItem: {
+        template: "",
+      },
+      storyList: {
+        template: "",
+      },
+      submit: {
+        template: "",
+      },
+      user: {
+        template: "",
+      },
     },
   },
   label: "Help",
@@ -98,7 +115,7 @@ export async function getCurrentTheme(config: TConfig) {
       if (customThemes && customThemes.length) {
         const customTheme = customThemes.find((t) => t.id === currentTheme?.id);
 
-        if (customTheme && customTheme.inputs[config.view].template) {
+        if (customTheme && customTheme.inputs.views[config.view].template) {
           returnTheme = customTheme;
         }
       }
@@ -108,7 +125,7 @@ export async function getCurrentTheme(config: TConfig) {
     case "premade": {
       const premadeTheme = premadeThemes.find((t) => t.id === currentTheme?.id);
 
-      if (premadeTheme && premadeTheme.inputs[config.view].template) {
+      if (premadeTheme && premadeTheme.inputs.views[config.view].template) {
         returnTheme = premadeTheme;
       }
       break;
@@ -126,12 +143,18 @@ export function parseThemeExport(json: any) {
     z.object({
       id: z.string(),
       inputs: z.object({
-        item: z.object({ template: z.string() }),
-        jobs: z.object({ template: z.string() }),
-        list: z.object({ template: z.string() }),
-        other: z.object({ template: z.string() }),
-        submit: z.object({ template: z.string() }),
-        user: z.object({ template: z.string() }),
+        views: z.object({
+          commentItem: z.object({ template: z.string() }),
+          commentList: z.object({ template: z.string() }),
+          jobItem: z.object({ template: z.string() }),
+          jobList: z.object({ template: z.string() }),
+          pollItem: z.object({ template: z.string() }),
+          pollOptItem: z.object({ template: z.string() }),
+          storyItem: z.object({ template: z.string() }),
+          storyList: z.object({ template: z.string() }),
+          submit: z.object({ template: z.string() }),
+          user: z.object({ template: z.string() }),
+        }),
         components: z.array(
           z.object({
             id: z.string(),

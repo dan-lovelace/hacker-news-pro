@@ -112,20 +112,37 @@ export default function HomePage() {
       inputs: {
         style: "",
         components: [],
-        item: {
-          template: "",
-        },
-        jobs: {
-          template: "",
-        },
-        list: {
-          template: "",
-        },
-        submit: {
-          template: "",
-        },
-        user: {
-          template: "",
+        views: {
+          commentItem: {
+            template: "",
+          },
+          commentList: {
+            template: "",
+          },
+          jobItem: {
+            template: "",
+          },
+          jobList: {
+            template: "",
+          },
+          pollItem: {
+            template: "",
+          },
+          pollOptItem: {
+            template: "",
+          },
+          storyItem: {
+            template: "",
+          },
+          storyList: {
+            template: "",
+          },
+          submit: {
+            template: "",
+          },
+          user: {
+            template: "",
+          },
         },
       },
       label: trimmed,

@@ -36,7 +36,7 @@ export default function ViewInput({ view, setModified }: ViewInputProps) {
         return notify("Error loading custom theme template");
       }
 
-      const currentValue = currentTheme.inputs[view];
+      const currentValue = currentTheme.inputs.views[view];
 
       setStoredValue(currentValue);
       setTemplateValues(currentValue);
@@ -65,7 +65,7 @@ export default function ViewInput({ view, setModified }: ViewInputProps) {
         return notify("Error loading custom theme template");
       }
 
-      const newValue = currentTheme.inputs[view];
+      const newValue = currentTheme.inputs.views[view];
 
       setStoredValue(newValue);
       setTemplateValues(newValue);
@@ -91,8 +91,8 @@ export default function ViewInput({ view, setModified }: ViewInputProps) {
     const { currentThemeIndex, customThemes } = await fetchThemeData();
 
     if (customThemes && currentThemeIndex > -1 && viewRef.current) {
-      customThemes[currentThemeIndex].inputs[viewRef.current] = {
-        ...customThemes[currentThemeIndex].inputs[viewRef.current],
+      customThemes[currentThemeIndex].inputs.views[viewRef.current] = {
+        ...customThemes[currentThemeIndex].inputs.views[viewRef.current],
         ...templateValuesRef.current,
       };
     }

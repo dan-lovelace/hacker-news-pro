@@ -10,13 +10,13 @@ export type TConfig = {
 };
 
 export type TContentContext = {
-  user: {
+  currentUser: {
     isLoggedIn: boolean;
     karma: number;
     loginUrl: string;
     logoutUrl: string;
     name: string;
-    userUrl: string;
+    link: string;
   };
 };
 
@@ -99,12 +99,23 @@ export type TThemeOptions = {
 
 export type TThemeType = "custom" | "premade";
 
-export type TThemeViewInputs = Record<TView, TViewInputValue> & {
+export type TThemeViewInputs = {
   components: TComponent[];
   style: string;
+  views: Record<TView, TViewInputValue>;
 };
 
-export type TView = "item" | "jobs" | "list" | "submit" | "user";
+export type TView =
+  | "commentItem"
+  | "commentList"
+  | "jobItem"
+  | "jobList"
+  | "pollItem"
+  | "pollOptItem"
+  | "storyItem"
+  | "storyList"
+  | "submit"
+  | "user";
 
 export type TViewInputValue = {
   template: string;

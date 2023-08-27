@@ -26,9 +26,16 @@ export type TComment = {
 export type TItem = TListItem & {
   bodyHTML?: string;
   comments: TComment[];
+  forms: {
+    comment: {
+      inputs: Record<string, string>;
+    };
+  };
+  type: "comment" | "job" | "poll" | "pollOpt" | "story";
 };
 
-const getRowId = (id: string) => `item_${id.replaceAll(/(#|item_)/g, "")}`;
+export const getRowId = (id: string) =>
+  `item_${id.replaceAll(/(#|item_)/g, "")}`;
 
 const getRowIndent = (row: Element) =>
   pipe(
@@ -66,11 +73,14 @@ function buildCommentTree(
 
 export class Item implements IParsable<TItem> {
   parse(document: Document): TItem {
+    // TODO: get type and parse accordingly
+
     const listItem = new List().parse(document).items[0];
+
+    // build comment tree
     const commentsTable = document.querySelector(".comment-tree");
     const commentRows = commentsTable?.querySelectorAll(".comtr") ?? [];
-    const results: [TComment["data"], number][] = [];
-
+    const commentsData: [TComment["data"], number][] = [];
     for (const row of commentRows) {
       const rowIndent = getRowIndent(row);
 
@@ -151,16 +161,43 @@ export class Item implements IParsable<TItem> {
         replyUrl,
       };
 
-      results.push([rowData, rowIndent]);
+      commentsData.push([rowData, rowIndent]);
     }
+    const comments = buildCommentTree(commentsData, 0, 0)[0];
 
-    const bodyHTML = document.querySelector(".toptext")?.innerHTML;
-    const comments = buildCommentTree(results, 0, 0)[0];
+    // forms
+    const commentForm = document.querySelector("form[action='comment']");
+    const commentParentInput =
+      commentForm?.querySelector("input[name='parent']")?.outerHTML ?? "";
+    const commentGotoInput =
+      commentForm?.querySelector("input[name='goto']")?.outerHTML ?? "";
+    const commentHmacInput =
+      commentForm?.querySelector("input[name='hmac']")?.outerHTML ?? "";
+
+    // other
+    // TODO: get type from content
+    const type =
+      document.querySelector(".fatitem .titleline") !== null
+        ? "story"
+        : "comment";
+    const bodyHTML = document.querySelector(
+      type === "story" ? ".toptext" : ".fatitem .comment",
+    )?.innerHTML;
 
     return {
       ...listItem,
       bodyHTML,
       comments,
+      forms: {
+        comment: {
+          inputs: {
+            parent: commentParentInput,
+            goto: commentGotoInput,
+            hmac: commentHmacInput,
+          },
+        },
+      },
+      type,
     };
   }
 }

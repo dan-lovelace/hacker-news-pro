@@ -2,13 +2,15 @@ import { SELECTORS, getNodeHTML, pipe } from "@hnp/core";
 
 import { IParsable } from "..";
 
-const voteDirections = ["down", "up", undefined] as const;
+export const voteDirections = ["down", "up", undefined] as const;
 
 export type TList = {
   items: TListItem[];
 
   /** URL to the next page */
   moreUrl?: string;
+
+  type: "comment" | "job" | "story";
 };
 
 export type TListItem = {
@@ -201,6 +203,29 @@ export class List implements IParsable<TList> {
       SELECTORS.HN.main()?.querySelector(".morelink")?.getAttribute("href") ??
       undefined;
 
-    return { items, moreUrl };
+    const routeListTypeMap: Record<string, TList["type"]> = {
+      "/": "story",
+      "/active": "story",
+      "/ask": "story",
+      "/asknew": "story",
+      "/best": "story",
+      "/bestcomments": "comment",
+      "/front": "story",
+      "/invited": "story",
+      "/jobs": "job",
+      "/launches": "story",
+      "/newcomments": "comment",
+      "/newest": "story",
+      "/news": "story",
+      "/noobcomments": "comment",
+      "/noobstories": "story",
+      "/past": "story",
+      "/pool": "story",
+      "/show": "story",
+      "/shownew": "story",
+    };
+    const type = routeListTypeMap[window.location.pathname];
+
+    return { items, moreUrl, type };
   }
 }
