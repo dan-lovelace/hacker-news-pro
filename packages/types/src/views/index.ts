@@ -2,6 +2,7 @@ import { pipe } from "@hnp/core";
 
 import { CommentItem } from "./commentItem";
 import { StoryItem } from "./storyItem";
+import { StoryList } from "./storyList";
 import { IParsable, Item, List, Submit, User } from "..";
 import { TContentContext, TView } from "../app";
 
@@ -70,7 +71,7 @@ const parsers: Record<TView, IParsable<any>> = {
   pollItem: new Item(),
   pollOptItem: new Item(),
   storyItem: new StoryItem(),
-  storyList: new List(),
+  storyList: new StoryList(),
   submit: new Submit(),
   user: new User(),
 };

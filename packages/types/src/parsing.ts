@@ -1,6 +1,7 @@
 import { getNodeHTML, pipe } from "@hnp/core";
 
 import { TComment, TVoteDirection, voteDirections } from ".";
+import { TStoryListItem } from "./views/storyList";
 
 const getRowId = (id: string) => `item_${id.replaceAll(/(#|item_)/g, "")}`;
 
@@ -42,20 +43,21 @@ export const SELECTORS = {
   commentTree: (within: Document | Element | null) =>
     within?.querySelector(".comment-tree"),
   links: {
-    context: (within: Element | null) =>
+    context: (within?: Element | null) =>
       within?.querySelector("a[href^='context']"),
-    favorite: (within: Element | null) =>
+    favorite: (within?: Element | null) =>
       within?.querySelector("a[href^='fave']"),
-    flag: (within: Element | null) => within?.querySelector("a[href^='flag']"),
-    from: (within: Element | null) => within?.querySelector(".sitebit a"),
-    parent: (within: Element | null) =>
+    flag: (within?: Element | null) => within?.querySelector("a[href^='flag']"),
+    from: (within?: Element | null) => within?.querySelector(".sitebit a"),
+    item: (within?: Element | null) => within?.querySelector("a[href^='item']"),
+    parent: (within?: Element | null) =>
       within?.querySelector("a[href^='item']"),
-    past: (within: Element | null) => within?.querySelector(".hnpast"),
-    story: (within: Element | null) =>
+    past: (within?: Element | null) => within?.querySelector(".hnpast"),
+    story: (within?: Element | null) =>
       within?.querySelector(".onstory a[href^='item']"),
-    vote: (within: Element | null) => within?.querySelector(".votelinks"),
+    vote: (within?: Element | null) => within?.querySelector(".votelinks"),
   },
-  score: (within: Element | null) => within?.querySelector("[id^='score_']"),
+  score: (within?: Element | null) => within?.querySelector("[id^='score_']"),
 };
 
 export function getBodyHTML(parent?: Element | null) {
@@ -182,6 +184,79 @@ export function getScore(parent?: Element | null) {
     ),
     (scoreInt: number) => (isNaN(scoreInt) ? undefined : scoreInt),
   );
+}
+
+export function getStoryListItem(parent?: Element | null): TStoryListItem {
+  if (!parent) throw new Error("Error getting story list item");
+
+  const metadataElement = parent.nextElementSibling?.querySelector(".subtext");
+
+  // children
+  const commentsCount = getCommentsCount(metadataElement) ?? 0;
+  const createdAt =
+    metadataElement?.querySelector(".age")?.getAttribute("title") ?? "";
+  const createdHumanized =
+    metadataElement?.querySelector(".age a")?.textContent ?? "";
+  const id = parent?.getAttribute("id") ?? "";
+  const links: TStoryListItem["links"] = {
+    favorite:
+      SELECTORS.links.favorite(metadataElement)?.getAttribute("href") ??
+      undefined,
+    flag:
+      SELECTORS.links.flag(metadataElement)?.getAttribute("href") ?? undefined,
+    from: SELECTORS.links.from(parent)?.getAttribute("href") ?? undefined,
+    item:
+      SELECTORS.links.item(metadataElement)?.getAttribute("href") ?? undefined,
+    past:
+      SELECTORS.links.past(metadataElement)?.getAttribute("href") ?? undefined,
+  };
+  const score = getScore(metadataElement);
+  const siteName = parent?.querySelector(".titleline .sitebit a")?.textContent;
+  const siteUrl = parent?.querySelector(".titleline a")?.getAttribute("href");
+  const site =
+    siteName && siteUrl
+      ? {
+          name: siteName,
+          url: siteUrl,
+        }
+      : undefined;
+  const title = parent?.querySelector(".titleline a")?.textContent ?? "";
+  const userId = metadataElement?.querySelector(".hnuser")?.textContent;
+  const userLink = metadataElement
+    ?.querySelector(".hnuser")
+    ?.getAttribute("href");
+  const user =
+    userId && userLink
+      ? {
+          id: userId,
+          link: userLink,
+        }
+      : undefined;
+
+  // interactions
+  const hide = pipe(
+    metadataElement?.querySelector("a[href^='hide']")?.cloneNode(),
+    (node?: Node) => getNodeHTML(node),
+  );
+  const { voted, voteDown, voteUp } = getVoteInteractions(parent);
+
+  return {
+    commentsCount,
+    createdAt,
+    createdHumanized,
+    id,
+    interactions: {
+      hide,
+      voteDown,
+      voteUp,
+    },
+    links,
+    score,
+    site,
+    title,
+    user,
+    voted,
+  };
 }
 
 export function getVoteInteractions(parent?: Element | null) {
