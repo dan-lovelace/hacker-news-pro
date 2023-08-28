@@ -303,19 +303,6 @@ export default function HomePage() {
                     >
                       Create
                     </Button>
-                    <Button
-                      component="label"
-                      startIcon={<FileUploadIcon />}
-                      variant="outlined"
-                    >
-                      Import
-                      <input
-                        accept=".hnp"
-                        type="file"
-                        hidden
-                        onChange={handleImport}
-                      />
-                    </Button>
                     <Button onClick={handleEndCreate}>Cancel</Button>
                   </Stack>
                 </form>
@@ -327,6 +314,19 @@ export default function HomePage() {
                     onClick={handleCreateClick}
                   >
                     New theme
+                  </Button>
+                  <Button
+                    component="label"
+                    startIcon={<FileUploadIcon />}
+                    variant="outlined"
+                  >
+                    Import
+                    <input
+                      accept=".hnp"
+                      type="file"
+                      hidden
+                      onChange={handleImport}
+                    />
                   </Button>
                 </Stack>
               )}
