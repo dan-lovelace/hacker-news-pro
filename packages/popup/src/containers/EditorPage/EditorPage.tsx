@@ -110,7 +110,7 @@ export default function EditorPage() {
   return (
     <>
       {initialized && (
-        <Stack className="editor-page" sx={{ height: "100%" }}>
+        <Stack className="editor-page" sx={{ flex: "1 1 auto" }}>
           <Box sx={{ flex: "1 1 auto" }}>
             <Stack direction="row" spacing={1}>
               <BackButton />

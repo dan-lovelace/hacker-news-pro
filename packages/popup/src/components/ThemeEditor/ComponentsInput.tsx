@@ -359,7 +359,7 @@ export default function ComponentsInput() {
         sx={{ height: "100%" }}
       >
         <Box>
-          <List sx={{ width: LEFT_COLUMN_WIDTH }}>
+          <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
             {componentsValue?.map(({ label, id, template }) => {
               const selected = selectedComponent?.id === id;
               const modified =

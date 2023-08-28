@@ -156,7 +156,7 @@ export default function ViewInput() {
           sx={{ height: "100%" }}
         >
           <Box>
-            <List sx={{ width: LEFT_COLUMN_WIDTH }}>
+            <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
               {viewOptions.map(({ label, options }) => (
                 <Stack key={label}>
                   <Typography variant="caption">{label}</Typography>
