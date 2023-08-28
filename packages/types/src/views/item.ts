@@ -5,7 +5,7 @@ import { IParsable, List, TListItem } from "..";
 export type TComment = {
   data: {
     author: string;
-    bodyHTML: string;
+    bodyHTML?: string;
     createdHumanized: string;
     id: string;
     interactions: {

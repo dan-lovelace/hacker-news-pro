@@ -10,7 +10,7 @@ import {
 } from "../parsing";
 
 export type TStoryItem = TStoryListItem & {
-  bodyHTML: string;
+  bodyHTML?: string;
   comments: TComment[];
   forms: {
     comment: {

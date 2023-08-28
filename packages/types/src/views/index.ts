@@ -1,9 +1,12 @@
 import { pipe } from "@hnp/core";
 
 import { CommentItem } from "./commentItem";
+import { CommentList } from "./commentList";
+import { JobItem } from "./jobItem";
+import { JobList } from "./jobList";
 import { StoryItem } from "./storyItem";
 import { StoryList } from "./storyList";
-import { IParsable, Item, List, Submit, User } from "..";
+import { IParsable, Item, Submit, User } from "..";
 import { TContentContext, TView } from "../app";
 
 export type TViewRoute = {
@@ -65,9 +68,9 @@ class PageData<T> implements IParsable<T> {
 
 const parsers: Record<TView, IParsable<any>> = {
   commentItem: new CommentItem(),
-  commentList: new List(),
-  jobItem: new Item(),
-  jobList: new List(),
+  commentList: new CommentList(),
+  jobItem: new JobItem(),
+  jobList: new JobList(),
   pollItem: new Item(),
   pollOptItem: new Item(),
   storyItem: new StoryItem(),

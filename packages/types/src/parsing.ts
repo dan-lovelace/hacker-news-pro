@@ -1,6 +1,8 @@
 import { getNodeHTML, pipe } from "@hnp/core";
 
 import { TComment, TVoteDirection, voteDirections } from ".";
+import { TCommentListItem } from "./views/commentList";
+import { TJobListItem } from "./views/jobList";
 import { TStoryListItem } from "./views/storyList";
 
 const getRowId = (id: string) => `item_${id.replaceAll(/(#|item_)/g, "")}`;
@@ -49,7 +51,10 @@ export const SELECTORS = {
       within?.querySelector("a[href^='fave']"),
     flag: (within?: Element | null) => within?.querySelector("a[href^='flag']"),
     from: (within?: Element | null) => within?.querySelector(".sitebit a"),
+    hide: (within?: Element | null) => within?.querySelector("a[href^='hide']"),
     item: (within?: Element | null) => within?.querySelector("a[href^='item']"),
+    next: (within?: Element | null) =>
+      within?.querySelector("a[href*='?next=']"),
     parent: (within?: Element | null) =>
       within?.querySelector("a[href^='item']"),
     past: (within?: Element | null) => within?.querySelector(".hnpast"),
@@ -60,11 +65,19 @@ export const SELECTORS = {
   score: (within?: Element | null) => within?.querySelector("[id^='score_']"),
 };
 
+export function getAge(parent?: Element | null) {
+  const ageElement = parent?.querySelector(".age");
+  const humanized = ageElement?.textContent ?? undefined;
+  const timestamp = ageElement?.getAttribute("title") ?? undefined;
+
+  return { humanized, timestamp };
+}
+
 export function getBodyHTML(parent?: Element | null) {
-  if (!parent) return "";
+  if (!parent) return undefined;
 
   return pipe(parent?.innerHTML, (html: string | undefined) => {
-    if (!html) return "";
+    if (!html) return undefined;
 
     /**
      * The reply link is inconsistently placed in the tree depending on
@@ -80,6 +93,56 @@ export function getBodyHTML(parent?: Element | null) {
 
     return div.innerHTML;
   });
+}
+
+export function getCommentListItem(parent?: Element | null): TCommentListItem {
+  if (!parent) throw new Error("Error getting comment list item");
+
+  // parents
+  const commentHeadElement = parent.querySelector(".comhead");
+  const linksElement = parent.querySelector(".navs");
+
+  // children
+  const age = getAge(commentHeadElement);
+  const bodyHTML = getBodyHTML(parent.querySelector(".comment"));
+  const id = parent.getAttribute("id") ?? "";
+  const links: TCommentListItem["links"] = {
+    context:
+      SELECTORS.links.context(linksElement)?.getAttribute("href") ?? undefined,
+    favorite:
+      SELECTORS.links.favorite(linksElement)?.getAttribute("href") ?? undefined,
+    flag: SELECTORS.links.flag(linksElement)?.getAttribute("href") ?? undefined,
+    next: SELECTORS.links.next(linksElement)?.getAttribute("href") ?? undefined,
+    parent:
+      SELECTORS.links.parent(linksElement)?.getAttribute("href") ?? undefined,
+    story:
+      SELECTORS.links.story(linksElement)?.getAttribute("href") ?? undefined,
+  };
+  const story = {
+    title: linksElement?.querySelector(".onstory a")?.textContent ?? "",
+  };
+  const user = {
+    id: commentHeadElement?.querySelector(".hnuser")?.textContent ?? "",
+    link:
+      commentHeadElement?.querySelector(".hnuser")?.getAttribute("href") ?? "",
+  };
+
+  // interactions
+  const { voted, voteDown, voteUp } = getVoteInteractions(parent);
+
+  return {
+    age,
+    bodyHTML,
+    id,
+    interactions: {
+      voteDown,
+      voteUp,
+    },
+    links,
+    story,
+    user,
+    voted,
+  };
 }
 
 export function getComments(parent?: Element | null) {
@@ -175,6 +238,24 @@ export function getCommentsCount(parent?: Element | null) {
   );
 }
 
+export function getJobListItem(parent?: Element | null): TJobListItem {
+  if (!parent) throw new Error("Error getting job list item");
+
+  const metadataElement = parent.nextElementSibling?.querySelector(".subtext");
+
+  // children
+  const age = getAge(metadataElement);
+  const links: TJobListItem["links"] = {
+    hide:
+      SELECTORS.links.hide(metadataElement)?.getAttribute("href") ?? undefined,
+    item:
+      SELECTORS.links.item(metadataElement)?.getAttribute("href") ?? undefined,
+  };
+  const title = parent?.querySelector(".titleline a")?.textContent ?? undefined;
+
+  return { age, links, title };
+}
+
 export function getScore(parent?: Element | null) {
   return pipe(
     parseInt(
@@ -260,8 +341,6 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
 }
 
 export function getVoteInteractions(parent?: Element | null) {
-  if (!parent) return {};
-
   const voteLinks = SELECTORS.links.vote(parent);
 
   return {

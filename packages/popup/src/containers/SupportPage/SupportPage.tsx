@@ -52,7 +52,7 @@ export default function SupportPage() {
               alt="Buy Me A Coffee"
               style={{
                 aspectRatio: "1 / .276",
-                height: "36.5px",
+                height: "46px",
               }}
             />
           </a>
