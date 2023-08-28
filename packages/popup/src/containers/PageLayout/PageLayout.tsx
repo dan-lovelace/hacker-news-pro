@@ -27,6 +27,17 @@ export default function PageLayout({ children }: { children: ReactNode }) {
       createTheme({
         palette: {
           mode: prefersDarkMode ? "dark" : "light",
+          ...(prefersDarkMode
+            ? {
+                primary: {
+                  main: "#A8DADC",
+                },
+              }
+            : {
+                primary: {
+                  main: "#457B9D",
+                },
+              }),
         },
         components: themeComponents,
       }),

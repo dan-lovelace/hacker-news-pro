@@ -1,9 +1,12 @@
 import { ReactNode } from "react";
 
+import { browser } from "@hnp/core";
 import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 
 import BackButton from "../../components/BackButton/BackButton";
 import { PAGE_CONTENT_WIDTH } from "../../lib/vars";
+
+const bmacSrc = browser.runtime.getURL("img/bmac.png");
 
 function Section({
   children,
@@ -13,9 +16,9 @@ function Section({
   heading: string;
 }) {
   return (
-    <Box sx={{ ":not(:last-child)": { mb: 2 } }}>
+    <Box>
       <Typography variant="body1">{heading}</Typography>
-      <Box sx={{ mt: 1 }}>{children}</Box>
+      <Box sx={{ mt: 0.5 }}>{children}</Box>
     </Box>
   );
 }
@@ -61,11 +64,11 @@ export default function SupportPage() {
         <Section heading="If you're finding the extension helpful and considering a monetary contribution, the easiest way is through Buy Me a Coffee.">
           <a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
             <img
-              src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+              src={bmacSrc}
               alt="Buy Me A Coffee"
               style={{
                 aspectRatio: "1 / .276",
-                height: "46px",
+                height: "40px",
               }}
             />
           </a>
