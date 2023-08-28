@@ -7,12 +7,7 @@ function getView(): TView {
   if (window.location.pathname === "/item") {
     /**
      * For item routes, we need to parse the document to make a determination
-     * of item type. This kind of thing is easier if we were to use the public
-     * HN API but the choice was made to use page contents directly for sake of
-     * speed and accuracy. API calls are inherently slower and may not return
-     * the same information as shown on the rendered document. It would be a
-     * poor user experience if they toggled the theme on/off and were presented
-     * different data.
+     * of item type.
      */
 
     /**

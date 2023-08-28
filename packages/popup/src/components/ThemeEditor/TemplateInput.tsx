@@ -1,167 +1,124 @@
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TView } from "@hnp/types";
-import {
-  Box,
-  List,
-  ListItemButton,
-  ListItemButtonProps,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { fetchThemeData, storageSetByKeys } from "@hnp/core";
+import { TView, TViewInputValue } from "@hnp/types";
+import { Button } from "@mui/material";
 
-import { LEFT_COLUMN_WIDTH } from ".";
-import ModifiedIndicator from "./ModifiedIndicator";
-import ViewInput from "./ViewInput";
+import { getSaveShortcut, saveListener } from ".";
+import { useToastContext } from "../../contexts/toast";
+import CodeEditor from "../CodeEditor";
 
-const viewOptions: { label: string; routes: string[]; value: TView }[] = [
-  {
-    label: "Comment Item",
-    routes: [],
-    value: "commentItem",
-  },
-  {
-    label: "Comment List",
-    routes: [],
-    value: "commentList",
-  },
-  {
-    label: "Job Item",
-    routes: [],
-    value: "jobItem",
-  },
-  {
-    label: "Job List",
-    routes: [],
-    value: "jobList",
-  },
-  {
-    label: "Poll Item",
-    routes: [],
-    value: "pollItem",
-  },
-  {
-    label: "Poll Option Item",
-    routes: [],
-    value: "pollOptItem",
-  },
-  {
-    label: "Story Item",
-    routes: [],
-    value: "storyItem",
-  },
-  {
-    label: "Story List",
-    routes: [],
-    value: "storyList",
-  },
-  {
-    label: "Submit",
-    routes: [],
-    value: "submit",
-  },
-  {
-    label: "User",
-    routes: [],
-    value: "user",
-  },
-];
+type TemplateInputProps = {
+  view: TView;
+  setModified: React.Dispatch<React.SetStateAction<TView | undefined>>;
+};
 
-const ViewItem = forwardRef<
-  HTMLDivElement,
-  ListItemButtonProps & {
-    modified: boolean;
-    routes: string[];
-  }
->(({ modified, routes, ...props }, ref) => {
-  const routesString = routes.join(", ");
-
-  return (
-    <Box sx={{ position: "relative", whiteSpace: "nowrap" }}>
-      <ListItemButton ref={ref} {...props}>
-        <Stack
-          title={`Route${routes.length > 1 ? "s" : ""}: ${routesString}`}
-          sx={{ overflow: "hidden" }}
-        >
-          <Box>{props.children}</Box>
-          <Typography
-            variant="subtitle2"
-            sx={{
-              color: "text.secondary",
-              fontSize: "0.75rem",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {routesString}
-          </Typography>
-        </Stack>
-      </ListItemButton>
-      <ModifiedIndicator modified={modified} sx={{ right: "1rem" }} />
-    </Box>
-  );
-});
-
-export function TemplateInput() {
+export default function TemplateInput({
+  view,
+  setModified,
+}: TemplateInputProps) {
   const [initialized, setInitialized] = useState<boolean>(false);
-  const [modified, setModified] = useState<TView>();
-  const [viewValue, setViewValue] = useState<TView>("storyList");
+  const [storedValue, setStoredValue] = useState<TViewInputValue>();
+  const [templateValues, setTemplateValues] = useState<TViewInputValue>({
+    template: "",
+  });
+  const { notify } = useToastContext();
+  const saveShortcut = getSaveShortcut();
+
+  // state references to use when handling save by keyboard shortcut
+  const templateValuesRef = useRef<TViewInputValue>();
+  templateValuesRef.current = templateValues;
+  const viewRef = useRef<TView>();
+  viewRef.current = view;
 
   useEffect(() => {
     async function init() {
-      const view = await storageGetByKey("SELECTED_VIEW");
+      const { currentTheme } = await fetchThemeData();
 
-      if (view) {
-        setViewValue(view);
+      if (!currentTheme) {
+        return notify("Error loading custom theme template");
       }
 
+      const currentValue = currentTheme.inputs.views[view];
+
+      setStoredValue(currentValue);
+      setTemplateValues(currentValue);
       setInitialized(true);
     }
 
     init();
+
+    // configure save hotkey
+    const keyDownListener = (event: KeyboardEvent) => {
+      saveListener(event, handleSave);
+    };
+
+    document.addEventListener("keydown", keyDownListener);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownListener);
+    };
   }, []);
 
-  const handleViewChange = (view: TView) => () => {
+  useEffect(() => {
+    async function handleViewChange() {
+      const { currentTheme } = await fetchThemeData();
+
+      if (!currentTheme) {
+        return notify("Error loading custom theme template");
+      }
+
+      const newValue = currentTheme.inputs.views[view];
+
+      setStoredValue(newValue);
+      setTemplateValues(newValue);
+    }
+
+    handleViewChange();
+  }, [view]);
+
+  const handleTemplateChange = (newValue: string) => {
+    const newValues = { ...templateValues };
+    newValues.template = newValue;
+
+    if (storedValue?.template !== newValue) {
+      setModified(view);
+    } else {
+      setModified(undefined);
+    }
+
+    setTemplateValues(newValues);
+  };
+
+  const handleSave = async () => {
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
+
+    if (customThemes && currentThemeIndex > -1 && viewRef.current) {
+      customThemes[currentThemeIndex].inputs.views[viewRef.current] = {
+        ...customThemes[currentThemeIndex].inputs.views[viewRef.current],
+        ...templateValuesRef.current,
+      };
+    }
+
     setModified(undefined);
-    setViewValue(view);
-    storageSetByKeys({ SELECTED_VIEW: view });
+    setStoredValue(templateValuesRef.current);
+    storageSetByKeys({ CUSTOM_THEMES: customThemes });
   };
 
   return (
     <>
       {initialized && (
-        <Stack
-          className="template-input"
-          direction="row"
-          spacing={1}
-          sx={{ height: "100%" }}
-        >
-          <Box>
-            <List sx={{ width: LEFT_COLUMN_WIDTH }}>
-              {viewOptions.map(({ label, routes, value }) => (
-                <ViewItem
-                  key={value}
-                  modified={modified === value}
-                  routes={routes}
-                  selected={viewValue === value}
-                  onClick={handleViewChange(value)}
-                >
-                  {label}
-                </ViewItem>
-              ))}
-            </List>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              flex: "1 1 auto",
-            }}
-          >
-            <ViewInput view={viewValue} setModified={setModified} />
-          </Box>
-        </Stack>
+        <>
+          <CodeEditor
+            language="handlebars"
+            value={templateValues.template}
+            handleChange={handleTemplateChange}
+            handleSave={handleSave}
+          />
+          <Button variant="contained" fullWidth onClick={handleSave}>
+            Save ({saveShortcut})
+          </Button>
+        </>
       )}
     </>
   );

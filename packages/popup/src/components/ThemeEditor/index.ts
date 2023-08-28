@@ -17,6 +17,6 @@ export function saveListener(event: KeyboardEvent, handleSave: () => void) {
   }
 }
 
-export * from "./ComponentsInput";
-export * from "./StyleInput";
-export * from "./TemplateInput";
+export { default as ComponentsInput } from "./ComponentsInput";
+export { default as StyleInput } from "./StyleInput";
+export { default as ViewInput } from "./ViewInput";

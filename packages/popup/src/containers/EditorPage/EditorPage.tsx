@@ -9,7 +9,7 @@ import BackButton from "../../components/BackButton/BackButton";
 import {
   ComponentsInput,
   StyleInput,
-  TemplateInput,
+  ViewInput,
 } from "../../components/ThemeEditor";
 import { useToastContext } from "../../contexts/toast";
 
@@ -147,7 +147,7 @@ export default function EditorPage() {
           <Box
             sx={{ display: "flex", flexDirection: "column", height: "100%" }}
           >
-            {activeTab === 0 && <TemplateInput />}
+            {activeTab === 0 && <ViewInput />}
             {activeTab === 1 && <ComponentsInput />}
             {activeTab === 2 && <StyleInput />}
           </Box>

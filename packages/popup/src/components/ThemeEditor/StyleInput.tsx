@@ -7,7 +7,7 @@ import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
-export function StyleInput() {
+export default function StyleInput() {
   const [styleValue, setStyleValue] = useState("");
   const [initialized, setInitialized] = useState(false);
   const { notify } = useToastContext();

@@ -39,7 +39,7 @@ import ModifiedIndicator from "./ModifiedIndicator";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
-export function ComponentsInput() {
+export default function ComponentsInput() {
   const [componentsValue, setComponentsValue] = useState<TComponent[]>();
   const [editComponent, setEditComponent] = useState<TComponent>();
   const [isCreating, setIsCreating] = useState(false);
@@ -265,18 +265,19 @@ export function ComponentsInput() {
       }
     }
 
-    setComponentsValue(newComponentsValue);
+    const sortedComponents = newComponentsValue.sort((a, b) =>
+      a.label.localeCompare(b.label),
+    );
 
     const { currentThemeIndex, customThemes } = await fetchThemeData();
-
     if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.components = newComponentsValue;
+      customThemes[currentThemeIndex].inputs.components = sortedComponents;
     }
 
+    setComponentsValue(sortedComponents);
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
     });
-
     handleModalClose();
   };
 
@@ -520,7 +521,7 @@ export function ComponentsInput() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Tooltip title="Must follow snake case convention">
+                    <Tooltip title="Requires snake_case convention">
                       <InfoIcon />
                     </Tooltip>
                   </InputAdornment>
