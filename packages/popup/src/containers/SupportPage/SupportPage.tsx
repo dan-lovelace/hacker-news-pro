@@ -38,7 +38,12 @@ export default function SupportPage() {
             href="https://github.com/dan-lovelace/hacker-news-pro/issues/new"
             target="_blank"
           >
-            <Button variant="outlined">Create new GitHub issue</Button>
+            <Button variant="outlined">Create GitHub issue</Button>
+          </a>
+        </Section>
+        <Section heading="Need instant help or want to chat with the community? Join us on Discord for quick assistance and friendly discussions.">
+          <a href="https://discord.gg/4RaYMCJQWV" target="_blank">
+            <Button variant="outlined">Join Discord</Button>
           </a>
         </Section>
       </Stack>
