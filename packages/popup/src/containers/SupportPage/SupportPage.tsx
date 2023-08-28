@@ -31,7 +31,7 @@ export default function SupportPage() {
         <BackButton />
         <Typography variant="h6">Support</Typography>
       </Stack>
-      <Box>
+      <Stack spacing={1}>
         <Typography variant="caption">Contact</Typography>
         <Section heading="Need help or have a suggestion? Drop us a line by opening a GitHub issue. We're here to listen and make things better!">
           <a
@@ -41,10 +41,18 @@ export default function SupportPage() {
             <Button variant="outlined">Create new GitHub issue</Button>
           </a>
         </Section>
-      </Box>
+      </Stack>
       <Divider />
-      <Box>
+      <Stack spacing={1}>
         <Typography variant="caption">Contributing</Typography>
+        <Section heading="If coding's your forte, your contributions are more than welcome. Get involved by diving into the codebase.">
+          <a
+            href="https://github.com/dan-lovelace/hacker-news-pro"
+            target="_blank"
+          >
+            <Button variant="outlined">Start collaborating</Button>
+          </a>
+        </Section>
         <Section heading="If you're finding the extension helpful and considering a monetary contribution, the easiest way is through Buy Me a Coffee.">
           <a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
             <img
@@ -57,15 +65,7 @@ export default function SupportPage() {
             />
           </a>
         </Section>
-        <Section heading="If coding's your forte, your contributions are more than welcome. Get involved by diving into the codebase.">
-          <a
-            href="https://github.com/dan-lovelace/hacker-news-pro"
-            target="_blank"
-          >
-            <Button variant="outlined">Start collaborating</Button>
-          </a>
-        </Section>
-      </Box>
+      </Stack>
     </Stack>
   );
 }
