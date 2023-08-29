@@ -12,7 +12,7 @@ import App from "./App";
 import { getConfig } from "./lib/config";
 import { initializeWebComponents } from "./web-components";
 
-import "./main.scss";
+import "./style/main.scss";
 
 if (process.env.NODE_ENV === "development") {
   const ws = new WebSocket(`ws://localhost:9012`);
