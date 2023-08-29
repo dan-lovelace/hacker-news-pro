@@ -6,10 +6,10 @@ const outDir = path.join(__dirname, "..", "..", "dist");
 
 export default defineConfig(({ mode }) => ({
   build: {
+    minify: mode === "production",
     outDir,
     rollupOptions: {
       input: "sandbox.html",
-      minify: mode === "production",
     },
   },
 }));

@@ -17,11 +17,11 @@ export default defineConfig(({ mode }) => ({
     drop: mode === "production" ? ["console"] : [],
   },
   build: {
+    minify: mode === "production",
     outDir,
     rollupOptions: {
       input: "src/main.tsx",
       output: {
-        compact: mode === "production",
         entryFileNames: "content.js",
         chunkFileNames: "[name].js",
         assetFileNames: "[name].[ext]",
