@@ -14,7 +14,9 @@ export type TStoryItem = TStoryListItem & {
   comments: TComment[];
   forms: {
     comment: {
-      inputs: Record<string, string>;
+      action: string;
+      hiddenInputs: string;
+      method: string;
     };
   };
 };
@@ -28,12 +30,13 @@ export class StoryItem implements IParsable<TStoryItem> {
     const comments = getComments(SELECTORS.commentTree(document));
 
     const commentForm = document?.querySelector("form[action='comment']");
-    const commentInputs = {
-      hmac: commentForm?.querySelector("input[name='hmac']")?.outerHTML ?? "",
-      goto: commentForm?.querySelector("input[name='goto']")?.outerHTML ?? "",
-      parent:
-        commentForm?.querySelector("input[name='parent']")?.outerHTML ?? "",
-    };
+    const action = commentForm?.getAttribute("action") ?? "";
+    const hiddenInputs = [
+      commentForm?.querySelector("input[name='hmac']")?.outerHTML ?? "",
+      commentForm?.querySelector("input[name='goto']")?.outerHTML ?? "",
+      commentForm?.querySelector("input[name='parent']")?.outerHTML ?? "",
+    ].join("\n");
+    const method = commentForm?.getAttribute("method") ?? "";
 
     return {
       ...storyListItem,
@@ -41,7 +44,9 @@ export class StoryItem implements IParsable<TStoryItem> {
       comments,
       forms: {
         comment: {
-          inputs: commentInputs,
+          action,
+          hiddenInputs,
+          method,
         },
       },
     };

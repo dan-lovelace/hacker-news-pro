@@ -43,25 +43,35 @@ class PageData<T> implements IParsable<T> {
   constructor(private parser: IParsable<T & TContentContext>) {}
 
   parse(document: Document): T & TContentContext {
+    const loginExists = !!(
+      document.querySelector(".pagetop a#me") ||
+      document.querySelector(".pagetop a[href^='login']")
+    );
+
     return {
       ...this.parser.parse(document),
       currentUser: {
-        isLoggedIn: !!document.querySelector(".pagetop a#me"),
+        isLoggedIn: loginExists
+          ? !!document.querySelector(".pagetop a#me")
+          : undefined,
         karma: pipe(
-          document.querySelector(".pagetop #karma")?.textContent,
-          (text) => parseInt(text),
+          parseInt(
+            document.querySelector(".pagetop #karma")?.textContent ?? "",
+          ),
+          (karmaInt: number) => (isNaN(karmaInt) ? undefined : karmaInt),
         ),
         loginUrl:
           document
             .querySelector(".pagetop a[href^='login']")
-            ?.getAttribute("href") ?? "",
+            ?.getAttribute("href") ?? undefined,
         logoutUrl:
           document
             .querySelector(".pagetop a[href^='logout']")
-            ?.getAttribute("href") ?? "",
-        name: document.querySelector(".pagetop a#me")?.textContent ?? "",
+            ?.getAttribute("href") ?? undefined,
+        name: document.querySelector(".pagetop a#me")?.textContent ?? undefined,
         link:
-          document.querySelector(".pagetop a#me")?.getAttribute("href") ?? "",
+          document.querySelector(".pagetop a#me")?.getAttribute("href") ??
+          undefined,
       },
     };
   }

@@ -11,12 +11,12 @@ export type TConfig = {
 
 export type TContentContext = {
   currentUser: {
-    isLoggedIn: boolean;
-    karma: number;
-    loginUrl: string;
-    logoutUrl: string;
-    name: string;
-    link: string;
+    isLoggedIn?: boolean;
+    karma?: number;
+    loginUrl?: string;
+    logoutUrl?: string;
+    name?: string;
+    link?: string;
   };
 };
 
