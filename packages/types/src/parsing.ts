@@ -3,6 +3,7 @@ import { getNodeHTML, pipe } from "@hnp/core";
 import { TComment, TVoteDirection, voteDirections } from ".";
 import { TCommentListItem } from "./views/commentList";
 import { TJobListItem } from "./views/jobList";
+import { TPollOptionItem } from "./views/pollItem";
 import { TStoryListItem } from "./views/storyList";
 
 const getRowId = (id: string) => `item_${id.replaceAll(/(#|item_)/g, "")}`;
@@ -254,6 +255,30 @@ export function getJobListItem(parent?: Element | null): TJobListItem {
   const title = parent?.querySelector(".titleline a")?.textContent ?? undefined;
 
   return { age, links, title };
+}
+
+export function getPollOptionItem(parent?: Element | null): TPollOptionItem {
+  if (!parent) throw new Error("Error getting poll option item");
+
+  const metadataElement = parent.nextElementSibling?.querySelector(".comhead");
+
+  const id = parent.getAttribute("id") ?? "";
+  const score = getScore(metadataElement);
+  const title = parent.querySelector(".comment")?.textContent ?? "";
+
+  // interactions
+  const { voted, voteDown, voteUp } = getVoteInteractions(parent);
+
+  return {
+    id,
+    interactions: {
+      voteDown,
+      voteUp,
+    },
+    score,
+    title,
+    voted,
+  };
 }
 
 export function getScore(parent?: Element | null) {

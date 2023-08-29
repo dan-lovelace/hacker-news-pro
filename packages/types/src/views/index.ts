@@ -4,6 +4,7 @@ import { CommentItem } from "./commentItem";
 import { CommentList } from "./commentList";
 import { JobItem } from "./jobItem";
 import { JobList } from "./jobList";
+import { PollItem } from "./pollItem";
 import { StoryItem } from "./storyItem";
 import { StoryList } from "./storyList";
 import { IParsable, Item, Submit, User } from "..";
@@ -71,7 +72,7 @@ const parsers: Record<TView, IParsable<any>> = {
   commentList: new CommentList(),
   jobItem: new JobItem(),
   jobList: new JobList(),
-  pollItem: new Item(),
+  pollItem: new PollItem(),
   pollOptItem: new Item(),
   storyItem: new StoryItem(),
   storyList: new StoryList(),
