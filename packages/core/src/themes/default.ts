@@ -9,7 +9,11 @@ const theme: TTheme = {
   label: "Hacker News Pro Default",
   type: "premade",
   inputs: {
-    style: `body {
+    style: {
+      options: {
+        darkMode: false,
+      },
+      template: `body {
   font-family: Verdana;
 }
 
@@ -65,6 +69,7 @@ a .vote-button, .voted {
 .voted {
   color: green;
 }`,
+    },
     components: [],
     views: {
       commentItem: {

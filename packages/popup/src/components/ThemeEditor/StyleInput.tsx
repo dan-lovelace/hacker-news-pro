@@ -1,20 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 
 import { fetchThemeData, storageSetByKeys } from "@hnp/core";
-import { Button } from "@mui/material";
+import { TStyle } from "@hnp/types";
+import { Button, FormControlLabel, Switch } from "@mui/material";
 
 import { getSaveShortcut, saveListener } from ".";
 import { useToastContext } from "../../contexts/toast";
 import CodeEditor from "../CodeEditor";
 
+const defaultStyle: TStyle = {
+  options: { darkMode: false },
+  template: "",
+};
+
 export default function StyleInput() {
-  const [styleValue, setStyleValue] = useState("");
+  const [styleValue, setStyleValue] = useState<TStyle>(defaultStyle);
   const [initialized, setInitialized] = useState(false);
   const { notify } = useToastContext();
   const saveShortcut = getSaveShortcut();
 
   // state references to use when handling save by keyboard shortcut
-  const valueRef = useRef<string>();
+  const valueRef = useRef<TStyle>(defaultStyle);
   valueRef.current = styleValue;
 
   useEffect(() => {
@@ -43,28 +49,60 @@ export default function StyleInput() {
     };
   }, []);
 
-  const handleChange = (newValue: string) => {
-    setStyleValue(newValue);
+  const handleDarkModeChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newDarkMode = event.target.checked;
+    const { currentThemeIndex, customThemes } = await fetchThemeData();
+    const newStyleValue = { ...styleValue };
+
+    newStyleValue.options.darkMode = newDarkMode;
+
+    if (customThemes && currentThemeIndex > -1) {
+      customThemes[currentThemeIndex].inputs.style = newStyleValue;
+    }
+
+    setStyleValue(newStyleValue);
+    storageSetByKeys({ CUSTOM_THEMES: customThemes });
   };
 
   const handleSave = async () => {
     const { currentThemeIndex, customThemes } = await fetchThemeData();
 
     if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.style = valueRef.current ?? "";
+      customThemes[currentThemeIndex].inputs.style = valueRef.current;
     }
 
     storageSetByKeys({ CUSTOM_THEMES: customThemes });
+  };
+
+  const handleTemplateChange = (newValue: string) => {
+    setStyleValue({
+      ...styleValue,
+      template: newValue,
+    });
   };
 
   return (
     <>
       {initialized && (
         <>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={styleValue.options.darkMode}
+                onChange={handleDarkModeChange}
+              />
+            }
+            label="Dark mode"
+            sx={{
+              alignSelf: "start",
+            }}
+          />
           <CodeEditor
             language="css"
-            value={styleValue}
-            handleChange={handleChange}
+            value={styleValue.template}
+            handleChange={handleTemplateChange}
             handleSave={handleSave}
           />
           <Button

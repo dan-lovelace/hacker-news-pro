@@ -35,7 +35,7 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         styleEl.innerHTML = "";
         contentEl.innerHTML = "";
       } else {
-        styleEl.innerHTML = value.style;
+        styleEl.innerHTML = value.style.template;
         contentEl.innerHTML = value.compiled;
 
         /** @note Do not block here */
@@ -55,13 +55,19 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
       const { documentElement } = document;
       const hnMain = SELECTORS.HN.main();
       const hnStyleSelector = "link[href^='news.css']";
+      const darkModeAttribute = "data-bs-theme";
 
       if (templateExists) {
         documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
+        documentElement.setAttribute(
+          darkModeAttribute,
+          value.style.options.darkMode ? "dark" : "light",
+        );
         if (hnMain) hnMain.style.display = "none";
         toggleStylesheet(hnStyleSelector, false);
       } else {
         documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
+        documentElement.removeAttribute(darkModeAttribute);
         if (hnMain) hnMain.style.display = "table";
         toggleStylesheet(hnStyleSelector, true);
       }

@@ -79,6 +79,13 @@ export type TStorageKeyMap = {
   SELECTED_VIEW: TView;
 };
 
+export type TStyle = {
+  options: {
+    darkMode: boolean;
+  };
+  template: string;
+};
+
 export type TTheme = {
   id: string;
   inputs: TThemeViewInputs;
@@ -89,7 +96,7 @@ export type TTheme = {
 };
 
 export type TThemeChanged = {
-  style: string;
+  style: TStyle;
   compiled: string;
 } | null;
 
@@ -101,7 +108,7 @@ export type TThemeType = "custom" | "premade";
 
 export type TThemeViewInputs = {
   components: TComponent[];
-  style: string;
+  style: TStyle;
   views: Record<TView, TViewInputValue>;
 };
 

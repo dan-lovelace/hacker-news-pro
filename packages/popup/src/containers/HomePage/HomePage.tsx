@@ -110,8 +110,13 @@ export default function HomePage() {
     const newTheme: TTheme = {
       id,
       inputs: {
-        style: "",
         components: [],
+        style: {
+          options: {
+            darkMode: false,
+          },
+          template: "",
+        },
         views: {
           commentItem: {
             template: "",

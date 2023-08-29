@@ -7,7 +7,12 @@ import defaultTheme from "./default";
 const helpTheme: TTheme = {
   id: "help",
   inputs: {
-    style: "",
+    style: {
+      options: {
+        darkMode: false,
+      },
+      template: "",
+    },
     components: [],
     views: {
       commentItem: {
@@ -158,7 +163,12 @@ export function parseThemeExport(json: any) {
             template: z.string(),
           }),
         ),
-        style: z.string(),
+        style: z.object({
+          options: z.object({
+            darkMode: z.boolean(),
+          }),
+          template: z.string(),
+        }),
       }),
       label: z.string(),
       options: z.object({
