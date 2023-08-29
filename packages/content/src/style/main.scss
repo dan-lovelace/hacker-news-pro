@@ -1,15 +1,10 @@
 @import "vendor/bootstrap.min.css";
 
-iframe#hnp-sandbox {
-  display: none;
+:root {
+  scroll-behavior: auto; // override bootstrap setting for instant scroll restoration
 }
 
+iframe#hnp-sandbox,
 #hnmain {
   display: none;
-}
-
-html.hnp {
-  body {
-    margin: 0;
-  }
 }

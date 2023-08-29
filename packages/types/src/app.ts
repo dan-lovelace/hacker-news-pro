@@ -118,6 +118,7 @@ export type TView =
   | "jobItem"
   | "jobList"
   | "pollItem"
+  | "reply"
   | "storyItem"
   | "storyList"
   | "submit"

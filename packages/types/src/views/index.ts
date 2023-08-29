@@ -5,15 +5,50 @@ import { CommentList } from "./commentList";
 import { JobItem } from "./jobItem";
 import { JobList } from "./jobList";
 import { PollItem } from "./pollItem";
+import { Reply } from "./reply";
 import { StoryItem } from "./storyItem";
 import { StoryList } from "./storyList";
 import { IParsable, Submit, User } from "..";
 import { TContentContext, TView } from "../app";
 
+export const voteDirections = ["down", "up", undefined] as const;
+
+export type TComment = {
+  data: {
+    age: {
+      humanized?: string;
+      timestamp?: string;
+    };
+    author: string;
+    bodyHTML?: string;
+    id: string;
+    interactions: {
+      next?: string;
+      parent?: string;
+      prev?: string;
+      toggle?: string;
+      voteDown?: string;
+      voteUp?: string;
+    };
+    itemUrl: string;
+    replyUrl: string;
+  };
+  depth: number;
+  comments: TComment[];
+};
+
+export type TForm = {
+  action?: string;
+  hiddenInputs?: string;
+  method?: string;
+};
+
 export type TViewRoute = {
   path: string;
   view: TView;
 };
+
+export type TVoteDirection = (typeof voteDirections)[number];
 
 export const viewRouteMap: Record<string, TView> = {
   "/": "storyList",
@@ -33,6 +68,7 @@ export const viewRouteMap: Record<string, TView> = {
   "/noobstories": "storyList",
   "/past": "storyList",
   "/pool": "storyList",
+  "/reply": "reply",
   "/show": "storyList",
   "/shownew": "storyList",
   "/submit": "submit",
@@ -83,6 +119,7 @@ const parsers: Record<TView, IParsable<any>> = {
   jobItem: new JobItem(),
   jobList: new JobList(),
   pollItem: new PollItem(),
+  reply: new Reply(),
   storyItem: new StoryItem(),
   storyList: new StoryList(),
   submit: new Submit(),
@@ -106,7 +143,5 @@ export function getPageData<T extends TView>(view: T) {
   return pageDataInstance.parse(document);
 }
 
-export * from "./item";
-export * from "./list";
 export * from "./submit";
 export * from "./user";

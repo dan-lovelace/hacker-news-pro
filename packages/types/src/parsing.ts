@@ -1,6 +1,6 @@
 import { getNodeHTML, pipe } from "@hnp/core";
 
-import { TComment, TVoteDirection, voteDirections } from ".";
+import { TComment, TForm, TVoteDirection, voteDirections } from ".";
 import { TCommentListItem } from "./views/commentList";
 import { TJobListItem } from "./views/jobList";
 import { TPollOptionItem } from "./views/pollItem";
@@ -45,6 +45,12 @@ function buildCommentTree(
 export const SELECTORS = {
   commentTree: (within: Document | Element | null) =>
     within?.querySelector(".comment-tree"),
+  forms: {
+    comment: (within?: Document | Element | null) =>
+      within?.querySelector("form[action='comment']"),
+    submission: (within?: Document | Element | null) =>
+      within?.querySelector("form[action='/r']"),
+  },
   links: {
     context: (within?: Element | null) =>
       within?.querySelector("a[href^='context']"),
@@ -160,9 +166,9 @@ export function getComments(parent?: Element | null) {
     const votesEle = row.querySelector(".votelinks");
 
     // children
+    const age = getAge(row);
     const author = row.querySelector(".hnuser")?.textContent ?? "";
     const bodyHTML = getBodyHTML(commentEle);
-    const createdHumanized = ageEle?.querySelector("a")?.textContent ?? "";
     const id = pipe(row.getAttribute("id") ?? "", getRowId);
     const itemUrl = ageEle?.querySelector("a")?.getAttribute("href") ?? "";
     const replyUrl =
@@ -197,9 +203,9 @@ export function getComments(parent?: Element | null) {
     );
 
     const rowData: TComment["data"] = {
+      age,
       author,
       bodyHTML,
-      createdHumanized,
       id,
       interactions: {
         ...interactions,
@@ -237,6 +243,26 @@ export function getCommentsCount(parent?: Element | null) {
       return found;
     },
   );
+}
+
+export function getForm(form?: Element | null): TForm {
+  const action = form?.getAttribute("action") ?? undefined;
+  const hiddenInputs = pipe(
+    [
+      form?.querySelector("input[name='hmac']")?.outerHTML ?? undefined,
+      form?.querySelector("input[name='goto']")?.outerHTML ?? undefined,
+      form?.querySelector("input[name='parent']")?.outerHTML ?? undefined,
+    ],
+    (inputsArray: Array<string | undefined>) =>
+      inputsArray.every(Boolean) ? inputsArray.join("\n") : undefined,
+  );
+  const method = form?.getAttribute("method") ?? undefined;
+
+  return {
+    action,
+    hiddenInputs,
+    method,
+  };
 }
 
 export function getJobListItem(parent?: Element | null): TJobListItem {

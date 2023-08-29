@@ -133,6 +133,9 @@ export default function HomePage() {
           pollItem: {
             template: "",
           },
+          reply: {
+            template: "",
+          },
           storyItem: {
             template: "",
           },

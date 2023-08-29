@@ -12,7 +12,6 @@ export class CommentItem implements IParsable<TCommentItem> {
   parse(document: Document): TCommentItem {
     const detailsElement = document.querySelector(".athing");
     const commentListItem = getCommentListItem(detailsElement);
-
     const comments = getComments(SELECTORS.commentTree(document));
 
     return {

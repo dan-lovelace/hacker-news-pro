@@ -17,7 +17,12 @@ import TemplateInput from "./TemplateInput";
 
 const viewOptions: Array<{
   label: string;
-  options: Array<{ label: string; routes: string[]; value: TView }>;
+  options: Array<{
+    hidden?: boolean;
+    label: string;
+    routes: string[];
+    value: TView;
+  }>;
 }> = [
   {
     label: "Lists",
@@ -68,11 +73,17 @@ const viewOptions: Array<{
     label: "Other",
     options: [
       {
+        label: "Reply",
+        routes: [],
+        value: "reply",
+      },
+      {
         label: "Submit",
         routes: [],
         value: "submit",
       },
       {
+        hidden: true,
         label: "User",
         routes: [],
         value: "user",
@@ -155,17 +166,20 @@ export default function ViewInput() {
               {viewOptions.map(({ label, options }) => (
                 <Stack key={label}>
                   <Typography variant="caption">{label}</Typography>
-                  {options.map(({ label, routes, value }) => (
-                    <ViewItem
-                      key={value}
-                      modified={modified === value}
-                      routes={routes}
-                      selected={viewValue === value}
-                      onClick={handleViewChange(value)}
-                    >
-                      {label}
-                    </ViewItem>
-                  ))}
+                  {options.map(
+                    ({ hidden, label, routes, value }) =>
+                      !hidden && (
+                        <ViewItem
+                          key={value}
+                          modified={modified === value}
+                          routes={routes}
+                          selected={viewValue === value}
+                          onClick={handleViewChange(value)}
+                        >
+                          {label}
+                        </ViewItem>
+                      ),
+                  )}
                 </Stack>
               ))}
             </List>

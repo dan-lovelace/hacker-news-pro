@@ -30,6 +30,9 @@ const helpTheme: TTheme = {
       pollItem: {
         template: "",
       },
+      reply: {
+        template: "",
+      },
       storyItem: {
         template: "",
       },
@@ -151,6 +154,7 @@ export function parseThemeExport(json: any) {
           jobItem: z.object({ template: z.string() }),
           jobList: z.object({ template: z.string() }),
           pollItem: z.object({ template: z.string() }),
+          reply: z.object({ template: z.string() }),
           storyItem: z.object({ template: z.string() }),
           storyList: z.object({ template: z.string() }),
           submit: z.object({ template: z.string() }),
