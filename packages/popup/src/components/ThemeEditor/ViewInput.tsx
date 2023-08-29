@@ -62,11 +62,6 @@ const viewOptions: Array<{
         routes: [],
         value: "pollItem",
       },
-      {
-        label: "Poll Option",
-        routes: [],
-        value: "pollOptItem",
-      },
     ],
   },
   {

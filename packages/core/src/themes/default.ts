@@ -82,9 +82,6 @@ a .vote-button, .voted {
       pollItem: {
         template: "",
       },
-      pollOptItem: {
-        template: "",
-      },
       storyItem: {
         template: "",
       },

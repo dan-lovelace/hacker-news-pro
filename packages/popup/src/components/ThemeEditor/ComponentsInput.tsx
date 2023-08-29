@@ -495,7 +495,7 @@ export default function ComponentsInput() {
             bgcolor: "background.paper",
             border: "1px solid",
             borderColor: "primary.main",
-            borderRadius: "4px",
+            borderRadius: 1,
             left: "50%",
             padding: 2,
             position: "absolute",

@@ -128,9 +128,6 @@ export default function HomePage() {
           pollItem: {
             template: "",
           },
-          pollOptItem: {
-            template: "",
-          },
           storyItem: {
             template: "",
           },
