@@ -17,6 +17,7 @@
       "@hnp/core": ["packages/core"],
       "@hnp/popup": ["packages/popup"],
       "@hnp/sandbox": ["packages/sandbox"],
+      "@hnp/scraper": ["packages/scraper"],
       "@hnp/types": ["packages/types"]
     },
     "resolveJsonModule": true,

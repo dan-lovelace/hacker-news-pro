@@ -1,22 +1,14 @@
 // Example: https://news.ycombinator.com/item?id=37279109
 
-import { TStoryListItem } from "./storyList";
-import { IParsable, TComment, TForm } from "..";
+import { IParsable, TStoryItem } from "@hnp/types";
+
 import {
-  SELECTORS,
   getBodyHTML,
   getForm,
   getComments,
   getStoryListItem,
-} from "../parsing";
-
-export type TStoryItem = TStoryListItem & {
-  bodyHTML?: string;
-  comments: TComment[];
-  forms: {
-    comment: TForm;
-  };
-};
+  SELECTORS,
+} from "../lib";
 
 export class StoryItem implements IParsable<TStoryItem> {
   parse(document: Document): TStoryItem {

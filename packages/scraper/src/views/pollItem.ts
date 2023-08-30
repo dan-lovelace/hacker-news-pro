@@ -1,29 +1,13 @@
 // Example: https://news.ycombinator.com/item?id=126809
 
-import { TStoryListItem } from "./storyList";
-import { IParsable, TComment, TVoteDirection } from "..";
+import { IParsable, TPollItem, TPollOptionItem } from "@hnp/types";
+
 import {
-  SELECTORS,
   getComments,
   getPollOptionItem,
   getStoryListItem,
-} from "../parsing";
-
-export type TPollOptionItem = {
-  id: string;
-  interactions: {
-    voteDown?: string;
-    voteUp?: string;
-  };
-  score?: number;
-  title: string;
-  voted: TVoteDirection;
-};
-
-export type TPollItem = TStoryListItem & {
-  comments: TComment[];
-  options: TPollOptionItem[];
-};
+  SELECTORS,
+} from "../lib";
 
 export class PollItem implements IParsable<TPollItem> {
   parse(document: Document): TPollItem {

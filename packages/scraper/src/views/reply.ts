@@ -1,12 +1,6 @@
-import { TCommentListItem } from "./commentList";
-import { IParsable, TForm } from "..";
-import { SELECTORS, getCommentListItem, getForm } from "../parsing";
+import { IParsable, TReply } from "@hnp/types";
 
-export type TReply = TCommentListItem & {
-  forms: {
-    comment: TForm;
-  };
-};
+import { getCommentListItem, getForm, SELECTORS } from "../lib";
 
 export class Reply implements IParsable<TReply> {
   parse(document: Document): TReply {

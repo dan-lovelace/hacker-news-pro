@@ -1,6 +1,4 @@
-import { IParsable } from "..";
-
-export type TUnknown = unknown;
+import { IParsable, TUnknown } from "@hnp/types";
 
 /**
  * View used for routes that do not yet have a parser configured. It is used as

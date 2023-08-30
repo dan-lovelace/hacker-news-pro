@@ -4,7 +4,8 @@ import {
   MESSAGE_ACTIONS,
   storageGetByKey,
 } from "@hnp/core";
-import { getPageData, TConfig, TSandboxContext } from "@hnp/types";
+import { getPageData } from "@hnp/scraper";
+import { TConfig, TSandboxContext } from "@hnp/types";
 
 import { getConfig } from "./config";
 import { sendSandboxMessage, startContentListeners } from "./message";

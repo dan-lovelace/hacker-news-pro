@@ -1,25 +1,6 @@
-import { IParsable } from "..";
-import { getJobListItem } from "../parsing";
+import { IParsable, TJobList, TJobListItem } from "@hnp/types";
 
-export type TJobList = {
-  items: TJobListItem[];
-  links: {
-    /** Link to the next page */
-    more?: string;
-  };
-};
-
-export type TJobListItem = {
-  age: {
-    humanized?: string;
-    timestamp?: string;
-  };
-  links: {
-    hide?: string;
-    item?: string;
-  };
-  title?: string;
-};
+import { getJobListItem } from "../lib";
 
 export class JobList implements IParsable<TJobList> {
   parse(document: Document): TJobList {

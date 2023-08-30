@@ -1,12 +1,8 @@
 // Example: https://news.ycombinator.com/item?id=2921983
 
-import { TCommentListItem } from "./commentList";
-import { IParsable, TComment } from "..";
-import { SELECTORS, getCommentListItem, getComments } from "../parsing";
+import { IParsable, TCommentItem } from "@hnp/types";
 
-export type TCommentItem = TCommentListItem & {
-  comments: TComment[];
-};
+import { SELECTORS, getCommentListItem, getComments } from "../lib";
 
 export class CommentItem implements IParsable<TCommentItem> {
   parse(document: Document): TCommentItem {

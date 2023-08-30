@@ -1,11 +1,6 @@
-import { IParsable, TForm } from "..";
-import { SELECTORS, getForm } from "../parsing";
+import { IParsable, TSubmit } from "@hnp/types";
 
-export type TSubmit = {
-  forms: {
-    submit: TForm;
-  };
-};
+import { getForm, SELECTORS } from "../lib";
 
 export class Submit implements IParsable<TSubmit> {
   parse(document: Document): TSubmit {

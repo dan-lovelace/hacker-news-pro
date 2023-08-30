@@ -1,0 +1,18 @@
+{
+  "name": "@hnp/scraper",
+  "author": "dan-lovelace",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Scraper for Hacker News Pro",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "echo \"Info: no build specified\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@hnp/core": "*"
+  },
+  "devDependencies": {
+    "@hnp/types": "*"
+  }
+}

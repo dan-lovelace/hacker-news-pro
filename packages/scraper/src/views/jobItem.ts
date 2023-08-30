@@ -1,10 +1,6 @@
-import { TJobListItem } from "./jobList";
-import { IParsable } from "..";
-import { getBodyHTML, getJobListItem } from "../parsing";
+import { IParsable, TJobItem } from "@hnp/types";
 
-export type TJobItem = TJobListItem & {
-  bodyHTML?: string;
-};
+import { getBodyHTML, getJobListItem } from "../lib";
 
 export class JobItem implements IParsable<TJobItem> {
   parse(document: Document): TJobItem {

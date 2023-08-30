@@ -1,76 +1,16 @@
 import { getNodeHTML, pipe } from "@hnp/core";
+import {
+  TComment,
+  TCommentListItem,
+  TForm,
+  TJobListItem,
+  TPollOptionItem,
+  TStoryListItem,
+  TVoteDirection,
+  voteDirections,
+} from "@hnp/types";
 
-import { TComment, TForm, TVoteDirection, voteDirections } from ".";
-import { TCommentListItem } from "./views/commentList";
-import { TJobListItem } from "./views/jobList";
-import { TPollOptionItem } from "./views/pollItem";
-import { TStoryListItem } from "./views/storyList";
-
-const getRowId = (id: string) => `item_${id.replaceAll(/(#|item_)/g, "")}`;
-
-const getRowIndent = (row: Element) =>
-  pipe(
-    parseInt(row.querySelector(".ind")?.getAttribute("indent") ?? ""),
-    (indentInt: number) => (isNaN(indentInt) ? 0 : indentInt),
-  );
-
-function buildCommentTree(
-  input: [TComment["data"], number][],
-  currentIndex: number,
-  depth: number,
-): [TComment[], number] {
-  const comments: TComment[] = [];
-
-  while (currentIndex < input.length && input[currentIndex][1] === depth) {
-    const [data] = input[currentIndex];
-    const comment: TComment = {
-      comments: [],
-      data,
-      depth,
-    };
-    const [childComments, nextIndex] = buildCommentTree(
-      input,
-      currentIndex + 1,
-      depth + 1,
-    );
-
-    comment.comments = childComments;
-    comments.push(comment);
-    currentIndex = nextIndex;
-  }
-
-  return [comments, currentIndex];
-}
-
-export const SELECTORS = {
-  commentTree: (within: Document | Element | null) =>
-    within?.querySelector(".comment-tree"),
-  forms: {
-    comment: (within?: Document | Element | null) =>
-      within?.querySelector("form[action='comment']"),
-    submission: (within?: Document | Element | null) =>
-      within?.querySelector("form[action='/r']"),
-  },
-  links: {
-    context: (within?: Element | null) =>
-      within?.querySelector("a[href^='context']"),
-    favorite: (within?: Element | null) =>
-      within?.querySelector("a[href^='fave']"),
-    flag: (within?: Element | null) => within?.querySelector("a[href^='flag']"),
-    from: (within?: Element | null) => within?.querySelector(".sitebit a"),
-    hide: (within?: Element | null) => within?.querySelector("a[href^='hide']"),
-    item: (within?: Element | null) => within?.querySelector("a[href^='item']"),
-    next: (within?: Element | null) =>
-      within?.querySelector("a[href*='?next=']"),
-    parent: (within?: Element | null) =>
-      within?.querySelector("a[href^='item']"),
-    past: (within?: Element | null) => within?.querySelector(".hnpast"),
-    story: (within?: Element | null) =>
-      within?.querySelector(".onstory a[href^='item']"),
-    vote: (within?: Element | null) => within?.querySelector(".votelinks"),
-  },
-  score: (within?: Element | null) => within?.querySelector("[id^='score_']"),
-};
+import { SELECTORS, buildCommentTree, getRowId, getRowIndent } from "..";
 
 export function getAge(parent?: Element | null) {
   const ageElement = parent?.querySelector(".age");

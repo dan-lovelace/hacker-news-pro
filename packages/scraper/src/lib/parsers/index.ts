@@ -1,81 +1,18 @@
 import { pipe } from "@hnp/core";
+import { IParsable, TContentContext, TView } from "@hnp/types";
 
-import { CommentItem } from "./commentItem";
-import { CommentList } from "./commentList";
-import { JobItem } from "./jobItem";
-import { JobList } from "./jobList";
-import { PollItem } from "./pollItem";
-import { Reply } from "./reply";
-import { StoryItem } from "./storyItem";
-import { StoryList } from "./storyList";
-import { Submit } from "./submit";
-import { Unknown } from "./unknown";
-import { IParsable } from "..";
-import { TContentContext, TView } from "../app";
-
-export const voteDirections = ["down", "up", undefined] as const;
-
-export type TComment = {
-  data: {
-    age: {
-      humanized?: string;
-      timestamp?: string;
-    };
-    author: string;
-    bodyHTML?: string;
-    id: string;
-    interactions: {
-      next?: string;
-      parent?: string;
-      prev?: string;
-      toggle?: string;
-      voteDown?: string;
-      voteUp?: string;
-    };
-    itemUrl: string;
-    replyUrl: string;
-  };
-  depth: number;
-  comments: TComment[];
-};
-
-export type TForm = {
-  action?: string;
-  hiddenInputs?: string;
-  method?: string;
-};
-
-export type TViewRoute = {
-  path: string;
-  view: TView;
-};
-
-export type TVoteDirection = (typeof voteDirections)[number];
-
-export const viewRouteMap: Record<string, TView> = {
-  "/": "storyList",
-  "/active": "storyList",
-  "/ask": "storyList",
-  "/asknew": "storyList",
-  "/best": "storyList",
-  "/bestcomments": "commentList",
-  "/front": "storyList",
-  "/invited": "storyList",
-  "/jobs": "jobList",
-  "/launches": "storyList",
-  "/newcomments": "commentList",
-  "/newest": "storyList",
-  "/news": "storyList",
-  "/noobcomments": "commentList",
-  "/noobstories": "storyList",
-  "/past": "storyList",
-  "/pool": "storyList",
-  "/reply": "reply",
-  "/show": "storyList",
-  "/shownew": "storyList",
-  "/submit": "submit",
-  "/user": "user",
-};
+import {
+  CommentItem,
+  CommentList,
+  JobItem,
+  JobList,
+  PollItem,
+  Reply,
+  StoryItem,
+  StoryList,
+  Submit,
+  Unknown,
+} from "../../views";
 
 class PageData<T> implements IParsable<T> {
   constructor(private parser: IParsable<T & TContentContext>) {}
@@ -145,3 +82,5 @@ export function getPageData<T extends TView>(view: T) {
   const pageDataInstance = createPageData(view);
   return pageDataInstance.parse(document);
 }
+
+export * from "./views";
