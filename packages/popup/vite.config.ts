@@ -8,6 +8,7 @@ const outDir = path.join(__dirname, "..", "..", "dist");
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
   build: {
+    assetsDir: "popup",
     minify: mode === "production",
     outDir,
     rollupOptions: {

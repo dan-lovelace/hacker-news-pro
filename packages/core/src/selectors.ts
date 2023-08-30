@@ -1,3 +1,5 @@
+export const HN_STYLESHEET = "link[href^='news.css']";
+export const HNP_BOOTSTRAP_ELEMENT_ID = "hnp-bootstrap";
 export const HNP_CONTENT_ELEMENT_ID = "hnp-content";
 export const HNP_HTML_ELEMENT_CLASS_NAME = "hnp";
 export const HNP_ROOT_ELEMENT_ID = "hnp-root";
@@ -6,8 +8,16 @@ export const HNP_STYLE_ELEMENT_ID = "hnp-style";
 
 export const SELECTORS = Object.freeze({
   HN: {
-    main: () => document.getElementById("hnmain"),
-    stylesheet: () => document.head.querySelector("link[href^='news.css']"),
+    main: () => document.getElementById("hnmain") as HTMLTableElement,
+    stylesheet: () => document.head.querySelector(HN_STYLESHEET),
+  },
+  HNP: {
+    bootstrapStylesheet: () =>
+      document.getElementById(HNP_BOOTSTRAP_ELEMENT_ID) as HTMLLinkElement,
+    content: () =>
+      document.getElementById(HNP_CONTENT_ELEMENT_ID) as HTMLDivElement,
+    style: () =>
+      document.getElementById(HNP_STYLE_ELEMENT_ID) as HTMLStyleElement,
   },
 });
 

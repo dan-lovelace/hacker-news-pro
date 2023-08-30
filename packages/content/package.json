@@ -22,7 +22,6 @@
     "@hnp/types": "*",
     "@types/lodash": "^4.14.186",
     "@vitejs/plugin-react": "^4.0.4",
-    "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.55.0"
   }
 }

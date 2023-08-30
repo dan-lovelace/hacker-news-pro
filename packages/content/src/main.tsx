@@ -1,4 +1,5 @@
 import {
+  HNP_BOOTSTRAP_ELEMENT_ID,
   HNP_HTML_ELEMENT_CLASS_NAME,
   HNP_ROOT_ELEMENT_ID,
   HNP_STYLE_ELEMENT_ID,
@@ -13,6 +14,8 @@ import { getConfig } from "./lib/config";
 import { initializeWebComponents } from "./web-components";
 
 import "./style/main.scss";
+
+const bootstrapSrc = browser.runtime.getURL("css/vendor/bootstrap.min.css");
 
 if (process.env.NODE_ENV === "development") {
   const ws = new WebSocket(`ws://localhost:9012`);
@@ -34,9 +37,16 @@ if (process.env.NODE_ENV === "development") {
   }
 
   await waitForElement("head"); // wait resolves race condition
-  const style = document.createElement("style");
-  style.id = HNP_STYLE_ELEMENT_ID;
-  document.head.appendChild(style);
+  const bootstrapStyle = document.createElement("link");
+  bootstrapStyle.id = HNP_BOOTSTRAP_ELEMENT_ID;
+  bootstrapStyle.rel = "stylesheet";
+  bootstrapStyle.type = "text/css";
+  bootstrapStyle.href = bootstrapSrc;
+  document.head.appendChild(bootstrapStyle);
+
+  const hnpStyle = document.createElement("style");
+  hnpStyle.id = HNP_STYLE_ELEMENT_ID;
+  document.head.appendChild(hnpStyle);
 
   await waitForElement("body");
   const root = document.createElement("div");

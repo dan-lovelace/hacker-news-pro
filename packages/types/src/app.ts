@@ -98,7 +98,7 @@ export type TTheme = {
 export type TThemeChanged = {
   style: TStyle;
   compiled: string;
-} | null;
+};
 
 export type TThemeOptions = {
   disableHNStyle: boolean;

@@ -1,18 +1,12 @@
 import { join } from "path";
 
 import react from "@vitejs/plugin-react";
-import staticCopy from "rollup-plugin-copy";
 import { defineConfig } from "vite";
 
 const outDir = join(__dirname, "..", "..", "dist");
 
 export default defineConfig(({ mode }) => ({
-  plugins: [
-    react(),
-    staticCopy({
-      targets: [{ src: "public/*", dest: outDir }],
-    }),
-  ],
+  plugins: [react()],
   esbuild: {
     drop: mode === "production" ? ["console"] : [],
   },

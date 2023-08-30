@@ -1,9 +1,8 @@
 import {
   browser,
-  HNP_CONTENT_ELEMENT_ID,
+  HN_STYLESHEET,
   HNP_HTML_ELEMENT_CLASS_NAME,
   HNP_SANDBOX_ELEMENT_ID,
-  HNP_STYLE_ELEMENT_ID,
   MESSAGE_ACTIONS,
   SELECTORS,
   storageGetByKey,
@@ -20,23 +19,23 @@ import { debounce } from "lodash";
 import { renderContent } from "./sandbox";
 
 export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
-  const { action, value } = event;
+  const {
+    action,
+    value: { compiled, style },
+  } = event;
 
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const styleEl = document.getElementById(
-        HNP_STYLE_ELEMENT_ID,
-      ) as HTMLStyleElement;
-      const contentEl = document.getElementById(
-        HNP_CONTENT_ELEMENT_ID,
-      ) as HTMLDivElement;
+      const bootstrapStylesheet = SELECTORS.HNP.bootstrapStylesheet();
+      const hnpContent = SELECTORS.HNP.content();
+      const hnpStyle = SELECTORS.HNP.style();
 
-      if (value === null) {
-        styleEl.innerHTML = "";
-        contentEl.innerHTML = "";
+      if (!compiled && !style) {
+        hnpStyle.innerHTML = "";
+        hnpContent.innerHTML = "";
       } else {
-        styleEl.innerHTML = value.style.template;
-        contentEl.innerHTML = value.compiled;
+        hnpStyle.innerHTML = style.template;
+        hnpContent.innerHTML = compiled;
 
         /** @note Do not block here */
         storageGetByKey("NAVIGATION_TYPE").then(async (navigationType) => {
@@ -51,25 +50,26 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         });
       }
 
-      const templateExists = !!value?.compiled;
+      const darkModeAttribute = "data-bs-theme";
       const { documentElement } = document;
       const hnMain = SELECTORS.HN.main();
-      const hnStyleSelector = "link[href^='news.css']";
-      const darkModeAttribute = "data-bs-theme";
+      const templateExists = !!compiled;
 
       if (templateExists) {
         documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
         documentElement.setAttribute(
           darkModeAttribute,
-          value.style.options.darkMode ? "dark" : "light",
+          style.options.darkMode ? "dark" : "light",
         );
-        if (hnMain) hnMain.style.display = "none";
-        toggleStylesheet(hnStyleSelector, false);
+        hnMain.style.display = "none";
+        toggleStylesheet(HN_STYLESHEET, false);
+        bootstrapStylesheet.removeAttribute("disabled");
       } else {
         documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
         documentElement.removeAttribute(darkModeAttribute);
-        if (hnMain) hnMain.style.display = "table";
-        toggleStylesheet(hnStyleSelector, true);
+        hnMain.style.display = "table";
+        toggleStylesheet(HN_STYLESHEET, true);
+        bootstrapStylesheet.setAttribute("disabled", "true");
       }
       break;
     }
