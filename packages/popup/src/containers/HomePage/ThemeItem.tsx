@@ -55,11 +55,13 @@ export default function ThemeItem({
 
     customThemes.splice(itemIdx, 1);
 
+    if (currentTheme?.id === themeData.id) {
+      // apply an empty theme if the current one was deleted
+      applyTheme();
+    }
+
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
-      // unset current theme if it was deleted
-      SELECTED_THEME_ID:
-        currentTheme?.id === themeData.id ? null : currentTheme?.id,
     });
 
     setCustomThemes?.(customThemes);

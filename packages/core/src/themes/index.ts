@@ -1,5 +1,9 @@
-import { storageGetByKey, storageSetByKeys } from "@hnp/core";
-import { TConfig, TTheme } from "@hnp/types";
+import {
+  storageGetByKey,
+  storageRemoveByKeys,
+  storageSetByKeys,
+} from "@hnp/core";
+import { TConfig, TStorage, TStorageKeyMap, TTheme } from "@hnp/types";
 import { z } from "zod";
 
 import defaultTheme from "./default";
@@ -26,8 +30,35 @@ const helpTheme: TTheme = {
 
 export const premadeThemes = [defaultTheme];
 
-export function applyTheme(theme: TTheme) {
-  return storageSetByKeys({ SELECTED_THEME_ID: theme.id });
+export async function applyTheme(theme?: TTheme) {
+  if (!theme) {
+    return storageRemoveByKeys([
+      "SELECTED_COMPONENT_ID",
+      "SELECTED_THEME_ID",
+      "SELECTED_VIEW",
+    ]);
+  }
+
+  const firstComponentId = theme.inputs.components.length
+    ? theme.inputs.components[0].id
+    : undefined;
+  const keysToRemove: Array<keyof TStorageKeyMap> = ["SELECTED_VIEW"];
+
+  if (!firstComponentId) {
+    keysToRemove.push("SELECTED_COMPONENT_ID");
+  }
+
+  await storageRemoveByKeys(keysToRemove);
+
+  const keysToSet: TStorage = {
+    SELECTED_THEME_ID: theme.id,
+  };
+
+  if (firstComponentId) {
+    keysToSet.SELECTED_COMPONENT_ID = firstComponentId;
+  }
+
+  return storageSetByKeys(keysToSet);
 }
 
 export async function fetchComponentsData() {
@@ -77,12 +108,11 @@ export async function fetchThemeData() {
 
 export async function getCurrentTheme(config: TConfig) {
   const { currentTheme, customThemes } = await fetchThemeData();
+  let returnTheme = helpTheme;
 
   if (!currentTheme) {
-    return undefined;
+    return returnTheme;
   }
-
-  let returnTheme = helpTheme;
 
   switch (currentTheme.type) {
     case "custom": {

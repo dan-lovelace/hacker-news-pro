@@ -15,8 +15,8 @@ window.addEventListener("message", (message) => {
     return source?.postMessage(event, { targetOrigin: origin });
   }
 
-  if (options?.themesEnabled === false) {
-    return source?.postMessage(
+  const emptyThemeMessage = () =>
+    source?.postMessage(
       {
         action,
         value: {
@@ -26,13 +26,16 @@ window.addEventListener("message", (message) => {
       },
       { targetOrigin: origin },
     );
+
+  if (options?.themesEnabled === false) {
+    return emptyThemeMessage();
   }
 
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
       const viewInputValue = value.inputs.views[context.config.view];
 
-      if (!viewInputValue) return;
+      if (!viewInputValue) return emptyThemeMessage();
 
       const { components } = value.inputs ?? [];
       for (const component of components) {
