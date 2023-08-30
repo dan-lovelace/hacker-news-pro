@@ -1,10 +1,11 @@
 import {
+  browser,
+  getAssetURL,
+  getCurrentTheme,
   HNP_BOOTSTRAP_ELEMENT_ID,
   HNP_HTML_ELEMENT_CLASS_NAME,
   HNP_ROOT_ELEMENT_ID,
   HNP_STYLE_ELEMENT_ID,
-  browser,
-  getCurrentTheme,
   waitForElement,
 } from "@hnp/core";
 import ReactDOM from "react-dom/client";
@@ -15,7 +16,7 @@ import { initializeWebComponents } from "./web-components";
 
 import "./style/main.scss";
 
-const bootstrapSrc = browser.runtime.getURL("css/vendor/bootstrap.min.css");
+const bootstrapSrc = getAssetURL("css/vendor/bootstrap.min.css");
 
 if (process.env.NODE_ENV === "development") {
   const ws = new WebSocket(`ws://localhost:9012`);

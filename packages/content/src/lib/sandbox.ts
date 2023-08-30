@@ -1,5 +1,5 @@
 import {
-  browser,
+  getAssetURL,
   getCurrentTheme,
   MESSAGE_ACTIONS,
   storageGetByKey,
@@ -9,7 +9,7 @@ import { getPageData, TConfig, TSandboxContext } from "@hnp/types";
 import { getConfig } from "./config";
 import { sendSandboxMessage, startContentListeners } from "./message";
 
-const originalLogoUrl = browser.runtime.getURL("img/hn_logo.svg");
+const originalLogoUrl = getAssetURL("img/hn_logo.svg");
 
 export function getTemplateContext<T>(
   config: TConfig,

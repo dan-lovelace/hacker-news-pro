@@ -1,4 +1,26 @@
+import { browser } from "./browser";
+
 const disabledStylesheets: { [key: string]: Element } = {};
+
+export function getAssetURL(path: string) {
+  return browser.runtime.getURL(`assets/${path}`);
+}
+
+export function getNodeHTML(node?: Node) {
+  if (!node) return undefined;
+
+  const ghost = document.createElement("div");
+  ghost.appendChild(node);
+
+  return ghost.innerHTML.trim();
+}
+
+export function pipe<T, U extends (...args: any[]) => any>(
+  expression: T,
+  fn: U,
+): ReturnType<U> {
+  return fn(expression);
+}
 
 /**
  * Allows enabling or disabling of stylesheets in an idempotent manner. It is
@@ -18,20 +40,4 @@ export function toggleStylesheet(selector: string, enabled: boolean) {
     disabledStylesheets[selector] = element;
     element.remove();
   }
-}
-
-export function getNodeHTML(node?: Node) {
-  if (!node) return undefined;
-
-  const ghost = document.createElement("div");
-  ghost.appendChild(node);
-
-  return ghost.innerHTML.trim();
-}
-
-export function pipe<T, U extends (...args: any[]) => any>(
-  expression: T,
-  fn: U,
-): ReturnType<U> {
-  return fn(expression);
 }

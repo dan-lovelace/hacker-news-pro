@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-import { browser } from "@hnp/core";
+import { getAssetURL } from "@hnp/core";
 import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 
 import BackButton from "../../components/BackButton/BackButton";
 import { PAGE_CONTENT_WIDTH } from "../../lib/vars";
 
-const bmacSrc = browser.runtime.getURL("img/bmac.png");
+const bmacSrc = getAssetURL("img/bmac.png");
 
 function Section({
   children,

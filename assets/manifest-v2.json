@@ -6,11 +6,11 @@
   "homepage_url": "https://github.com/dan-lovelace/hacker-news-pro",
   "manifest_version": 2,
   "icons": {
-    "16": "img/logo_16.png",
-    "48": "img/logo_48.png",
-    "128": "img/logo_128.png",
-    "256": "img/logo_256.png",
-    "512": "img/logo_512.png"
+    "16": "assets/img/logo_16.png",
+    "48": "assets/img/logo_48.png",
+    "128": "assets/img/logo_128.png",
+    "256": "assets/img/logo_256.png",
+    "512": "assets/img/logo_512.png"
   },
   "browser_action": {
     "default_popup": "popup.html"
@@ -28,8 +28,7 @@
   ],
   "permissions": ["tabs", "storage", "https://news.ycombinator.com/*"],
   "web_accessible_resources": [
-    "css/*",
-    "img/*",
+    "assets/*",
     "sandbox.html",
     "webcomponents-bundle.js"
   ],
