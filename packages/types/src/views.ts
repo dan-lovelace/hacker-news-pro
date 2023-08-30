@@ -46,6 +46,7 @@ export type TComment = {
     };
     itemUrl: string;
     replyUrl: string;
+    voted: TVoteDirection;
   };
   depth: number;
   comments: TComment[];

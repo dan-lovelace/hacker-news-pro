@@ -105,7 +105,6 @@ export function getComments(parent?: Element | null) {
     const ageEle = row.querySelector(".age");
     const commentEle = row.querySelector(".comment");
     const navigationEle = row.querySelector(".navs");
-    const votesEle = row.querySelector(".votelinks");
 
     // children
     const age = getAge(row);
@@ -135,14 +134,7 @@ export function getComments(parent?: Element | null) {
         interactions.toggle = getNodeHTML(node.cloneNode());
       }
     });
-    const voteDown = pipe(
-      votesEle?.querySelector("a[id^='down_']")?.cloneNode(),
-      (node?: Node) => getNodeHTML(node),
-    );
-    const voteUp = pipe(
-      votesEle?.querySelector("a[id^='up_']")?.cloneNode(),
-      (node?: Node) => getNodeHTML(node),
-    );
+    const { voted, voteDown, voteUp } = getVoteInteractions(row);
 
     const rowData: TComment["data"] = {
       age,
@@ -156,6 +148,7 @@ export function getComments(parent?: Element | null) {
       },
       itemUrl,
       replyUrl,
+      voted,
     };
 
     commentsData.push([rowData, rowIndent]);
