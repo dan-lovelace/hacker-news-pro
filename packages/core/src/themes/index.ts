@@ -118,16 +118,16 @@ export function parseThemeExport(json: any) {
       id: z.string(),
       inputs: z.object({
         views: z.object({
-          commentItem: z.object({ template: z.string() }),
-          commentList: z.object({ template: z.string() }),
-          jobItem: z.object({ template: z.string() }),
-          jobList: z.object({ template: z.string() }),
-          pollItem: z.object({ template: z.string() }),
-          reply: z.object({ template: z.string() }),
-          storyItem: z.object({ template: z.string() }),
-          storyList: z.object({ template: z.string() }),
-          submit: z.object({ template: z.string() }),
-          user: z.object({ template: z.string() }),
+          commentItem: z.object({ template: z.string().optional() }).optional(),
+          commentList: z.object({ template: z.string().optional() }).optional(),
+          jobItem: z.object({ template: z.string().optional() }).optional(),
+          jobList: z.object({ template: z.string().optional() }).optional(),
+          pollItem: z.object({ template: z.string().optional() }).optional(),
+          reply: z.object({ template: z.string().optional() }).optional(),
+          storyItem: z.object({ template: z.string().optional() }).optional(),
+          storyList: z.object({ template: z.string().optional() }).optional(),
+          submit: z.object({ template: z.string().optional() }).optional(),
+          user: z.object({ template: z.string().optional() }).optional(),
         }),
         components: z.array(
           z.object({
