@@ -64,6 +64,8 @@ export function getCommentListItem(parent?: Element | null): TCommentListItem {
       SELECTORS.links.parent(linksElement)?.getAttribute("href") ?? undefined,
     story:
       SELECTORS.links.story(linksElement)?.getAttribute("href") ?? undefined,
+    unflag:
+      SELECTORS.links.unflag(linksElement)?.getAttribute("href") ?? undefined,
   };
   const story = {
     title: linksElement?.querySelector(".onstory a")?.textContent ?? "",
@@ -281,6 +283,9 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
       SELECTORS.links.item(metadataElement)?.getAttribute("href") ?? undefined,
     past:
       SELECTORS.links.past(metadataElement)?.getAttribute("href") ?? undefined,
+    unflag:
+      SELECTORS.links.unflag(metadataElement)?.getAttribute("href") ??
+      undefined,
   };
   const score = getScore(metadataElement);
   const siteName = parent?.querySelector(".titleline .sitebit a")?.textContent;

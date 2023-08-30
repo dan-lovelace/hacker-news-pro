@@ -81,6 +81,7 @@ export type TCommentListItem = {
     next?: string;
     parent?: string;
     story?: string;
+    unflag?: string;
   };
   story: {
     title: string;
@@ -176,6 +177,7 @@ export type TStoryListItem = {
     from?: string;
     item?: string;
     past?: string;
+    unflag?: string;
   };
   score?: number;
   site?: {
