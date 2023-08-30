@@ -19,9 +19,7 @@ export default function TemplateInput({
 }: TemplateInputProps) {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [storedValue, setStoredValue] = useState<TViewInputValue>();
-  const [templateValues, setTemplateValues] = useState<TViewInputValue>({
-    template: "",
-  });
+  const [templateValues, setTemplateValues] = useState<TViewInputValue>();
   const { notify } = useToastContext();
   const saveShortcut = getSaveShortcut();
 
@@ -111,7 +109,7 @@ export default function TemplateInput({
         <>
           <CodeEditor
             language="handlebars"
-            value={templateValues.template}
+            value={templateValues?.template ?? ""}
             handleChange={handleTemplateChange}
             handleSave={handleSave}
           />

@@ -14,38 +14,7 @@ const helpTheme: TTheme = {
       template: "",
     },
     components: [],
-    views: {
-      commentItem: {
-        template: "",
-      },
-      commentList: {
-        template: "",
-      },
-      jobItem: {
-        template: "",
-      },
-      jobList: {
-        template: "",
-      },
-      pollItem: {
-        template: "",
-      },
-      reply: {
-        template: "",
-      },
-      storyItem: {
-        template: "",
-      },
-      storyList: {
-        template: "",
-      },
-      submit: {
-        template: "",
-      },
-      user: {
-        template: "",
-      },
-    },
+    views: {},
   },
   label: "Help",
   options: {
@@ -120,7 +89,7 @@ export async function getCurrentTheme(config: TConfig) {
       if (customThemes && customThemes.length) {
         const customTheme = customThemes.find((t) => t.id === currentTheme?.id);
 
-        if (customTheme && customTheme.inputs.views[config.view].template) {
+        if (customTheme && customTheme.inputs.views[config.view]?.template) {
           returnTheme = customTheme;
         }
       }
@@ -130,7 +99,7 @@ export async function getCurrentTheme(config: TConfig) {
     case "premade": {
       const premadeTheme = premadeThemes.find((t) => t.id === currentTheme?.id);
 
-      if (premadeTheme && premadeTheme.inputs.views[config.view].template) {
+      if (premadeTheme && premadeTheme.inputs.views[config.view]?.template) {
         returnTheme = premadeTheme;
       }
       break;

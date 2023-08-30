@@ -109,7 +109,7 @@ export type TThemeType = "custom" | "premade";
 export type TThemeViewInputs = {
   components: TComponent[];
   style: TStyle;
-  views: Record<TView, TViewInputValue>;
+  views: Partial<Record<TView, TViewInputValue>>;
 };
 
 export type TView =
@@ -125,5 +125,5 @@ export type TView =
   | "user";
 
 export type TViewInputValue = {
-  template: string;
+  template?: string;
 };
