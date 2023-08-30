@@ -7,6 +7,6 @@ node_modules
 packages/**/*.d.ts
 packages/**/*.js
 packages/**/*.mjs
-public/assets
+**/public/assets/**/*
 temp
 yarn.lock
