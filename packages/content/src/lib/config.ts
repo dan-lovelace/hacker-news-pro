@@ -35,7 +35,7 @@ function getView(): TView {
    */
   const route = matchRoutes(CONTENT_ROUTES, window.location.pathname);
 
-  if (!route) throw new Error("Invalid route provided to getConfig()");
+  if (!route) return "unknown";
 
   return route[0].route.view;
 }

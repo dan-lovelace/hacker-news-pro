@@ -8,7 +8,9 @@ import { PollItem } from "./pollItem";
 import { Reply } from "./reply";
 import { StoryItem } from "./storyItem";
 import { StoryList } from "./storyList";
-import { IParsable, Submit, User } from "..";
+import { Submit } from "./submit";
+import { Unknown } from "./unknown";
+import { IParsable } from "..";
 import { TContentContext, TView } from "../app";
 
 export const voteDirections = ["down", "up", undefined] as const;
@@ -123,7 +125,8 @@ const parsers: Record<TView, IParsable<any>> = {
   storyItem: new StoryItem(),
   storyList: new StoryList(),
   submit: new Submit(),
-  user: new User(),
+  unknown: new Unknown(),
+  user: new Unknown(),
 };
 
 function createPageData<T extends TView>(
@@ -142,6 +145,3 @@ export function getPageData<T extends TView>(view: T) {
   const pageDataInstance = createPageData(view);
   return pageDataInstance.parse(document);
 }
-
-export * from "./submit";
-export * from "./user";

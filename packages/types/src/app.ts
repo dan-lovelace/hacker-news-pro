@@ -122,6 +122,7 @@ export type TView =
   | "storyItem"
   | "storyList"
   | "submit"
+  | "unknown"
   | "user";
 
 export type TViewInputValue = {
