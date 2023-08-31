@@ -1,5 +1,5 @@
 :root {
-  scroll-behavior: auto; // override bootstrap setting for instant scroll restoration
+  scroll-behavior: unset !important; // override bootstrap setting for instant scroll restoration
 }
 
 iframe#hnp-sandbox,
