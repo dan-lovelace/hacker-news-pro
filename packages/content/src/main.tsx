@@ -49,6 +49,12 @@ if (process.env.NODE_ENV === "development") {
   hnpStyle.id = HNP_STYLE_ELEMENT_ID;
   document.head.appendChild(hnpStyle);
 
+  const fontFace = new FontFace(
+    "Material Icons",
+    `url(${getAssetURL("fonts/material-icons.woff2")})`,
+  );
+  document.fonts.add(fontFace);
+
   await waitForElement("body");
   const root = document.createElement("div");
   root.id = HNP_ROOT_ELEMENT_ID;
