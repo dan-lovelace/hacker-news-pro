@@ -1,5 +1,6 @@
 export const HN_STYLESHEET = "link[href^='news.css']";
-export const HNP_BOOTSTRAP_ELEMENT_ID = "hnp-bootstrap";
+export const HNP_BOOTSTRAP_CSS_ELEMENT_ID = "hnp-bootstrap-css";
+export const HNP_BOOTSTRAP_JS_ELEMENT_ID = "hnp-bootstrap-js";
 export const HNP_CONTENT_ELEMENT_ID = "hnp-content";
 export const HNP_HTML_ELEMENT_CLASS_NAME = "hnp";
 export const HNP_ROOT_ELEMENT_ID = "hnp-root";
@@ -13,7 +14,7 @@ export const SELECTORS = Object.freeze({
   },
   HNP: {
     bootstrapStylesheet: () =>
-      document.getElementById(HNP_BOOTSTRAP_ELEMENT_ID) as HTMLLinkElement,
+      document.getElementById(HNP_BOOTSTRAP_CSS_ELEMENT_ID) as HTMLLinkElement,
     content: () =>
       document.getElementById(HNP_CONTENT_ELEMENT_ID) as HTMLDivElement,
     style: () =>

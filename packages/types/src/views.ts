@@ -119,7 +119,12 @@ export type TJobListItem = {
   };
   links: {
     hide?: string;
+    from?: string;
     item?: string;
+  };
+  site?: {
+    name: string;
+    url: string;
   };
   title?: string;
 };

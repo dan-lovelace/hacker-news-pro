@@ -33,22 +33,28 @@ window.addEventListener("message", (message) => {
 
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
-      const viewInputValue = value.inputs.views[context.config.view];
+      const { inputs } = value;
+      const styleInputValue = inputs.style;
+      const viewInputValue = inputs.views[context.config.view];
 
       if (!viewInputValue) return emptyThemeMessage();
 
-      const { components } = value.inputs ?? [];
+      const { components } = inputs ?? [];
       for (const component of components) {
         Handlebars.registerPartial(component.id, component.template);
       }
 
       const compiled = Handlebars.compile(viewInputValue.template)(context);
+      const style = Handlebars.compile(styleInputValue.template)(context);
 
       source?.postMessage(
         {
           action,
           value: {
-            style: value.inputs.style,
+            style: {
+              ...inputs.style,
+              template: style,
+            },
             compiled,
           },
         },

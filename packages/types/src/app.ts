@@ -34,6 +34,7 @@ export type TPopupOptions = {
 
 export type TSandboxContext<T> = {
   assets: {
+    baseUrl: string;
     originalLogoUrl: string;
   };
   config: TConfig;

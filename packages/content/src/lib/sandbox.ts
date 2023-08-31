@@ -18,6 +18,7 @@ export function getTemplateContext<T>(
 ): TSandboxContext<T> {
   return {
     assets: {
+      baseUrl: getAssetURL(),
       originalLogoUrl,
     },
     config,

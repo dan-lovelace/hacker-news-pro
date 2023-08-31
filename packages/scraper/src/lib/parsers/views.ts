@@ -204,18 +204,26 @@ export function getJobListItem(parent?: Element | null): TJobListItem {
   if (!parent) throw new Error("Error getting job list item");
 
   const metadataElement = parent.nextElementSibling?.querySelector(".subtext");
-
-  // children
   const age = getAge(metadataElement);
   const links: TJobListItem["links"] = {
     hide:
       SELECTORS.links.hide(metadataElement)?.getAttribute("href") ?? undefined,
+    from: SELECTORS.links.from(parent)?.getAttribute("href") ?? undefined,
     item:
       SELECTORS.links.item(metadataElement)?.getAttribute("href") ?? undefined,
   };
+  const siteName = parent?.querySelector(".titleline .sitebit a")?.textContent;
+  const siteUrl = parent?.querySelector(".titleline a")?.getAttribute("href");
+  const site =
+    siteName && siteUrl
+      ? {
+          name: siteName,
+          url: siteUrl,
+        }
+      : undefined;
   const title = parent?.querySelector(".titleline a")?.textContent ?? undefined;
 
-  return { age, links, title };
+  return { age, links, site, title };
 }
 
 export function getPollOptionItem(parent?: Element | null): TPollOptionItem {
