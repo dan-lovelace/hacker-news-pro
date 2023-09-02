@@ -74,7 +74,7 @@ export type TStorageKeyMap = {
   CUSTOM_THEMES: TTheme[];
   NAVIGATION_TYPE: NavigationTimingType;
   OPTIONS: TPopupOptions;
-  SCROLL_POSITIONS: Record<string, number>;
+  SCROLL_POSITIONS: Record<string, { expires: number; position: number }>;
   SELECTED_COMPONENT_ID: TSelectedComponent;
   SELECTED_TAB: number;
   SELECTED_THEME_ID: TSelectedTheme;

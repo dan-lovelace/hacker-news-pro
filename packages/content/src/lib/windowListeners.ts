@@ -39,11 +39,18 @@ async function pageShowListener() {
 
 async function scrollListener() {
   const scrollPositions = await storageGetByKey("SCROLL_POSITIONS");
+  const expireAfterMinutes = 15;
+  const newEntry = {
+    [window.location.href]: {
+      expires: new Date().getTime() + expireAfterMinutes * 60 * 1000,
+      position: window.scrollY,
+    },
+  };
 
   storageSetByKeys({
     SCROLL_POSITIONS: {
       ...scrollPositions,
-      [window.location.href]: window.scrollY,
+      ...newEntry,
     },
   });
 }

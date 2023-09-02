@@ -8,6 +8,8 @@ import {
   HNP_ROOT_ELEMENT_ID,
   HNP_STYLE_ELEMENT_ID,
   HNP_WEB_COMPONENTS_JS_ELEMENT_ID,
+  storageGetByKey,
+  storageSetByKeys,
   waitForElement,
 } from "@hnp/core";
 import ReactDOM from "react-dom/client";
@@ -17,8 +19,7 @@ import { getConfig } from "./lib/config";
 
 import "./style/main.scss";
 
-const bootstrapSrc = getAssetURL("css/vendor/bootstrap.min.css");
-
+// connect to hot reload server in development mode
 if (process.env.NODE_ENV === "development") {
   const ws = new WebSocket(`ws://localhost:9012`);
 
@@ -38,27 +39,18 @@ if (process.env.NODE_ENV === "development") {
     documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
   }
 
-  await waitForElement("head"); // wait resolves race condition
-  const webcomponentsJs = document.createElement("script");
-  webcomponentsJs.id = HNP_WEB_COMPONENTS_JS_ELEMENT_ID;
-  webcomponentsJs.src = getAssetURL("js/webcomponents.js");
-  document.head.appendChild(webcomponentsJs);
+  // without blocking, expire scroll positions to avoid storage leak
+  storageGetByKey("SCROLL_POSITIONS").then((scrollPositions) => {
+    for (const position in scrollPositions) {
+      const { expires } = scrollPositions[position];
 
-  const bootstrapStyle = document.createElement("link");
-  bootstrapStyle.id = HNP_BOOTSTRAP_CSS_ELEMENT_ID;
-  bootstrapStyle.rel = "stylesheet";
-  bootstrapStyle.type = "text/css";
-  bootstrapStyle.href = bootstrapSrc;
-  document.head.appendChild(bootstrapStyle);
+      if (new Date().getTime() > expires) {
+        delete scrollPositions[position];
+      }
+    }
 
-  const hnpStyle = document.createElement("style");
-  hnpStyle.id = HNP_STYLE_ELEMENT_ID;
-  document.head.appendChild(hnpStyle);
-
-  const bootstrapJs = document.createElement("script");
-  bootstrapJs.id = HNP_BOOTSTRAP_JS_ELEMENT_ID;
-  bootstrapJs.src = getAssetURL("js/bootstrap.bundle.min.js");
-  document.head.appendChild(bootstrapJs);
+    storageSetByKeys({ SCROLL_POSITIONS: scrollPositions });
+  });
 
   const fontFace = new FontFace(
     "Material Icons",
@@ -70,6 +62,28 @@ if (process.env.NODE_ENV === "development") {
     },
   );
   document.fonts.add(fontFace);
+
+  await waitForElement("head"); // wait resolves race condition
+  const webcomponentsJs = document.createElement("script");
+  webcomponentsJs.id = HNP_WEB_COMPONENTS_JS_ELEMENT_ID;
+  webcomponentsJs.src = getAssetURL("js/webcomponents.js");
+  document.head.appendChild(webcomponentsJs);
+
+  const bootstrapJs = document.createElement("script");
+  bootstrapJs.id = HNP_BOOTSTRAP_JS_ELEMENT_ID;
+  bootstrapJs.src = getAssetURL("js/bootstrap.bundle.min.js");
+  document.head.appendChild(bootstrapJs);
+
+  const bootstrapStyle = document.createElement("link");
+  bootstrapStyle.id = HNP_BOOTSTRAP_CSS_ELEMENT_ID;
+  bootstrapStyle.rel = "stylesheet";
+  bootstrapStyle.type = "text/css";
+  bootstrapStyle.href = getAssetURL("css/vendor/bootstrap.min.css");
+  document.head.appendChild(bootstrapStyle);
+
+  const hnpStyle = document.createElement("style");
+  hnpStyle.id = HNP_STYLE_ELEMENT_ID;
+  document.head.appendChild(hnpStyle);
 
   await waitForElement("body");
   const root = document.createElement("div");

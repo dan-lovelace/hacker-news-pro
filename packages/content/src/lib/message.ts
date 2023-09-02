@@ -37,14 +37,14 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         hnpStyle.innerHTML = style.template;
         hnpContent.innerHTML = compiled;
 
-        /** @note Do not block here */
+        // without blocking, restore scroll position if saved
         storageGetByKey("NAVIGATION_TYPE").then(async (navigationType) => {
           if (navigationType === "back_forward") {
             const scrollPositions = await storageGetByKey("SCROLL_POSITIONS");
             const scrollPosition = scrollPositions?.[window.location.href];
 
             if (scrollPosition !== undefined) {
-              window.scrollTo(0, scrollPosition);
+              window.scrollTo(0, scrollPosition.position);
             }
           }
         });
