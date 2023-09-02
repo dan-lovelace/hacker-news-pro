@@ -10,16 +10,13 @@ import { TConfig, TSandboxContext } from "@hnp/types";
 import { getConfig } from "./config";
 import { sendSandboxMessage, startContentListeners } from "./message";
 
-const originalLogoUrl = getAssetURL("img/hn_logo.svg");
-
 export function getTemplateContext<T>(
   config: TConfig,
   pageData: T,
 ): TSandboxContext<T> {
   return {
     assets: {
-      baseUrl: getAssetURL(),
-      originalLogoUrl,
+      baseURL: getAssetURL("img/content"),
     },
     config,
     pageData,
