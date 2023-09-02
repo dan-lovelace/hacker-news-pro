@@ -23,6 +23,10 @@ Handlebars.registerHelper("capitalize", (a) => {
   return capitalize(a);
 });
 
+Handlebars.registerHelper("mod", (a, b) => {
+  return a % b;
+});
+
 Handlebars.registerHelper("prettyDate", (a) => {
   return prettyDate(a);
 });

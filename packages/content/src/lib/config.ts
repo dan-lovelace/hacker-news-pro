@@ -42,9 +42,9 @@ function getView(): TView {
 
 export function getConfig(): TConfig {
   const {
-    location: { hostname },
+    location: { hostname, pathname },
   } = window;
   const view = getView();
 
-  return { hostname, view };
+  return { hostname, pathname, view };
 }

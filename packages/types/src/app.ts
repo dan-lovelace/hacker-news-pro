@@ -6,6 +6,7 @@ export type TComponent = {
 
 export type TConfig = {
   hostname: string;
+  pathname: string;
   view: TView;
 };
 

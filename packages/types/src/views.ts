@@ -27,13 +27,14 @@ export const viewRouteMap: Record<string, TView> = {
 
 export const voteDirections = ["down", "up", undefined] as const;
 
+export type TAge = {
+  humanized?: string;
+  timestamp?: string;
+};
+
 export type TComment = {
   data: {
-    age: {
-      humanized?: string;
-      timestamp?: string;
-    };
-    author: string;
+    age: TAge;
     bodyHTML?: string;
     id: string;
     interactions: {
@@ -46,6 +47,7 @@ export type TComment = {
     };
     itemUrl: string;
     replyUrl: string;
+    user?: TUser;
     voted: TVoteDirection;
   };
   depth: number;
@@ -65,16 +67,10 @@ export type TCommentList = {
 };
 
 export type TCommentListItem = {
-  age: {
-    humanized?: string;
-    timestamp?: string;
-  };
+  age: TAge;
   bodyHTML?: string;
   id: string;
-  interactions: {
-    voteDown?: string;
-    voteUp?: string;
-  };
+  interactions: TInteractions;
   links: {
     context?: string;
     favorite?: string;
@@ -87,10 +83,7 @@ export type TCommentListItem = {
   story: {
     title: string;
   };
-  user: {
-    id: string;
-    link: string;
-  };
+  user?: TUser;
   voted?: TVoteDirection;
 };
 
@@ -98,6 +91,11 @@ export type TForm = {
   action?: string;
   hiddenInputs?: string;
   method?: string;
+};
+
+export type TInteractions = {
+  voteDown?: string;
+  voteUp?: string;
 };
 
 export type TJobItem = TJobListItem & {
@@ -113,10 +111,7 @@ export type TJobList = {
 };
 
 export type TJobListItem = {
-  age: {
-    humanized?: string;
-    timestamp?: string;
-  };
+  age: TAge;
   links: {
     hide?: string;
     from?: string;
@@ -136,10 +131,7 @@ export type TPollItem = TStoryListItem & {
 
 export type TPollOptionItem = {
   id: string;
-  interactions: {
-    voteDown?: string;
-    voteUp?: string;
-  };
+  interactions: TInteractions;
   score?: number;
   title: string;
   voted: TVoteDirection;
@@ -168,9 +160,8 @@ export type TStoryList = {
 };
 
 export type TStoryListItem = {
+  age: TAge;
   commentsCount: number;
-  createdAt: string;
-  createdHumanized: string;
   id: string;
   interactions: {
     hide?: string;
@@ -191,10 +182,7 @@ export type TStoryListItem = {
     url: string;
   };
   title: string;
-  user?: {
-    id: string;
-    link: string;
-  };
+  user?: TUser;
   voted: TVoteDirection;
 };
 
@@ -202,6 +190,11 @@ export type TSubmit = {
   forms: {
     submit: TForm;
   };
+};
+
+export type TUser = {
+  id: string;
+  link: string;
 };
 
 export type TUnknown = unknown;

@@ -108,12 +108,20 @@ export function getComments(parent?: Element | null) {
 
     // children
     const age = getAge(row);
-    const author = row.querySelector(".hnuser")?.textContent ?? "";
     const bodyHTML = getBodyHTML(commentEle);
     const id = pipe(row.getAttribute("id") ?? "", getRowId);
     const itemUrl = ageEle?.querySelector("a")?.getAttribute("href") ?? "";
     const replyUrl =
       commentEle?.querySelector("a[href^='reply']")?.getAttribute("href") ?? "";
+    const userId = row?.querySelector(".hnuser")?.textContent;
+    const userLink = row?.querySelector(".hnuser")?.getAttribute("href");
+    const user =
+      userId && userLink
+        ? {
+            id: userId,
+            link: userLink,
+          }
+        : undefined;
 
     // interactions
     const navigationElements = navigationEle?.querySelectorAll("a");
@@ -138,7 +146,6 @@ export function getComments(parent?: Element | null) {
 
     const rowData: TComment["data"] = {
       age,
-      author,
       bodyHTML,
       id,
       interactions: {
@@ -148,6 +155,7 @@ export function getComments(parent?: Element | null) {
       },
       itemUrl,
       replyUrl,
+      user,
       voted,
     };
 
@@ -267,11 +275,8 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
   const metadataElement = parent.nextElementSibling?.querySelector(".subtext");
 
   // children
+  const age = getAge(metadataElement);
   const commentsCount = getCommentsCount(metadataElement) ?? 0;
-  const createdAt =
-    metadataElement?.querySelector(".age")?.getAttribute("title") ?? "";
-  const createdHumanized =
-    metadataElement?.querySelector(".age a")?.textContent ?? "";
   const id = parent?.getAttribute("id") ?? "";
   const links: TStoryListItem["links"] = {
     favorite:
@@ -319,9 +324,8 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
   const { voted, voteDown, voteUp } = getVoteInteractions(parent);
 
   return {
+    age,
     commentsCount,
-    createdAt,
-    createdHumanized,
     id,
     interactions: {
       hide,

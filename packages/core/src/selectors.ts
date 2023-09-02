@@ -6,6 +6,7 @@ export const HNP_HTML_ELEMENT_CLASS_NAME = "hnp";
 export const HNP_ROOT_ELEMENT_ID = "hnp-root";
 export const HNP_SANDBOX_ELEMENT_ID = "hnp-sandbox";
 export const HNP_STYLE_ELEMENT_ID = "hnp-style";
+export const HNP_WEB_COMPONENTS_JS_ELEMENT_ID = "hnp-web-components";
 
 export const SELECTORS = Object.freeze({
   HN: {

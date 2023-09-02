@@ -15,7 +15,9 @@ export class StoryItem implements IParsable<TStoryItem> {
     const detailsElement = document.querySelector(".athing");
     const storyListItem = getStoryListItem(detailsElement);
 
-    const bodyHTML = getBodyHTML(detailsElement?.querySelector(".toptext"));
+    const bodyHTML = getBodyHTML(
+      document.querySelector(".fatitem")?.querySelector(".toptext"),
+    );
     const comments = getComments(SELECTORS.commentTree(document));
     const commentForm = getForm(SELECTORS.forms.comment(document));
 
