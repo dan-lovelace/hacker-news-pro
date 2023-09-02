@@ -110,9 +110,12 @@ export function getComments(parent?: Element | null) {
     const age = getAge(row);
     const bodyHTML = getBodyHTML(commentEle);
     const id = pipe(row.getAttribute("id") ?? "", getRowId);
-    const itemUrl = ageEle?.querySelector("a")?.getAttribute("href") ?? "";
-    const replyUrl =
-      commentEle?.querySelector("a[href^='reply']")?.getAttribute("href") ?? "";
+    const links = {
+      item: ageEle?.querySelector("a")?.getAttribute("href") ?? undefined,
+      reply:
+        commentEle?.querySelector("a[href^='reply']")?.getAttribute("href") ??
+        undefined,
+    };
     const userId = row?.querySelector(".hnuser")?.textContent;
     const userLink = row?.querySelector(".hnuser")?.getAttribute("href");
     const user =
@@ -153,8 +156,7 @@ export function getComments(parent?: Element | null) {
         voteDown,
         voteUp,
       },
-      itemUrl,
-      replyUrl,
+      links,
       user,
       voted,
     };
