@@ -7,13 +7,13 @@ import {
   HNP_HTML_ELEMENT_CLASS_NAME,
   HNP_ROOT_ELEMENT_ID,
   HNP_STYLE_ELEMENT_ID,
+  HNP_WEB_COMPONENTS_JS_ELEMENT_ID,
   waitForElement,
 } from "@hnp/core";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
 import { getConfig } from "./lib/config";
-import { initializeWebComponents } from "./web-components";
 
 import "./style/main.scss";
 
@@ -39,6 +39,11 @@ if (process.env.NODE_ENV === "development") {
   }
 
   await waitForElement("head"); // wait resolves race condition
+  const webcomponentsJs = document.createElement("script");
+  webcomponentsJs.id = HNP_WEB_COMPONENTS_JS_ELEMENT_ID;
+  webcomponentsJs.src = getAssetURL("js/webcomponents.js");
+  document.head.appendChild(webcomponentsJs);
+
   const bootstrapStyle = document.createElement("link");
   bootstrapStyle.id = HNP_BOOTSTRAP_CSS_ELEMENT_ID;
   bootstrapStyle.rel = "stylesheet";
@@ -70,8 +75,6 @@ if (process.env.NODE_ENV === "development") {
   const root = document.createElement("div");
   root.id = HNP_ROOT_ELEMENT_ID;
   document.body.appendChild(root);
-
-  await initializeWebComponents();
 
   ReactDOM.createRoot(root).render(<App />);
 })();

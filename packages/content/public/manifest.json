@@ -28,7 +28,7 @@
   "permissions": ["declarativeContent", "storage"],
   "web_accessible_resources": [
     {
-      "resources": ["assets/*", "sandbox.html", "webcomponents-bundle.js"],
+      "resources": ["assets/*", "sandbox.html"],
       "matches": ["https://news.ycombinator.com/*"]
     }
   ],

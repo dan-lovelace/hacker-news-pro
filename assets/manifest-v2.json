@@ -27,10 +27,6 @@
     }
   ],
   "permissions": ["tabs", "storage", "https://news.ycombinator.com/*"],
-  "web_accessible_resources": [
-    "assets/*",
-    "sandbox.html",
-    "webcomponents-bundle.js"
-  ],
+  "web_accessible_resources": ["assets/*", "sandbox.html"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
