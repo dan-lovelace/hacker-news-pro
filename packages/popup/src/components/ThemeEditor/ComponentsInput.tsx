@@ -10,7 +10,6 @@ import { TComponent } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import InfoIcon from "@mui/icons-material/Info";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Alert,
@@ -19,8 +18,6 @@ import {
   Button,
   Divider,
   IconButton,
-  InputAdornment,
-  InputLabel,
   List,
   ListItemButton,
   ListItemIcon,
@@ -29,7 +26,6 @@ import {
   Modal,
   Stack,
   TextField,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { snakeCase } from "lodash";
@@ -170,17 +166,10 @@ export default function ComponentsInput() {
   const handleModifyChange = ({
     target: { name, value },
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    let newValue = value;
-
-    if (name === "id") {
-      if (!newValue.endsWith("_")) {
-        newValue = snakeCase(newValue);
-      }
-    }
-
     setModifyValue({
       ...modifyValue,
-      [name]: newValue,
+      [name]: value,
+      id: snakeCase(value),
     });
   };
 
@@ -199,7 +188,7 @@ export default function ComponentsInput() {
     }
 
     const label = modifyValue?.label?.trim() ?? "";
-    const name = snakeCase(modifyValue?.id?.trim()) ?? "";
+    const name = snakeCase(label) ?? "";
     const newComponentsValue: TComponent[] = [...(componentsValue || [])];
 
     if (isEditing) {
@@ -469,9 +458,10 @@ export default function ComponentsInput() {
               flex: "1 1 auto",
             }}
           >
-            <InputLabel shrink>
-              <strong>Usage:</strong> {`{{> ${selectedComponent.id}}}`}
-            </InputLabel>
+            <Typography variant="caption">
+              <strong>Basic usage:</strong>{" "}
+              <code>{`{{> ${selectedComponent.id}}}`}</code>
+            </Typography>
             <CodeEditor
               language="handlebars"
               value={selectedComponent.template}
@@ -519,33 +509,27 @@ export default function ComponentsInput() {
               onKeyDown={handleModalInputKeyDown}
             />
             <TextField
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip title="Requires snake_case convention">
-                      <InfoIcon />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
+              disabled
               fullWidth
               label="Name"
               name="id"
               size="small"
-              required
               value={modifyValue?.id ?? ""}
-              onChange={handleModifyChange}
-              onKeyDown={handleModalInputKeyDown}
             />
-            <Button
-              disabled={!canSave()}
-              fullWidth
-              type="submit"
-              variant="contained"
-              onClick={handleModifySave}
-            >
-              {modifyText}
-            </Button>
+            <Stack direction="row" spacing={2}>
+              <Button
+                disabled={!canSave()}
+                fullWidth
+                type="submit"
+                variant="contained"
+                onClick={handleModifySave}
+              >
+                {isCreating ? "Create" : "Save"}
+              </Button>
+              <Button fullWidth variant="outlined" onClick={handleModalClose}>
+                Cancel
+              </Button>
+            </Stack>
           </Stack>
         </Box>
       </Modal>

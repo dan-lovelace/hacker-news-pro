@@ -58,7 +58,7 @@ export default function CodeEditor({
         value={value}
         width="100%"
         height="100%"
-        setOptions={{ useWorker: false }}
+        setOptions={{ fixedWidthGutter: true, useWorker: false }}
         tabSize={2}
         onChange={handleChange}
       />

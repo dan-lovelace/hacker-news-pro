@@ -15,6 +15,13 @@ export const themeComponents: Components<Omit<Theme, "components">> = {
   MuiButtonBase: {
     defaultProps: { disableRipple: true },
   },
+  MuiFormControlLabel: {
+    styleOverrides: {
+      root: {
+        userSelect: "none",
+      },
+    },
+  },
   MuiInputBase: {
     defaultProps: { autoComplete: "off" },
   },
