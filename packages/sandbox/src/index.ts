@@ -44,7 +44,9 @@ window.addEventListener("message", (message) => {
         Handlebars.registerPartial(component.id, component.template);
       }
 
-      const compiled = Handlebars.compile(viewInputValue.template)(context);
+      const compiled = Handlebars.compile(viewInputValue.template, {
+        preventIndent: true, // ensure `pre` tags are rendered correctly
+      })(context);
       const style = Handlebars.compile(styleInputValue.template)(context);
 
       source?.postMessage(
