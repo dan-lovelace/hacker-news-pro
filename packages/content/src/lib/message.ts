@@ -61,13 +61,13 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
           darkModeAttribute,
           style.options.darkMode ? "dark" : "light",
         );
-        hnMain.style.display = "none";
+        if (hnMain) hnMain.style.display = "none";
         toggleStylesheet(HN_STYLESHEET, false);
         bootstrapStylesheet.removeAttribute("disabled");
       } else {
         documentElement.classList.remove(HNP_HTML_ELEMENT_CLASS_NAME);
         documentElement.removeAttribute(darkModeAttribute);
-        hnMain.style.display = "table";
+        if (hnMain) hnMain.style.display = "table";
         toggleStylesheet(HN_STYLESHEET, true);
         bootstrapStylesheet.setAttribute("disabled", "true");
       }

@@ -10,7 +10,7 @@ export const HNP_WEB_COMPONENTS_JS_ELEMENT_ID = "hnp-web-components";
 
 export const SELECTORS = Object.freeze({
   HN: {
-    main: () => document.getElementById("hnmain") as HTMLTableElement,
+    main: () => document.getElementById("hnmain"),
     stylesheet: () => document.head.querySelector(HN_STYLESHEET),
   },
   HNP: {
