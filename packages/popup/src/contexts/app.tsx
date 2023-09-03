@@ -28,21 +28,16 @@ export function useAppContext() {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [initialized, setInitialized] = useState(false);
   const [options, setOptions] = useState<TOptions>(DEFAULT_OPTIONS);
   const [popout, setPopout] = useState<boolean>(false);
 
   useEffect(() => {
-    function init() {
-      storageGetByKey("OPTIONS").then((storedOptions) => {
-        setOptions({
-          ...options,
-          ...storedOptions,
-        });
-        setInitialized(true);
+    storageGetByKey("OPTIONS").then((storedOptions) => {
+      setOptions({
+        ...options,
+        ...storedOptions,
       });
-    }
-    init();
+    });
   }, []);
 
   const handleOptionChange = <TKey extends keyof TOptions>(
@@ -61,14 +56,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <>
-      {/* {initialized && ( */}
-      <AppContext.Provider
-        value={{ options, popout, handleOptionChange, setPopout }}
-      >
-        <ToastProvider>{children}</ToastProvider>
-      </AppContext.Provider>
-      {/* )} */}
-    </>
+    <AppContext.Provider
+      value={{ options, popout, handleOptionChange, setPopout }}
+    >
+      <ToastProvider>{children}</ToastProvider>
+    </AppContext.Provider>
   );
 }
