@@ -3,5 +3,6 @@
     "packages/sandbox/src/helpers.ts",
     "packages/types/src/views.ts"
   ],
-  "out": "docs"
+  "out": "docs",
+  "plugin": ["typedoc-plugin-extras"]
 }
