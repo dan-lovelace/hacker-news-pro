@@ -23,6 +23,8 @@ export type TContentContext = {
   };
 };
 
+export type TDebugLabel = "context";
+
 export type TMessageAction = "update-theme";
 
 export type TMessageEvent<T> = {
@@ -72,12 +74,12 @@ export type TStorage = Partial<{
 export type TStorageKey = keyof TStorageKeyMap;
 
 export type TStorageKeyMap = {
-  CURRENT_PAGE: string;
   CUSTOM_THEMES: TTheme[];
   NAVIGATION_TYPE: NavigationTimingType;
   OPTIONS: TOptions;
   SCROLL_POSITIONS: Record<string, { expires: number; position: number }>;
   SELECTED_COMPONENT_ID: TSelectedComponent;
+  SELECTED_PAGE: string;
   SELECTED_TAB: number;
   SELECTED_THEME_ID: TSelectedTheme;
   SELECTED_VIEW: TView;

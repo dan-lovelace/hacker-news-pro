@@ -1,3 +1,5 @@
+import { TDebugLabel } from "@hnp/types";
+
 import { browser } from "./browser";
 
 const disabledStylesheets: { [key: string]: Element } = {};
@@ -13,7 +15,7 @@ export function getAssetURL(path?: string) {
   return getURL(`${assetBase}/${path}`);
 }
 
-export function logDebug(label: string, ...data: any[]) {
+export function logDebug(label: TDebugLabel, ...data: any[]) {
   // eslint-disable-next-line no-console
   console.log("%cHNP%c:", "color: #ff6600", "color: unset", label, ...data);
 }
