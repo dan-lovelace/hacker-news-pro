@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 import { Box, useMediaQuery } from "@mui/material";
 import AceEditor from "react-ace";
@@ -8,6 +8,8 @@ import { PAGE_MIN_WIDTH } from "../../lib/vars";
 
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-handlebars";
+import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/theme-solarized_light";
 
 type CodeEditorProps = {
   language: "css" | "handlebars";
@@ -21,23 +23,12 @@ export default function CodeEditor({
   value,
   handleChange,
 }: CodeEditorProps) {
-  const [theme, setTheme] = useState<string>();
   const { popout } = useAppContext();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
-  useEffect(() => {
-    async function setStyle() {
-      if (prefersDarkMode) {
-        await import("ace-builds/src-noconflict/theme-solarized_dark");
-        setTheme("solarized_dark");
-      } else {
-        await import("ace-builds/src-noconflict/theme-solarized_light");
-        setTheme("solarized_light");
-      }
-    }
-
-    setStyle();
-  }, []);
+  const theme = useMemo(
+    () => (prefersDarkMode ? "solarized_dark" : "solarized_light"),
+    [prefersDarkMode],
+  );
 
   return (
     <Box
