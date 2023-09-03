@@ -6,11 +6,11 @@ const outDir = join(__dirname, "..", "..", "dist");
 
 export default defineConfig(({ mode }) => ({
   build: {
+    minify: mode === "production",
     outDir,
     rollupOptions: {
       input: "src/index.ts",
       output: {
-        compact: mode === "production",
         entryFileNames: "background.js",
         chunkFileNames: "[name].js",
         assetFileNames: "[name].[ext]",
