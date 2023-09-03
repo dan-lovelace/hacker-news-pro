@@ -195,11 +195,13 @@ export function getForm(form?: Element | null): TForm {
   const hiddenInputs = pipe(
     [
       form?.querySelector("input[name='hmac']")?.outerHTML ?? undefined,
+      form?.querySelector("input[name='fnid']")?.outerHTML ?? undefined,
+      form?.querySelector("input[name='fnop']")?.outerHTML ?? undefined,
       form?.querySelector("input[name='goto']")?.outerHTML ?? undefined,
       form?.querySelector("input[name='parent']")?.outerHTML ?? undefined,
     ],
     (inputsArray: Array<string | undefined>) =>
-      inputsArray.every(Boolean) ? inputsArray.join("\n") : undefined,
+      inputsArray.filter(Boolean) ? inputsArray.join("\n") : undefined,
   );
   const method = form?.getAttribute("method") ?? undefined;
 

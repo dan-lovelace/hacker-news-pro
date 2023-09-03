@@ -14,10 +14,12 @@ export type TContentContext = {
   currentUser: {
     isLoggedIn?: boolean;
     karma?: number;
-    loginUrl?: string;
-    logoutUrl?: string;
+    links: {
+      login?: string;
+      logout?: string;
+      profile?: string;
+    };
     name?: string;
-    link?: string;
   };
 };
 

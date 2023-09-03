@@ -22,6 +22,19 @@ class PageData<T> implements IParsable<T> {
       document.querySelector(".pagetop a#me") ||
       document.querySelector(".pagetop a[href^='login']")
     );
+    const links: TContentContext["currentUser"]["links"] = {
+      login:
+        document
+          .querySelector(".pagetop a[href^='login']")
+          ?.getAttribute("href") ?? undefined,
+      logout:
+        document
+          .querySelector(".pagetop a[href^='logout']")
+          ?.getAttribute("href") ?? undefined,
+      profile:
+        document.querySelector(".pagetop a#me")?.getAttribute("href") ??
+        undefined,
+    };
 
     return {
       ...this.parser.parse(document),
@@ -35,18 +48,8 @@ class PageData<T> implements IParsable<T> {
           ),
           (karmaInt: number) => (isNaN(karmaInt) ? undefined : karmaInt),
         ),
-        loginUrl:
-          document
-            .querySelector(".pagetop a[href^='login']")
-            ?.getAttribute("href") ?? undefined,
-        logoutUrl:
-          document
-            .querySelector(".pagetop a[href^='logout']")
-            ?.getAttribute("href") ?? undefined,
+        links,
         name: document.querySelector(".pagetop a#me")?.textContent ?? undefined,
-        link:
-          document.querySelector(".pagetop a#me")?.getAttribute("href") ??
-          undefined,
       },
     };
   }

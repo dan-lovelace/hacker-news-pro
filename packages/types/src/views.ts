@@ -54,6 +54,7 @@ export type TComment = {
 /** Item page that displays a comment */
 export type TCommentItem = TCommentListItem & {
   comments: TComment[];
+  forms: Pick<TForms, "comment">;
 };
 
 /** List page that displays comment items */
@@ -84,6 +85,11 @@ export type TForm = {
   action?: string;
   hiddenInputs?: string;
   method?: string;
+};
+
+export type TForms = {
+  comment?: TForm;
+  submit?: TForm;
 };
 
 /** User actions that may either redirect or perform an inline page update */
@@ -175,9 +181,7 @@ export type TPollOptionItem = {
 
 /** Page to reply to a comment */
 export type TReply = TCommentListItem & {
-  forms: {
-    comment: TForm;
-  };
+  forms: Pick<TForms, "comment">;
 };
 
 /** Item's linked site or article */
@@ -190,9 +194,7 @@ export type TSite = {
 export type TStoryItem = TStoryListItem & {
   bodyHTML?: string;
   comments: TComment[];
-  forms: {
-    comment: TForm;
-  };
+  forms: Pick<TForms, "comment">;
 };
 
 /** List page that displays story items */
@@ -220,9 +222,7 @@ export type TStoryListItem = {
 
 /** Page to submit a new story */
 export type TSubmit = {
-  forms: {
-    submit: TForm;
-  };
+  forms: Pick<TForms, "submit">;
 };
 
 /** User that submitted an item */
