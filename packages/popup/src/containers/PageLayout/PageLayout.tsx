@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import OptionsMenu from "../../components/OptionsMenu/OptionsMenu";
+import NavMenu from "../../components/NavMenu/NavMenu";
 import { useAppContext } from "../../contexts/app";
 import { themeComponents } from "../../lib/muiTheme";
 import { basename } from "../../lib/routes";
@@ -97,7 +97,7 @@ export default function PageLayout({ children }: { children: ReactNode }) {
                 </IconButton>
               </Box>
             )}
-            <OptionsMenu />
+            <NavMenu />
           </Stack>
         </Box>
       </Stack>

@@ -13,9 +13,9 @@ export default function App() {
 
   useEffect(() => {
     async function init() {
-      const currentPage = await storageGetByKey("CURRENT_PAGE");
+      const selectedPage = await storageGetByKey("SELECTED_PAGE");
 
-      navigate(currentPage ?? ROUTES.HOME.path, {
+      navigate(selectedPage ?? ROUTES.HOME.path, {
         state: initialRedirectState,
       });
     }
@@ -27,7 +27,7 @@ export default function App() {
     // keep track of current page, ignore default index load
     if (location.key !== "default") {
       storageSetByKeys({
-        CURRENT_PAGE: location.pathname,
+        SELECTED_PAGE: location.pathname,
       });
     }
   }, [location.pathname]);

@@ -1,4 +1,4 @@
-import { getNodeHTML, pipe } from "@hnp/core";
+import { pipe } from "@hnp/core";
 import {
   TComment,
   TCommentListItem,
@@ -10,12 +10,29 @@ import {
   voteDirections,
 } from "@hnp/types";
 
-import { SELECTORS, buildCommentTree, getRowId, getRowIndent } from "..";
+import {
+  SELECTORS,
+  buildCommentTree,
+  getNodeHTML,
+  getRowId,
+  getRowIndent,
+} from "..";
 
 export function getAge(parent?: Element | null) {
   const ageElement = parent?.querySelector(".age");
   const humanized = ageElement?.textContent ?? undefined;
-  const timestamp = ageElement?.getAttribute("title") ?? undefined;
+  const timestamp = pipe(
+    ageElement?.getAttribute("title"),
+    (title?: string) => {
+      if (!title) return undefined;
+
+      // return immediately if timestamp contains an offset
+      if (title.includes("+")) return title;
+
+      // HN timestamps might not end with UTC identifier so we need to add it
+      return title.endsWith("Z") ? title : `${title}Z`;
+    },
+  );
 
   return { humanized, timestamp };
 }

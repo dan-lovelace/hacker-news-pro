@@ -26,6 +26,7 @@ import {
 import { kebabCase } from "lodash";
 
 import ThemeItem from "./ThemeItem";
+import { useAppContext } from "../../contexts/app";
 import { useToastContext } from "../../contexts/toast";
 import { PAGE_CONTENT_WIDTH } from "../../lib/vars";
 
@@ -35,13 +36,15 @@ export default function HomePage() {
   const [currentTheme, setCurrentTheme] = useState<TTheme>();
   const [customThemes, setCustomThemes] = useState<TTheme[]>([]);
   const [initialized, setInitialized] = useState<boolean>(false);
-  const [themesEnabled, setThemesEnabled] = useState<boolean>(true);
   const { notify } = useToastContext();
+  const {
+    options: { themesEnabled },
+    handleOptionChange,
+  } = useAppContext();
 
   useEffect(() => {
     async function init() {
       const { currentTheme, customThemes } = await fetchThemeData();
-      const options = await storageGetByKey("OPTIONS");
 
       if (currentTheme) {
         setCurrentTheme(currentTheme);
@@ -49,10 +52,6 @@ export default function HomePage() {
 
       if (customThemes) {
         setCustomThemes(customThemes);
-      }
-
-      if (options) {
-        setThemesEnabled(options.themesEnabled);
       }
 
       setInitialized(true);
@@ -233,16 +232,7 @@ export default function HomePage() {
   };
 
   const handleThemesEnabledClick = async () => {
-    const options = await storageGetByKey("OPTIONS");
-    const newThemesEnabled = !themesEnabled;
-
-    setThemesEnabled(newThemesEnabled);
-    storageSetByKeys({
-      OPTIONS: {
-        ...options,
-        themesEnabled: newThemesEnabled,
-      },
-    });
+    handleOptionChange("themesEnabled", !themesEnabled);
   };
 
   return (

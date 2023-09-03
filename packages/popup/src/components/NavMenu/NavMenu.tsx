@@ -2,6 +2,7 @@ import { MouseEvent, useState } from "react";
 
 import BrushIcon from "@mui/icons-material/Brush";
 import MenuIcon from "@mui/icons-material/Menu";
+import SettingsIcon from "@mui/icons-material/Settings";
 import SupportIcon from "@mui/icons-material/Support";
 import {
   Box,
@@ -15,7 +16,7 @@ import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../lib/routes";
 
-export default function OptionsMenu() {
+export default function NavMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -32,10 +33,10 @@ export default function OptionsMenu() {
   };
 
   return (
-    <Box>
+    <Box className="nav-menu">
       <IconButton
-        id="options-menu-button"
-        aria-controls={open ? "options-menu" : undefined}
+        id="nav-menu-button"
+        aria-controls={open ? "nav-menu" : undefined}
         aria-label="options menu"
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
@@ -44,9 +45,9 @@ export default function OptionsMenu() {
         <MenuIcon />
       </IconButton>
       <Menu
-        id="options-menu-button"
+        id="nav-menu-button"
         anchorEl={anchorEl}
-        aria-labelledby="options-menu"
+        aria-labelledby="nav-menu"
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
@@ -70,6 +71,14 @@ export default function OptionsMenu() {
               <BrushIcon />
             </ListItemIcon>
             Themes
+          </MenuItem>
+        </Link>
+        <Link to={ROUTES.OPTIONS.path}>
+          <MenuItem dense onClick={handleItemClick}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            Options
           </MenuItem>
         </Link>
         <Divider sx={{ my: 1 }} />
