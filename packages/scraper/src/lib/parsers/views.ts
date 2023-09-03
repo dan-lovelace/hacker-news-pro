@@ -21,7 +21,18 @@ import {
 export function getAge(parent?: Element | null) {
   const ageElement = parent?.querySelector(".age");
   const humanized = ageElement?.textContent ?? undefined;
-  const timestamp = ageElement?.getAttribute("title") ?? undefined;
+  const timestamp = pipe(
+    ageElement?.getAttribute("title"),
+    (title?: string) => {
+      if (!title) return undefined;
+
+      // return immediately if timestamp contains an offset
+      if (title.includes("+")) return title;
+
+      // HN timestamps might not end with UTC identifier so we need to add it
+      return title.endsWith("Z") ? title : `${title}Z`;
+    },
+  );
 
   return { humanized, timestamp };
 }

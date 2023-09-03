@@ -1,9 +1,3 @@
-function getTimestampDate(timestamp: string) {
-  const timestampUTC = timestamp.endsWith("Z") ? timestamp : `${timestamp}Z`;
-
-  return new Date(timestampUTC);
-}
-
 export function humanizeUnixTime(time: number) {
   const date = new Date(Math.round(time) * 1000);
   const diff = (new Date().getTime() - date.getTime()) / 1000;
@@ -27,9 +21,9 @@ export function humanizeUnixTime(time: number) {
 }
 
 export function timestampDate(timestamp: string) {
-  return getTimestampDate(timestamp).toLocaleDateString();
+  return new Date(timestamp).toLocaleDateString();
 }
 
 export function timestampTime(timestamp: string) {
-  return getTimestampDate(timestamp).toLocaleTimeString();
+  return new Date(timestamp).toLocaleTimeString();
 }
