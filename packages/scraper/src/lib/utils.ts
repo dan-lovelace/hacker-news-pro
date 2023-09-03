@@ -1,6 +1,15 @@
 import { pipe } from "@hnp/core";
 import { TComment } from "@hnp/types";
 
+export function getNodeHTML(node?: Node) {
+  if (!node) return undefined;
+
+  const ghost = document.createElement("div");
+  ghost.appendChild(node);
+
+  return ghost.innerHTML.trim();
+}
+
 export const getRowId = (id: string) =>
   `item_${id.replaceAll(/(#|item_)/g, "")}`;
 

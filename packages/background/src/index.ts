@@ -1,4 +1,9 @@
-import { browser, fetchThemeData, storageSetByKeys } from "@hnp/core";
+import {
+  DEFAULT_OPTIONS,
+  browser,
+  fetchThemeData,
+  storageSetByKeys,
+} from "@hnp/core";
 import { TSelectedTheme } from "@hnp/types";
 
 function main() {
@@ -12,9 +17,7 @@ function main() {
       const defaultTheme: TSelectedTheme = "default";
 
       await storageSetByKeys({
-        OPTIONS: {
-          themesEnabled: true,
-        },
+        OPTIONS: DEFAULT_OPTIONS,
         SELECTED_THEME_ID: defaultTheme,
       });
     }

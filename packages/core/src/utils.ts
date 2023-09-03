@@ -13,13 +13,9 @@ export function getAssetURL(path?: string) {
   return getURL(`${assetBase}/${path}`);
 }
 
-export function getNodeHTML(node?: Node) {
-  if (!node) return undefined;
-
-  const ghost = document.createElement("div");
-  ghost.appendChild(node);
-
-  return ghost.innerHTML.trim();
+export function logDebug(label: string, ...data: any[]) {
+  // eslint-disable-next-line no-console
+  console.log("%cHNP%c:", "color: #ff6600", "color: unset", label, ...data);
 }
 
 export function pipe<T, U extends (...args: any[]) => any>(

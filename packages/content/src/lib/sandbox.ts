@@ -1,6 +1,7 @@
 import {
   getAssetURL,
   getCurrentTheme,
+  logDebug,
   MESSAGE_ACTIONS,
   storageGetByKey,
 } from "@hnp/core";
@@ -33,9 +34,12 @@ export async function renderContent() {
   const { view } = config;
   const pageData = getPageData(view);
   const context = getTemplateContext(config, pageData);
-  console.log("context", context);
   const themeToApply = await getCurrentTheme(config);
   const options = await storageGetByKey("OPTIONS");
+
+  if (options?.developerMode) {
+    logDebug("context", context);
+  }
 
   if (!themeToApply) return;
 
