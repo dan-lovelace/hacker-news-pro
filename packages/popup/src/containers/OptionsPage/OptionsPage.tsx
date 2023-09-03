@@ -50,7 +50,6 @@ export default function OptionsPage() {
         <Typography variant="h6">Options</Typography>
       </Stack>
       <Stack spacing={1}>
-        <Typography variant="caption">Basic</Typography>
         <Section
           control={
             <FormControlLabel
@@ -64,11 +63,8 @@ export default function OptionsPage() {
             />
           }
         >
-          {/* Enables printing of useful information to the console such as the
-          current view's context. This saves time debugging and developing new
-          themes. */}
-          Enhance debugging and theme development with valuable console
-          insights, including the current view's context.
+          Prints valuable information to the console such as the current view's
+          context. Saves time debugging and writing new themes.
         </Section>
       </Stack>
     </Stack>
