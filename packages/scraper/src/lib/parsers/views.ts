@@ -209,7 +209,7 @@ export function getCommentsCount(parent?: Element | null) {
 
 export function getForm(form?: Element | null): TForm {
   const action = form?.getAttribute("action") ?? undefined;
-  const hiddenInputs = pipe(
+  const hiddenInputsHTML = pipe(
     [
       form?.querySelector("input[name='hmac']")?.outerHTML ?? undefined,
       form?.querySelector("input[name='fnid']")?.outerHTML ?? undefined,
@@ -224,7 +224,7 @@ export function getForm(form?: Element | null): TForm {
 
   return {
     action,
-    hiddenInputs,
+    hiddenInputsHTML,
     method,
   };
 }
