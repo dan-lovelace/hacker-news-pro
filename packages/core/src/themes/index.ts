@@ -8,6 +8,8 @@ import { z } from "zod";
 
 import defaultTheme from "./default";
 import magellanTheme from "./magellan";
+import technicaTheme from "./technica";
+import vanillaTheme from "./vanilla";
 
 const helpTheme: TTheme = {
   id: "help",
@@ -29,7 +31,12 @@ const helpTheme: TTheme = {
   version: "1.0.0",
 };
 
-export const premadeThemes = [defaultTheme, magellanTheme];
+export const premadeThemes = [
+  defaultTheme,
+  magellanTheme,
+  technicaTheme,
+  vanillaTheme,
+];
 
 export async function applyTheme(theme?: TTheme) {
   if (!theme) {
