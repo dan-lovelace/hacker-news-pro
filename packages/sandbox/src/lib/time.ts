@@ -1,4 +1,10 @@
-export function prettyDate(time: number) {
+function getTimestampDate(timestamp: string) {
+  const timestampUTC = timestamp.endsWith("Z") ? timestamp : `${timestamp}Z`;
+
+  return new Date(timestampUTC);
+}
+
+export function humanizeUnixTime(time: number) {
   const date = new Date(Math.round(time) * 1000);
   const diff = (new Date().getTime() - date.getTime()) / 1000;
   const day_diff = Math.floor(diff / 86400);
@@ -18,4 +24,12 @@ export function prettyDate(time: number) {
     (day_diff < 7 && day_diff + " days ago") ||
     (day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago")
   );
+}
+
+export function timestampDate(timestamp: string) {
+  return getTimestampDate(timestamp).toLocaleDateString();
+}
+
+export function timestampTime(timestamp: string) {
+  return getTimestampDate(timestamp).toLocaleTimeString();
 }
