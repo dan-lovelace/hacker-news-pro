@@ -165,13 +165,6 @@ export default function ThemeItem({
         ) : (
           <>
             <IconButton
-              aria-label="export theme"
-              title="Export"
-              onClick={handleExportClick}
-            >
-              <FileDownloadIcon />
-            </IconButton>
-            <IconButton
               aria-label="clone theme"
               title="Clone"
               onClick={handleCloneClick}

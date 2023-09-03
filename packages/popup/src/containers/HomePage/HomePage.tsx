@@ -18,6 +18,7 @@ import {
   Button,
   Divider,
   IconButton,
+  Link,
   List,
   Stack,
   TextField,
@@ -267,10 +268,18 @@ export default function HomePage() {
                   />
                 ))
               ) : (
-                <Alert severity="info">
+                <Alert severity="info" variant="outlined">
                   <AlertTitle>No custom themes</AlertTitle>
-                  You haven't created any themes yet. Click the button below to
-                  get started.
+                  Ready to dive into theming? If this is your first time, we
+                  recommend cloning a premade theme to get started. You may also
+                  start from scratch or import someone else's. Refer to the{" "}
+                  <Link
+                    href="https://github.com/dan-lovelace/hacker-news-pro/wiki/Theming#reference"
+                    target="_blank"
+                  >
+                    theme reference documentation
+                  </Link>{" "}
+                  for help.
                 </Alert>
               )}
             </List>
