@@ -16,6 +16,7 @@
     "build": "yarn clean && ts-node --esm scripts/build.ts",
     "clean": "rimraf dist",
     "dist:watch": "yarn --cwd scripts/hot-reload start",
+    "docs": "typedoc",
     "lint": "eslint .",
     "package": "ts-node --esm scripts/package.ts",
     "start": "yarn clean && yarn start:background & yarn start:content & yarn start:popup & yarn start:sandbox & yarn dist:watch",
@@ -39,6 +40,7 @@
     "prettier": "^3.0.2",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.25.0",
     "typescript": "^5.1.6",
     "vite": "^4.4.9"
   },
