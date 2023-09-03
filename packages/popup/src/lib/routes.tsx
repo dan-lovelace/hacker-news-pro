@@ -1,4 +1,4 @@
-import { RouteObject, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom";
 
 import App from "../App";
 import EditorPage from "../containers/EditorPage";
@@ -43,6 +43,10 @@ export const router = createBrowserRouter(
           element: <SupportPage />,
         },
       ],
+    },
+    {
+      path: "*",
+      element: <Navigate to={ROUTES.HOME.path} replace />,
     },
   ],
   {
