@@ -37,8 +37,10 @@ export default function HomePage() {
   const [customThemes, setCustomThemes] = useState<TTheme[]>([]);
   const [initialized, setInitialized] = useState<boolean>(false);
   const { notify } = useToastContext();
-  const { options, handleOptionChange } = useAppContext();
-  const { themesEnabled } = options;
+  const {
+    options: { themesEnabled },
+    handleOptionChange,
+  } = useAppContext();
 
   useEffect(() => {
     async function init() {
@@ -230,7 +232,7 @@ export default function HomePage() {
   };
 
   const handleThemesEnabledClick = async () => {
-    handleOptionChange("themesEnabled", !options.themesEnabled);
+    handleOptionChange("themesEnabled", !themesEnabled);
   };
 
   return (
