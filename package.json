@@ -4,7 +4,6 @@
     "name": "dan-lovelace",
     "url": "https://github.com/dan-lovelace/hacker-news-pro"
   },
-  "description": "A browser extension for Hacker News",
   "license": "MIT",
   "private": true,
   "version": "0.1.0",

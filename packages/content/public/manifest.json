@@ -1,7 +1,7 @@
 {
   "name": "Hacker News Pro",
   "version": "0.0.0",
-  "description": "A browser extension for Hacker News",
+  "description": "Use your coding skills to craft the perfect Hacker News experience",
   "homepage_url": "https://github.com/dan-lovelace/hacker-news-pro",
   "manifest_version": 3,
   "icons": {
