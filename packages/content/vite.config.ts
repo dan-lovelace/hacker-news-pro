@@ -7,9 +7,6 @@ const outDir = join(__dirname, "..", "..", "dist");
 
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  esbuild: {
-    drop: mode === "production" ? ["console"] : [],
-  },
   build: {
     minify: mode === "production",
     outDir,
