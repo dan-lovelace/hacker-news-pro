@@ -78,7 +78,7 @@ if (process.env.NODE_ENV === "development") {
   bootstrapStyle.id = HNP_BOOTSTRAP_CSS_ELEMENT_ID;
   bootstrapStyle.rel = "stylesheet";
   bootstrapStyle.type = "text/css";
-  bootstrapStyle.href = getAssetURL("css/vendor/bootstrap.min.css");
+  bootstrapStyle.href = getAssetURL("css/bootstrap.min.css");
   document.head.appendChild(bootstrapStyle);
 
   const hnpStyle = document.createElement("style");
