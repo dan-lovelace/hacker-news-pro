@@ -1,4 +1,3 @@
-import { pipe } from "@hnp/core";
 import { TComment } from "@hnp/types";
 
 export function getNodeHTML(node?: Node) {
@@ -45,4 +44,11 @@ export function buildCommentTree(
   }
 
   return [comments, currentIndex];
+}
+
+export function pipe<T, U extends (...args: any[]) => any>(
+  expression: T,
+  fn: U,
+): ReturnType<U> {
+  return fn(expression);
 }

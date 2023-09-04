@@ -1,6 +1,6 @@
-import { pipe } from "@hnp/core";
 import { IParsable, TContentContext, TView } from "@hnp/types";
 
+import { pipe } from "..";
 import {
   CommentItem,
   CommentList,

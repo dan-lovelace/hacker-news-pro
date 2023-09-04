@@ -9,9 +9,6 @@
     "build": "echo \"Info: no build specified\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@hnp/core": "*"
-  },
   "devDependencies": {
     "@hnp/types": "*"
   }

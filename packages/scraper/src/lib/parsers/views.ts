@@ -1,4 +1,3 @@
-import { pipe } from "@hnp/core";
 import {
   TComment,
   TCommentListItem,
@@ -16,6 +15,7 @@ import {
   getNodeHTML,
   getRowId,
   getRowIndent,
+  pipe,
 } from "..";
 
 export function getAge(parent?: Element | null) {

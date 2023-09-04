@@ -20,13 +20,6 @@ export function logDebug(label: TDebugLabel, ...data: any[]) {
   console.log("%cHNP%c:", "color: #ff6600", "color: unset", label, ...data);
 }
 
-export function pipe<T, U extends (...args: any[]) => any>(
-  expression: T,
-  fn: U,
-): ReturnType<U> {
-  return fn(expression);
-}
-
 /**
  * Allows enabling or disabling of stylesheets in an idempotent manner. It is
  * used to prevent reapplication of HN styles when content is lazily loaded.

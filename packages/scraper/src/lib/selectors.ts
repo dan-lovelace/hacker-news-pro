@@ -1,4 +1,4 @@
-import { pipe } from "@hnp/core";
+import { pipe } from ".";
 
 export const SELECTORS = {
   commentTree: (within: Document | Element | null) =>
