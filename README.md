@@ -2,11 +2,11 @@
    <span>
       Hacker News Pro
    </span>
-   <a href="https://www.buymeacoffee.com/danlovelace" target="_blank" style="float: right;">
+   <a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
       <img
          src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
          alt="Buy Me A Coffee"
-         style="aspect-ratio: 1 / .276; height: 38px"
+         style="aspect-ratio: 1 / .276; height: 38px; float: right;"
       />
    </a>
 </h1>
