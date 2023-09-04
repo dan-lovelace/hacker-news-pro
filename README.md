@@ -1,12 +1,12 @@
-<h1 style="display: flex; align-items: end;">
-   <span style="flex: 1 1 auto;">
+<h1>
+   <span>
       Hacker News Pro
    </span>
-   <a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
+   <a href="https://www.buymeacoffee.com/danlovelace" target="_blank" style="float: right;">
       <img
          src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
          alt="Buy Me A Coffee"
-         style="aspect-ratio: 1 / .276; height: 32px"
+         style="aspect-ratio: 1 / .276; height: 38px"
       />
    </a>
 </h1>
