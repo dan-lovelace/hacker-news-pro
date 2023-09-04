@@ -10,23 +10,22 @@ const VERSIONS_DIR = "versions";
 
 function main() {
   const manifestVersion = process.argv[2];
+  const packageJson = fs.readFileSync("package.json", "utf-8");
+  const { name, version: packageVersion } = JSON.parse(packageJson);
+  const outputFile = path.join(
+    __dirname,
+    VERSIONS_DIR,
+    `${name}_${packageVersion}_m${manifestVersion}.zip`,
+  );
+
+  if (fs.existsSync(outputFile)) {
+    throw new Error(`Output file already exists: ${outputFile}`);
+  }
 
   exec(`yarn build ${manifestVersion}`, (execError, stdout, stderr) => {
     if (execError) {
       console.log(stderr);
       process.exit(1);
-    }
-
-    const packageJson = fs.readFileSync("package.json", "utf-8");
-    const packageVersion = JSON.parse(packageJson).version;
-    const outputFile = path.join(
-      __dirname,
-      VERSIONS_DIR,
-      `${packageVersion}_mv${manifestVersion}.zip`,
-    );
-
-    if (fs.existsSync(outputFile)) {
-      throw new Error(`Output file already exists: ${outputFile}`);
     }
 
     if (!fs.existsSync(VERSIONS_DIR)) {
