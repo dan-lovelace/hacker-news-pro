@@ -1,54 +1,105 @@
-# Hacker News Pro
+<h1 style="display: flex; align-items: end;">
+   <span style="flex: 1 1 auto;">
+      Hacker News Pro
+   </span>
+   <a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
+      <img
+         src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+         alt="Buy Me A Coffee"
+         style="aspect-ratio: 1 / .276; height: 32px"
+      />
+   </a>
+</h1>
 
-A browser extension for developers to create their own custom Hacker News
-interfaces using HTML and CSS. The built-in code editor makes theme creation a
-breeze. Also comes with a number of premade themes.
+Welcome to Hacker News Pro, the browser extension designed for developers to
+create their own unique, fully-customized
+[Hacker News](https://news.ycombinator.com/) interfaces using HTML and CSS. The
+built-in code editor makes theme creation a breeze. Explore a collection of
+pre-made themes that may be cloned and edited to get up and running quickly.
 
 <!-- TODO: add links to stores -->
 <!-- TODO: add screenshots -->
 
-## How it works
+In this guide:
 
-TBD
+1. [Template Reference](#template-reference)
+1. [Theming](#theming)
+   - [Views](#views)
+   - [Components](#components)
+   - [Styles](#styles)
+1. [Local Development](#local-development)
+   - [Requirements](#requirements)
+   - [Install](#install)
+   - [Build](#build)
+     - [Build Commands](#build-commands)
+   - [Add Unpacked Extension](#add-unpacked-extension)
+   - [Hot Reloading](#hot-reloading)
+     - [Notes](#notes)
+     - [CLI Options](#cli-options)
+   - [Tips](#tips)
+     - [Clearing Storage](#clearing-storage)
+1. [Creating and Publishing Versions](#creating-and-publishing-versions)
 
-# Creating your first theme
+# Template Reference
 
-TBD
+Templates in Hacker News Pro are written using
+[Handlebars](https://handlebarsjs.com/). As you navigate Hacker News pages, the
+extension works quietly in the background, scraping page contents and
+transforming them into an object internally known as the page's "context." You
+can explore the comprehensive types reference for the context object
+[here](https://dan-lovelace.github.io/hacker-news-pro/modules/types_views.html).
 
-# Template API
+When you're just starting, consider enabling "Developer mode" on the extension's
+**Options** page. This mode prints the context object to the console each time
+Hacker News Pro re-renders the page, helping you quickly grasp what's available
+to your templates without frequent trips to the documentation.
 
-TBD
+In addition to the context object, a number of
+[Handlebars helpers](https://handlebarsjs.com/guide/block-helpers.html#basic-blocks)
+are available to your templates.
+[Check out our documentation](https://dan-lovelace.github.io/hacker-news-pro/modules/handlebars_helpers.html)
+for more details.
 
-# Contributing
+# Theming
 
-Hacker News Pro is open source and looking for contributors! If you'd like to
-make changes, first check
-[open issues](https://github.com/dan-lovelace/hacker-news-pro/issues) to see if
-anyone else is working in a similar area. To make a change:
+Theming lies at the core of Hacker News Pro, enabling you to write a
+personalized Hacker News experience by defining your own HTML and CSS. Themes
+are made up of three fundamental elements: Views, Components, and Styles.
 
-1. Follow the [Local Development](#local-development) section below to get up
-   and running locally
-1. Create a new branch with a name that describes the types of changes being
-   made (i.e. `feature/gif-previews`)
-1. Make code changes locally, testing as you go
-1. Once you're happy with the updates:
-   [create a new PR](https://github.com/dan-lovelace/hacker-news-pro/compare),
-   fill out the template and assign another contributor
+## Views
 
-## Other methods
+Views correspond to specific Hacker News page types and fall into three
+categories:
 
-If writing code is not your thing and you're considering a monetary
-contribution, the easiest way is through Buy Me a Coffee.
+- **Lists**: Pages that display various types of items, such as stories or jobs.
+  For example, the homepage or https://news.ycombinator.com/newcomments.
+- **Items**: Pages that show detailed information about a single item, like the
+  comments page for a story. Items can belong to one of four types: story,
+  comment, job, or poll.
+- **Other**: Any page that doesn't fit the List or Item category. For instance,
+  the comment reply or submission pages.
 
-<a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
-   <img
-      src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-      alt="Buy Me A Coffee"
-      style="aspect-ratio: 1 / .276; height: 50px"
-   />
-</a>
+## Components
 
-<br />
+Themes often require the use of templates across multiple views. Components,
+defined using Handlebars' **Partials** syntax, come in handy here. Give a
+component a name, like "Header," which can then be injected into other templates
+using `{{> header}}`. Refer to the
+[Handlebars partials guide](https://handlebarsjs.com/guide/partials.html) for
+more details.
+
+## Styles
+
+A well-rounded theme encompasses its unique style. When crafting your theme,
+several methods are available for defining styles:
+
+- **Custom CSS**: Write your own custom CSS to tailor the theme to your liking.
+- **Bootstrap**: Hacker News Pro ships with
+  [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+  which makes it easy to add personalized styles without needing to write
+  extensive custom CSS.
+- **Material Icons**: Add a special touch to your theme using Google's
+  [Material icons](https://fonts.google.com/icons).
 
 # Local Development
 
@@ -57,21 +108,21 @@ contribution, the easiest way is through Buy Me a Coffee.
 - [NodeJS](https://nodejs.org/en/blog/release/v18.17.1/) v18.17.1
 - [Yarn](https://yarnpkg.com/) v1.22.19
 
-## 1. Install
+## Install
 
-```sh
+```bash
 $ git clone https://github.com/dan-lovelace/hacker-news-pro.git
 $ cd hacker-news-pro
 $ yarn
 ```
 
-## 2. Build
+## Build
 
 Once complete, build assets can be located in the `dist` directory at the
 project root. Keep this in mind when adding the unpacked version to your browser
 for testing.
 
-### Build commands
+### Build Commands
 
 | Command        | Description                                                                      |
 | -------------- | -------------------------------------------------------------------------------- |
@@ -84,7 +135,7 @@ contents of [assets/manifest-v2.json](./assets/manifest-v2.json) into
 [packages/content/public/manifest.json](./packages/content/public/manifest.json)
 and run a clean build. Be sure to remove the `$schema` property after doing so.
 
-## 3. Add browser extension
+## Add Unpacked Extension
 
 After starting or building, the extension's distribution is located in the
 `dist` directory at the root of the project. Add the unpacked assets to your
@@ -95,7 +146,7 @@ Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
 Firefox:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing
 
-## Hot reloading
+## Hot Reloading
 
 Hot reloading allows you to save time by automatically restarting the extension
 and refreshing the page when changes are made. If you are working on the `popup`
@@ -103,7 +154,7 @@ package, simply close the popup window and reopen it. However, other packages
 require the hot reload server running in the background. To enable the server,
 add `WATCH=true` to the `yarn start` command like this:
 
-```sh
+```bash
 $ WATCH=true yarn start
 ```
 
@@ -121,7 +172,7 @@ this page and let the hot reload feature do it's thing.
 There are several other configurations in the script such as on which port to
 start the websocket server and any files to exclude from the watch list.
 
-### CLI options
+### CLI Options
 
 | Option       | Description                      |
 | ------------ | -------------------------------- |
@@ -130,7 +181,7 @@ start the websocket server and any files to exclude from the watch list.
 
 ## Tips
 
-### Clearing storage
+### Clearing Storage
 
 It can be helpful when making code changes to delete all storage items and start
 from scratch. To do that, inspect the background script in the browser's
@@ -142,7 +193,7 @@ chrome.storage.local.get((result) => {
 });
 ```
 
-# Creating & publishing versions
+# Creating and Publishing Versions
 
 To create and package a new version for publishing:
 
