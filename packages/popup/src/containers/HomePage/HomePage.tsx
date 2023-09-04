@@ -71,20 +71,30 @@ export default function HomePage() {
       return notify("Error cloning theme");
     }
 
-    let newThemeLabel = `${themeData.label} Copy`;
-    let newThemeId = kebabCase(newThemeLabel);
-    let copyCount = 1;
+    const { label: originalLabel } = themeData;
+    const COPY_SUFFIX = "Copy";
+    let newLabel = `${originalLabel}${
+      themeData.type === "premade" || !originalLabel.endsWith(COPY_SUFFIX)
+        ? ` ${COPY_SUFFIX}`
+        : ""
+    }`;
+    let newId = kebabCase(newLabel);
+    let copyCount = 0;
 
-    while (storedCustomThemes?.some((theme) => theme.id === newThemeId)) {
-      newThemeLabel = `${themeData.label} Copy (${copyCount})`;
-      newThemeId = kebabCase(newThemeLabel);
+    while (storedCustomThemes?.some((theme) => theme.id === newId)) {
+      newLabel = `${
+        originalLabel.endsWith(COPY_SUFFIX)
+          ? originalLabel
+          : `${originalLabel} ${COPY_SUFFIX}`
+      } ${copyCount > 0 ? ` (${copyCount})` : ""}`;
+      newId = kebabCase(newLabel);
       copyCount++;
     }
 
     const newTheme: TTheme = {
       ...themeData,
-      id: newThemeId,
-      label: newThemeLabel,
+      id: newId,
+      label: newLabel,
       type: "custom",
     };
     const newCustomThemes = [newTheme, ...(storedCustomThemes || [])];
@@ -117,38 +127,7 @@ export default function HomePage() {
           },
           template: "",
         },
-        views: {
-          commentItem: {
-            template: "",
-          },
-          commentList: {
-            template: "",
-          },
-          jobItem: {
-            template: "",
-          },
-          jobList: {
-            template: "",
-          },
-          pollItem: {
-            template: "",
-          },
-          reply: {
-            template: "",
-          },
-          storyItem: {
-            template: "",
-          },
-          storyList: {
-            template: "",
-          },
-          submit: {
-            template: "",
-          },
-          user: {
-            template: "",
-          },
-        },
+        views: {},
       },
       label: trimmed,
       options: {
@@ -170,7 +149,7 @@ export default function HomePage() {
       return;
     }
 
-    const newThemes = [...existingThemes, newTheme];
+    const newThemes = [newTheme, ...existingThemes];
 
     storageSetByKeys({
       CUSTOM_THEMES: newThemes,
@@ -194,9 +173,10 @@ export default function HomePage() {
     setCreatingName("");
   };
 
-  const handleImport = ({
-    target: { files },
-  }: ChangeEvent<HTMLInputElement>) => {
+  const handleImport = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { files },
+    } = event;
     if (!files || files.length !== 1) {
       return notify("You must upload a file");
     }
@@ -217,7 +197,7 @@ export default function HomePage() {
           );
         }
 
-        const newCustomThemes = [...(customThemes || []), themeExport];
+        const newCustomThemes = [themeExport, ...(customThemes || [])];
 
         setCreating(false);
         setCustomThemes(newCustomThemes);
@@ -230,6 +210,7 @@ export default function HomePage() {
     };
 
     fileReader.readAsText(file);
+    event.target.value = ""; // clear value to allow uploading same file more than once
   };
 
   const handleThemesEnabledClick = async () => {
