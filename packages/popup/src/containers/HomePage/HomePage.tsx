@@ -255,7 +255,7 @@ export default function HomePage() {
                   recommend cloning a premade theme to get started. You may also
                   start from scratch or import someone else's. Refer to the{" "}
                   <Link
-                    href="https://github.com/dan-lovelace/hacker-news-pro/wiki/Theming#reference"
+                    href="https://github.com/dan-lovelace/hacker-news-pro#template-reference"
                     target="_blank"
                   >
                     theme reference documentation
