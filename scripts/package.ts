@@ -19,18 +19,21 @@ function main() {
 
     const packageJson = fs.readFileSync("package.json", "utf-8");
     const packageVersion = JSON.parse(packageJson).version;
+    const outputFile = path.join(
+      __dirname,
+      VERSIONS_DIR,
+      `${packageVersion}_mv${manifestVersion}.zip`,
+    );
+
+    if (fs.existsSync(outputFile)) {
+      throw new Error(`Output file already exists: ${outputFile}`);
+    }
 
     if (!fs.existsSync(VERSIONS_DIR)) {
       fs.mkdirSync(VERSIONS_DIR);
     }
 
-    const output = fs.createWriteStream(
-      path.join(
-        __dirname,
-        VERSIONS_DIR,
-        `${packageVersion}_mv${manifestVersion}.zip`
-      )
-    );
+    const output = fs.createWriteStream(outputFile);
     const archive = archiver("zip", {
       zlib: {
         level: 9,
