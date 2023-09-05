@@ -66,7 +66,7 @@ if (process.env.NODE_ENV === "development") {
   await waitForElement("head"); // wait resolves race condition
   const webcomponentsJs = document.createElement("script");
   webcomponentsJs.id = HNP_WEB_COMPONENTS_JS_ELEMENT_ID;
-  webcomponentsJs.src = getAssetURL("js/webcomponents.js");
+  webcomponentsJs.src = getAssetURL("js/web-components.js");
   document.head.appendChild(webcomponentsJs);
 
   const bootstrapJs = document.createElement("script");

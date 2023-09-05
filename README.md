@@ -25,6 +25,8 @@ and
 # Table of contents
 
 1. [Template reference](#template-reference)
+   - [Handlebars helpers](#handlebars-helpers)
+   - [Web components](#web-components)
 1. [Theming](#theming)
    - [Views](#views)
    - [Components](#components)
@@ -49,18 +51,27 @@ Templates in Hacker News Pro are written using
 extension works quietly in the background, scraping page contents and
 transforming them into an object internally known as the page's "context." You
 can explore the comprehensive types reference for the context object
-[here](https://dan-lovelace.github.io/hacker-news-pro/modules/types_views.html).
+[here](https://dan-lovelace.github.io/hacker-news-pro/modules/views_context.TContext.html).
 
 When you're just starting, consider enabling "Developer mode" on the extension's
 **Options** page. This mode prints the context object to the console each time
 Hacker News Pro re-renders the page, helping you quickly grasp what's available
 to your templates without frequent trips to the documentation.
 
+## Handlebars helpers
+
 In addition to the context object, a number of
 [Handlebars helpers](https://handlebarsjs.com/guide/block-helpers.html#basic-blocks)
 are available to your templates.
 [Check out our documentation](https://dan-lovelace.github.io/hacker-news-pro/modules/handlebars_helpers.html)
 for more details.
+
+## Web components
+
+Refer to the
+[web components](https://dan-lovelace.github.io/hacker-news-pro/modules/web_components.html)
+documentation to get more information about custom elements such as
+`<hnp-interaction>`.
 
 # Theming
 
