@@ -1,4 +1,7 @@
-/** @module views/lists */
+/**
+ * @group Views
+ * @module views/lists
+ */
 
 export * from "./commentList";
 export * from "./jobList";

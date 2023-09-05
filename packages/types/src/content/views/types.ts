@@ -1,5 +1,6 @@
 /**
  * Types shared across the various views.
+ * @group Views
  * @module views/types
  */
 

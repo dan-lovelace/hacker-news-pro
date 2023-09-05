@@ -1,6 +1,6 @@
 /**
  * Various helper utilities for use in Handlebars templates.
- * @module handlebars/helpers
+ * @module handlebars-helpers
  */
 import Handlebars, { HelperOptions } from "handlebars";
 import { capitalize as _capitalize } from "lodash";

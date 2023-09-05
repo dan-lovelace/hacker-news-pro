@@ -1,4 +1,7 @@
-/** @module views/other */
+/**
+ * @group Views
+ * @module views/other
+ */
 
 export * from "./reply";
 export * from "./submit";

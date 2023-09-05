@@ -51,7 +51,7 @@ Templates in Hacker News Pro are written using
 extension works quietly in the background, scraping page contents and
 transforming them into an object internally known as the page's "context." You
 can explore the comprehensive types reference for the context object
-[here](https://dan-lovelace.github.io/hacker-news-pro/modules/views_context.TContext.html).
+[here](https://dan-lovelace.github.io/hacker-news-pro/types/views_context.TContext.html).
 
 When you're just starting, consider enabling "Developer mode" on the extension's
 **Options** page. This mode prints the context object to the console each time

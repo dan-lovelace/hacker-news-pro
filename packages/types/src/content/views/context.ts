@@ -1,4 +1,7 @@
-/** @module views/context */
+/**
+ * @group Views
+ * @module views/context
+ */
 
 import { TView } from ".";
 

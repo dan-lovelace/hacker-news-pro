@@ -9,6 +9,7 @@
     "packages/types/src/content/views/types.ts"
   ],
   "exclude": ["README.md"],
+  "navigation": true,
   "out": "docs",
   "plugin": ["typedoc-plugin-extras"],
   "readme": "none"
