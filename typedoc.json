@@ -1,8 +1,14 @@
 {
   "entryPoints": [
     "packages/sandbox/src/helpers.ts",
-    "packages/types/src/views.ts"
+    "packages/types/src/content/views/context.ts",
+    "packages/types/src/content/views/items",
+    "packages/types/src/content/views/lists",
+    "packages/types/src/content/views/other",
+    "packages/types/src/content/views/types.ts"
   ],
+  "exclude": ["README.md"],
   "out": "docs",
-  "plugin": ["typedoc-plugin-extras"]
+  "plugin": ["typedoc-plugin-extras"],
+  "readme": "none"
 }
