@@ -17,30 +17,32 @@ create their own unique, fully-customized
 built-in code editor makes theme creation a breeze. Explore a collection of
 pre-made themes that may be cloned and edited to get up and running quickly.
 
-<!-- TODO: add links to stores -->
-<!-- TODO: add screenshots -->
+Available for
+[![chrome logo](./assets/img/chrome_logo.svg) Chrome](https://chrome.google.com/webstore/detail/hacker-news-pro/ihcblehlmbfeecfaiomaihjkeedjepoc)
+and
+[![firefox logo](./assets/img/firefox_logo.svg) Firefox](https://addons.mozilla.org/en-US/firefox/addon/hacker-news-pro/).
 
-In this guide:
+# Table of contents
 
-1. [Template Reference](#template-reference)
+1. [Template reference](#template-reference)
 1. [Theming](#theming)
    - [Views](#views)
    - [Components](#components)
    - [Styles](#styles)
-1. [Local Development](#local-development)
+1. [Local development](#local-development)
    - [Requirements](#requirements)
    - [Install](#install)
    - [Build](#build)
-     - [Build Commands](#build-commands)
-   - [Add Unpacked Extension](#add-unpacked-extension)
-   - [Hot Reloading](#hot-reloading)
+     - [Build commands](#build-commands)
+   - [Add unpacked extension](#add-unpacked-extension)
+   - [Hot reloading](#hot-reloading)
      - [Notes](#notes)
-     - [CLI Options](#cli-options)
+     - [CLI options](#cli-options)
    - [Tips](#tips)
-     - [Clearing Storage](#clearing-storage)
-1. [Creating and Publishing Versions](#creating-and-publishing-versions)
+     - [Clearing storage](#clearing-storage)
+1. [Creating and publishing versions](#creating-and-publishing-versions)
 
-# Template Reference
+# Template reference
 
 Templates in Hacker News Pro are written using
 [Handlebars](https://handlebarsjs.com/). As you navigate Hacker News pages, the
@@ -101,7 +103,7 @@ several methods are available for defining styles:
 - **Material Icons**: Add a special touch to your theme using Google's
   [Material icons](https://fonts.google.com/icons).
 
-# Local Development
+# Local development
 
 ## Requirements
 
@@ -122,7 +124,7 @@ Once complete, build assets can be located in the `dist` directory at the
 project root. Keep this in mind when adding the unpacked version to your browser
 for testing.
 
-### Build Commands
+### Build commands
 
 | Command        | Description                                                                      |
 | -------------- | -------------------------------------------------------------------------------- |
@@ -135,7 +137,7 @@ contents of [assets/manifest-v2.json](./assets/manifest-v2.json) into
 [packages/content/public/manifest.json](./packages/content/public/manifest.json)
 and run a clean build. Be sure to remove the `$schema` property after doing so.
 
-## Add Unpacked Extension
+## Add unpacked extension
 
 After starting or building, the extension's distribution is located in the
 `dist` directory at the root of the project. Add the unpacked assets to your
@@ -146,7 +148,7 @@ Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
 Firefox:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing
 
-## Hot Reloading
+## Hot reloading
 
 Hot reloading allows you to save time by automatically restarting the extension
 and refreshing the page when changes are made. If you are working on the `popup`
@@ -172,7 +174,7 @@ this page and let the hot reload feature do it's thing.
 There are several other configurations in the script such as on which port to
 start the websocket server and any files to exclude from the watch list.
 
-### CLI Options
+### CLI options
 
 | Option       | Description                      |
 | ------------ | -------------------------------- |
@@ -181,7 +183,7 @@ start the websocket server and any files to exclude from the watch list.
 
 ## Tips
 
-### Clearing Storage
+### Clearing storage
 
 It can be helpful when making code changes to delete all storage items and start
 from scratch. To do that, inspect the background script in the browser's
@@ -193,7 +195,7 @@ chrome.storage.local.get((result) => {
 });
 ```
 
-# Creating and Publishing Versions
+# Creating and publishing versions
 
 To create and package a new version for publishing:
 
