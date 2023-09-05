@@ -1,9 +1,7 @@
 /**
- * Types associated with the various views.
- * @module types/views
+ * Types shared across the various views.
+ * @module views/types
  */
-
-import { TView } from ".";
 
 /**
  * Map of routes and their related view.
@@ -106,80 +104,6 @@ export type TComment = {
   depth: number;
 };
 
-/**
- * Item page that displays a comment.
- * @remarks
- * Sample pages:
- * - https://news.ycombinator.com/item?id=2921983
- * - https://news.ycombinator.com/item?id=37373498
- */
-export type TCommentItem = TCommentListItem & {
-  /** List of replies. */
-  comments: TComment[];
-
-  /** Any associated forms such as the reply form. */
-  forms: Pick<TForms, "comment">;
-};
-
-/**
- * List page that displays comment items.
- * @remarks Sample page: https://news.ycombinator.com/newcomments
- */
-export type TCommentList = {
-  /** List of comment items. */
-  items: TCommentListItem[];
-
-  /**
-   * Links to other pages.
-   * @example "?p=2"
-   */
-  links: Pick<TLinks, "more">;
-};
-
-/** Single comment item. */
-export type TCommentListItem = {
-  /** When the item was created. */
-  age: TAge;
-
-  /**
-   * HTML of the body.
-   * @remarks
-   * Should be used with Handlebar's triple-brace escape syntax:
-   * `{{{bodyHTML}}}`.
-   */
-  bodyHTML?: string;
-
-  /**
-   * The Hacker News identifier.
-   * @example "2921983"
-   */
-  id: string;
-
-  /** User interactions. */
-  interactions: Pick<TInteractions, "voteDown" | "voteUp">;
-
-  /**
-   * Links to other pages.
-   * @example "item?id=37369826"
-   */
-  links: Pick<
-    TLinks,
-    "context" | "favorite" | "flag" | "next" | "parent" | "story" | "unflag"
-  >;
-
-  /** The associated story. */
-  story: {
-    /** Story's title. */
-    title: TStoryListItem["title"];
-  };
-
-  /** User that created the comment. */
-  user?: TUser;
-
-  /** Whether the current user has voted on the comment and how. */
-  voted?: TVoteDirection;
-};
-
 /** HTML form. */
 export type TForm = {
   /**
@@ -241,53 +165,6 @@ export type TInteractions = {
   voteUp?: string;
 };
 
-/**
- * Item page that displays a job.
- * @remarks Sample page: https://news.ycombinator.com/item?id=37320729
- */
-export type TJobItem = TJobListItem & {
-  /**
-   * HTML of the body.
-   * @remarks
-   * Should be used with Handlebar's triple-brace escape syntax:
-   * `{{{bodyHTML}}}`.
-   */
-  bodyHTML?: string;
-};
-
-/**
- * List page that displays job items.
- * @remarks Sample page: https://news.ycombinator.com/jobs
- */
-export type TJobList = {
-  /** List of job items. */
-  items: TJobListItem[];
-
-  /**
-   * Links to other pages.
-   * @example "jobs?next=37196872"
-   */
-  links: Pick<TLinks, "more">;
-};
-
-/** Single job item. */
-export type TJobListItem = {
-  /** When the job was created. */
-  age: TAge;
-
-  /**
-   * Links to other pages.
-   * @example "item?id=37286598"
-   */
-  links: Pick<TLinks, "hide" | "from" | "item">;
-
-  /** Information about the linked site. */
-  site?: TSite;
-
-  /** The job's title. */
-  title?: string;
-};
-
 /** Elements that only perform a redirect when clicked. */
 export type TLinks = {
   /** Location of comment in a tree. */
@@ -336,48 +213,6 @@ export type TLinks = {
   unflag?: string;
 };
 
-/**
- * Item page that displays a poll.
- * @remarks Sample page: https://news.ycombinator.com/item?id=126809
- */
-export type TPollItem = TStoryListItem & {
-  /** List of replies. */
-  comments: TComment[];
-
-  /** List of poll options. */
-  options: TPollOptionItem[];
-};
-
-/** Single option in a poll. */
-export type TPollOptionItem = {
-  /**
-   * The Hacker News identifier.
-   * @example "126812"
-   */
-  id: string;
-
-  /** User interactions. */
-  interactions: Pick<TInteractions, "voteDown" | "voteUp">;
-
-  /** The poll item's score. */
-  score?: number;
-
-  /** Title of the option. */
-  title: string;
-
-  /** Whether the current user has voted on the option and how. */
-  voted?: TVoteDirection;
-};
-
-/**
- * Page to reply to a comment.
- * @remarks Sample page: https://news.ycombinator.com/reply?id=37373376&goto=item%3Fid%3D37371084%2337373376
- */
-export type TReply = TCommentListItem & {
-  /** Any associated forms such as the reply form. */
-  forms: Pick<TForms, "comment">;
-};
-
 /** Item's linked site or article. */
 export type TSite = {
   /**
@@ -391,89 +226,6 @@ export type TSite = {
    * @example "https://www.nature.com/articles/s41612-023-00427-x"
    */
   url: string;
-};
-
-/** Item page that displays a story. */
-export type TStoryItem = TStoryListItem & {
-  /**
-   * HTML of the body.
-   * @remarks
-   * Should be used with Handlebar's triple-brace escape syntax:
-   * `{{{bodyHTML}}}`.
-   */
-  bodyHTML?: string;
-
-  /** List of replies. */
-  comments: TComment[];
-
-  /** Any associated forms such as the reply form. */
-  forms: Pick<TForms, "comment">;
-};
-
-/**
- * List page that displays story items.
- * @remarks Sample page: https://news.ycombinator.com/newest
- */
-export type TStoryList = {
-  /** List of story items. */
-  items: TStoryListItem[];
-
-  /**
-   * Links to other pages.
-   * @example "?p=2"
-   */
-  links: Pick<TLinks, "more">;
-};
-
-/**
- * Single story item.
- * @remarks Sample page: https://news.ycombinator.com/item?id=37371084
- */
-export type TStoryListItem = {
-  /** When the story was created. */
-  age: TAge;
-
-  /** The number of comments on the story. */
-  commentsCount: number;
-
-  /**
-   * The Hacker News identifier.
-   * @example "37371084"
-   */
-  id: string;
-
-  /** User interactions. */
-  interactions: Pick<TInteractions, "hide" | "voteDown" | "voteUp">;
-
-  /**
-   * Links to other pages.
-   * @example "item?id=37371084"
-   */
-  links: Pick<
-    TLinks,
-    "favorite" | "flag" | "from" | "item" | "past" | "unflag"
-  >;
-
-  /** The story item's score. */
-  score?: number;
-
-  /** Information about the linked site. */
-  site?: TSite;
-
-  /** The story's title. */
-  title: string;
-
-  /** User that created the story. */
-  user?: TUser;
-
-  /** Whether the current user has voted on the story and how. */
-  voted?: TVoteDirection;
-};
-
-/** Page to submit a new story. */
-export type TSubmit = {
-  /** Any associated forms such as the submit form. */
-  forms: Pick<TForms, "submit">;
 };
 
 /** User that submitted an item. */
@@ -491,11 +243,18 @@ export type TUser = {
   link: string;
 };
 
-/**
- * Currently-unsupported view.
- * @example "/user"
- */
-export type TUnknown = unknown;
+export type TView =
+  | "commentItem"
+  | "commentList"
+  | "jobItem"
+  | "jobList"
+  | "pollItem"
+  | "reply"
+  | "storyItem"
+  | "storyList"
+  | "submit"
+  | "unknown"
+  | "user";
 
 /** Maps a route to a particular view. */
 export type TViewRoute = {

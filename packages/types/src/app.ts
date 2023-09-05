@@ -1,26 +1,10 @@
+import { TContext } from ".";
+import { TView } from "./content/views";
+
 export type TComponent = {
   id: string;
   label: string;
   template: string;
-};
-
-export type TConfig = {
-  hostname: string;
-  pathname: string;
-  view: TView;
-};
-
-export type TContentContext = {
-  currentUser: {
-    isLoggedIn?: boolean;
-    karma?: number;
-    links: {
-      login?: string;
-      logout?: string;
-      profile?: string;
-    };
-    name?: string;
-  };
 };
 
 export type TDebugLabel = "context";
@@ -38,21 +22,13 @@ export type TOptions = {
   themesEnabled: boolean;
 };
 
-export type TSandboxContext<T> = {
-  assets: {
-    baseURL: string;
-  };
-  config: TConfig;
-  pageData: T;
-};
-
 export type TSandboxMessageEvent = {
   partials: TSandboxPartial[];
   template: TSandboxTemplate;
 };
 
 export type TSandboxMessage<T> = {
-  context: TSandboxContext<T>;
+  context: TContext<T>;
   event: TMessageEvent<TTheme>;
 };
 
@@ -117,19 +93,6 @@ export type TThemeViewInputs = {
   style: TStyle;
   views: Partial<Record<TView, TViewInputValue>>;
 };
-
-export type TView =
-  | "commentItem"
-  | "commentList"
-  | "jobItem"
-  | "jobList"
-  | "pollItem"
-  | "reply"
-  | "storyItem"
-  | "storyList"
-  | "submit"
-  | "unknown"
-  | "user";
 
 export type TViewInputValue = {
   template?: string;

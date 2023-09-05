@@ -6,15 +6,15 @@ import {
   storageGetByKey,
 } from "@hnp/core";
 import { getPageData } from "@hnp/scraper";
-import { TConfig, TSandboxContext } from "@hnp/types";
+import { TConfig, TPageDataExtension, TContext } from "@hnp/types";
 
 import { getConfig } from "./config";
 import { sendSandboxMessage, startContentListeners } from "./message";
 
 export function getTemplateContext<T>(
   config: TConfig,
-  pageData: T,
-): TSandboxContext<T> {
+  pageData: T & TPageDataExtension,
+): TContext<T> {
   return {
     assets: {
       baseURL: getAssetURL("img/content"),

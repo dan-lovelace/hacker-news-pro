@@ -1,4 +1,4 @@
-import { IParsable, TContentContext, TView } from "@hnp/types";
+import { IParsable, TPageDataExtension, TView } from "@hnp/types";
 
 import { pipe } from "..";
 import {
@@ -15,14 +15,14 @@ import {
 } from "../../views";
 
 class PageData<T> implements IParsable<T> {
-  constructor(private parser: IParsable<T & TContentContext>) {}
+  constructor(private parser: IParsable<T & TPageDataExtension>) {}
 
-  parse(document: Document): T & TContentContext {
+  parse(document: Document): T & TPageDataExtension {
     const loginExists = !!(
       document.querySelector(".pagetop a#me") ||
       document.querySelector(".pagetop a[href^='login']")
     );
-    const links: TContentContext["currentUser"]["links"] = {
+    const links: TPageDataExtension["currentUser"]["links"] = {
       login:
         document
           .querySelector(".pagetop a[href^='login']")
@@ -35,22 +35,21 @@ class PageData<T> implements IParsable<T> {
         document.querySelector(".pagetop a#me")?.getAttribute("href") ??
         undefined,
     };
+    const currentUser: TPageDataExtension["currentUser"] = {
+      isLoggedIn: loginExists
+        ? !!document.querySelector(".pagetop a#me")
+        : undefined,
+      karma: pipe(
+        parseInt(document.querySelector(".pagetop #karma")?.textContent ?? ""),
+        (karmaInt: number) => (isNaN(karmaInt) ? undefined : karmaInt),
+      ),
+      links,
+      id: document.querySelector(".pagetop a#me")?.textContent ?? undefined,
+    };
 
     return {
       ...this.parser.parse(document),
-      currentUser: {
-        isLoggedIn: loginExists
-          ? !!document.querySelector(".pagetop a#me")
-          : undefined,
-        karma: pipe(
-          parseInt(
-            document.querySelector(".pagetop #karma")?.textContent ?? "",
-          ),
-          (karmaInt: number) => (isNaN(karmaInt) ? undefined : karmaInt),
-        ),
-        links,
-        name: document.querySelector(".pagetop a#me")?.textContent ?? undefined,
-      },
+      currentUser,
     };
   }
 }
