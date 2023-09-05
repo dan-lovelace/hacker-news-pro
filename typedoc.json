@@ -6,11 +6,36 @@
     "packages/types/src/content/views/items",
     "packages/types/src/content/views/lists",
     "packages/types/src/content/views/other",
-    "packages/types/src/content/views/types.ts"
+    "packages/types/src/content/views/shared.ts"
   ],
   "exclude": ["README.md"],
+  "groupOrder": [
+    "Views",
+    "Template",
+    "References",
+    "Modules",
+    "Namespaces",
+    "Enumerations",
+    "Enumeration Members",
+    "Classes",
+    "Interfaces",
+    "Type Aliases",
+    "Constructors",
+    "Properties",
+    "Variables",
+    "Functions",
+    "Accessors",
+    "Methods"
+  ],
+  "hideGenerator": true,
+  "name": "Home",
   "navigation": true,
+  "sidebarLinks": {
+    "README": "https://github.com/dan-lovelace/hacker-news-pro#readme"
+  },
   "out": "docs",
   "plugin": ["typedoc-plugin-extras"],
-  "readme": "none"
+  "readme": "none",
+  "searchInComments": true,
+  "theme": "default"
 }

@@ -1,6 +1,6 @@
 /**
- * @group Views
- * @module views/context
+ * @group Template
+ * @module context
  */
 
 import { TView } from ".";
@@ -30,6 +30,7 @@ export type TConfig = {
 
 /**
  * The main context object supplied to all views.
+ * @typeParam T - The result of parsing the current page.
  */
 export type TContext<T> = {
   /**

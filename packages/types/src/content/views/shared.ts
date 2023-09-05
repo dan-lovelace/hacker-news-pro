@@ -1,0 +1,281 @@
+/**
+ * Types shared across the various views.
+ * @group Template
+ * @module shared
+ */
+
+/**
+ * Map of routes and their related view.
+ */
+export const viewRouteMap: Record<string, TView> = {
+  "/": "storyList",
+  "/active": "storyList",
+  "/ask": "storyList",
+  "/asknew": "storyList",
+  "/best": "storyList",
+  "/bestcomments": "commentList",
+  "/front": "storyList",
+  "/invited": "storyList",
+  "/jobs": "jobList",
+  "/launches": "storyList",
+  "/newcomments": "commentList",
+  "/newest": "storyList",
+  "/news": "storyList",
+  "/noobcomments": "commentList",
+  "/noobstories": "storyList",
+  "/past": "storyList",
+  "/pool": "storyList",
+  "/reply": "reply",
+  "/show": "storyList",
+  "/shownew": "storyList",
+  "/submit": "submit",
+  "/user": "user",
+};
+
+/**
+ * How an item may be voted upon.
+ */
+export const voteDirections = ["down", "up"] as const;
+
+/** Age information for a specific item. */
+export type TAge = {
+  /**
+   * Human-readable creation time.
+   * @example "2 hours ago"
+   */
+  humanized?: string;
+
+  /**
+   * Timestamp in UTC format.
+   * @example "2023-09-03T14:53:21Z"
+   * @remarks
+   * There are Handlebars helpers to display formatted timestamps:
+   * - `timestampDate` - Renders the date portion of the given timestamp
+   * - `timestampTime` - Renders the time portion
+   * @example
+   * <span>{{timestampDate age.timestamp}}</span>
+   */
+  timestamp?: string;
+};
+
+/** User comment and its replies. */
+export type TComment = {
+  /** List of replies. */
+  comments: TComment[];
+
+  /** Comment information. */
+  data: {
+    /** When the comment was created. */
+    age: TAge;
+
+    /**
+     * HTML of the body.
+     * @remarks
+     * Should be used with Handlebar's triple-brace escape syntax:
+     * `{{{bodyHTML}}}`.
+     */
+    bodyHTML?: string;
+
+    /**
+     * The Hacker News identifier.
+     * @example "2921983"
+     */
+    id: string;
+
+    /** User interactions. */
+    interactions: Pick<
+      TInteractions,
+      "next" | "parent" | "prev" | "toggle" | "voteDown" | "voteUp"
+    >;
+
+    /**
+     * Links to other pages.
+     * @example "item?id=37369826"
+     */
+    links: Pick<TLinks, "item" | "reply">;
+
+    /** User that created the comment. */
+    user?: TUser;
+
+    /** Whether the current user has voted on the comment and how. */
+    voted?: TVoteDirection;
+  };
+
+  /** Comment's depth in the tree. */
+  depth: number;
+};
+
+/** HTML form. */
+export type TForm = {
+  /**
+   * The endpoint of the submit action.
+   * @example "comment"
+   */
+  action?: string;
+
+  /**
+   * HTML of hidden inputs.
+   * @remarks
+   * Should be used with Handlebar's triple-brace escape syntax:
+   * `{{{hiddenInputsHTML}}}`.
+   */
+  hiddenInputsHTML?: string;
+
+  /**
+   * The HTTP method associated with the form.
+   * @example "post"
+   */
+  method?: string;
+};
+
+export type TForms = {
+  /** Comment or reply form. */
+  comment?: TForm;
+
+  /** Submit form on the `/submit` page. */
+  submit?: TForm;
+};
+
+/**
+ * User actions that may either redirect or perform an inline page update.
+ * These are HTML strings that must be used with a `<hnp-interaction>` web
+ * component.
+ * @example
+ * <hnp-interaction from="{{interactions.hide}}">hide</hnp-interaction>
+ */
+export type TInteractions = {
+  /** Hides the selected item from view. */
+  hide?: string;
+
+  /** Navigates to the next item. */
+  next?: string;
+
+  /** The item's parent, typically a comment. */
+  parent?: string;
+
+  /** Previous instances of the linked item. */
+  prev?: string;
+
+  /** Collapses the item, typically a comment. */
+  toggle?: string;
+
+  /** Downvotes an item. */
+  voteDown?: string;
+
+  /** Upvotes an item. */
+  voteUp?: string;
+};
+
+/** Elements that only perform a redirect when clicked. */
+export type TLinks = {
+  /** Location of comment in a tree. */
+  context?: string;
+
+  /** Adds the item to the user's list of favorites. */
+  favorite?: string;
+
+  /** Flags an item. */
+  flag?: string;
+
+  /** List of items from the same domain. */
+  from?: string;
+
+  /**
+   * Removes an item from view.
+   * @remarks
+   * While this is named the same as `hide` on `TInteraction`, not all items
+   * perform an inline hide and reload the page instead. Such examples may be
+   * seen on job item pages: https://news.ycombinator.com/item?id=37320729.
+   */
+  hide?: string;
+
+  /** Item's pathname. */
+  item?: string;
+
+  /** The next page. */
+  more?: string;
+
+  /** The next item in a list. */
+  next?: string;
+
+  /** Comment's parent. */
+  parent?: string;
+
+  /** Item's search results on hn.algolia.com. */
+  past?: string;
+
+  /** Comment's reply page. */
+  reply?: string;
+
+  /** Comment's story. */
+  story?: string;
+
+  /** Unflags an item. */
+  unflag?: string;
+};
+
+/** Item's linked site or article. */
+export type TSite = {
+  /**
+   * Short version of the linked site.
+   * @example "nature.com"
+   */
+  name: string;
+
+  /**
+   * Full URL of the linked article.
+   * @example "https://www.nature.com/articles/s41612-023-00427-x"
+   */
+  url: string;
+};
+
+/** User that submitted an item. */
+export type TUser = {
+  /**
+   * The user's Hacker News identifier.
+   * @example "pg"
+   */
+  id: string;
+
+  /**
+   * Link to the user's profile page.
+   * @example "user?id=pg"
+   */
+  link: string;
+};
+
+export type TView =
+  | "commentItem"
+  | "commentList"
+  | "jobItem"
+  | "jobList"
+  | "pollItem"
+  | "reply"
+  | "storyItem"
+  | "storyList"
+  | "submit"
+  | "unknown"
+  | "user";
+
+/** Maps a route to a particular view. */
+export type TViewRoute = {
+  /**
+   * The pathname to the given route.
+   * @example "/news"
+   */
+  path: string;
+
+  /**
+   * The route's associated view.
+   * @example "storyList"
+   */
+  view: TView;
+};
+
+/**
+ * How an item may be voted upon.
+ * @remarks
+ * If `undefined`, the user has not yet voted. If they have, will be either
+ * `up` or `down`.
+ */
+export type TVoteDirection = (typeof voteDirections)[number];
