@@ -1,6 +1,7 @@
-import { IParsable, TPageDataExtension, TView } from "@hnp/types";
+import { TPageDataExtension, TView } from "@hnp/types";
 
 import { pipe } from "..";
+import { IParsable } from "../..";
 import {
   CommentItem,
   CommentList,

@@ -1,5 +1,6 @@
-import { IParsable, TSubmit } from "@hnp/types";
+import { TSubmit } from "@hnp/types";
 
+import { IParsable } from "..";
 import { getForm, SELECTORS } from "../lib";
 
 export class Submit implements IParsable<TSubmit> {

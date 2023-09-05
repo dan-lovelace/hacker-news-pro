@@ -1,5 +1,6 @@
-import { IParsable, TJobList, TJobListItem } from "@hnp/types";
+import { TJobList, TJobListItem } from "@hnp/types";
 
+import { IParsable } from "..";
 import { getJobListItem } from "../lib";
 
 export class JobList implements IParsable<TJobList> {

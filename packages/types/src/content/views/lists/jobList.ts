@@ -1,4 +1,4 @@
-import { TAge, TLinks, TSite } from "..";
+import { TJobListItem, TLinks } from "..";
 
 /**
  * List page that displays job items.
@@ -13,22 +13,4 @@ export type TJobList = {
    * @example "jobs?next=37196872"
    */
   links: Pick<TLinks, "more">;
-};
-
-/** Single job item. */
-export type TJobListItem = {
-  /** When the job was created. */
-  age: TAge;
-
-  /**
-   * Links to other pages.
-   * @example "item?id=37286598"
-   */
-  links: Pick<TLinks, "hide" | "from" | "item">;
-
-  /** Information about the linked site. */
-  site?: TSite;
-
-  /** The job's title. */
-  title?: string;
 };

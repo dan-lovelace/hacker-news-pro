@@ -2,10 +2,7 @@ import { TComment, TCommentListItem, TForms } from "..";
 
 /**
  * Item page that displays a comment.
- * @remarks
- * Sample pages:
- * - https://news.ycombinator.com/item?id=2921983
- * - https://news.ycombinator.com/item?id=37373498
+ * @remarks Sample page: https://news.ycombinator.com/item?id=2921983
  */
 export type TCommentItem = TCommentListItem & {
   /** List of replies. */

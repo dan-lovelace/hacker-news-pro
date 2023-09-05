@@ -30,7 +30,8 @@ export type TConfig = {
 
 /**
  * The main context object supplied to all views.
- * @typeParam T - The result of parsing the current page.
+ * @typeParam T - The result of parsing the current page. See the
+ * {@link scraper} package's classes for return types.
  */
 export type TContext<T> = {
   /**

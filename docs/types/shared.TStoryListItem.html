@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>TJobListItem | Home</title><meta name="description" content="Official documentation for the Hacker News Pro browser extension"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><link rel="icon" href="../logo_16.png" />
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>TStoryListItem | Home</title><meta name="description" content="Official documentation for the Hacker News Pro browser extension"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><link rel="icon" href="../logo_16.png" />
 </head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
@@ -14,41 +14,76 @@
 <div class="tsd-page-title">
 <ul class="tsd-breadcrumb">
 <li><a href="../index.html">Home</a></li>
-<li><a href="../modules/lists.html">lists</a></li>
-<li><a href="lists.TJobListItem.html">TJobListItem</a></li></ul>
-<h1>Type alias TJobListItem</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">TJob<wbr/>List<wbr/>Item</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">age</span><span class="tsd-signature-symbol">: </span><a href="shared.TAge.html" class="tsd-signature-type tsd-kind-type-alias">TAge</a><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">links</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TLinks.html" class="tsd-signature-type tsd-kind-type-alias">TLinks</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;hide&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;from&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;item&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">site</span><span class="tsd-signature-symbol">?: </span><a href="shared.TSite.html" class="tsd-signature-type tsd-kind-type-alias">TSite</a><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
-<div class="tsd-comment tsd-typography"><p>Single job item.</p>
+<li><a href="../modules/shared.html">shared</a></li>
+<li><a href="shared.TStoryListItem.html">TStoryListItem</a></li></ul>
+<h1>Type alias TStoryListItem</h1></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">TStory<wbr/>List<wbr/>Item</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">age</span><span class="tsd-signature-symbol">: </span><a href="shared.TAge.html" class="tsd-signature-type tsd-kind-type-alias">TAge</a><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">commentsCount</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">interactions</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TInteractions.html" class="tsd-signature-type tsd-kind-type-alias">TInteractions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;hide&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;voteDown&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;voteUp&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">links</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TLinks.html" class="tsd-signature-type tsd-kind-type-alias">TLinks</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;favorite&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;flag&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;from&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;item&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;past&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;unflag&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">score</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">site</span><span class="tsd-signature-symbol">?: </span><a href="shared.TSite.html" class="tsd-signature-type tsd-kind-type-alias">TSite</a><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">user</span><span class="tsd-signature-symbol">?: </span><a href="shared.TUser.html" class="tsd-signature-type tsd-kind-type-alias">TUser</a><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">voted</span><span class="tsd-signature-symbol">?: </span><a href="shared.TVoteDirection.html" class="tsd-signature-type tsd-kind-type-alias">TVoteDirection</a><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>Single story item.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter">
 <h5><span class="tsd-kind-property">age</span><span class="tsd-signature-symbol">: </span><a href="shared.TAge.html" class="tsd-signature-type tsd-kind-type-alias">TAge</a></h5>
-<div class="tsd-comment tsd-typography"><p>When the job was created.</p>
+<div class="tsd-comment tsd-typography"><p>When the story was created.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li>
 <li class="tsd-parameter">
-<h5><span class="tsd-kind-property">links</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TLinks.html" class="tsd-signature-type tsd-kind-type-alias">TLinks</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;hide&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;from&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;item&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+<h5><span class="tsd-kind-property">comments<wbr/>Count</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>The number of comments on the story.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
+<li class="tsd-parameter">
+<h5><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>The Hacker News identifier.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-0">&quot;37371084&quot;</span>
+</code><button>Copy</button></pre>
+</div></li>
+<li class="tsd-parameter">
+<h5><span class="tsd-kind-property">interactions</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TInteractions.html" class="tsd-signature-type tsd-kind-type-alias">TInteractions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;hide&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;voteDown&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;voteUp&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+<div class="tsd-comment tsd-typography"><p>User interactions.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
+<li class="tsd-parameter">
+<h5><span class="tsd-kind-property">links</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TLinks.html" class="tsd-signature-type tsd-kind-type-alias">TLinks</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;favorite&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;flag&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;from&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;item&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;past&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;unflag&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 <div class="tsd-comment tsd-typography"><p>Links to other pages.</p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Example</h4><pre><code class="language-ts"><span class="hl-0">&quot;item?id=37286598&quot;</span>
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-0">&quot;item?id=37371084&quot;</span>
 </code><button>Copy</button></pre>
 </div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">score</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>The story item&#39;s score.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
 <li class="tsd-parameter">
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">site</span><span class="tsd-signature-symbol">?: </span><a href="shared.TSite.html" class="tsd-signature-type tsd-kind-type-alias">TSite</a></h5>
 <div class="tsd-comment tsd-typography"><p>Information about the linked site.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li>
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-<div class="tsd-comment tsd-typography"><p>The job&#39;s title.</p>
+<h5><span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>The story&#39;s title.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">user</span><span class="tsd-signature-symbol">?: </span><a href="shared.TUser.html" class="tsd-signature-type tsd-kind-type-alias">TUser</a></h5>
+<div class="tsd-comment tsd-typography"><p>User that created the story.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">voted</span><span class="tsd-signature-symbol">?: </span><a href="shared.TVoteDirection.html" class="tsd-signature-type tsd-kind-type-alias">TVoteDirection</a></h5>
+<div class="tsd-comment tsd-typography"><p>Whether the current user has voted on the story and how.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
-<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<div class="tsd-comment tsd-typography">
+<h4>Remarks</h4><p>Sample page: <a href="https://news.ycombinator.com/item?id=37371084">https://news.ycombinator.com/item?id=37371084</a></p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/dan-lovelace/hacker-news-pro/blob/3af7052/packages/types/src/content/views/lists/jobList.ts#L19">packages/types/src/content/views/lists/jobList.ts:19</a></li></ul></aside></div>
+<li>Defined in <a href="https://github.com/dan-lovelace/hacker-news-pro/blob/ecaa176/packages/types/src/content/views/shared.ts#L319">packages/types/src/content/views/shared.ts:319</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -83,10 +118,9 @@
 <li><a href="items.TCommentItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2097152"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>TComment<wbr/>Item</span></a></li>
 <li><a href="items.TJobItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>Item</span></a></li>
 <li><a href="items.TPollItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Item</span></a></li>
-<li><a href="items.TPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Option<wbr/>Item</span></a></li>
 <li><a href="items.TStoryItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>Item</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
-<details class="tsd-index-accordion" open data-key="lists"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/lists.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lists</span></a></summary>
+<details class="tsd-index-accordion" data-key="lists"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/lists.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lists</span></a></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
 <li>
@@ -94,11 +128,8 @@
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
 <li><a href="lists.TCommentList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List</span></a></li>
-<li><a href="lists.TCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List<wbr/>Item</span></a></li>
 <li><a href="lists.TJobList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List</span></a></li>
-<li><a href="lists.TJobListItem.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="lists.TStoryList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List</span></a></li>
-<li><a href="lists.TStoryListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List<wbr/>Item</span></a></li></ul></div></details></li></ul></div></details></li>
+<li><a href="lists.TStoryList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
 <details class="tsd-index-accordion" data-key="other"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/other.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>other</span></a></summary>
 <div class="tsd-accordion-details">
@@ -126,7 +157,7 @@
 <li><a href="context.TContext.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TContext</span></a></li>
 <li><a href="context.TPageDataExtension.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPage<wbr/>Data<wbr/>Extension</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
-<details class="tsd-index-accordion" data-key="shared"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/shared.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>shared</span></a></summary>
+<details class="tsd-index-accordion" open data-key="shared"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/shared.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>shared</span></a></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
 <li>
@@ -135,11 +166,15 @@
 <ul class="tsd-nested-navigation">
 <li><a href="shared.TAge.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TAge</span></a></li>
 <li><a href="shared.TComment.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment</span></a></li>
+<li><a href="shared.TCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List<wbr/>Item</span></a></li>
 <li><a href="shared.TForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TForm</span></a></li>
 <li><a href="shared.TForms.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TForms</span></a></li>
 <li><a href="shared.TInteractions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TInteractions</span></a></li>
+<li><a href="shared.TJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List<wbr/>Item</span></a></li>
 <li><a href="shared.TLinks.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TLinks</span></a></li>
+<li><a href="shared.TPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Option<wbr/>Item</span></a></li>
 <li><a href="shared.TSite.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TSite</span></a></li>
+<li><a href="shared.TStoryListItem.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List<wbr/>Item</span></a></li>
 <li><a href="shared.TUser.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TUser</span></a></li>
 <li><a href="shared.TView.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TView</span></a></li>
 <li><a href="shared.TViewRoute.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TView<wbr/>Route</span></a></li>
@@ -174,6 +209,55 @@
 <li><a href="../functions/handlebars_helpers.timestampDate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>timestamp<wbr/>Date</span></a></li>
 <li><a href="../functions/handlebars_helpers.timestampTime.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>timestamp<wbr/>Time</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
+<details class="tsd-index-accordion" data-key="scraper"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/scraper.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>scraper</span></a></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li>
+<details class="tsd-index-accordion" data-key="scraper$Classes"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Classes</span></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li><a href="../classes/scraper.CommentItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-128"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)"></path></g></svg><span>Comment<wbr/>Item</span></a></li>
+<li><a href="../classes/scraper.CommentList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Comment<wbr/>List</span></a></li>
+<li><a href="../classes/scraper.JobItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Job<wbr/>Item</span></a></li>
+<li><a href="../classes/scraper.JobList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Job<wbr/>List</span></a></li>
+<li><a href="../classes/scraper.PollItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Poll<wbr/>Item</span></a></li>
+<li><a href="../classes/scraper.Reply.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Reply</span></a></li>
+<li><a href="../classes/scraper.StoryItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Story<wbr/>Item</span></a></li>
+<li><a href="../classes/scraper.StoryList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Story<wbr/>List</span></a></li>
+<li><a href="../classes/scraper.Submit.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Submit</span></a></li>
+<li><a href="../classes/scraper.Unknown.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Unknown</span></a></li></ul></div></details></li>
+<li>
+<details class="tsd-index-accordion" data-key="scraper$Interfaces"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Interfaces</span></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li><a href="../interfaces/scraper.IParsable.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-256"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)"></path></g></svg><span>IParsable</span></a></li></ul></div></details></li>
+<li>
+<details class="tsd-index-accordion" data-key="scraper$Variables"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Variables</span></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li><a href="../variables/scraper.SELECTORS.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>SELECTORS</span></a></li></ul></div></details></li>
+<li>
+<details class="tsd-index-accordion" data-key="scraper$Functions"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Functions</span></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li><a href="../functions/scraper.buildCommentTree.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>build<wbr/>Comment<wbr/>Tree</span></a></li>
+<li><a href="../functions/scraper.getAge.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Age</span></a></li>
+<li><a href="../functions/scraper.getBodyHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>BodyHTML</span></a></li>
+<li><a href="../functions/scraper.getCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comment<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getComments.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments</span></a></li>
+<li><a href="../functions/scraper.getCommentsCount.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments<wbr/>Count</span></a></li>
+<li><a href="../functions/scraper.getForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Form</span></a></li>
+<li><a href="../functions/scraper.getJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Job<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getNodeHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>NodeHTML</span></a></li>
+<li><a href="../functions/scraper.getPageData.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Page<wbr/>Data</span></a></li>
+<li><a href="../functions/scraper.getPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Poll<wbr/>Option<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getRowId.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Row<wbr/>Id</span></a></li>
+<li><a href="../functions/scraper.getRowIndent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Row<wbr/>Indent</span></a></li>
+<li><a href="../functions/scraper.getScore.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Score</span></a></li>
+<li><a href="../functions/scraper.getStoryListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Story<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getVoteInteractions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Vote<wbr/>Interactions</span></a></li>
+<li><a href="../functions/scraper.pipe.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>pipe</span></a></li></ul></div></details></li></ul></div></details></li>
+<li>
 <details class="tsd-index-accordion" data-key="web-components"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/web_components.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>web-<wbr/>components</span></a></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
@@ -181,5 +265,5 @@
 <details class="tsd-index-accordion" data-key="web-components$Classes"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Classes</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="../classes/web_components.Interaction.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-128"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)"></path></g></svg><span>Interaction</span></a></li></ul></div></details></li></ul></div></details></li></ul></div></details></li></ul></nav></div></div></div>
+<li><a href="../classes/web_components.Interaction.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Interaction</span></a></li></ul></div></details></li></ul></div></details></li></ul></div></details></li></ul></nav></div></div></div>
 <div class="overlay"></div></body></html>

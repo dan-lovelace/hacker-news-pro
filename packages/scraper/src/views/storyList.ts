@@ -1,5 +1,6 @@
-import { IParsable, TStoryList, TStoryListItem } from "@hnp/types";
+import { TStoryList, TStoryListItem } from "@hnp/types";
 
+import { IParsable } from "..";
 import { getStoryListItem } from "../lib";
 
 export class StoryList implements IParsable<TStoryList> {

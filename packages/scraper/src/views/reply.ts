@@ -1,5 +1,6 @@
-import { IParsable, TReply } from "@hnp/types";
+import { TReply } from "@hnp/types";
 
+import { IParsable } from "..";
 import { getCommentListItem, getForm, SELECTORS } from "../lib";
 
 export class Reply implements IParsable<TReply> {

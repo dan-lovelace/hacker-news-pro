@@ -1,5 +1,6 @@
-import { IParsable, TJobItem } from "@hnp/types";
+import { TJobItem } from "@hnp/types";
 
+import { IParsable } from "..";
 import { getBodyHTML, getJobListItem } from "../lib";
 
 export class JobItem implements IParsable<TJobItem> {

@@ -105,6 +105,50 @@ export type TComment = {
   depth: number;
 };
 
+/** Single comment item. */
+export type TCommentListItem = {
+  /** When the item was created. */
+  age: TAge;
+
+  /**
+   * HTML of the body.
+   * @remarks
+   * Should be used with Handlebar's triple-brace escape syntax:
+   * `{{{bodyHTML}}}`.
+   */
+  bodyHTML?: string;
+
+  /**
+   * The Hacker News identifier.
+   * @example "2921983"
+   */
+  id: string;
+
+  /** User interactions. */
+  interactions: Pick<TInteractions, "voteDown" | "voteUp">;
+
+  /**
+   * Links to other pages.
+   * @example "item?id=37369826"
+   */
+  links: Pick<
+    TLinks,
+    "context" | "favorite" | "flag" | "next" | "parent" | "story" | "unflag"
+  >;
+
+  /** The associated story. */
+  story: {
+    /** Story's title. */
+    title: TStoryListItem["title"];
+  };
+
+  /** User that created the comment. */
+  user?: TUser;
+
+  /** Whether the current user has voted on the comment and how. */
+  voted?: TVoteDirection;
+};
+
 /** HTML form. */
 export type TForm = {
   /**
@@ -166,6 +210,24 @@ export type TInteractions = {
   voteUp?: string;
 };
 
+/** Single job item. */
+export type TJobListItem = {
+  /** When the job was created. */
+  age: TAge;
+
+  /**
+   * Links to other pages.
+   * @example "item?id=37286598"
+   */
+  links: Pick<TLinks, "hide" | "from" | "item">;
+
+  /** Information about the linked site. */
+  site?: TSite;
+
+  /** The job's title. */
+  title?: string;
+};
+
 /** Elements that only perform a redirect when clicked. */
 export type TLinks = {
   /** Location of comment in a tree. */
@@ -214,6 +276,27 @@ export type TLinks = {
   unflag?: string;
 };
 
+/** Single option in a poll. */
+export type TPollOptionItem = {
+  /**
+   * The Hacker News identifier.
+   * @example "126812"
+   */
+  id: string;
+
+  /** User interactions. */
+  interactions: Pick<TInteractions, "voteDown" | "voteUp">;
+
+  /** The poll item's score. */
+  score?: number;
+
+  /** Title of the option. */
+  title: string;
+
+  /** Whether the current user has voted on the option and how. */
+  voted?: TVoteDirection;
+};
+
 /** Item's linked site or article. */
 export type TSite = {
   /**
@@ -227,6 +310,51 @@ export type TSite = {
    * @example "https://www.nature.com/articles/s41612-023-00427-x"
    */
   url: string;
+};
+
+/**
+ * Single story item.
+ * @remarks Sample page: https://news.ycombinator.com/item?id=37371084
+ */
+export type TStoryListItem = {
+  /** When the story was created. */
+  age: TAge;
+
+  /** The number of comments on the story. */
+  commentsCount: number;
+
+  /**
+   * The Hacker News identifier.
+   * @example "37371084"
+   */
+  id: string;
+
+  /** User interactions. */
+  interactions: Pick<TInteractions, "hide" | "voteDown" | "voteUp">;
+
+  /**
+   * Links to other pages.
+   * @example "item?id=37371084"
+   */
+  links: Pick<
+    TLinks,
+    "favorite" | "flag" | "from" | "item" | "past" | "unflag"
+  >;
+
+  /** The story item's score. */
+  score?: number;
+
+  /** Information about the linked site. */
+  site?: TSite;
+
+  /** The story's title. */
+  title: string;
+
+  /** User that created the story. */
+  user?: TUser;
+
+  /** Whether the current user has voted on the story and how. */
+  voted?: TVoteDirection;
 };
 
 /** User that submitted an item. */

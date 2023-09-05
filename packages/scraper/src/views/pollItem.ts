@@ -1,7 +1,6 @@
-// Example: https://news.ycombinator.com/item?id=126809
+import { TPollItem, TPollOptionItem } from "@hnp/types";
 
-import { IParsable, TPollItem, TPollOptionItem } from "@hnp/types";
-
+import { IParsable } from "..";
 import {
   getComments,
   getPollOptionItem,

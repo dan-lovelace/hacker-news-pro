@@ -2,6 +2,7 @@
   "entryPoints": [
     "packages/content/src/web-components",
     "packages/sandbox/src/helpers.ts",
+    "packages/scraper/src",
     "packages/types/src/content/views/context.ts",
     "packages/types/src/content/views/items",
     "packages/types/src/content/views/lists",

@@ -1,7 +1,6 @@
-// Example: https://news.ycombinator.com/item?id=37279109
+import { TStoryItem } from "@hnp/types";
 
-import { IParsable, TStoryItem } from "@hnp/types";
-
+import { IParsable } from "..";
 import {
   getBodyHTML,
   getForm,

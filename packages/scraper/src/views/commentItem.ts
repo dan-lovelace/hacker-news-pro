@@ -1,7 +1,6 @@
-// Example: https://news.ycombinator.com/item?id=2921983
+import { TCommentItem } from "@hnp/types";
 
-import { IParsable, TCommentItem } from "@hnp/types";
-
+import { IParsable } from "..";
 import { SELECTORS, getCommentListItem, getComments, getForm } from "../lib";
 
 export class CommentItem implements IParsable<TCommentItem> {

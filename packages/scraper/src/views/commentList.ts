@@ -1,5 +1,6 @@
-import { IParsable, TCommentList, TCommentListItem } from "@hnp/types";
+import { TCommentList, TCommentListItem } from "@hnp/types";
 
+import { IParsable } from "..";
 import { getCommentListItem } from "../lib";
 
 export class CommentList implements IParsable<TCommentList> {

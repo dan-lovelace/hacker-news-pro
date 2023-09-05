@@ -1,6 +1,9 @@
 import { TComment, TForms, TStoryListItem } from "..";
 
-/** Item page that displays a story. */
+/**
+ * Item page that displays a story.
+ * @remarks Sample page: https://news.ycombinator.com/item?id=37392676
+ */
 export type TStoryItem = TStoryListItem & {
   /**
    * HTML of the body.
