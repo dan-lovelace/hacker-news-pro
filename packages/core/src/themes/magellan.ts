@@ -98,7 +98,7 @@ const theme: TTheme = {
       },
       storyItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    {{{bodyHTML}}}\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3">\n      {{{bodyHTML}}}\n    </div>\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n  {{/with}}\n{{/layout}}',
       },
       storyList: {
         template:
