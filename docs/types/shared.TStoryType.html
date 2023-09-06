@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>getForm | Home</title><meta name="description" content="Official documentation for the Hacker News Pro browser extension"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><link rel="icon" href="../logo_16.png" />
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>TStoryType | Home</title><meta name="description" content="Official documentation for the Hacker News Pro browser extension"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><link rel="icon" href="../logo_16.png" />
 </head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
@@ -14,21 +14,18 @@
 <div class="tsd-page-title">
 <ul class="tsd-breadcrumb">
 <li><a href="../index.html">Home</a></li>
-<li><a href="../modules/scraper.html">scraper</a></li>
-<li><a href="scraper.getForm.html">getForm</a></li></ul>
-<h1>Function getForm</h1></div>
-<section class="tsd-panel">
-<ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="getForm"><span class="tsd-kind-call-signature">get<wbr/>Form</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">form</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/shared.TForm.html" class="tsd-signature-type tsd-kind-type-alias">TForm</a><a href="#getForm" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="icon-anchor"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></g></svg></a></li>
-<li class="tsd-description">
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">form</span>: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">Element</span></h5><code class="tsd-tag ts-flagOptional">Optional</code> </li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="../types/shared.TForm.html" class="tsd-signature-type tsd-kind-type-alias">TForm</a></h4><aside class="tsd-sources">
+<li><a href="../modules/shared.html">shared</a></li>
+<li><a href="shared.TStoryType.html">TStoryType</a></li></ul>
+<h1>Type alias TStoryType</h1></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">TStory<wbr/>Type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;article&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;ask&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;internal&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;job&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;launch&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;poll&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;show&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;tell&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>The inferred story type.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<h4>Remarks</h4><p>There&#39;s no way to tell for sure the type of story but we can try to make an
+estimated guess by looking at either its title or surrounding elements.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/dan-lovelace/hacker-news-pro/blob/1003dec/packages/scraper/src/lib/parsers/views.ts#L211">packages/scraper/src/lib/parsers/views.ts:211</a></li></ul></aside></li></ul></section></div>
+<li>Defined in <a href="https://github.com/dan-lovelace/hacker-news-pro/blob/1003dec/packages/types/src/content/views/shared.ts#L321">packages/types/src/content/views/shared.ts:321</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -60,10 +57,10 @@
 <details class="tsd-index-accordion" data-key="items$Type Aliases"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Type Aliases</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="../types/items.TCommentItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2097152"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>TComment<wbr/>Item</span></a></li>
-<li><a href="../types/items.TJobItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>Item</span></a></li>
-<li><a href="../types/items.TPollItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Item</span></a></li>
-<li><a href="../types/items.TStoryItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>Item</span></a></li></ul></div></details></li></ul></div></details></li>
+<li><a href="items.TCommentItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2097152"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>TComment<wbr/>Item</span></a></li>
+<li><a href="items.TJobItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>Item</span></a></li>
+<li><a href="items.TPollItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Item</span></a></li>
+<li><a href="items.TStoryItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>Item</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
 <details class="tsd-index-accordion" data-key="lists"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/lists.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lists</span></a></summary>
 <div class="tsd-accordion-details">
@@ -72,9 +69,9 @@
 <details class="tsd-index-accordion" data-key="lists$Type Aliases"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Type Aliases</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="../types/lists.TCommentList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List</span></a></li>
-<li><a href="../types/lists.TJobList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List</span></a></li>
-<li><a href="../types/lists.TStoryList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List</span></a></li></ul></div></details></li></ul></div></details></li>
+<li><a href="lists.TCommentList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List</span></a></li>
+<li><a href="lists.TJobList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List</span></a></li>
+<li><a href="lists.TStoryList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
 <details class="tsd-index-accordion" data-key="other"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/other.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>other</span></a></summary>
 <div class="tsd-accordion-details">
@@ -83,9 +80,9 @@
 <details class="tsd-index-accordion" data-key="other$Type Aliases"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Type Aliases</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="../types/other.TReply.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TReply</span></a></li>
-<li><a href="../types/other.TSubmit.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TSubmit</span></a></li>
-<li><a href="../types/other.TUnknown.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TUnknown</span></a></li></ul></div></details></li></ul></div></details></li></ul></div></details></li>
+<li><a href="other.TReply.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TReply</span></a></li>
+<li><a href="other.TSubmit.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TSubmit</span></a></li>
+<li><a href="other.TUnknown.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TUnknown</span></a></li></ul></div></details></li></ul></div></details></li></ul></div></details></li>
 <li>
 <details class="tsd-index-accordion" data-key="Template"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Template</span></summary>
 <div class="tsd-accordion-details">
@@ -98,34 +95,34 @@
 <details class="tsd-index-accordion" data-key="context$Type Aliases"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Type Aliases</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="../types/context.TAssets.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TAssets</span></a></li>
-<li><a href="../types/context.TConfig.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TConfig</span></a></li>
-<li><a href="../types/context.TContext.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TContext</span></a></li>
-<li><a href="../types/context.TPageDataExtension.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPage<wbr/>Data<wbr/>Extension</span></a></li></ul></div></details></li></ul></div></details></li>
+<li><a href="context.TAssets.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TAssets</span></a></li>
+<li><a href="context.TConfig.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TConfig</span></a></li>
+<li><a href="context.TContext.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TContext</span></a></li>
+<li><a href="context.TPageDataExtension.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPage<wbr/>Data<wbr/>Extension</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
-<details class="tsd-index-accordion" data-key="shared"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/shared.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>shared</span></a></summary>
+<details class="tsd-index-accordion" open data-key="shared"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/shared.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>shared</span></a></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
 <li>
 <details class="tsd-index-accordion" data-key="shared$Type Aliases"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Type Aliases</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="../types/shared.TAge.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TAge</span></a></li>
-<li><a href="../types/shared.TComment.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment</span></a></li>
-<li><a href="../types/shared.TCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="../types/shared.TForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TForm</span></a></li>
-<li><a href="../types/shared.TForms.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TForms</span></a></li>
-<li><a href="../types/shared.TInteractions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TInteractions</span></a></li>
-<li><a href="../types/shared.TJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="../types/shared.TLinks.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TLinks</span></a></li>
-<li><a href="../types/shared.TPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Option<wbr/>Item</span></a></li>
-<li><a href="../types/shared.TSite.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TSite</span></a></li>
-<li><a href="../types/shared.TStoryListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="../types/shared.TStoryType.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>Type</span></a></li>
-<li><a href="../types/shared.TUser.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TUser</span></a></li>
-<li><a href="../types/shared.TView.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TView</span></a></li>
-<li><a href="../types/shared.TViewRoute.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TView<wbr/>Route</span></a></li>
-<li><a href="../types/shared.TVoteDirection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TVote<wbr/>Direction</span></a></li></ul></div></details></li>
+<li><a href="shared.TAge.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TAge</span></a></li>
+<li><a href="shared.TComment.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment</span></a></li>
+<li><a href="shared.TCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TComment<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="shared.TForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TForm</span></a></li>
+<li><a href="shared.TForms.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TForms</span></a></li>
+<li><a href="shared.TInteractions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TInteractions</span></a></li>
+<li><a href="shared.TJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TJob<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="shared.TLinks.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TLinks</span></a></li>
+<li><a href="shared.TPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TPoll<wbr/>Option<wbr/>Item</span></a></li>
+<li><a href="shared.TSite.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TSite</span></a></li>
+<li><a href="shared.TStoryListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="shared.TStoryType.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TStory<wbr/>Type</span></a></li>
+<li><a href="shared.TUser.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TUser</span></a></li>
+<li><a href="shared.TView.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TView</span></a></li>
+<li><a href="shared.TViewRoute.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TView<wbr/>Route</span></a></li>
+<li><a href="shared.TVoteDirection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>TVote<wbr/>Direction</span></a></li></ul></div></details></li>
 <li>
 <details class="tsd-index-accordion" data-key="shared$Variables"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Variables</span></summary>
 <div class="tsd-accordion-details">
@@ -144,19 +141,19 @@
 <details class="tsd-index-accordion" data-key="handlebars-helpers$Functions"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Functions</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="handlebars_helpers.add.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-64"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)"></path></g></svg><span>add</span></a></li>
-<li><a href="handlebars_helpers.capitalize.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>capitalize</span></a></li>
-<li><a href="handlebars_helpers.divide.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>divide</span></a></li>
-<li><a href="handlebars_helpers.humanizeUnixTime.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>humanize<wbr/>Unix<wbr/>Time</span></a></li>
-<li><a href="handlebars_helpers.ifeq.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>ifeq</span></a></li>
-<li><a href="handlebars_helpers.ifnoteq.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>ifnoteq</span></a></li>
-<li><a href="handlebars_helpers.mod.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>mod</span></a></li>
-<li><a href="handlebars_helpers.multiply.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>multiply</span></a></li>
-<li><a href="handlebars_helpers.subtract.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>subtract</span></a></li>
-<li><a href="handlebars_helpers.timestampDate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>timestamp<wbr/>Date</span></a></li>
-<li><a href="handlebars_helpers.timestampTime.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>timestamp<wbr/>Time</span></a></li></ul></div></details></li></ul></div></details></li>
+<li><a href="../functions/handlebars_helpers.add.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-64"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)"></path></g></svg><span>add</span></a></li>
+<li><a href="../functions/handlebars_helpers.capitalize.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>capitalize</span></a></li>
+<li><a href="../functions/handlebars_helpers.divide.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>divide</span></a></li>
+<li><a href="../functions/handlebars_helpers.humanizeUnixTime.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>humanize<wbr/>Unix<wbr/>Time</span></a></li>
+<li><a href="../functions/handlebars_helpers.ifeq.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>ifeq</span></a></li>
+<li><a href="../functions/handlebars_helpers.ifnoteq.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>ifnoteq</span></a></li>
+<li><a href="../functions/handlebars_helpers.mod.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>mod</span></a></li>
+<li><a href="../functions/handlebars_helpers.multiply.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>multiply</span></a></li>
+<li><a href="../functions/handlebars_helpers.subtract.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>subtract</span></a></li>
+<li><a href="../functions/handlebars_helpers.timestampDate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>timestamp<wbr/>Date</span></a></li>
+<li><a href="../functions/handlebars_helpers.timestampTime.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>timestamp<wbr/>Time</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
-<details class="tsd-index-accordion" open data-key="scraper"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/scraper.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>scraper</span></a></summary>
+<details class="tsd-index-accordion" data-key="scraper"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/scraper.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>scraper</span></a></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
 <li>
@@ -187,23 +184,23 @@
 <details class="tsd-index-accordion" data-key="scraper$Functions"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><span>Functions</span></summary>
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
-<li><a href="scraper.buildCommentTree.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>build<wbr/>Comment<wbr/>Tree</span></a></li>
-<li><a href="scraper.getAge.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Age</span></a></li>
-<li><a href="scraper.getBodyHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>BodyHTML</span></a></li>
-<li><a href="scraper.getCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comment<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="scraper.getComments.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments</span></a></li>
-<li><a href="scraper.getCommentsCount.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments<wbr/>Count</span></a></li>
-<li><a href="scraper.getForm.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Form</span></a></li>
-<li><a href="scraper.getJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Job<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="scraper.getNodeHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>NodeHTML</span></a></li>
-<li><a href="scraper.getPageData.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Page<wbr/>Data</span></a></li>
-<li><a href="scraper.getPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Poll<wbr/>Option<wbr/>Item</span></a></li>
-<li><a href="scraper.getRowId.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Row<wbr/>Id</span></a></li>
-<li><a href="scraper.getRowIndent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Row<wbr/>Indent</span></a></li>
-<li><a href="scraper.getScore.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Score</span></a></li>
-<li><a href="scraper.getStoryListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Story<wbr/>List<wbr/>Item</span></a></li>
-<li><a href="scraper.getVoteInteractions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Vote<wbr/>Interactions</span></a></li>
-<li><a href="scraper.pipe.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>pipe</span></a></li></ul></div></details></li></ul></div></details></li>
+<li><a href="../functions/scraper.buildCommentTree.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>build<wbr/>Comment<wbr/>Tree</span></a></li>
+<li><a href="../functions/scraper.getAge.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Age</span></a></li>
+<li><a href="../functions/scraper.getBodyHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>BodyHTML</span></a></li>
+<li><a href="../functions/scraper.getCommentListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comment<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getComments.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments</span></a></li>
+<li><a href="../functions/scraper.getCommentsCount.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments<wbr/>Count</span></a></li>
+<li><a href="../functions/scraper.getForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Form</span></a></li>
+<li><a href="../functions/scraper.getJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Job<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getNodeHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>NodeHTML</span></a></li>
+<li><a href="../functions/scraper.getPageData.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Page<wbr/>Data</span></a></li>
+<li><a href="../functions/scraper.getPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Poll<wbr/>Option<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getRowId.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Row<wbr/>Id</span></a></li>
+<li><a href="../functions/scraper.getRowIndent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Row<wbr/>Indent</span></a></li>
+<li><a href="../functions/scraper.getScore.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Score</span></a></li>
+<li><a href="../functions/scraper.getStoryListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Story<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getVoteInteractions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Vote<wbr/>Interactions</span></a></li>
+<li><a href="../functions/scraper.pipe.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>pipe</span></a></li></ul></div></details></li></ul></div></details></li>
 <li>
 <details class="tsd-index-accordion" data-key="web-components"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/web_components.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>web-<wbr/>components</span></a></summary>
 <div class="tsd-accordion-details">
