@@ -6,6 +6,57 @@
 import { TView } from ".";
 
 /**
+ * Assets available to templates.
+ * @example
+ * // in CSS using asset's full URL
+   {{#with assets.icons}}
+   .accordion {
+      --bs-accordion-btn-icon: url('{{expandDown}}');
+      --bs-accordion-btn-active-icon: url('{{expandDown}}');
+    }
+
+    [data-bs-theme=dark] .accordion-button:after {
+      --bs-accordion-btn-icon: url('{{expandDown_dark}}');
+      --bs-accordion-btn-active-icon: url('{{expandDown_dark}}');
+    }
+    {{/with}}
+   @example 
+   // in HTML using baseURL
+   <img src="{{assets.baseURL}}/images/hn_logo.svg" />
+ */
+export type TAssets = {
+  /**
+   * The assets directory's base URL.
+   * @example "chrome-extension://ihcblehlmbfeecfaiomaihjkeedjepoc/assets/img/content"
+   * @see [packages/content/public/assets/img/content](https://github.com/dan-lovelace/hacker-news-pro/tree/main/packages/content/public/assets/img/content)
+   */
+  baseURL: string;
+
+  /**
+   * Icon URLs.
+   * @remarks
+   * While Material icons are available in Handlebars templates, sometimes it
+   * is necessary to use icons in CSS such as when overriding a Bootstrap
+   * component's iconography. We include light and dark versions of icons for
+   * this purpose.
+   */
+  icons: {
+    chevronDown: string;
+    chevronDown_dark: string;
+    expandDown: string;
+    expandDown_dark: string;
+  };
+
+  /**
+   * Image URLs.
+   */
+  images: {
+    hnLogo: string;
+    hnLogo_256: string;
+  };
+};
+
+/**
  * Context configuration for the current page.
  */
 export type TConfig = {
@@ -37,13 +88,7 @@ export type TContext<T> = {
   /**
    * Describes information about any available assets.
    */
-  assets: {
-    /**
-     * The assets directory's base URL.
-     * @example "chrome-extension://ihcblehlmbfeecfaiomaihjkeedjepoc/assets/img/content"
-     */
-    baseURL: string;
-  };
+  assets: TAssets;
 
   /** Configuration for the current page. */
   config: TConfig;

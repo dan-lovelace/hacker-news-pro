@@ -11,14 +11,27 @@ import { TConfig, TPageDataExtension, TContext } from "@hnp/types";
 import { getConfig } from "./config";
 import { sendSandboxMessage, startContentListeners } from "./message";
 
+const assetsBaseURL = getAssetURL("img/content");
+const assets = {
+  baseURL: assetsBaseURL,
+  icons: {
+    chevronDown_dark: `${assetsBaseURL}/icons/chevronDown_dark.svg`,
+    chevronDown: `${assetsBaseURL}/icons/chevronDown.svg`,
+    expandDown_dark: `${assetsBaseURL}/icons/expandDown_dark.svg`,
+    expandDown: `${assetsBaseURL}/icons/expandDown.svg`,
+  },
+  images: {
+    hnLogo_256: `${assetsBaseURL}/images/hnLogo_256.png`,
+    hnLogo: `${assetsBaseURL}/images/hnLogo.svg`,
+  },
+};
+
 export function getTemplateContext<T>(
   config: TConfig,
   pageData: T & TPageDataExtension,
 ): TContext<T> {
   return {
-    assets: {
-      baseURL: getAssetURL("img/content"),
-    },
+    assets,
     config,
     pageData,
   };
