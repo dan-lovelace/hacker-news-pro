@@ -66,16 +66,14 @@ const theme: TTheme = {
       },
     ],
     style: {
-      options: {
-        darkMode: false,
-      },
+      options: { darkMode: false },
       template:
         ':root {\n  --hn-orange: #ff6600;\n  --hn-off-white: #f6f6ef;\n  --theme-primary: #1098F7;\n  --theme-primary-dark: #0782DA;\n  --vote-button-width: 18px;\n}\n\na {\n  color: var(--bs-body-color);\n  text-decoration: none;\n}\n\nbody {\n  font-family: Verdana, Geneva, sans-serif;\n}\n\ncode {\n  white-space: pre-wrap;\n}\n\ndetails summary {\n  cursor: pointer;\n  display: inline;\n}\n\ndetails summary * {\n  pointer-events: auto;\n}\n\ndetails > summary:after {\n  content: "[+]";\n  pointer-events: auto;\n}\n\ndetails[open] > summary:after {\n  content: "[-]";\n  pointer-events: auto;\n}\n\nheader {\n  background-color: var(--hn-orange);\n  color: var(--bs-black);\n}\n\nheader a {\n  color: var(--bs-black);\n}\n\np {\n  margin-top: 1rem;\n}\n\np:last-child {\n  margin-bottom: 0;\n}\n\ntextarea {\n  max-width: 100%;\n  resize: both;\n}\n\nul {\n  list-style: none;\n  padding: 0;\n}\n\n.comment-body a {\n  text-decoration: underline;\n}\n\n.comment-root .comment-root {\n  margin-left: 1.5rem;\n}\n\n.container-page {\n  background-color: var(--hn-off-white);\n  margin: 0.5rem 0;\n  width: 85%;\n}\n\n[data-bs-theme=dark] .container-page {\n  background-color: color-mix(in srgb, var(--hn-off-white) 10%, var(--bs-body-bg));\n}\n\n@media (max-width: 991px) {\n  .container-page {\n    margin: 0;\n    width: 100%;\n  }\n}\n\n.fs-sm {\n  font-size: 0.8rem !important;\n}\n\n.item-container {\n  display: flex;\n  gap: 0.25rem;\n  margin-bottom: 0.5rem;\n}\n\n.item-details-container {\n  margin-left: calc(var(--vote-button-width) + 0.25rem);\n}\n\n.logo {\n  border: 1px solid var(--bs-light);\n  height: 24px;\n  margin-right: 8px;\n  width: 24px;\n}\n\n.more-link {\n  margin-left: var(--vote-button-width);\n}\n\n.poll-options {\n  margin-left: 2rem;\n}\n\n.vote-buttons {\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n  min-width: var(--vote-button-width);\n}\n\n.vote-button {\n  align-items: center;\n  border-radius: 100%;\n  display: flex;\n  height: var(--vote-button-width);\n  justify-content: center;\n  width: var(--vote-button-width);\n  visibility: hidden;\n}\n\na .vote-button, .voted-down, .voted-up {\n  color: var(--bs-orange);\n  visibility: visible;\n}\n\n.voted-down {\n  color: var(--bs-danger);\n}\n\n.voted-up {\n  color: var(--bs-success);\n}\n',
     },
     views: {
       commentItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form submitText="Add comment"}}\n    <div class="mt-4">\n      {{> comments}}\n    </div>\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form submitText="Add comment"}}\n    <div class="mt-4">\n      {{> comments}}\n    </div>\n  {{/with}}\n  {{> more_link}}\n{{/layout}}',
       },
       commentList: {
         template:
@@ -91,7 +89,7 @@ const theme: TTheme = {
       },
       pollItem: {
         template:
-          "{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    {{#each options}}\n      {{#with this}}\n        {{> poll_option_item}}\n      {{/with}}\n    {{/each}}\n    {{> comments}}\n  {{/with}}\n{{/layout}}",
+          "{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    {{#each options}}\n      {{#with this}}\n        {{> poll_option_item}}\n      {{/with}}\n    {{/each}}\n    {{> comments}}\n  {{/with}}\n  {{> more_link}}\n{{/layout}}",
       },
       reply: {
         template:
@@ -99,7 +97,7 @@ const theme: TTheme = {
       },
       storyItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="item-details-container">\n      {{{bodyHTML}}}\n      {{> reply_form submitText="Add comment"}}\n    </div>\n    {{> comments}}\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="item-details-container">\n      {{{bodyHTML}}}\n      {{> reply_form submitText="Add comment"}}\n    </div>\n    {{> comments}}\n  {{/with}}\n  {{> more_link}}\n{{/layout}}',
       },
       storyList: {
         template:

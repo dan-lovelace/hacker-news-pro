@@ -65,16 +65,14 @@ const theme: TTheme = {
       },
     ],
     style: {
-      options: {
-        darkMode: true,
-      },
+      options: { darkMode: true },
       template:
         ":root {\n  --hn-orange: #ff6600;\n  --sidebar-width: 180px;\n  --vote-button-width: 50px;\n}\n\nbody {\n  font-family: Verdana, Geneva, sans-serif;\n}\n\na {\n  text-decoration: none;\n}\n\naside {\n  background-color: var(--bs-body-bg);\n  width: var(--sidebar-width);\n}\n\nfooter {\n  margin-left: var(--vote-button-width);\n}\n\nhr {\n  margin: 0.5rem 0;\n}\n\nmain {\n  margin-left: calc(var(--sidebar-width) + 15px);\n  max-width: 1024px;\n}\n\np:last-child {\n  margin-bottom: 0;\n}\n\npre {\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n}\n\nul {\n  list-style: none;\n  padding: 0;\n}\n\n.accordion {\n  --bs-accordion-btn-icon: url('{{assets.icons.chevronDown}}');\n  --bs-accordion-btn-active-icon: url('{{assets.icons.chevronDown}}');\n}\n\n[data-bs-theme=dark] .accordion-button::after {\n  --bs-accordion-btn-icon: url('{{assets.icons.chevronDown_dark}}');\n  --bs-accordion-btn-active-icon: url('{{assets.icons.chevronDown_dark}}');\n}\n\n.accordion-button:not(.collapsed),\n.accordion-button:focus {\n  background-color: unset;\n  box-shadow: unset;\n  color: unset;\n}\n\n.comment-root details summary {\n  cursor: pointer;\n  display: inline;\n}\n\n.comment-root details summary * {\n  pointer-events: auto;\n}\n\n.comment-root details > summary:after {\n  content: \"[+]\";\n  pointer-events: auto;\n}\n\n.comment-root details[open] > summary:after {\n  content: \"[-]\";\n  pointer-events: auto;\n}\n\n.divide-first > :nth-child(2):before {\n  content: \"|\";\n  margin-right: 0.25rem;\n}\n\n.fs-sm {\n  font-size: 0.8rem !important;\n}\n\n.gap-sm {\n  gap: 0.25rem;\n}\n\n.gap-md {\n  gap: 0.5rem;\n}\n\n.logo {\n  aspect-ratio: 1 / 1;\n  border-radius: 4px;\n  width: 32px;\n}\n\n.vote-buttons {\n  align-items: center;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n  min-width: var(--vote-button-width);\n}\n\n.vote-buttons.comment {\n  min-width: unset;\n}\n\n.vote-button {\n  align-items: center;\n  border-radius: 100%;\n  display: flex;\n  font-size: 24px;\n  height: 18px;\n  justify-content: center;\n  visibility: hidden;\n  width: 18px;\n}\n\na .vote-button, .voted-down, .voted-up {\n  color: rgb(var(--bs-warning-rgb));\n  visibility: visible;\n}\n\n.voted-down {\n  color: rgb(var(--bs-danger-rgb));;\n}\n\n.voted-up {\n  color: rgb(var(--bs-success-rgb));;\n}",
     },
     views: {
       commentItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n    <footer class="ms-0">\n      <a href="{{links.more}}">More</a>\n    </footer>\n  {{/with}}\n{{/layout}}',
       },
       commentList: {
         template:
@@ -90,7 +88,7 @@ const theme: TTheme = {
       },
       pollItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3 list-group">\n      {{#each options}}\n        {{#with this}}\n          {{> poll_option_item}}\n        {{/with}}\n      {{/each}}\n    </div>\n    {{> comments}}\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3 list-group">\n      {{#each options}}\n        {{#with this}}\n          {{> poll_option_item}}\n        {{/with}}\n      {{/each}}\n    </div>\n    {{> comments}}\n    <footer class="ms-0">\n      <a href="{{links.more}}">More</a>\n    </footer>\n  {{/with}}\n{{/layout}}',
       },
       reply: {
         template:
@@ -98,7 +96,7 @@ const theme: TTheme = {
       },
       storyItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3">\n      {{{bodyHTML}}}\n    </div>\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3">\n      {{{bodyHTML}}}\n    </div>\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n    <footer class="ms-0">\n      <a href="{{links.more}}">More</a>\n    </footer>\n  {{/with}}\n{{/layout}}',
       },
       storyList: {
         template:
