@@ -313,6 +313,22 @@ export type TSite = {
 };
 
 /**
+ * The inferred story type.
+ * @remarks
+ * There's no way to tell for sure the type of story but we can try to make an
+ * estimated guess by looking at either its title or surrounding elements.
+ */
+export type TStoryType =
+  | "article"
+  | "ask"
+  | "internal"
+  | "job"
+  | "launch"
+  | "poll"
+  | "show"
+  | "tell";
+
+/**
  * Single story item.
  * @remarks Sample page: https://news.ycombinator.com/item?id=37371084
  */
@@ -349,6 +365,9 @@ export type TStoryListItem = {
 
   /** The story's title. */
   title: string;
+
+  /** Type of story. */
+  type?: TStoryType;
 
   /** User that created the story. */
   user?: TUser;

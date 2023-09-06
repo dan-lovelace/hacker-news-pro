@@ -5,6 +5,7 @@ import {
   TJobListItem,
   TPollOptionItem,
   TStoryListItem,
+  TStoryType,
   TVoteDirection,
   voteDirections,
 } from "@hnp/types";
@@ -344,6 +345,26 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
   );
   const { voted, voteDown, voteUp } = getVoteInteractions(parent);
 
+  // guesstimate type
+  const titleLowerCase = title.toLowerCase().trim();
+  let type: TStoryType = "internal";
+
+  if (titleLowerCase.startsWith("ask hn")) {
+    type = "ask";
+  } else if (titleLowerCase.startsWith("launch hn")) {
+    type = "launch";
+  } else if (titleLowerCase.startsWith("poll:")) {
+    type = "poll";
+  } else if (titleLowerCase.startsWith("show hn")) {
+    type = "show";
+  } else if (titleLowerCase.startsWith("tell hn")) {
+    type = "tell";
+  } else if (!user) {
+    type = "job";
+  } else if (site !== undefined) {
+    type = "article";
+  }
+
   return {
     age,
     commentsCount,
@@ -357,6 +378,7 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
     score,
     site,
     title,
+    type,
     user,
     voted,
   };

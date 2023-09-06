@@ -9,20 +9,20 @@ import { TView } from ".";
  * Assets available to templates.
  * @example
  * // in CSS using asset's full URL
-   {{#with assets.icons}}
-   .accordion {
-      --bs-accordion-btn-icon: url('{{expandDown}}');
-      --bs-accordion-btn-active-icon: url('{{expandDown}}');
-    }
-
-    [data-bs-theme=dark] .accordion-button:after {
-      --bs-accordion-btn-icon: url('{{expandDown_dark}}');
-      --bs-accordion-btn-active-icon: url('{{expandDown_dark}}');
-    }
-    {{/with}}
-   @example 
-   // in HTML using baseURL
-   <img src="{{assets.baseURL}}/images/hn_logo.svg" />
+ * {{#with assets.icons}}
+ *   .accordion {
+ *     --bs-accordion-btn-icon: url('{{expandDown}}');
+ *     --bs-accordion-btn-active-icon: url('{{expandDown}}');
+ *   }
+ *
+ *   [data-bs-theme=dark] .accordion-button:after {
+ *     --bs-accordion-btn-icon: url('{{expandDown_dark}}');
+ *     --bs-accordion-btn-active-icon: url('{{expandDown_dark}}');
+ *   }
+ * {{/with}}
+ * @example
+ * // in HTML using baseURL
+ * <img src="{{assets.baseURL}}/images/hn_logo.svg" />
  */
 export type TAssets = {
   /**
