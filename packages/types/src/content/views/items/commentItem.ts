@@ -1,4 +1,4 @@
-import { TComment, TCommentListItem, TForms } from "..";
+import { TComment, TCommentListItem, TForms, TLinks } from "..";
 
 /**
  * Item page that displays a comment.
@@ -10,4 +10,10 @@ export type TCommentItem = TCommentListItem & {
 
   /** Any associated forms such as the reply form. */
   forms: Pick<TForms, "comment">;
+
+  /**
+   * Links to other pages.
+   * @example "item?id=37392676&p=2"
+   * */
+  links: Pick<TLinks, "more">;
 };

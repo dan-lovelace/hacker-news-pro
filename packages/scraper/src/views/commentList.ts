@@ -1,7 +1,7 @@
 import { TCommentList, TCommentListItem } from "@hnp/types";
 
 import { IParsable } from "..";
-import { getCommentListItem } from "../lib";
+import { getCommentListItem, getMoreLink } from "../lib";
 
 export class CommentList implements IParsable<TCommentList> {
   parse(document: Document): TCommentList {
@@ -12,9 +12,8 @@ export class CommentList implements IParsable<TCommentList> {
       items.push(getCommentListItem(node));
     });
 
-    const links = {
-      more:
-        document.querySelector(".morelink")?.getAttribute("href") ?? undefined,
+    const links: TCommentList["links"] = {
+      more: getMoreLink(document),
     };
 
     return { items, links };

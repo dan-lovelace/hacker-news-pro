@@ -1,4 +1,4 @@
-import { TComment, TForms, TStoryListItem } from "..";
+import { TComment, TForms, TLinks, TStoryListItem } from "..";
 
 /**
  * Item page that displays a story.
@@ -18,4 +18,10 @@ export type TStoryItem = TStoryListItem & {
 
   /** Any associated forms such as the reply form. */
   forms: Pick<TForms, "comment">;
+
+  /**
+   * Links to other pages.
+   * @example "item?id=37392676&p=2"
+   */
+  links: Pick<TLinks, "more">;
 };

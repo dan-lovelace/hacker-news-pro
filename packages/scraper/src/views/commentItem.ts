@@ -1,14 +1,25 @@
 import { TCommentItem } from "@hnp/types";
 
 import { IParsable } from "..";
-import { SELECTORS, getCommentListItem, getComments, getForm } from "../lib";
+import {
+  SELECTORS,
+  getCommentListItem,
+  getComments,
+  getForm,
+  getMoreLink,
+} from "../lib";
 
 export class CommentItem implements IParsable<TCommentItem> {
   parse(document: Document): TCommentItem {
     const detailsElement = document.querySelector(".athing");
     const commentForm = getForm(SELECTORS.forms.comment(document));
     const commentListItem = getCommentListItem(detailsElement);
-    const comments = getComments(SELECTORS.commentTree(document));
+    const commentTree = SELECTORS.commentTree(document);
+    const comments = getComments(commentTree);
+    const links: TCommentItem["links"] = {
+      ...commentListItem.links,
+      more: getMoreLink(commentTree),
+    };
 
     return {
       ...commentListItem,
@@ -16,6 +27,7 @@ export class CommentItem implements IParsable<TCommentItem> {
       forms: {
         comment: commentForm,
       },
+      links,
     };
   }
 }

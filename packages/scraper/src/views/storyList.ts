@@ -1,7 +1,7 @@
 import { TStoryList, TStoryListItem } from "@hnp/types";
 
 import { IParsable } from "..";
-import { getStoryListItem } from "../lib";
+import { getMoreLink, getStoryListItem } from "../lib";
 
 export class StoryList implements IParsable<TStoryList> {
   parse(document: Document): TStoryList {
@@ -12,9 +12,8 @@ export class StoryList implements IParsable<TStoryList> {
       items.push(getStoryListItem(node));
     });
 
-    const links = {
-      more:
-        document.querySelector(".morelink")?.getAttribute("href") ?? undefined,
+    const links: TStoryList["links"] = {
+      more: getMoreLink(document),
     };
 
     return { items, links };

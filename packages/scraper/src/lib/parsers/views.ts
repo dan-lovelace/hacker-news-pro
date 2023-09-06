@@ -3,6 +3,7 @@ import {
   TCommentListItem,
   TForm,
   TJobListItem,
+  TLinks,
   TPollOptionItem,
   TStoryListItem,
   TStoryType,
@@ -254,6 +255,12 @@ export function getJobListItem(parent?: Element | null): TJobListItem {
   const title = parent?.querySelector(".titleline a")?.textContent ?? undefined;
 
   return { age, links, site, title };
+}
+
+export function getMoreLink(
+  parent?: Document | Element | null,
+): TLinks["more"] {
+  return SELECTORS.links.more(parent)?.getAttribute("href") ?? undefined;
 }
 
 export function getPollOptionItem(parent?: Element | null): TPollOptionItem {

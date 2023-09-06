@@ -23,6 +23,8 @@ export const SELECTORS = {
     from: (within?: Element | null) => within?.querySelector(".sitebit a"),
     hide: (within?: Element | null) => within?.querySelector("a[href^='hide']"),
     item: (within?: Element | null) => within?.querySelector("a[href^='item']"),
+    more: (within?: Document | Element | null) =>
+      within?.querySelector(".morelink"),
     next: (within?: Element | null) =>
       within?.querySelector("a[href*='?next=']"),
     parent: (within?: Element | null) =>

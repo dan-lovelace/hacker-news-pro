@@ -1,7 +1,7 @@
 import { TJobList, TJobListItem } from "@hnp/types";
 
 import { IParsable } from "..";
-import { getJobListItem } from "../lib";
+import { getJobListItem, getMoreLink } from "../lib";
 
 export class JobList implements IParsable<TJobList> {
   parse(document: Document): TJobList {
@@ -12,9 +12,8 @@ export class JobList implements IParsable<TJobList> {
       items.push(getJobListItem(node));
     });
 
-    const links = {
-      more:
-        document.querySelector(".morelink")?.getAttribute("href") ?? undefined,
+    const links: TJobList["links"] = {
+      more: getMoreLink(document),
     };
 
     return { items, links };
