@@ -14,15 +14,14 @@
   "scripts": {
     "build": "yarn clean && ts-node --esm scripts/build.ts",
     "clean": "rimraf dist",
-    "dist:watch": "yarn --cwd scripts/hot-reload start",
     "docs": "typedoc --customTitle \"Hacker News Pro\" --customDescription \"Official documentation for the Hacker News Pro browser extension\" --favicon packages/content/public/assets/img/logo_16.png",
     "lint": "eslint .",
     "package": "ts-node --esm scripts/package.ts",
-    "start": "yarn clean && yarn start:background & yarn start:content & yarn start:popup & yarn start:sandbox & yarn dist:watch",
-    "start:background": "NODE_ENV=development yarn workspace @hnp/background build:watch",
-    "start:content": "NODE_ENV=development yarn workspace @hnp/content build:watch",
-    "start:popup": "NODE_ENV=development yarn workspace @hnp/popup build:watch",
-    "start:sandbox": "NODE_ENV=development yarn workspace @hnp/sandbox build:watch"
+    "start": "yarn clean && yarn start:background & yarn start:content & yarn start:popup & yarn start:sandbox",
+    "start:background": "yarn workspace @hnp/background build:watch",
+    "start:content": "yarn workspace @hnp/content build:watch",
+    "start:popup": "yarn workspace @hnp/popup build:watch",
+    "start:sandbox": "yarn workspace @hnp/sandbox build:watch"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",

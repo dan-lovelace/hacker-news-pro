@@ -8,7 +8,7 @@ import { DEFAULT_THEME_ID } from "@hnp/core/src/themes/default";
 import { TSelectedTheme } from "@hnp/types";
 
 function main() {
-  const { action, declarativeContent, runtime, tabs } = browser;
+  const { action, declarativeContent, runtime } = browser;
 
   runtime.onInstalled.addListener(async () => {
     // apply default theme if no current theme exists such as in a fresh install
@@ -37,27 +37,6 @@ function main() {
         },
       ]);
     });
-
-    if (process.env.NODE_ENV === "development") {
-      runtime.onMessage.addListener((message) => {
-        if (message === "reload") {
-          tabs.query({ active: true }).then(() => {
-            runtime.reload();
-            tabs.reload();
-          });
-        }
-      });
-    }
-  });
-
-  runtime.onMessage.addListener(async (message) => {
-    const tabsQuery = await tabs.query({
-      active: true,
-      currentWindow: true,
-    });
-    const tabId = tabsQuery[0].id ?? -1;
-
-    tabs.sendMessage(tabId, message);
   });
 }
 

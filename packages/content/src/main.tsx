@@ -1,5 +1,4 @@
 import {
-  browser,
   getAssetURL,
   getCurrentTheme,
   HNP_BOOTSTRAP_CSS_ELEMENT_ID,
@@ -18,17 +17,6 @@ import App from "./App";
 import { getConfig } from "./lib/config";
 
 import "./style/main.scss";
-
-// connect to hot reload server in development mode
-if (process.env.NODE_ENV === "development") {
-  const ws = new WebSocket(`ws://localhost:9012`);
-
-  ws.addEventListener("message", (event) => {
-    if (event.data === "file-change") {
-      browser.runtime.sendMessage("reload");
-    }
-  });
-}
 
 (async function () {
   const config = getConfig();

@@ -37,9 +37,6 @@ and
    - [Build](#build)
      - [Build commands](#build-commands)
    - [Add unpacked extension](#add-unpacked-extension)
-   - [Hot reloading](#hot-reloading)
-     - [Notes](#notes)
-     - [CLI options](#cli-options)
    - [Tips](#tips)
      - [Clearing storage](#clearing-storage)
 1. [Creating and publishing versions](#creating-and-publishing-versions)
@@ -158,39 +155,6 @@ Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
 
 Firefox:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing
-
-## Hot reloading
-
-Hot reloading allows you to save time by automatically restarting the extension
-and refreshing the page when changes are made. If you are working on the `popup`
-package, simply close the popup window and reopen it. However, other packages
-require the hot reload server running in the background. To enable the server,
-add `WATCH=true` to the `yarn start` command like this:
-
-```bash
-$ WATCH=true yarn start
-```
-
-### Notes
-
-Hot reloading is not perfect and you'll likely need to manually refresh the
-extension from time to time. If it seems like it's refreshing before files are
-done building, you may change the debounce timing in the
-[reload script itself](./scripts/hot-reload/src/index.ts) by modifying the
-`debounceMs` variable. You may also notice the error
-`Extension context invalidated` which seems to be caused by selecting the
-"Extensions" page where the extension is loaded. If possible, avoid focusing
-this page and let the hot reload feature do it's thing.
-
-There are several other configurations in the script such as on which port to
-start the websocket server and any files to exclude from the watch list.
-
-### CLI options
-
-| Option       | Description                      |
-| ------------ | -------------------------------- |
-| `WATCH=true` | Enables the file watcher         |
-| `QUIET=true` | Disables console output messages |
 
 ## Tips
 
