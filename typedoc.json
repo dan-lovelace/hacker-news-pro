@@ -1,4 +1,5 @@
 {
+  "customCss": "typedoc.css",
   "entryPoints": [
     "packages/content/src/web-components",
     "packages/sandbox/src/helpers.ts",

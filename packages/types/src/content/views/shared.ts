@@ -317,6 +317,16 @@ export type TSite = {
  * @remarks
  * There's no way to tell for sure the type of story but we can try to make an
  * estimated guess by looking at either its title or surrounding elements.
+ *
+ * Descriptions:
+ * - `article` - Links to an article outside of HN
+ * - `ask` - "Ask HN" posts
+ * - `internal` - Links to an internal HN item page that does not fit any other type
+ * - `job` - Job posts
+ * - `launch` - "Launch HN" posts
+ * - `poll` - HN polls
+ * - `show` - "Show HN" posts
+ * - `tell` - "Tell HN" posts
  */
 export type TStoryType =
   | "article"
