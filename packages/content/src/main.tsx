@@ -23,6 +23,16 @@ import "./style/main.scss";
   const { documentElement } = document;
   const currentTheme = await getCurrentTheme(config);
 
+  if (currentTheme.inputs.style.options.darkMode) {
+    /**
+     * We need to forcefully set the document's background color in dark mode
+     * because unstyled content will flash briefly in Firefox and partially
+     * blind the user. The RGB value used here is Bootstrap's default body
+     * background color for dark mode.
+     */
+    documentElement.style.backgroundColor = "rgb(33, 37, 41)";
+  }
+
   if (currentTheme && currentTheme.inputs.views[config.view]?.template) {
     documentElement.classList.add(HNP_HTML_ELEMENT_CLASS_NAME);
   }

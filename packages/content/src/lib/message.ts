@@ -71,6 +71,12 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         toggleStylesheet(HN_STYLESHEET, true);
         bootstrapStylesheet.setAttribute("disabled", "true");
       }
+
+      /**
+       * Unset document background color from having to explicitly set it to
+       * resolve a flashing issue on Firefox.
+       */
+      documentElement.style.backgroundColor = "unset";
       break;
     }
 
