@@ -17,10 +17,7 @@ create their own unique, fully-customized
 built-in code editor makes theme creation a breeze. Explore a collection of
 pre-made themes that may be cloned and edited to get up and running quickly.
 
-Available for
-[![chrome logo](./assets/img/chrome_logo.svg) Chrome](https://chrome.google.com/webstore/detail/hacker-news-pro/ihcblehlmbfeecfaiomaihjkeedjepoc)
-and
-[![firefox logo](./assets/img/firefox_logo.svg) Firefox](https://addons.mozilla.org/en-US/firefox/addon/hacker-news-pro/).
+### Available for [![chrome logo](./assets/img/chrome_logo.svg) Chrome](https://chrome.google.com/webstore/detail/hacker-news-pro/ihcblehlmbfeecfaiomaihjkeedjepoc) and [![firefox logo](./assets/img/firefox_logo.svg) Firefox](https://addons.mozilla.org/en-US/firefox/addon/hacker-news-pro/).
 
 # Table of contents
 
