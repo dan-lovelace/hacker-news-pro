@@ -1,3 +1,5 @@
+$fs-sm-size: 0.8rem;
+
 :root {
   scroll-behavior: unset !important; // override bootstrap setting for instant scroll restoration
 }
@@ -8,20 +10,61 @@ iframe#hnp-sandbox,
 }
 
 .material-icons {
-  font-family: "Material Icons";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
+  $font-size: 24px;
+
+  direction: ltr;
+  display: inline-block;
+  font: {
+    family: "Material Icons";
+    size: $font-size;
+    style: normal;
+    weight: normal;
+  }
   letter-spacing: normal;
+  line-height: 1;
   text-transform: none;
   white-space: nowrap;
   word-wrap: normal;
-  direction: ltr;
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
 
   // FIX: vertical alignment with text
-  display: inline-flex;
   vertical-align: top;
+
+  // FIX: outlined variation width
+  max-width: $font-size;
+  &.fs-sm {
+    max-width: $fs-sm-size;
+  }
+}
+
+// baseline
+p {
+  margin-top: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+textarea {
+  max-width: 100%;
+  resize: both;
+}
+
+// utilities
+.fs-sm {
+  font-size: $fs-sm-size !important;
+}
+
+.gap-1 {
+  gap: 0.25rem !important;
+}
+
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
+.gap-3 {
+  gap: 1rem !important;
 }
