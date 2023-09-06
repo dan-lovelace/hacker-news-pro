@@ -88,7 +88,7 @@ export default function ThemeItem({
     const anchor = document.createElement("a");
 
     anchor.setAttribute("href", href);
-    anchor.setAttribute("download", `${themeData.id}.hnp`);
+    anchor.setAttribute("download", `hnp-theme_${themeData.id}.json`);
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();

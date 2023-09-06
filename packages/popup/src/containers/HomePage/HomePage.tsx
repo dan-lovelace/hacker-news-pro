@@ -307,7 +307,7 @@ export default function HomePage() {
                   >
                     Import
                     <input
-                      accept=".hnp"
+                      accept=".json"
                       type="file"
                       hidden
                       onChange={handleImport}
