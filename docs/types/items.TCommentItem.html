@@ -17,7 +17,7 @@
 <li><a href="../modules/items.html">items</a></li>
 <li><a href="items.TCommentItem.html">TCommentItem</a></li></ul>
 <h1>Type alias TCommentItem</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">TComment<wbr/>Item</span><span class="tsd-signature-symbol">:</span> <a href="shared.TCommentListItem.html" class="tsd-signature-type tsd-kind-type-alias">TCommentListItem</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">comments</span><span class="tsd-signature-symbol">: </span><a href="shared.TComment.html" class="tsd-signature-type tsd-kind-type-alias">TComment</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">forms</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TForms.html" class="tsd-signature-type tsd-kind-type-alias">TForms</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;comment&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">TComment<wbr/>Item</span><span class="tsd-signature-symbol">:</span> <a href="shared.TCommentListItem.html" class="tsd-signature-type tsd-kind-type-alias">TCommentListItem</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">comments</span><span class="tsd-signature-symbol">: </span><a href="shared.TComment.html" class="tsd-signature-type tsd-kind-type-alias">TComment</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">forms</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TForms.html" class="tsd-signature-type tsd-kind-type-alias">TForms</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;comment&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">links</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TLinks.html" class="tsd-signature-type tsd-kind-type-alias">TLinks</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;more&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
 <div class="tsd-comment tsd-typography"><p>Item page that displays a comment.</p>
 </div>
 <div class="tsd-type-declaration">
@@ -32,12 +32,20 @@
 <h5><span class="tsd-kind-property">forms</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TForms.html" class="tsd-signature-type tsd-kind-type-alias">TForms</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;comment&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 <div class="tsd-comment tsd-typography"><p>Any associated forms such as the reply form.</p>
 </div>
-<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<div class="tsd-comment tsd-typography"></div></li>
+<li class="tsd-parameter">
+<h5><span class="tsd-kind-property">links</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="shared.TLinks.html" class="tsd-signature-type tsd-kind-type-alias">TLinks</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;more&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Links to other pages.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-0">&quot;item?id=37392676&amp;p=2&quot;</span>
+</code><button>Copy</button></pre>
+</div></li></ul></div>
 <div class="tsd-comment tsd-typography">
 <h4>Remarks</h4><p>Sample page: <a href="https://news.ycombinator.com/item?id=2921983">https://news.ycombinator.com/item?id=2921983</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/dan-lovelace/hacker-news-pro/blob/bc26e8c/packages/types/src/content/views/items/commentItem.ts#L7">packages/types/src/content/views/items/commentItem.ts:7</a></li></ul></aside></div>
+<li>Defined in <a href="https://github.com/dan-lovelace/hacker-news-pro/blob/2fff50c/packages/types/src/content/views/items/commentItem.ts#L7">packages/types/src/content/views/items/commentItem.ts:7</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -204,6 +212,7 @@
 <li><a href="../functions/scraper.getCommentsCount.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Comments<wbr/>Count</span></a></li>
 <li><a href="../functions/scraper.getForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Form</span></a></li>
 <li><a href="../functions/scraper.getJobListItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Job<wbr/>List<wbr/>Item</span></a></li>
+<li><a href="../functions/scraper.getMoreLink.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>More<wbr/>Link</span></a></li>
 <li><a href="../functions/scraper.getNodeHTML.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>NodeHTML</span></a></li>
 <li><a href="../functions/scraper.getPageData.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Page<wbr/>Data</span></a></li>
 <li><a href="../functions/scraper.getPollOptionItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Poll<wbr/>Option<wbr/>Item</span></a></li>
