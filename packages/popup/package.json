@@ -5,12 +5,9 @@
   "type": "module",
   "description": "Browser popup for Hacker News Pro",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
-    "build:version": "node scripts/build.mjs",
-    "build:watch": "yarn build --watch --mode development",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "start": "yarn build --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

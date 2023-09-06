@@ -54,7 +54,7 @@ function main() {
   json.version = packageVersion;
   delete json["$schema"];
 
-  exec("yarn workspaces run build", (error, stdout) => {
+  exec("lerna run build", (error, stdout) => {
     if (error) {
       console.error(`exec error: ${error}`);
       process.exit(1);
