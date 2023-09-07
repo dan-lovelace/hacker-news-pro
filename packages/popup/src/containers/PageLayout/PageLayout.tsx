@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 
+import { getAssetURL } from "@hnp/core";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {
   Alert,
@@ -86,6 +87,22 @@ export default function PageLayout({ children }: { children: ReactNode }) {
             spacing={1}
             sx={{ position: "absolute", right: 0, zIndex: "mobileStepper" }}
           >
+            <a href="https://news.ycombinator.com" target="_blank">
+              <IconButton
+                aria-label="open hacker news"
+                title="Open Hacker News"
+                sx={{ height: 40, width: 40 }}
+              >
+                <img
+                  src={getAssetURL("/img/content/images/hnLogo.svg")}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    borderRadius: 2,
+                  }}
+                />
+              </IconButton>
+            </a>
             {!popout && (
               <Box>
                 <IconButton

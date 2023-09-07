@@ -36,10 +36,10 @@ export default function NavMenu() {
     <Box className="nav-menu">
       <IconButton
         id="nav-menu-button"
-        aria-controls={open ? "nav-menu" : undefined}
-        aria-label="options menu"
-        aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
+        aria-controls={open ? "nav-menu" : undefined}
+        aria-haspopup="true"
+        aria-label="navigation menu"
         onClick={handleOpen}
       >
         <MenuIcon />

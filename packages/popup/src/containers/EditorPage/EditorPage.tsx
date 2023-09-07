@@ -11,6 +11,7 @@ import {
   StyleInput,
   ViewInput,
 } from "../../components/ThemeEditor";
+import { useAppContext } from "../../contexts/app";
 import { useToastContext } from "../../contexts/toast";
 
 export default function EditorPage() {
@@ -18,6 +19,7 @@ export default function EditorPage() {
   const [label, setLabel] = useState("");
   const [currentTheme, setCurrentTheme] = useState<TTheme>();
   const [initialized, setInitialized] = useState<boolean>(false);
+  const { popout } = useAppContext();
   const theme = useTheme();
   const { notify } = useToastContext();
 
@@ -122,14 +124,16 @@ export default function EditorPage() {
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 inputProps={{
+                  spellCheck: false,
                   sx: {
                     fontSize: theme.typography.h6.fontSize,
-                    marginTop: 0.5,
+                    fontWeight: 500,
+                    marginTop: 0.55,
                   },
                 }}
                 sx={{
                   width: "100%",
-                  paddingRight: "6rem",
+                  paddingRight: popout ? "6rem" : "9rem",
                   "& .MuiInput-root": {
                     "&:before": {
                       display: "none",
