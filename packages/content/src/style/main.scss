@@ -1,4 +1,10 @@
 $fs-sm-size: 0.8rem;
+$fs-6-size: 1rem;
+$fs-5-size: 1.25rem;
+$fs-4-size: 1.5rem;
+$fs-3-size: 1.75rem;
+$fs-2-size: 2rem;
+$fs-1-size: 2.5rem;
 
 :root {
   scroll-behavior: unset !important; // override bootstrap setting for instant scroll restoration
@@ -35,6 +41,30 @@ iframe#hnp-sandbox,
   max-width: $font-size;
   &.fs-sm {
     max-width: $fs-sm-size;
+  }
+
+  &.fs-6 {
+    max-width: $fs-6-size;
+  }
+
+  &.fs-5 {
+    max-width: $fs-5-size;
+  }
+
+  &.fs-4 {
+    max-width: $fs-4-size;
+  }
+
+  &.fs-3 {
+    max-width: $fs-3-size;
+  }
+
+  &.fs-2 {
+    max-width: $fs-2-size;
+  }
+
+  &.fs-1 {
+    max-width: $fs-1-size;
   }
 }
 
