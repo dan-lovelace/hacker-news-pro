@@ -122,7 +122,7 @@ export type TCommentListItem = {
    * The Hacker News identifier.
    * @example "2921983"
    */
-  id: string;
+  id?: string;
 
   /** User interactions. */
   interactions: Pick<TInteractions, "voteDown" | "voteUp">;
@@ -219,7 +219,7 @@ export type TJobListItem = {
    * Links to other pages.
    * @example "item?id=37286598"
    */
-  links: Pick<TLinks, "hide" | "from" | "item">;
+  links: Pick<TLinks, "from" | "hide" | "item">;
 
   /** Information about the linked site. */
   site?: TSite;
@@ -282,7 +282,7 @@ export type TPollOptionItem = {
    * The Hacker News identifier.
    * @example "126812"
    */
-  id: string;
+  id?: string;
 
   /** User interactions. */
   interactions: Pick<TInteractions, "voteDown" | "voteUp">;
@@ -291,7 +291,7 @@ export type TPollOptionItem = {
   score?: number;
 
   /** Title of the option. */
-  title: string;
+  title?: string;
 
   /** Whether the current user has voted on the option and how. */
   voted?: TVoteDirection;
@@ -347,13 +347,13 @@ export type TStoryListItem = {
   age: TAge;
 
   /** The number of comments on the story. */
-  commentsCount: number;
+  commentsCount?: number;
 
   /**
    * The Hacker News identifier.
    * @example "37371084"
    */
-  id: string;
+  id?: string;
 
   /** User interactions. */
   interactions: Pick<TInteractions, "hide" | "voteDown" | "voteUp">;
@@ -374,7 +374,7 @@ export type TStoryListItem = {
   site?: TSite;
 
   /** The story's title. */
-  title: string;
+  title?: string;
 
   /** Type of story. */
   type?: TStoryType;
@@ -392,13 +392,13 @@ export type TUser = {
    * The user's Hacker News identifier.
    * @example "pg"
    */
-  id: string;
+  id?: string;
 
   /**
    * Link to the user's profile page.
    * @example "user?id=pg"
    */
-  link: string;
+  link?: string;
 };
 
 export type TView =

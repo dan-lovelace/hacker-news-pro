@@ -71,7 +71,7 @@ export function getCommentListItem(parent?: Element | null): TCommentListItem {
   // children
   const age = getAge(commentHeadElement);
   const bodyHTML = getBodyHTML(parent.querySelector(".comment"));
-  const id = parent.getAttribute("id") ?? "";
+  const id = parent.getAttribute("id") ?? undefined;
   const links: TCommentListItem["links"] = {
     context:
       SELECTORS.links.context(linksElement)?.getAttribute("href") ?? undefined,
@@ -87,12 +87,13 @@ export function getCommentListItem(parent?: Element | null): TCommentListItem {
       SELECTORS.links.unflag(linksElement)?.getAttribute("href") ?? undefined,
   };
   const story = {
-    title: linksElement?.querySelector(".onstory a")?.textContent ?? "",
+    title: linksElement?.querySelector(".onstory a")?.textContent ?? undefined,
   };
   const user = {
-    id: commentHeadElement?.querySelector(".hnuser")?.textContent ?? "",
+    id: commentHeadElement?.querySelector(".hnuser")?.textContent ?? undefined,
     link:
-      commentHeadElement?.querySelector(".hnuser")?.getAttribute("href") ?? "",
+      commentHeadElement?.querySelector(".hnuser")?.getAttribute("href") ??
+      undefined,
   };
 
   // interactions
@@ -128,7 +129,7 @@ export function getComments(parent?: Element | null) {
     // children
     const age = getAge(row);
     const bodyHTML = getBodyHTML(commentEle);
-    const id = pipe(row.getAttribute("id") ?? "", getRowId);
+    const id = pipe(row.getAttribute("id") ?? undefined, getRowId);
     const links = {
       item: ageEle?.querySelector("a")?.getAttribute("href") ?? undefined,
       reply:
@@ -268,9 +269,9 @@ export function getPollOptionItem(parent?: Element | null): TPollOptionItem {
 
   const metadataElement = parent.nextElementSibling?.querySelector(".comhead");
 
-  const id = parent.getAttribute("id") ?? "";
+  const id = parent.getAttribute("id") ?? undefined;
   const score = getScore(metadataElement);
-  const title = parent.querySelector(".comment")?.textContent ?? "";
+  const title = parent.querySelector(".comment")?.textContent ?? undefined;
 
   // interactions
   const { voted, voteDown, voteUp } = getVoteInteractions(parent);
@@ -305,8 +306,8 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
 
   // children
   const age = getAge(metadataElement);
-  const commentsCount = getCommentsCount(metadataElement) ?? 0;
-  const id = parent?.getAttribute("id") ?? "";
+  const commentsCount = getCommentsCount(metadataElement) ?? undefined;
+  const id = parent?.getAttribute("id") ?? undefined;
   const links: TStoryListItem["links"] = {
     favorite:
       SELECTORS.links.favorite(metadataElement)?.getAttribute("href") ??
@@ -332,7 +333,7 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
           url: siteUrl,
         }
       : undefined;
-  const title = parent?.querySelector(".titleline a")?.textContent ?? "";
+  const title = parent?.querySelector(".titleline a")?.textContent ?? undefined;
   const userId = metadataElement?.querySelector(".hnuser")?.textContent;
   const userLink = metadataElement
     ?.querySelector(".hnuser")
@@ -353,18 +354,18 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
   const { voted, voteDown, voteUp } = getVoteInteractions(parent);
 
   // guesstimate type
-  const titleLowerCase = title.toLowerCase().trim();
+  const titleLowerCase = title?.toLowerCase().trim();
   let type: TStoryType = "internal";
 
-  if (titleLowerCase.startsWith("ask hn")) {
+  if (titleLowerCase?.startsWith("ask hn")) {
     type = "ask";
-  } else if (titleLowerCase.startsWith("launch hn")) {
+  } else if (titleLowerCase?.startsWith("launch hn")) {
     type = "launch";
-  } else if (titleLowerCase.startsWith("poll:")) {
+  } else if (titleLowerCase?.startsWith("poll:")) {
     type = "poll";
-  } else if (titleLowerCase.startsWith("show hn")) {
+  } else if (titleLowerCase?.startsWith("show hn")) {
     type = "show";
-  } else if (titleLowerCase.startsWith("tell hn")) {
+  } else if (titleLowerCase?.startsWith("tell hn")) {
     type = "tell";
   } else if (!user) {
     type = "job";

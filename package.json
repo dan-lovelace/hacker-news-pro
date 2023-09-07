@@ -17,7 +17,8 @@
     "docs": "typedoc --customTitle \"Hacker News Pro\" --customDescription \"Official documentation for the Hacker News Pro browser extension\" --favicon packages/content/public/assets/img/logo_16.png",
     "lint": "eslint .",
     "package": "ts-node --esm scripts/package.ts",
-    "start": "yarn clean && lerna run start"
+    "start": "yarn clean && lerna run start",
+    "test": "lerna run test"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",

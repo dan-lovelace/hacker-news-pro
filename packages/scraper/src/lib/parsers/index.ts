@@ -69,20 +69,10 @@ const parsers: Record<TView, IParsable<any>> = {
   user: new Unknown(),
 };
 
-function createPageData<T extends TView>(
-  view: T,
-): PageData<ReturnType<IParsable<any>["parse"]>> {
-  const parser = parsers[view];
-
-  if (!parser) {
-    throw new Error(`Unsupported view: ${view}`);
-  }
-
-  return new PageData(parser);
-}
-
 export function getPageData<T extends TView>(view: T) {
-  const pageDataInstance = createPageData(view);
+  const parser = parsers[view];
+  const pageDataInstance = new PageData(parser);
+
   return pageDataInstance.parse(document);
 }
 
