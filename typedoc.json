@@ -10,7 +10,6 @@
     "packages/types/src/content/views/other",
     "packages/types/src/content/views/shared.ts"
   ],
-  "exclude": ["README.md"],
   "groupOrder": [
     "Views",
     "Template",
