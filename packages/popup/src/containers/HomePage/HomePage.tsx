@@ -153,7 +153,9 @@ export default function HomePage() {
 
     storageSetByKeys({
       CUSTOM_THEMES: newThemes,
+      SELECTED_THEME_ID: newTheme.id,
     });
+    setCurrentTheme(newTheme);
     setCustomThemes(newThemes);
     handleEndCreate();
   };
