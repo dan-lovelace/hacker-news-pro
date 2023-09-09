@@ -62,7 +62,7 @@ const theme: TTheme = {
         id: "more_link",
         label: "More Link",
         template:
-          '<a class="btn btn-primary mt-2" href="{{links.more}}">\n  <span class="d-flex align-items-center">\n    Next\n    <i class="material-icons ms-2">chevron_right</i>\n  </span>\n</a>',
+          '{{#ifnoteq links.more undefined}}\n  <a class="btn btn-primary mt-2" href="{{../links.more}}">\n    <span class="d-flex align-items-center">\n      Next\n      <i class="material-icons ms-2">chevron_right</i>\n    </span>\n  </a>\n{{/ifnoteq}}',
       },
       {
         id: "poll_option_item",
@@ -132,7 +132,7 @@ const theme: TTheme = {
       },
       submit: {
         template:
-          '{{#> layout}}\n  {{#with pageData.forms.submit}}\n    <form action="{{action}}" method="{{method}}">\n      {{{hiddenInputsHTML}}}\n      <div class="row mb-2">\n        <div class="col-12 col-lg-5">\n          <label class="form-label mb-1" for="title">Title</label>\n          <input id="title" class="form-control w-100" name="title" type="text" maxlength="80" />\n        </div>\n      </div>\n      <div class="row mb-2">\n        <div class="col-12 col-lg-5">\n          <label class="form-label mb-1" for="url">Url</label>\n          <input id="url" class="form-control w-100" name="url" type="url" />\n        </div>\n      </div>\n      <div class="row mb-2">\n        <div class="col-12 col-lg-5">\n          <label class="form-label mb-1" for="text">Text</label>\n          <textarea id="text" class="form-control w-100" name="text" rows="4" cols="49" wrap="virtual"></textarea>\n        </div>\n      </div>\n      <div class="row">\n        <div class="col-12 col-lg-5">\n          <input class="btn btn-secondary" type="submit" value="Submit" />\n        </div>\n      </div>\n      <div class="row mt-4">\n        <div class="col-12 col-lg-8">\n          Leave url blank to submit a question for discussion. If there is no\n          url, text will appear at the top of the thread. If there is a url,\n          text is optional.\n        </div>\n      </div>\n    </form>\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData.forms.submit}}\n    <form action="{{action}}" method="{{method}}">\n      {{{hiddenInputsHTML}}}\n      <div class="row mb-2">\n        <div class="col-12 col-lg-5">\n          <label class="form-label mb-1" for="title">Title</label>\n          <input id="title" class="form-control w-100" name="title" type="text" maxlength="80" />\n        </div>\n      </div>\n      <div class="row mb-2">\n        <div class="col-12 col-lg-5">\n          <label class="form-label mb-1" for="url">Url</label>\n          <input id="url" class="form-control w-100" name="url" type="url" />\n        </div>\n      </div>\n      <div class="row mb-2">\n        <div class="col-12 col-lg-auto">\n          <label class="form-label mb-1" for="text">Text</label>\n          <textarea id="text" class="form-control" name="text" rows="4" cols="60" wrap="virtual"></textarea>\n        </div>\n      </div>\n      <div class="row">\n        <div class="col-12 col-lg-5">\n          <input class="btn btn-secondary" type="submit" value="Submit" />\n        </div>\n      </div>\n      <div class="row mt-4">\n        <div class="col-12 col-lg-8">\n          Leave url blank to submit a question for discussion. If there is no\n          url, text will appear at the top of the thread. If there is a url,\n          text is optional.\n        </div>\n      </div>\n    </form>\n  {{/with}}\n{{/layout}}',
       },
     },
   },

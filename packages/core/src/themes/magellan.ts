@@ -43,7 +43,7 @@ const theme: TTheme = {
         id: "reply_form",
         label: "Reply Form",
         template:
-          '{{#ifnoteq forms.comment.action undefined}}\n  {{#with ../forms.comment}}\n    <form class="row" action="{{action}}" method="{{method}}">\n      {{{hiddenInputsHTML}}}\n      <div class="col col-lg-8 ms-5">\n        {{> reply_form_text_field}}\n        <input class="btn btn-secondary mt-2" type="submit" value="{{../../submitText}}" />\n      </div>\n    </form>\n  {{/with}}\n{{/ifnoteq}}',
+          '{{#ifnoteq forms.comment.action undefined}}\n  {{#with ../forms.comment}}\n    <form class="row" action="{{action}}" method="{{method}}">\n      {{{hiddenInputsHTML}}}\n      <div class="col col-lg-8{{#ifeq ../../lessMargin "true"}} ms-4{{else}} ms-5{{/ifeq}}">\n        {{> reply_form_text_field}}\n        <input class="btn btn-secondary mt-2" type="submit" value="{{../../submitText}}" />\n      </div>\n    </form>\n  {{/with}}\n{{/ifnoteq}}',
       },
       {
         id: "reply_form_text_field",
@@ -72,7 +72,7 @@ const theme: TTheme = {
     views: {
       commentItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n    <footer class="ms-0">\n      <a href="{{links.more}}">More</a>\n    </footer>\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form lessMargin="true" submitText="Add comment"}}\n    {{> comments}}\n    {{#ifnoteq links.more undefined}}\n      <footer class="ms-0">\n        <a href="{{../links.more}}">More</a>\n      </footer>\n    {{/ifnoteq}}\n  {{/with}}\n{{/layout}}',
       },
       commentList: {
         template:
@@ -88,15 +88,15 @@ const theme: TTheme = {
       },
       pollItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3 list-group">\n      {{#each options}}\n        {{#with this}}\n          {{> poll_option_item}}\n        {{/with}}\n      {{/each}}\n    </div>\n    {{> comments}}\n    <footer class="ms-0">\n      <a href="{{links.more}}">More</a>\n    </footer>\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3 list-group">\n      {{#each options}}\n        {{#with this}}\n          {{> poll_option_item}}\n        {{/with}}\n      {{/each}}\n    </div>\n    {{> comments}}\n    {{#ifnoteq links.more undefined}}\n      <footer class="ms-0">\n        <a href="{{../links.more}}">More</a>\n      </footer>\n    {{/ifnoteq}}\n  {{/with}}\n{{/layout}}',
       },
       reply: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form submitText="Reply"}}\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> comment_list_item}}\n    {{> reply_form lessMargin="true" submitText="Reply"}}\n  {{/with}}\n{{/layout}}',
       },
       storyItem: {
         template:
-          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3">\n      {{{bodyHTML}}}\n    </div>\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n    <footer class="ms-0">\n      <a href="{{links.more}}">More</a>\n    </footer>\n  {{/with}}\n{{/layout}}',
+          '{{#> layout}}\n  {{#with pageData}}\n    {{> story_list_item}}\n    <div class="ms-5 mb-3">\n      {{{bodyHTML}}}\n    </div>\n    {{> reply_form submitText="Add comment"}}\n    {{> comments}}\n    {{#ifnoteq links.more undefined}}\n      <footer class="ms-0">\n        <a href="{{../links.more}}">More</a>\n      </footer>\n    {{/ifnoteq}}\n  {{/with}}\n{{/layout}}',
       },
       storyList: {
         template:
