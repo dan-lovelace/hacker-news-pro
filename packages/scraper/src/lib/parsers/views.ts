@@ -169,8 +169,8 @@ export function getComments(parent?: Element | null) {
       if (node.classList.contains("togg")) {
         collapsed.count = pipe(
           (node.textContent ?? "").replace(/\D*/g, ""),
-          (countString?: string) =>
-            countString === undefined ? undefined : parseInt(countString),
+          (countString: string) =>
+            !countString ? undefined : parseInt(countString),
         );
         interactions.toggle = getNodeHTML(node.cloneNode());
       }

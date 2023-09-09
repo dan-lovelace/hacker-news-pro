@@ -7,7 +7,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "echo \"Info: no build specified\"",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "devDependencies": {
     "@hnp/types": "*",

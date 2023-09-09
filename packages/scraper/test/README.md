@@ -28,6 +28,11 @@ in mind, be respectful of usage and follow the [single spec](#single-spec) and
 [partial runs](#partial-runs) patterns below whenever possible to avoid
 hammering the HN server.
 
+Tests are run sequentially to reduce flakiness. The HN server appears to have
+protections in place that will sometimes return a 503 status code if too many
+requests are made at once. This is made possible by the `test` command's
+`--runInBand` option.
+
 ### All tests
 
 From the project's root directory, run the following:

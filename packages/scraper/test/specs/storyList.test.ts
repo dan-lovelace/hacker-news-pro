@@ -38,11 +38,18 @@ function assertBase({ items, links }: PageData) {
   expect(firstItem.user?.id).not.toBe(undefined);
   expect(firstItem.user?.link).not.toBe(undefined);
   expect(firstItem.voted).toBe(undefined);
+
+  /**
+   * Flag assertion could be made better by using a test user that has flagging
+   * capabilities. We would then make this conditional so it is NOT undefined
+   * when logged in.
+   */
+  expect(firstItem.links.flag).toBe(undefined);
 }
 
 test("accurately parses data when logged out", async () => {
   const pageData = await scrape<PageData>(...scrapeArgs);
-  const { currentUser, items } = pageData;
+  const { currentUser } = pageData;
 
   assertBase(pageData);
   const userExpect: TPageDataExtension["currentUser"] = {
@@ -56,16 +63,14 @@ test("accurately parses data when logged out", async () => {
     },
   };
   expect(currentUser).toMatchObject(userExpect);
-  expect(items[0].links.flag).toBe(undefined);
 });
 
 test("accurately parses data when logged in", async () => {
   const pageData = await scrape<PageData>(...scrapeArgs, {
     withCookie: true,
   });
-  const { currentUser, items } = pageData;
+  const { currentUser } = pageData;
 
   assertBase(pageData);
   assertUserLoggedIn(currentUser);
-  expect(items[0].links.flag).not.toBe(undefined);
 });

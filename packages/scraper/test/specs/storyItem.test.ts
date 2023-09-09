@@ -30,6 +30,8 @@ function assertBase({
   expect(age.timestamp).not.toBe(undefined);
   expect(bodyHTML).toBe(undefined);
   expect(comments.length).toBeGreaterThan(0);
+  expect(comments[0].data.collapsed.count).toBe(undefined);
+  expect(comments[0].data.collapsed.value).not.toBe(undefined);
   expect(commentsCount).not.toBe(undefined);
   expect(formsComment?.action).toBe("comment");
   expect(formsComment?.hiddenInputsHTML?.length).toBeGreaterThan(0);
@@ -52,6 +54,13 @@ function assertBase({
   expect(user?.id).not.toBe(undefined);
   expect(user?.link).not.toBe(undefined);
   expect(voted).toBe(undefined);
+
+  /**
+   * Flag assertion could be made better by using a test user that has flagging
+   * capabilities. We would then make this conditional so it is NOT undefined
+   * when logged in.
+   */
+  expect(links.flag).toBe(undefined);
 }
 
 test("accurately parses data when logged out", async () => {
@@ -70,7 +79,6 @@ test("accurately parses data when logged out", async () => {
     },
   };
   expect(currentUser).toMatchObject(userExpect);
-  expect(pageData.links.flag).toBe(undefined);
 });
 
 test("accurately parses data when logged in", async () => {
@@ -81,5 +89,4 @@ test("accurately parses data when logged in", async () => {
 
   assertBase(pageData);
   assertUserLoggedIn(currentUser);
-  expect(pageData.links.flag).not.toBe(undefined);
 });
