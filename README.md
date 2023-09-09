@@ -33,6 +33,7 @@ and running quickly.
    - [Components](#components)
    - [Styles](#styles)
 1. [Template reference](#template-reference)
+   - [Context](#context)
    - [Handlebars helpers](#handlebars-helpers)
    - [Web components](#web-components)
 1. [Local development](#local-development)
@@ -119,12 +120,18 @@ several methods are available for defining styles:
 
 # Template reference
 
+See the full
+[reference documentation here](https://dan-lovelace.github.io/hacker-news-pro)
+or read below for a high-level overview.
+
+## Context
+
 Templates in Hacker News Pro are written using
 [Handlebars](https://handlebarsjs.com/). As you navigate Hacker News pages, the
 extension works quietly in the background, scraping page contents and
 transforming them into an object internally known as the page's "context." You
-can explore the comprehensive types reference for the context object
-[here](https://dan-lovelace.github.io/hacker-news-pro/types/context.TContext.html).
+can explore the comprehensive types reference for the
+[context object here](https://dan-lovelace.github.io/hacker-news-pro/types/context.TContext.html).
 
 When you're just starting, consider enabling "Developer mode" on the extension's
 **Options** page. This mode prints the context object to the console each time
