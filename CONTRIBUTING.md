@@ -62,13 +62,13 @@ and uses [commitlint](https://commitlint.js.org) to help.
 
 Ensure your changes do not break existing functionality and consider adding
 tests if applicable. Always test the upgrade path to make sure your changes are
-backwards-compatible.
+backwards-compatible with the previous version(s).
 
 ## Submit a Pull Request
 
-When your changes are ready, submit a pull request (PR) from your branch to the
-main repository's `main` branch. Provide a clear and concise description of your
-changes in the PR.
+When your changes are ready, submit a pull request (PR) from your forked
+repository to the main repository's `main` branch. Provide a clear and concise
+description of your changes in the PR.
 
 ## Review and Feedback
 
