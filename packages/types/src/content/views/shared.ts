@@ -76,6 +76,28 @@ export type TComment = {
      */
     bodyHTML?: string;
 
+    /** Information about the comment's collapsed status. */
+    collapsed: {
+      /**
+       * Number of collapsed items.
+       * @remarks
+       * When a comment is collapsed in Hacker News, the toggle element is
+       * replaced to show the number of collapsed children such as `[17 more]`.
+       * We capture the number of children as the `count` value only when a
+       * comment is collapsed. Its count will be `undefined` when expanded.
+       */
+      count?: number;
+
+      /**
+       * Whether the comment is collapsed.
+       * @remarks
+       * A `value` of `true` indicates the comment is collapsed. When a comment
+       * is collapsed, access to its voting buttons is lost which must be taken
+       * into account when writing comment tree components.
+       */
+      value: boolean;
+    };
+
     /**
      * The Hacker News identifier.
      * @example "2921983"

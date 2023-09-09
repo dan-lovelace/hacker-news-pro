@@ -129,6 +129,9 @@ export function getComments(parent?: Element | null) {
     // children
     const age = getAge(row);
     const bodyHTML = getBodyHTML(commentEle);
+    const collapsed: TComment["data"]["collapsed"] = {
+      value: !!commentEle?.classList.contains("noshow"),
+    };
     const id = pipe(row.getAttribute("id") ?? undefined, getRowId);
     const links = {
       item: ageEle?.querySelector("a")?.getAttribute("href") ?? undefined,
@@ -150,6 +153,7 @@ export function getComments(parent?: Element | null) {
     const navigationElements = navigationEle?.querySelectorAll("a");
     const interactions: TComment["data"]["interactions"] = {};
     navigationElements?.forEach((node) => {
+      // basic navigation
       switch (node.textContent) {
         case "next":
         case "parent":
@@ -161,7 +165,13 @@ export function getComments(parent?: Element | null) {
         }
       }
 
+      // toggle button
       if (node.classList.contains("togg")) {
+        collapsed.count = pipe(
+          (node.textContent ?? "").replace(/\D*/g, ""),
+          (countString?: string) =>
+            countString === undefined ? undefined : parseInt(countString),
+        );
         interactions.toggle = getNodeHTML(node.cloneNode());
       }
     });
@@ -170,6 +180,7 @@ export function getComments(parent?: Element | null) {
     const rowData: TComment["data"] = {
       age,
       bodyHTML,
+      collapsed,
       id,
       interactions: {
         ...interactions,
