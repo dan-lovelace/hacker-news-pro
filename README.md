@@ -20,9 +20,9 @@ editor makes theme creation a breeze and changes may be seen in real-time.
 Explore a collection of premade themes that may be cloned and edited to get up
 and running quickly.
 
-### Available for [![chrome logo](./assets/img/chrome_logo.svg) Chrome](https://chrome.google.com/webstore/detail/hacker-news-pro/ihcblehlmbfeecfaiomaihjkeedjepoc) and [![firefox logo](./assets/img/firefox_logo.svg) Firefox](https://addons.mozilla.org/en-US/firefox/addon/hacker-news-pro/)
+### Available for [<img alt="chrome logo" src="./assets/img/chrome_logo.svg" style="margin-bottom: -3px" /> Chrome](https://chrome.google.com/webstore/detail/hacker-news-pro/ihcblehlmbfeecfaiomaihjkeedjepoc) and [<img alt="firefox logo" src="./assets/img/firefox_logo.svg" style="margin-bottom: -3px" /> Firefox](https://addons.mozilla.org/en-US/firefox/addon/hacker-news-pro/)
 
-### Watch the demo video on [![youtube logo](./assets/img/youtube_logo.svg) YouTube](https://youtu.be/6DxLJQrKXa0)
+### Watch the demo video on [<img alt="youtube logo" src="./assets/img/youtube_logo.svg" style="margin-bottom: -3px" /> YouTube](https://youtu.be/6DxLJQrKXa0)
 
 # Table of contents
 
