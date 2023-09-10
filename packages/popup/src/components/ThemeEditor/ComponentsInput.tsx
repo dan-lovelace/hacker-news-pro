@@ -125,10 +125,11 @@ export default function ComponentsInput() {
     setMenuAnchorEl(null);
     setComponentsValue(newComponentsValue);
 
-    const { currentThemeIndex, customThemes } = await fetchThemeData();
+    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
 
-    if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.components = newComponentsValue;
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs.components =
+        newComponentsValue;
     }
 
     storageSetByKeys({
@@ -258,9 +259,10 @@ export default function ComponentsInput() {
       a.label.localeCompare(b.label),
     );
 
-    const { currentThemeIndex, customThemes } = await fetchThemeData();
-    if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.components = sortedComponents;
+    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs.components =
+        sortedComponents;
     }
 
     setComponentsValue(sortedComponents);
@@ -311,9 +313,10 @@ export default function ComponentsInput() {
 
     setComponentsValue(newComponentsValue);
 
-    const { currentThemeIndex, customThemes } = await fetchThemeData();
-    if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.components = newComponentsValue;
+    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs.components =
+        newComponentsValue;
     }
 
     storageSetByKeys({
