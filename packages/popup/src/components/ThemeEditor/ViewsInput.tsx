@@ -204,10 +204,10 @@ export default function ViewsInput() {
 
     if (!currentTheme || !customThemes || !viewRef.current) {
       return notify(
-        "Unable to save. Missing one of: currentTheme, customThemes or viewRef.",
+        "Error saving. Missing one of: currentTheme, customThemes or viewRef.",
       );
     } else if (selectedCustomThemeIndex < 0) {
-      return notify("Unable to locate custom theme");
+      return notify("Error locating custom theme");
     }
 
     currentTheme.inputs = {

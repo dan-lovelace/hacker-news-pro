@@ -112,7 +112,7 @@ export default function HomePage() {
     const trimmed = creatingName.trim();
 
     if (!trimmed) {
-      notify("Name is required");
+      notify("Name is required", { severity: "warning" });
       return;
     }
 
@@ -145,7 +145,9 @@ export default function HomePage() {
     }
 
     if (existingThemes.some((t: TTheme) => t.id === id)) {
-      notify("A theme with this name already exists");
+      notify(`A theme with the name '${trimmed}' already exists`, {
+        severity: "warning",
+      });
       return;
     }
 
@@ -180,7 +182,7 @@ export default function HomePage() {
       target: { files },
     } = event;
     if (!files || files.length !== 1) {
-      return notify("You must upload a file");
+      return;
     }
 
     const [file] = files;

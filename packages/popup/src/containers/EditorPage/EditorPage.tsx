@@ -66,7 +66,7 @@ export default function EditorPage() {
     if (!currentTheme || currentTheme.label === trimmed) return;
 
     if (!trimmed) {
-      notify("Name is required");
+      notify("Name is required", { severity: "warning" });
       setLabel(currentTheme.label);
       return;
     }
@@ -87,7 +87,9 @@ export default function EditorPage() {
     }
 
     if (existingThemes.some((t: TTheme) => t.id === id)) {
-      notify("A theme with this name already exists");
+      notify(`A theme with the name '${trimmed}' already exists`, {
+        severity: "warning",
+      });
       setLabel(currentTheme.label);
       return;
     }
