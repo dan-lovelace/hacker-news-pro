@@ -51,7 +51,10 @@ export async function applyTheme(theme?: TTheme) {
   const firstComponentId = theme.inputs.components.length
     ? theme.inputs.components[0].id
     : undefined;
-  const keysToRemove: Array<keyof TStorageKeyMap> = ["SELECTED_VIEW"];
+  const keysToRemove: Array<keyof TStorageKeyMap> = [
+    "SELECTED_THEME_INPUTS",
+    "SELECTED_VIEW",
+  ];
 
   if (!firstComponentId) {
     keysToRemove.push("SELECTED_COMPONENT_ID");
@@ -72,19 +75,18 @@ export async function applyTheme(theme?: TTheme) {
 
 export async function fetchComponentsData() {
   const { currentTheme } = await fetchThemeData();
-  const storedSelectedComponent = await storageGetByKey(
-    "SELECTED_COMPONENT_ID",
-  );
-  const currentIdx =
+  const selectedComponentId = await storageGetByKey("SELECTED_COMPONENT_ID");
+  const selectedComponentIndex =
     currentTheme?.inputs.components.findIndex(
-      (c) => c.id === storedSelectedComponent,
+      (c) => c.id === selectedComponentId,
     ) ?? -1;
 
   return {
-    currentComponent:
-      currentIdx > -1 ? currentTheme?.inputs.components[currentIdx] : undefined,
-    currentComponentIndex: currentIdx,
     currentThemeComponents: currentTheme?.inputs.components,
+    selectedComponent:
+      selectedComponentIndex > -1
+        ? currentTheme?.inputs.components[selectedComponentIndex]
+        : undefined,
   };
 }
 
