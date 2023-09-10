@@ -43,6 +43,7 @@ export async function applyTheme(theme?: TTheme) {
     return storageRemoveByKeys([
       "SELECTED_COMPONENT_ID",
       "SELECTED_THEME_ID",
+      "SELECTED_THEME_INPUTS",
       "SELECTED_VIEW",
     ]);
   }
@@ -93,24 +94,26 @@ export async function fetchComponentsData() {
  * themes and getting all custom themes.
  */
 export async function fetchThemeData() {
-  const storedSelectedTheme = await storageGetByKey("SELECTED_THEME_ID");
-  const storedCustomThemes = await storageGetByKey("CUSTOM_THEMES");
-  const currentIdx =
-    storedCustomThemes?.findIndex((t) => t.id === storedSelectedTheme) ?? -1;
+  const selectedThemeId = await storageGetByKey("SELECTED_THEME_ID");
+  const selectedThemeInputs = await storageGetByKey("SELECTED_THEME_INPUTS");
+  const customThemes = await storageGetByKey("CUSTOM_THEMES");
+  const selectedCustomThemeIndex =
+    customThemes?.findIndex((t) => t.id === selectedThemeId) ?? -1;
 
   let currentTheme;
-  if (currentIdx > -1) {
+  if (selectedCustomThemeIndex > -1) {
     // selected theme found in custom themes
-    currentTheme = storedCustomThemes?.[currentIdx];
+    currentTheme = customThemes?.[selectedCustomThemeIndex];
   } else {
     // selected theme must be premade, look it up
-    currentTheme = premadeThemes.find((t) => t.id === storedSelectedTheme);
+    currentTheme = premadeThemes.find((t) => t.id === selectedThemeId);
   }
 
   return {
     currentTheme,
-    currentThemeIndex: currentIdx,
-    customThemes: storedCustomThemes,
+    customThemes,
+    selectedCustomThemeIndex,
+    selectedThemeInputs,
   };
 }
 

@@ -53,13 +53,13 @@ export default function StyleInput() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newDarkMode = event.target.checked;
-    const { currentThemeIndex, customThemes } = await fetchThemeData();
+    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
     const newStyleValue = { ...styleValue };
 
     newStyleValue.options.darkMode = newDarkMode;
 
-    if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.style = newStyleValue;
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs.style = newStyleValue;
     }
 
     setStyleValue(newStyleValue);
@@ -67,10 +67,10 @@ export default function StyleInput() {
   };
 
   const handleSave = async () => {
-    const { currentThemeIndex, customThemes } = await fetchThemeData();
+    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
 
-    if (customThemes && currentThemeIndex > -1) {
-      customThemes[currentThemeIndex].inputs.style = valueRef.current;
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs.style = valueRef.current;
     }
 
     storageSetByKeys({ CUSTOM_THEMES: customThemes });
