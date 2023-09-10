@@ -198,7 +198,9 @@ export default function ComponentsInput() {
           (c) => c.id !== editComponent?.id && c.id === name,
         )
       ) {
-        return notify(`A component with the name ${name} already exists`);
+        return notify(`A component with the name '${name}' already exists`, {
+          severity: "warning",
+        });
       }
 
       const componentIdx = newComponentsValue.findIndex(
@@ -233,7 +235,9 @@ export default function ComponentsInput() {
       }
     } else {
       if (componentsValue?.some((c) => c.id === name)) {
-        return notify(`A component with the name ${name} already exists`);
+        return notify(`A component with the name '${name}' already exists`, {
+          severity: "warning",
+        });
       }
 
       const newComponent: TComponent = {

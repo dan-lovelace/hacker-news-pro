@@ -1,9 +1,11 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, AlertProps, Box, Link, Snackbar } from "@mui/material";
+
+type NotifyOptions = { severity: AlertProps["severity"] };
 
 type ToastContextState = {
-  notify: (message: string) => void;
+  notify: (message: string, options?: NotifyOptions) => void;
 };
 
 const ToastContext = createContext({} as ToastContextState);
@@ -14,13 +16,18 @@ export function useToastContext() {
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [message, setMessage] = useState<string | null>(null);
+  const [options, setOptions] = useState<NotifyOptions>();
 
   const handleClose = () => {
     setMessage(null);
   };
 
-  const notify = (newMessage: string) => {
+  const notify = (
+    newMessage: string,
+    newOptions: NotifyOptions = { severity: "error" },
+  ) => {
     setMessage(newMessage);
+    setOptions(newOptions);
   };
 
   return (
@@ -34,8 +41,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           mouseEvent: "onMouseDown",
         }}
       >
-        <Alert severity="error" onClose={handleClose}>
+        <Alert severity={options?.severity} onClose={handleClose}>
           {message}
+          {options?.severity === "error" && (
+            <Box sx={{ mt: 1 }}>
+              <Link
+                href="https://github.com/dan-lovelace/hacker-news-pro/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=Popup%20Error"
+                target="_blank"
+              >
+                Report
+              </Link>
+            </Box>
+          )}
         </Alert>
       </Snackbar>
       {children}
