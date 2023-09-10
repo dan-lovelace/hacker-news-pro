@@ -6,11 +6,17 @@ import {
   storageRemoveByKeys,
   storageSetByKeys,
 } from "@hnp/core";
-import { TComponent } from "@hnp/types";
+import {
+  TComponentInput,
+  TSelectedThemeInputs,
+  TThemeInputs,
+} from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SaveIcon from "@mui/icons-material/Save";
 import {
   Alert,
   AlertTitle,
@@ -30,40 +36,51 @@ import {
 } from "@mui/material";
 import { snakeCase } from "lodash";
 
-import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from ".";
-import ModifiedIndicator from "./ModifiedIndicator";
-import { useToastContext } from "../../contexts/toast";
-import CodeEditor from "../CodeEditor";
+import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from "..";
+import { useToastContext } from "../../../contexts/toast";
+import CodeEditor from "../../CodeEditor";
+import ModifiedIndicator from "../ModifiedIndicator";
+
+const saveShortcut = getSaveShortcut();
 
 export default function ComponentsInput() {
-  const [componentsValue, setComponentsValue] = useState<TComponent[]>();
-  const [editComponent, setEditComponent] = useState<TComponent>();
+  const [editComponent, setEditComponent] = useState<TComponentInput>();
+  const [initialized, setInitialized] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [initialized, setInitialized] = useState(false);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
-  const [modifyValue, setModifyValue] = useState<Partial<TComponent>>();
-  const [selectedComponent, setSelectedComponent] = useState<TComponent>();
+  const [modifyValue, setModifyValue] = useState<Partial<TComponentInput>>();
+  const [savedThemeInputs, setSavedThemeInputs] = useState<TThemeInputs>();
+  const [selectedComponent, setSelectedComponent] = useState<TComponentInput>();
+  const [unsavedThemeInputs, setUnsavedThemeInputs] =
+    useState<TSelectedThemeInputs>();
   const { notify } = useToastContext();
 
   const canSave = () => modifyValue?.id?.trim() && modifyValue?.label?.trim();
+  const codeEditorValue =
+    unsavedThemeInputs?.components?.find((c) => c.id === selectedComponent?.id)
+      ?.template ??
+    savedThemeInputs?.components?.find((c) => c.id === selectedComponent?.id)
+      ?.template ??
+    "";
   const menuOpen = Boolean(menuAnchorEl);
   const modifyText = isCreating ? "Create" : "Edit";
-  const saveShortcut = getSaveShortcut();
 
   // state references to use when handling save by keyboard shortcut
-  const componentsValueRef = useRef<TComponent[]>();
-  componentsValueRef.current = componentsValue;
-  const selectedComponentRef = useRef<TComponent>();
+  const savedThemeInputsRef = useRef<TThemeInputs>();
+  savedThemeInputsRef.current = savedThemeInputs;
+  const selectedComponentRef = useRef<TComponentInput>();
   selectedComponentRef.current = selectedComponent;
 
   useEffect(() => {
     async function init() {
-      const { currentComponent, currentThemeComponents } =
+      const { selectedComponent: storedSelectedComponent } =
         await fetchComponentsData();
+      const { currentTheme, selectedThemeInputs } = await fetchThemeData();
 
-      setComponentsValue(currentThemeComponents);
-      setSelectedComponent(currentComponent);
+      setSavedThemeInputs(currentTheme?.inputs);
+      setUnsavedThemeInputs(selectedThemeInputs);
+      setSelectedComponent(storedSelectedComponent);
       setInitialized(true);
     }
 
@@ -81,69 +98,110 @@ export default function ComponentsInput() {
     };
   }, []);
 
-  const getComponentByName = (name: string) => {
-    const componentIdx = componentsValue?.findIndex((c) => c.id === name) ?? -1;
+  const getComponentById = (id: string) => {
+    const unsavedThemeInputsIdx =
+      unsavedThemeInputs?.components?.findIndex((c) => c.id === id) ?? -1;
 
-    if (componentIdx < 0) return undefined;
+    if (unsavedThemeInputsIdx > -1) {
+      return unsavedThemeInputs?.components?.[unsavedThemeInputsIdx];
+    }
 
-    return componentsValue?.[componentIdx];
+    const savedThemeInputsIdx =
+      savedThemeInputs?.components?.findIndex((c) => c.id === id) ?? -1;
+
+    if (savedThemeInputsIdx > -1) {
+      return savedThemeInputs?.components?.[savedThemeInputsIdx];
+    }
+
+    return undefined;
   };
 
   const getMenuAnchorElName = () => {
     return menuAnchorEl?.getAttribute("name") ?? "";
   };
 
-  const handleComponentClick = (name: string) => () => {
-    const component = getComponentByName(name);
+  const handleComponentClick = (id: string) => () => {
+    const newComponent = getComponentById(id);
 
-    if (!component) {
+    if (!newComponent) {
       return notify("Error selecting component");
     }
 
-    setSelectedComponent(component);
+    setSelectedComponent(newComponent);
     storageSetByKeys({
-      SELECTED_COMPONENT_ID: component.id,
+      SELECTED_COMPONENT_ID: newComponent.id,
     });
   };
 
   const handleDeleteClick = async () => {
-    const name = getMenuAnchorElName();
-    const componentIdx = componentsValue?.findIndex((c) => c.id === name) ?? -1;
+    const id = getMenuAnchorElName();
+    const componentIdx =
+      savedThemeInputs?.components?.findIndex((c) => c.id === id) ?? -1;
 
-    if (componentIdx < 0) {
+    if (!savedThemeInputs || componentIdx < 0) {
       return notify("Error deleting component");
     }
 
-    const newComponentsValue = [...(componentsValue || [])];
+    const newComponentsValue = [...savedThemeInputs.components];
     newComponentsValue.splice(componentIdx, 1);
 
-    if (selectedComponent?.id === name) {
+    if (selectedComponent?.id === id) {
       setSelectedComponent(undefined);
       storageRemoveByKeys("SELECTED_COMPONENT_ID");
     }
 
-    setMenuAnchorEl(null);
-    setComponentsValue(newComponentsValue);
-
     const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
-
     if (customThemes && selectedCustomThemeIndex > -1) {
       customThemes[selectedCustomThemeIndex].inputs.components =
         newComponentsValue;
     }
 
+    const newThemeInputs: TThemeInputs = {
+      ...savedThemeInputs,
+      components: newComponentsValue,
+    };
+
+    setMenuAnchorEl(null);
+    setSavedThemeInputs(newThemeInputs);
+    setUnsavedThemeInputs(newThemeInputs);
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
+      SELECTED_THEME_INPUTS: newThemeInputs,
+    });
+  };
+
+  const handleDiscardChanges = async () => {
+    const newComponents = [...(unsavedThemeInputs?.components || [])];
+    const componentIdx = newComponents.findIndex(
+      (c) => c.id === selectedComponent?.id,
+    );
+
+    if (componentIdx < 0) return notify("Error locating component");
+
+    const originalComponent = savedThemeInputs?.components.find(
+      (c) => c.id === selectedComponent?.id,
+    );
+
+    if (!originalComponent) return notify("Error locating original component");
+
+    newComponents[componentIdx].template = originalComponent.template;
+
+    const newSelectedThemeInputs = {
+      ...unsavedThemeInputs,
+      components: newComponents,
+    };
+
+    setUnsavedThemeInputs(newSelectedThemeInputs);
+    storageSetByKeys({
+      SELECTED_THEME_INPUTS: newSelectedThemeInputs,
     });
   };
 
   const handleEditClick = () => {
-    const name = getMenuAnchorElName();
-    const component = getComponentByName(name);
+    const id = getMenuAnchorElName();
+    const component = getComponentById(id);
 
-    if (!component) {
-      return notify("Error editing component");
-    }
+    if (!component) return notify("Error editing component");
 
     setMenuAnchorEl(null);
     setModifyValue(component);
@@ -184,21 +242,22 @@ export default function ComponentsInput() {
   };
 
   const handleModifySave = async () => {
-    if (!canSave()) {
-      return notify("Error creating component");
+    if (!canSave() || !savedThemeInputs) {
+      return notify("Error saving component");
     }
 
     const label = modifyValue?.label?.trim() ?? "";
-    const name = snakeCase(label) ?? "";
-    const newComponentsValue: TComponent[] = [...(componentsValue || [])];
+    const id = snakeCase(label) ?? "";
+    const newComponentsValue = [...(unsavedThemeInputs?.components || [])];
 
     if (isEditing) {
+      // user is editing an existing component
       if (
         newComponentsValue.some(
-          (c) => c.id !== editComponent?.id && c.id === name,
+          (c) => c.id !== editComponent?.id && c.id === id,
         )
       ) {
-        return notify(`A component with the name '${name}' already exists`, {
+        return notify(`A component with the name '${id}' already exists`, {
           severity: "warning",
         });
       }
@@ -211,9 +270,9 @@ export default function ComponentsInput() {
         return notify("Error editing component");
       }
 
-      const updatedFields: Partial<TComponent> = {
+      const updatedFields: Partial<TComponentInput> = {
         label,
-        id: name,
+        id,
       };
 
       newComponentsValue[componentIdx] = {
@@ -222,35 +281,33 @@ export default function ComponentsInput() {
       };
 
       if (selectedComponent?.id === editComponent.id) {
-        // updating the selected component
-        const newSelectedComponent: TComponent = {
+        // user is updating the selected component
+        const newSelectedComponent: TComponentInput = {
           ...editComponent,
           ...updatedFields,
         };
-
         setSelectedComponent(newSelectedComponent);
         storageSetByKeys({
           SELECTED_COMPONENT_ID: newSelectedComponent.id,
         });
       }
     } else {
-      if (componentsValue?.some((c) => c.id === name)) {
-        return notify(`A component with the name '${name}' already exists`, {
+      // user is creating a new component
+      if (newComponentsValue?.some((c) => c.id === id)) {
+        return notify(`A component with the name '${id}' already exists`, {
           severity: "warning",
         });
       }
 
-      const newComponent: TComponent = {
+      const newComponent: TComponentInput = {
         label,
-        id: name,
+        id: id,
         template: "",
       };
+
       newComponentsValue.push(newComponent);
 
-      /**
-       * @note Careful not to throw away unsaved changes. Only update selected
-       * if this new one is the only one that exists.
-       */
+      // only select the new component if no others exist
       if (newComponentsValue.length === 1) {
         setSelectedComponent(newComponent);
         storageSetByKeys({
@@ -262,16 +319,26 @@ export default function ComponentsInput() {
     const sortedComponents = newComponentsValue.sort((a, b) =>
       a.label.localeCompare(b.label),
     );
-
     const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
+
     if (customThemes && selectedCustomThemeIndex > -1) {
       customThemes[selectedCustomThemeIndex].inputs.components =
         sortedComponents;
     }
 
-    setComponentsValue(sortedComponents);
+    const newUnsavedThemeInputs = {
+      ...unsavedThemeInputs,
+      components: sortedComponents,
+    };
+
+    setSavedThemeInputs({
+      ...savedThemeInputs,
+      components: sortedComponents,
+    });
+    setUnsavedThemeInputs(newUnsavedThemeInputs);
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
+      SELECTED_THEME_INPUTS: newUnsavedThemeInputs,
     });
     handleModalClose();
   };
@@ -287,51 +354,67 @@ export default function ComponentsInput() {
     setIsCreating(true);
   };
 
-  const handleTemplateChange = (newValue: string) => {
-    if (!selectedComponent) return;
+  const handleTemplateChange = async (newValue: string) => {
+    const unsavedComponentIndex =
+      unsavedThemeInputs?.components?.findIndex(
+        (c) => c.id === selectedComponent?.id,
+      ) ?? -1;
 
-    const newSelectedComponent: TComponent = {
-      ...selectedComponent,
-      template: newValue,
+    if (!selectedComponent || unsavedComponentIndex < 0) {
+      return notify("Error modifying component template");
+    }
+
+    const newComponents = [...(unsavedThemeInputs?.components || [])];
+    newComponents[unsavedComponentIndex].template = newValue;
+    const newUnsavedThemeInputs: TSelectedThemeInputs = {
+      ...unsavedThemeInputs,
+      components: newComponents,
     };
 
-    setSelectedComponent(newSelectedComponent);
+    setSelectedComponent({
+      ...selectedComponent,
+      template: newValue,
+    });
+    setUnsavedThemeInputs(newUnsavedThemeInputs);
+    storageSetByKeys({
+      SELECTED_THEME_INPUTS: newUnsavedThemeInputs,
+    });
   };
 
   const handleTemplateSave = async () => {
-    const { current: currentSelectedComponent } = selectedComponentRef;
-
-    if (!currentSelectedComponent) return;
-
-    const newComponentsValue = [...(componentsValueRef.current || [])];
-    const componentIdx =
-      newComponentsValue?.findIndex(
-        (c) => c.id === currentSelectedComponent.id,
+    const saveIdx =
+      savedThemeInputsRef.current?.components.findIndex(
+        (c) => c.id === selectedComponentRef.current?.id,
       ) ?? -1;
 
-    if (componentIdx < 0) {
+    if (
+      !savedThemeInputsRef.current ||
+      !selectedComponentRef.current ||
+      saveIdx < 0
+    ) {
       return notify("Error saving template");
     }
 
-    newComponentsValue[componentIdx] = currentSelectedComponent;
-
-    setComponentsValue(newComponentsValue);
-
+    const newComponents = [...(savedThemeInputsRef.current.components || [])];
+    newComponents[saveIdx] = selectedComponentRef.current;
     const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
+
     if (customThemes && selectedCustomThemeIndex > -1) {
-      customThemes[selectedCustomThemeIndex].inputs.components =
-        newComponentsValue;
+      customThemes[selectedCustomThemeIndex].inputs.components = newComponents;
     }
 
+    setSavedThemeInputs({
+      ...savedThemeInputsRef.current,
+      components: newComponents,
+    });
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
-      SELECTED_COMPONENT_ID: newComponentsValue[componentIdx].id,
     });
   };
 
   if (!initialized) return <></>;
 
-  if (!componentsValue?.length && !isCreating) {
+  if (!savedThemeInputs?.components?.length && !isCreating) {
     return (
       <Alert severity="info">
         <AlertTitle>No components</AlertTitle>
@@ -356,10 +439,14 @@ export default function ComponentsInput() {
       >
         <Box>
           <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
-            {componentsValue?.map(({ label, id, template }) => {
-              const selected = selectedComponent?.id === id;
+            {savedThemeInputs?.components.map(({ label, id, template }) => {
+              const isSelected = selectedComponent?.id === id;
+              const selectedThemeInput = unsavedThemeInputs?.components?.find(
+                (c) => c.id === id,
+              );
               const modified =
-                selected && template !== selectedComponent?.template;
+                selectedThemeInput !== undefined &&
+                template !== selectedThemeInput?.template;
 
               return (
                 <Stack
@@ -369,7 +456,7 @@ export default function ComponentsInput() {
                   sx={{ alignItems: "center" }}
                 >
                   <ListItemButton
-                    selected={selected}
+                    selected={isSelected}
                     onClick={handleComponentClick(id)}
                     sx={{
                       flex: "1 1 auto",
@@ -471,18 +558,35 @@ export default function ComponentsInput() {
             </Typography>
             <CodeEditor
               language="handlebars"
-              value={selectedComponent.template}
+              value={codeEditorValue}
               handleChange={handleTemplateChange}
               handleSave={handleTemplateSave}
             />
-            <Button
-              variant="contained"
-              fullWidth
-              disabled={Boolean(!componentsValue)}
-              onClick={handleTemplateSave}
-            >
-              Save ({saveShortcut})
-            </Button>
+            <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
+              <Button
+                color="warning"
+                disabled={
+                  savedThemeInputs?.components?.find(
+                    (c) => c.id === selectedComponent.id,
+                  )?.template ===
+                  unsavedThemeInputs?.components?.find(
+                    (c) => c.id === selectedComponent.id,
+                  )?.template
+                }
+                startIcon={<DeleteForeverIcon />}
+                variant="outlined"
+                onClick={handleDiscardChanges}
+              >
+                Discard changes
+              </Button>
+              <Button
+                startIcon={<SaveIcon />}
+                variant="contained"
+                onClick={handleTemplateSave}
+              >
+                Save ({saveShortcut})
+              </Button>
+            </Stack>
           </Box>
         )}
       </Stack>

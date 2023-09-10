@@ -1,26 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 
 import { fetchThemeData, storageSetByKeys } from "@hnp/core";
-import { TStyle } from "@hnp/types";
+import { TStyleInput } from "@hnp/types";
 import { Button, FormControlLabel, Switch } from "@mui/material";
 
-import { getSaveShortcut, saveListener } from ".";
-import { useToastContext } from "../../contexts/toast";
-import CodeEditor from "../CodeEditor";
+import { getSaveShortcut, saveListener } from "..";
+import { useToastContext } from "../../../contexts/toast";
+import CodeEditor from "../../CodeEditor";
 
-const defaultStyle: TStyle = {
+const defaultStyle: TStyleInput = {
   options: { darkMode: false },
   template: "",
 };
 
 export default function StyleInput() {
-  const [styleValue, setStyleValue] = useState<TStyle>(defaultStyle);
+  const [styleValue, setStyleValue] = useState<TStyleInput>(defaultStyle);
   const [initialized, setInitialized] = useState(false);
   const { notify } = useToastContext();
   const saveShortcut = getSaveShortcut();
 
   // state references to use when handling save by keyboard shortcut
-  const valueRef = useRef<TStyle>(defaultStyle);
+  const valueRef = useRef<TStyleInput>(defaultStyle);
   valueRef.current = styleValue;
 
   useEffect(() => {

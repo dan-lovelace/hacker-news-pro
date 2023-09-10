@@ -1,7 +1,7 @@
 import { TContext } from ".";
 import { TView } from "./content/views";
 
-export type TComponent = {
+export type TComponentInput = {
   id: string;
   label: string;
   template: string;
@@ -38,8 +38,6 @@ export type TSandboxPartial = {
 };
 
 export type TSandboxTemplate = string;
-
-export type TSelectedComponentID = TComponent["id"] | null;
 
 /**
  * User theme inputs that are not yet applied. This is what we use to keep
@@ -82,7 +80,7 @@ export type TStorageKeyMap = {
    * Store the user's selected component so we can take them back to it when
    * they refocus the Components tab.
    */
-  SELECTED_COMPONENT_ID: TSelectedComponentID;
+  SELECTED_COMPONENT_ID: TComponentInput["id"] | null;
 
   /**
    * Store the user's selected page so we can take them back to it when they
@@ -119,7 +117,7 @@ export type TStorageKeyMap = {
   SELECTED_VIEW: TView;
 };
 
-export type TStyle = {
+export type TStyleInput = {
   options: {
     darkMode: boolean;
   };
@@ -128,7 +126,7 @@ export type TStyle = {
 
 export type TTheme = {
   id: string;
-  inputs: TThemeViewInputs;
+  inputs: TThemeInputs;
   label: string;
   options: TThemeOptions;
   type: TThemeType;
@@ -136,8 +134,14 @@ export type TTheme = {
 };
 
 export type TThemeChanged = {
-  style: TStyle;
+  style: TStyleInput;
   compiled: string;
+};
+
+export type TThemeInputs = {
+  components: TComponentInput[];
+  style: TStyleInput;
+  views: Partial<Record<TView, TViewInput>>;
 };
 
 export type TThemeOptions = {
@@ -146,12 +150,6 @@ export type TThemeOptions = {
 
 export type TThemeType = "custom" | "premade";
 
-export type TThemeViewInputs = {
-  components: TComponent[];
-  style: TStyle;
-  views: Partial<Record<TView, TViewInputValue>>;
-};
-
-export type TViewInputValue = {
+export type TViewInput = {
   template?: string;
 };
