@@ -7,7 +7,7 @@ import {
   TView,
   TViewInput,
 } from "@hnp/types";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SaveIcon from "@mui/icons-material/Save";
 import { Box, Button, List, Stack, Typography } from "@mui/material";
 
@@ -17,21 +17,21 @@ import { useToastContext } from "../../../contexts/toast";
 import CodeEditor from "../../CodeEditor";
 
 export default function ViewsInput() {
-  const [currentThemeInputs, setCurrentThemeInputs] = useState<TThemeInputs>();
   const [initialized, setInitialized] = useState<boolean>(false);
-  const [selectedThemeInputs, setSelectedThemeInputs] =
+  const [savedThemeInputs, setSavedThemeInputs] = useState<TThemeInputs>();
+  const [selectedView, setSelectedView] = useState<TView>("storyList");
+  const [unsavedThemeInputs, setUnsavedThemeInputs] =
     useState<TSelectedThemeInputs>();
-  const [viewValue, setViewValue] = useState<TView>("storyList");
   const { notify } = useToastContext();
   const saveShortcut = getSaveShortcut();
 
   // state references to use when handling save by keyboard shortcut
   const inputValueRef = useRef<TViewInput>();
   inputValueRef.current =
-    selectedThemeInputs?.views?.[viewValue] ??
-    currentThemeInputs?.views?.[viewValue];
+    unsavedThemeInputs?.views?.[selectedView] ??
+    savedThemeInputs?.views?.[selectedView];
   const viewRef = useRef<TView>();
-  viewRef.current = viewValue;
+  viewRef.current = selectedView;
 
   useEffect(() => {
     async function init() {
@@ -40,11 +40,11 @@ export default function ViewsInput() {
       const view = await storageGetByKey("SELECTED_VIEW");
 
       if (view) {
-        setViewValue(view);
+        setSelectedView(view);
       }
 
-      setCurrentThemeInputs(currentTheme?.inputs);
-      setSelectedThemeInputs(storedSelectedThemeInputs);
+      setSavedThemeInputs(currentTheme?.inputs);
+      setUnsavedThemeInputs(storedSelectedThemeInputs);
       setInitialized(true);
     }
 
@@ -64,14 +64,14 @@ export default function ViewsInput() {
 
   const handleDiscardChanges = async () => {
     const newSelectedThemeInputs: TSelectedThemeInputs = {
-      ...selectedThemeInputs,
+      ...unsavedThemeInputs,
       views: {
-        ...selectedThemeInputs?.views,
-        [viewValue]: currentThemeInputs?.views?.[viewValue],
+        ...unsavedThemeInputs?.views,
+        [selectedView]: savedThemeInputs?.views?.[selectedView],
       },
     };
 
-    setSelectedThemeInputs(newSelectedThemeInputs);
+    setUnsavedThemeInputs(newSelectedThemeInputs);
     storageSetByKeys({
       SELECTED_THEME_INPUTS: newSelectedThemeInputs,
     });
@@ -98,31 +98,29 @@ export default function ViewsInput() {
     };
     customThemes[selectedCustomThemeIndex] = currentTheme;
 
-    setCurrentThemeInputs(currentTheme?.inputs);
+    setSavedThemeInputs(currentTheme?.inputs);
     storageSetByKeys({ CUSTOM_THEMES: customThemes });
   };
 
   const handleTemplateChange = async (newValue: string) => {
-    const { selectedThemeInputs: storedSelectedThemeInputs } =
-      await fetchThemeData();
-    const newValues: TSelectedThemeInputs = {
-      ...storedSelectedThemeInputs,
+    const newUnsavedThemeInputs: TSelectedThemeInputs = {
+      ...unsavedThemeInputs,
       views: {
-        ...storedSelectedThemeInputs?.views,
-        [viewValue]: {
+        ...unsavedThemeInputs?.views,
+        [selectedView]: {
           template: newValue,
         },
       },
     };
 
-    setSelectedThemeInputs(newValues);
+    setUnsavedThemeInputs(newUnsavedThemeInputs);
     storageSetByKeys({
-      SELECTED_THEME_INPUTS: newValues,
+      SELECTED_THEME_INPUTS: newUnsavedThemeInputs,
     });
   };
 
   const handleViewChange = (view: TView) => () => {
-    setViewValue(view);
+    setSelectedView(view);
     storageSetByKeys({ SELECTED_VIEW: view });
   };
 
@@ -146,12 +144,12 @@ export default function ViewsInput() {
                         <ViewItem
                           key={value}
                           modified={
-                            selectedThemeInputs?.views?.[value] !== undefined &&
-                            currentThemeInputs?.views?.[value]?.template !==
-                              selectedThemeInputs?.views?.[value]?.template
+                            unsavedThemeInputs?.views?.[value] !== undefined &&
+                            savedThemeInputs?.views?.[value]?.template !==
+                              unsavedThemeInputs?.views?.[value]?.template
                           }
                           routes={routes}
-                          selected={viewValue === value}
+                          selected={selectedView === value}
                           onClick={handleViewChange(value)}
                         >
                           {label}
@@ -179,11 +177,12 @@ export default function ViewsInput() {
               <Button
                 color="warning"
                 disabled={
-                  currentThemeInputs?.views?.[viewValue]?.template ===
-                  selectedThemeInputs?.views?.[viewValue]?.template
+                  !unsavedThemeInputs?.views?.[selectedView] ||
+                  savedThemeInputs?.views?.[selectedView]?.template ===
+                    unsavedThemeInputs?.views?.[selectedView]?.template
                 }
-                startIcon={<DeleteForeverIcon />}
-                variant="outlined"
+                startIcon={<RemoveCircleOutlineIcon />}
+                variant="text"
                 onClick={handleDiscardChanges}
               >
                 Discard changes

@@ -13,9 +13,9 @@ import {
 } from "@hnp/types";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SaveIcon from "@mui/icons-material/Save";
 import {
   Alert,
@@ -573,8 +573,8 @@ export default function ComponentsInput() {
                     (c) => c.id === selectedComponent.id,
                   )?.template
                 }
-                startIcon={<DeleteForeverIcon />}
-                variant="outlined"
+                startIcon={<RemoveCircleOutlineIcon />}
+                variant="text"
                 onClick={handleDiscardChanges}
               >
                 Discard changes
