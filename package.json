@@ -14,7 +14,7 @@
   "scripts": {
     "build": "yarn clean && ts-node --esm scripts/build.ts",
     "clean": "rimraf dist",
-    "docs": "typedoc --customTitle \"Hacker News Pro\" --customDescription \"Official documentation for the Hacker News Pro browser extension\" --favicon packages/content/public/assets/img/logo_16_types.png",
+    "docs": "typedoc",
     "lint": "eslint .",
     "package": "ts-node --esm scripts/package.ts",
     "start": "yarn clean && lerna run start",
@@ -36,8 +36,8 @@
     "prettier": "^3.0.2",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.25.0",
-    "typedoc-plugin-extras": "^2.3.3",
+    "typedoc": "^0.25.1",
+    "typedoc-plugin-markdown": "^3.16.0",
     "typescript": "^5.1.6",
     "vite": "^4.4.9"
   },

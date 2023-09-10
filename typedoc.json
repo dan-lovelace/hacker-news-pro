@@ -1,5 +1,4 @@
 {
-  "customCss": "typedoc.css",
   "entryPoints": [
     "packages/content/src/web-components",
     "packages/sandbox/src/helpers.ts",
@@ -10,6 +9,7 @@
     "packages/types/src/content/views/other",
     "packages/types/src/content/views/shared.ts"
   ],
+  "excludeExternals": true,
   "groupOrder": [
     "Views",
     "Template",
@@ -34,8 +34,8 @@
   "sidebarLinks": {
     "README": "https://github.com/dan-lovelace/hacker-news-pro#readme"
   },
-  "out": "docs",
-  "plugin": ["typedoc-plugin-extras"],
+  "out": "packages/documentation/docs",
+  "plugin": ["typedoc-plugin-markdown"],
   "readme": "none",
   "searchInComments": true,
   "theme": "default"
