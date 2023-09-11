@@ -1,7 +1,7 @@
 // WARNING: import MESSAGE_ACTIONS using absolute path because
 // webextension-polyfill will throw an error otherwise
 import { MESSAGE_ACTIONS } from "@hnp/core/src/message";
-import { TSandboxMessage } from "@hnp/types";
+import { TSandboxMessage, TStylesheet, TThemeChanged } from "@hnp/types";
 import Handlebars from "handlebars";
 
 import "./helpers";
@@ -34,12 +34,14 @@ window.addEventListener("message", (message) => {
   switch (action) {
     case MESSAGE_ACTIONS.UPDATE_THEME: {
       const { inputs } = value;
-      const styleInputValue = inputs.style;
       const viewInputValue = inputs.views[context.config.view];
 
       if (!viewInputValue) return emptyThemeMessage();
 
-      const { components } = inputs ?? [];
+      const {
+        components,
+        style: { stylesheets },
+      } = inputs ?? [];
       for (const component of components) {
         Handlebars.registerPartial(component.id, component.template);
       }
@@ -47,18 +49,23 @@ window.addEventListener("message", (message) => {
       const compiled = Handlebars.compile(viewInputValue.template, {
         preventIndent: true, // ensure `pre` tags are rendered correctly
       })(context);
-      const style = Handlebars.compile(styleInputValue.template)(context);
+      const styleTemplates: TStylesheet[] = stylesheets.map((stylesheet) => ({
+        ...stylesheet,
+        template: Handlebars.compile(stylesheet.template)(context),
+      }));
+
+      const messageValue: TThemeChanged = {
+        style: {
+          ...inputs.style,
+          stylesheets: styleTemplates,
+        },
+        compiled,
+      };
 
       source?.postMessage(
         {
           action,
-          value: {
-            style: {
-              ...inputs.style,
-              template: style,
-            },
-            compiled,
-          },
+          value: messageValue,
         },
         { targetOrigin: origin },
       );

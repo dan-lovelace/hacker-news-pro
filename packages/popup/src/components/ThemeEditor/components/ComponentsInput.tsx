@@ -78,6 +78,10 @@ export default function ComponentsInput() {
         await fetchComponentsData();
       const { currentTheme, selectedThemeInputs } = await fetchThemeData();
 
+      if (!currentTheme) {
+        return notify("Error loading current theme");
+      }
+
       setSavedThemeInputs(currentTheme?.inputs);
       setUnsavedThemeInputs(selectedThemeInputs);
       setSelectedComponent(storedSelectedComponent);
@@ -186,7 +190,7 @@ export default function ComponentsInput() {
 
     newComponents[componentIdx].template = originalComponent.template;
 
-    const newSelectedThemeInputs = {
+    const newSelectedThemeInputs: TSelectedThemeInputs = {
       ...unsavedThemeInputs,
       components: newComponents,
     };
@@ -446,7 +450,7 @@ export default function ComponentsInput() {
               );
               const modified =
                 selectedThemeInput !== undefined &&
-                template !== selectedThemeInput?.template;
+                template !== selectedThemeInput.template;
 
               return (
                 <Stack

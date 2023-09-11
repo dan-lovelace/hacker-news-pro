@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 
-import { fetchThemeData, storageSetByKeys } from "@hnp/core";
-import { TSelectedThemeInputs, TStyleInput, TThemeInputs } from "@hnp/types";
+import {
+  fetchStylesheetsData,
+  fetchThemeData,
+  storageSetByKeys,
+} from "@hnp/core";
+import {
+  TSelectedThemeInputs,
+  TStyleInput,
+  TStylesheet,
+  TThemeInputs,
+} from "@hnp/types";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SaveIcon from "@mui/icons-material/Save";
 import {
@@ -22,33 +31,56 @@ import ModifiedIndicator from "../ModifiedIndicator";
 
 const defaultStyleInput: TStyleInput = {
   options: { darkMode: false },
-  template: "",
+  stylesheets: [
+    {
+      id: "index",
+      template: "",
+      type: "css",
+    },
+  ],
 };
+
+const saveShortcut = getSaveShortcut();
 
 export default function StyleInput() {
   const [initialized, setInitialized] = useState(false);
+  const [selectedStylesheet, setSelectedStylesheet] = useState<TStylesheet>();
   const [savedThemeInputs, setSavedThemeInputs] = useState<TThemeInputs>();
   const [unsavedThemeInputs, setUnsavedThemeInputs] =
     useState<TSelectedThemeInputs>();
   const { notify } = useToastContext();
 
-  const saveShortcut = getSaveShortcut();
+  const codeEditorValue =
+    unsavedThemeInputs?.style?.stylesheets.find(
+      (c) => c.id === selectedStylesheet?.id,
+    )?.template ??
+    savedThemeInputs?.style?.stylesheets.find(
+      (c) => c.id === selectedStylesheet?.id,
+    )?.template ??
+    "";
 
   // state references to use when handling save by keyboard shortcut
   const inputValueRef = useRef<TStyleInput>();
   inputValueRef.current = unsavedThemeInputs?.style;
+  const savedThemeInputsRef = useRef<TThemeInputs>();
+  savedThemeInputsRef.current = savedThemeInputs;
+  const selectedStylesheetRef = useRef<TStylesheet>();
+  selectedStylesheetRef.current = selectedStylesheet;
 
   useEffect(() => {
     async function init() {
+      const { selectedStylesheet: storedSelectedStylesheet } =
+        await fetchStylesheetsData();
       const { currentTheme, selectedThemeInputs: storedSelectedThemeInputs } =
         await fetchThemeData();
 
       if (!currentTheme) {
-        return notify("Error loading custom theme template");
+        return notify("Error loading current theme");
       }
 
       setSavedThemeInputs(currentTheme?.inputs);
       setUnsavedThemeInputs(storedSelectedThemeInputs);
+      setSelectedStylesheet(storedSelectedStylesheet);
       setInitialized(true);
     }
 
@@ -88,12 +120,27 @@ export default function StyleInput() {
   };
 
   const handleDiscardChanges = () => {
+    const newStylesheets = [...(unsavedThemeInputs?.style?.stylesheets || [])];
+    const stylesheetIdx = newStylesheets.findIndex(
+      (c) => c.id === selectedStylesheet?.id,
+    );
+
+    if (stylesheetIdx < 0) return notify("Error locating stylsheet");
+
+    const originalStylesheet = savedThemeInputs?.style.stylesheets.find(
+      (c) => c.id === selectedStylesheet?.id,
+    );
+
+    if (!originalStylesheet) return notify("Error locating original stylsheet");
+
+    newStylesheets[stylesheetIdx].template = originalStylesheet.template;
+
     const newSelectedThemeInputs: TSelectedThemeInputs = {
       ...unsavedThemeInputs,
       style: {
         ...defaultStyleInput,
         ...unsavedThemeInputs?.style,
-        template: savedThemeInputs?.style?.template ?? "",
+        stylesheets: newStylesheets,
       },
     };
 
@@ -104,6 +151,23 @@ export default function StyleInput() {
   };
 
   const handleSave = async () => {
+    const saveIdx =
+      savedThemeInputsRef.current?.style.stylesheets.findIndex(
+        (c) => c.id === selectedStylesheetRef.current?.id,
+      ) ?? -1;
+
+    if (
+      !savedThemeInputsRef.current ||
+      !selectedStylesheetRef.current ||
+      saveIdx < 0
+    ) {
+      return notify("Error saving template");
+    }
+
+    const newStylesheets = [
+      ...(savedThemeInputsRef.current.style.stylesheets || []),
+    ];
+    newStylesheets[saveIdx] = selectedStylesheetRef.current;
     const { currentTheme, customThemes, selectedCustomThemeIndex } =
       await fetchThemeData();
 
@@ -115,29 +179,48 @@ export default function StyleInput() {
       return notify("Error locating custom theme");
     }
 
-    currentTheme.inputs = {
-      ...currentTheme.inputs,
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs.style.stylesheets =
+        newStylesheets;
+    }
+
+    setSavedThemeInputs({
+      ...savedThemeInputsRef.current,
       style: {
         ...currentTheme.inputs.style,
-        template: inputValueRef.current?.template,
+        stylesheets: newStylesheets,
       },
-    };
-    customThemes[selectedCustomThemeIndex] = currentTheme;
-
-    setSavedThemeInputs(currentTheme?.inputs);
-    storageSetByKeys({ CUSTOM_THEMES: customThemes });
+    });
+    storageSetByKeys({
+      CUSTOM_THEMES: customThemes,
+    });
   };
 
   const handleTemplateChange = (newValue: string) => {
+    const selectedStylesheetIdx =
+      unsavedThemeInputs?.style?.stylesheets.findIndex(
+        (s) => s.id === selectedStylesheet?.id,
+      ) ?? -1;
+
+    if (!selectedStylesheet || selectedStylesheetIdx < 0) {
+      return notify("Error updating stylesheet");
+    }
+
+    const newStylesheets = [...(unsavedThemeInputs?.style?.stylesheets || [])];
+    newStylesheets[selectedStylesheetIdx].template = newValue;
     const newUnsavedThemeInputs: TSelectedThemeInputs = {
       ...unsavedThemeInputs,
       style: {
         ...defaultStyleInput,
         ...unsavedThemeInputs?.style,
-        template: newValue,
+        stylesheets: newStylesheets,
       },
     };
 
+    setSelectedStylesheet({
+      ...selectedStylesheet,
+      template: newValue,
+    });
     setUnsavedThemeInputs(newUnsavedThemeInputs);
     storageSetByKeys({
       SELECTED_THEME_INPUTS: newUnsavedThemeInputs,
@@ -153,24 +236,56 @@ export default function StyleInput() {
           spacing={1}
           sx={{ height: "100%" }}
         >
-          <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
-            <Stack>
-              <Typography variant="caption">Stylesheets</Typography>
-              <Box sx={{ position: "relative", whiteSpace: "nowrap" }}>
-                <ListItemButton sx={{ cursor: "default" }}>
-                  index.css
-                </ListItemButton>
-                <ModifiedIndicator
-                  modified={
-                    unsavedThemeInputs?.style !== undefined &&
-                    savedThemeInputs?.style.template !==
-                      unsavedThemeInputs.style.template
-                  }
-                  sx={{ right: "1rem" }}
-                />
-              </Box>
-            </Stack>
-          </List>
+          <Box>
+            <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
+              <Stack spacing={1}>
+                <Stack>
+                  <Typography variant="caption">Stylesheets</Typography>
+                  {savedThemeInputs?.style.stylesheets.map(
+                    ({ id, template, type }) => {
+                      const isSelected = selectedStylesheet?.id === id;
+                      const modified =
+                        selectedStylesheet !== undefined &&
+                        template !== selectedStylesheet.template;
+
+                      return (
+                        <Box
+                          key={id}
+                          sx={{ position: "relative", whiteSpace: "nowrap" }}
+                        >
+                          <ListItemButton
+                            selected={isSelected}
+                            sx={{ cursor: "default" }}
+                          >
+                            index.{type}
+                          </ListItemButton>
+                          <ModifiedIndicator
+                            modified={modified}
+                            sx={{ right: "1rem" }}
+                          />
+                        </Box>
+                      );
+                    },
+                  )}
+                </Stack>
+                <Stack>
+                  <Typography variant="caption">Options</Typography>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={!!savedThemeInputs?.style?.options.darkMode}
+                        onChange={handleDarkModeChange}
+                      />
+                    }
+                    label="Dark mode"
+                    sx={{
+                      alignSelf: "start",
+                    }}
+                  />
+                </Stack>
+              </Stack>
+            </List>
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -178,21 +293,9 @@ export default function StyleInput() {
               flex: "1 1 auto",
             }}
           >
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={!!savedThemeInputs?.style?.options.darkMode}
-                  onChange={handleDarkModeChange}
-                />
-              }
-              label="Dark mode"
-              sx={{
-                alignSelf: "start",
-              }}
-            />
             <CodeEditor
               language="css"
-              value={unsavedThemeInputs?.style?.template ?? ""}
+              value={codeEditorValue}
               handleChange={handleTemplateChange}
               handleSave={handleSave}
             />
@@ -200,9 +303,12 @@ export default function StyleInput() {
               <Button
                 color="warning"
                 disabled={
-                  !unsavedThemeInputs?.style ||
-                  savedThemeInputs?.style.template ===
-                    unsavedThemeInputs?.style.template
+                  savedThemeInputs?.style?.stylesheets?.find(
+                    (c) => c.id === selectedStylesheet?.id,
+                  )?.template ===
+                  unsavedThemeInputs?.style?.stylesheets?.find(
+                    (c) => c.id === selectedStylesheet?.id,
+                  )?.template
                 }
                 startIcon={<RemoveCircleOutlineIcon />}
                 variant="text"

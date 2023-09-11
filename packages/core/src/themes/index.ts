@@ -18,7 +18,13 @@ const helpTheme: TTheme = {
       options: {
         darkMode: false,
       },
-      template: "",
+      stylesheets: [
+        {
+          id: "index",
+          template: "",
+          type: "css",
+        },
+      ],
     },
     components: [],
     views: {},
@@ -48,9 +54,14 @@ export async function applyTheme(theme?: TTheme) {
     ]);
   }
 
-  const firstComponentId = theme.inputs.components.length
-    ? theme.inputs.components[0].id
-    : undefined;
+  const {
+    inputs: {
+      components,
+      style: { stylesheets },
+    },
+  } = theme;
+  const firstComponentId = components.length ? components[0].id : undefined;
+  const firstStylesheetId = stylesheets.length ? stylesheets[0].id : undefined;
   const keysToRemove: Array<keyof TStorageKeyMap> = [
     "SELECTED_THEME_INPUTS",
     "SELECTED_VIEW",
@@ -58,6 +69,14 @@ export async function applyTheme(theme?: TTheme) {
 
   if (!firstComponentId) {
     keysToRemove.push("SELECTED_COMPONENT_ID");
+  }
+
+  if (!firstStylesheetId) {
+    keysToRemove.push("SELECTED_STYLESHEET_ID");
+  }
+
+  if (theme.type === "premade") {
+    keysToRemove.push("SELECTED_THEME_INPUTS");
   }
 
   await storageRemoveByKeys(keysToRemove);
@@ -68,6 +87,14 @@ export async function applyTheme(theme?: TTheme) {
 
   if (firstComponentId) {
     keysToSet.SELECTED_COMPONENT_ID = firstComponentId;
+  }
+
+  if (firstStylesheetId) {
+    keysToSet.SELECTED_STYLESHEET_ID = firstStylesheetId;
+  }
+
+  if (theme.type === "custom") {
+    keysToSet.SELECTED_THEME_INPUTS = theme.inputs;
   }
 
   return storageSetByKeys(keysToSet);
@@ -86,6 +113,23 @@ export async function fetchComponentsData() {
     selectedComponent:
       selectedComponentIndex > -1
         ? currentTheme?.inputs.components[selectedComponentIndex]
+        : undefined,
+  };
+}
+
+export async function fetchStylesheetsData() {
+  const { currentTheme } = await fetchThemeData();
+  const selectedStylesheetId = await storageGetByKey("SELECTED_STYLESHEET_ID");
+  const selectedStylesheetIndex =
+    currentTheme?.inputs.style.stylesheets.findIndex(
+      (c) => c.id === selectedStylesheetId,
+    ) ?? -1;
+
+  return {
+    currentThemeStylesheets: currentTheme?.inputs.style.stylesheets,
+    selectedStylesheet:
+      selectedStylesheetIndex > -1
+        ? currentTheme?.inputs.style.stylesheets[selectedStylesheetIndex]
         : undefined,
   };
 }
@@ -183,7 +227,13 @@ export function parseThemeExport(json: any) {
           options: z.object({
             darkMode: z.boolean(),
           }),
-          template: z.string(),
+          stylesheets: z.array(
+            z.object({
+              id: z.string(),
+              template: z.string(),
+              type: z.literal("css"),
+            }),
+          ),
         }),
       }),
       label: z.string(),

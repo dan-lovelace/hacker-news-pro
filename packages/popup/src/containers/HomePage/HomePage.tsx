@@ -125,7 +125,13 @@ export default function HomePage() {
           options: {
             darkMode: false,
           },
-          template: "",
+          stylesheets: [
+            {
+              id: "index",
+              template: "",
+              type: "css",
+            },
+          ],
         },
         views: {},
       },
