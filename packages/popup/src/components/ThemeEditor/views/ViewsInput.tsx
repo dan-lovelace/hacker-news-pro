@@ -135,29 +135,32 @@ export default function ViewsInput() {
         >
           <Box>
             <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
-              {viewOptions.map(({ label, options }) => (
-                <Stack key={label}>
-                  <Typography variant="caption">{label}</Typography>
-                  {options.map(
-                    ({ hidden, label, routes, value }) =>
-                      !hidden && (
-                        <ViewItem
-                          key={value}
-                          modified={
-                            unsavedThemeInputs?.views?.[value] !== undefined &&
-                            savedThemeInputs?.views?.[value]?.template !==
-                              unsavedThemeInputs?.views?.[value]?.template
-                          }
-                          routes={routes}
-                          selected={selectedView === value}
-                          onClick={handleViewChange(value)}
-                        >
-                          {label}
-                        </ViewItem>
-                      ),
-                  )}
-                </Stack>
-              ))}
+              <Stack spacing={1}>
+                {viewOptions.map(({ label, options }) => (
+                  <Stack key={label}>
+                    <Typography variant="caption">{label}</Typography>
+                    {options.map(
+                      ({ hidden, label, routes, value }) =>
+                        !hidden && (
+                          <ViewItem
+                            key={value}
+                            modified={
+                              unsavedThemeInputs?.views?.[value] !==
+                                undefined &&
+                              savedThemeInputs?.views?.[value]?.template !==
+                                unsavedThemeInputs?.views?.[value]?.template
+                            }
+                            routes={routes}
+                            selected={selectedView === value}
+                            onClick={handleViewChange(value)}
+                          >
+                            {label}
+                          </ViewItem>
+                        ),
+                    )}
+                  </Stack>
+                ))}
+              </Stack>
             </List>
           </Box>
           <Box

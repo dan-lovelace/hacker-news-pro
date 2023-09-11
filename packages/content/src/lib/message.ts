@@ -34,7 +34,9 @@ export function handleMessageEvent(event: TMessageEvent<TThemeChanged>) {
         hnpStyle.innerHTML = "";
         hnpContent.innerHTML = "";
       } else {
-        hnpStyle.innerHTML = style.template;
+        hnpStyle.innerHTML = style.stylesheets
+          .map((s) => s.template)
+          .join("\n");
         hnpContent.innerHTML = compiled;
 
         // without blocking, restore scroll position if saved

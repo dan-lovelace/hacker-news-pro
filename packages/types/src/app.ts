@@ -22,22 +22,10 @@ export type TOptions = {
   themesEnabled: boolean;
 };
 
-export type TSandboxMessageEvent = {
-  partials: TSandboxPartial[];
-  template: TSandboxTemplate;
-};
-
 export type TSandboxMessage<T> = {
   context: TContext<T>;
   event: TMessageEvent<TTheme>;
 };
-
-export type TSandboxPartial = {
-  name: string;
-  template: TSandboxTemplate;
-};
-
-export type TSandboxTemplate = string;
 
 /**
  * User theme inputs that are not yet applied. This is what we use to keep
@@ -89,6 +77,12 @@ export type TStorageKeyMap = {
   SELECTED_PAGE: string;
 
   /**
+   * Store the user's selected stylesheet so we can take them back to it when
+   * they return to the Style tab.
+   */
+  SELECTED_STYLESHEET_ID: string;
+
+  /**
    * Store the user's selected tab so we can take them back to it when they
    * return to the theme editor.
    */
@@ -121,7 +115,13 @@ export type TStyleInput = {
   options: {
     darkMode: boolean;
   };
+  stylesheets: TStylesheet[];
+};
+
+export type TStylesheet = {
+  id: string;
   template: string;
+  type: "css";
 };
 
 export type TTheme = {
