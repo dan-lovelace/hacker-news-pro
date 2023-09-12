@@ -17,9 +17,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { isEqual, omit } from "lodash";
 import { useNavigate } from "react-router-dom";
 
+import { getThemeInputsChanged } from ".";
 import { Modal } from "../../components/Modal";
 import { useToastContext } from "../../contexts/toast";
 import { ROUTES } from "../../lib/routes";
@@ -120,20 +120,11 @@ export default function ThemeItem({
   const handleThemeChange = async (navigateAfter = false) => {
     const { currentTheme, selectedThemeInputs } = await fetchThemeData();
 
-    /**
-     * Warn the user if unsaved changes are about to be lost.
-     * @remarks
-     * Omit certain input properties that are applied immediately such as the
-     * style's `darkMode` option.
-     */
-    const inputsToOmit = ["style.options"];
-
+    // warn the user if unsaved changes are about to be lost
     if (
+      currentTheme?.id !== themeData.id &&
       currentTheme?.type !== "premade" &&
-      !isEqual(
-        omit(currentTheme?.inputs, inputsToOmit),
-        omit(selectedThemeInputs, inputsToOmit),
-      )
+      (await getThemeInputsChanged(currentTheme?.inputs, selectedThemeInputs))
     ) {
       return setConfirmingApply(true);
     }
