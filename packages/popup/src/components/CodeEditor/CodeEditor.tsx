@@ -44,6 +44,7 @@ export default function CodeEditor({
       }}
     >
       <AceEditor
+        focus
         mode={language}
         theme={theme}
         value={value}

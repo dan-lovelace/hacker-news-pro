@@ -29,7 +29,6 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
-  Modal,
   Stack,
   TextField,
   Typography,
@@ -39,6 +38,7 @@ import { snakeCase } from "lodash";
 import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from "..";
 import { useToastContext } from "../../../contexts/toast";
 import CodeEditor from "../../CodeEditor";
+import { Modal } from "../../Modal";
 import ModifiedIndicator from "../ModifiedIndicator";
 
 const saveShortcut = getSaveShortcut();
