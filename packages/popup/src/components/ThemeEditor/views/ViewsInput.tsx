@@ -16,6 +16,17 @@ import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from "..";
 import { useToastContext } from "../../../contexts/toast";
 import CodeEditor from "../../CodeEditor";
 
+function getIsModified(
+  selectedView: TView,
+  savedInputs?: TThemeInputs,
+  unsavedInputs?: TSelectedThemeInputs,
+) {
+  return (
+    (savedInputs?.views?.[selectedView]?.template ?? "") !==
+    (unsavedInputs?.views?.[selectedView]?.template ?? "")
+  );
+}
+
 export default function ViewsInput() {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [savedThemeInputs, setSavedThemeInputs] = useState<TThemeInputs>();
@@ -24,6 +35,11 @@ export default function ViewsInput() {
     useState<TSelectedThemeInputs>();
   const { notify } = useToastContext();
   const saveShortcut = getSaveShortcut();
+  const canDiscard = getIsModified(
+    selectedView,
+    savedThemeInputs,
+    unsavedThemeInputs,
+  );
 
   // state references to use when handling save by keyboard shortcut
   const inputValueRef = useRef<TViewInput>();
@@ -139,25 +155,27 @@ export default function ViewsInput() {
                 {viewOptions.map(({ label, options }) => (
                   <Stack key={label}>
                     <Typography variant="caption">{label}</Typography>
-                    {options.map(
-                      ({ hidden, label, routes, value }) =>
-                        !hidden && (
-                          <ViewItem
-                            key={value}
-                            modified={
-                              unsavedThemeInputs?.views?.[value] !==
-                                undefined &&
-                              savedThemeInputs?.views?.[value]?.template !==
-                                unsavedThemeInputs?.views?.[value]?.template
-                            }
-                            routes={routes}
-                            selected={selectedView === value}
-                            onClick={handleViewChange(value)}
-                          >
-                            {label}
-                          </ViewItem>
-                        ),
-                    )}
+                    {options.map(({ hidden, label, routes, value }) => {
+                      if (hidden) return false;
+
+                      const isModified = getIsModified(
+                        value,
+                        savedThemeInputs,
+                        unsavedThemeInputs,
+                      );
+
+                      return (
+                        <ViewItem
+                          key={value}
+                          modified={isModified}
+                          routes={routes}
+                          selected={selectedView === value}
+                          onClick={handleViewChange(value)}
+                        >
+                          {label}
+                        </ViewItem>
+                      );
+                    })}
                   </Stack>
                 ))}
               </Stack>
@@ -179,11 +197,7 @@ export default function ViewsInput() {
             <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
               <Button
                 color="warning"
-                disabled={
-                  !unsavedThemeInputs?.views?.[selectedView] ||
-                  savedThemeInputs?.views?.[selectedView]?.template ===
-                    unsavedThemeInputs?.views?.[selectedView]?.template
-                }
+                disabled={!canDiscard}
                 startIcon={<RemoveCircleOutlineIcon />}
                 variant="text"
                 onClick={handleDiscardChanges}
