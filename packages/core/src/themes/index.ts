@@ -54,12 +54,23 @@ export async function applyTheme(theme?: TTheme) {
     ]);
   }
 
+  const { currentTheme, selectedThemeInputs } = await fetchThemeData();
+  const themeData = { ...theme };
+
+  if (theme.id === currentTheme?.id) {
+    // applying current theme, use any selected theme inputs
+    themeData.inputs = {
+      ...themeData.inputs,
+      ...selectedThemeInputs,
+    };
+  }
+
   const {
     inputs: {
       components,
       style: { stylesheets },
     },
-  } = theme;
+  } = themeData;
   const firstComponentId = components.length ? components[0].id : undefined;
   const firstStylesheetId = stylesheets.length ? stylesheets[0].id : undefined;
   const keysToRemove: Array<keyof TStorageKeyMap> = [
@@ -75,14 +86,14 @@ export async function applyTheme(theme?: TTheme) {
     keysToRemove.push("SELECTED_STYLESHEET_ID");
   }
 
-  if (theme.type === "premade") {
+  if (themeData.type === "premade") {
     keysToRemove.push("SELECTED_THEME_INPUTS");
   }
 
   await storageRemoveByKeys(keysToRemove);
 
   const keysToSet: TStorage = {
-    SELECTED_THEME_ID: theme.id,
+    SELECTED_THEME_ID: themeData.id,
   };
 
   if (firstComponentId) {
@@ -93,8 +104,8 @@ export async function applyTheme(theme?: TTheme) {
     keysToSet.SELECTED_STYLESHEET_ID = firstStylesheetId;
   }
 
-  if (theme.type === "custom") {
-    keysToSet.SELECTED_THEME_INPUTS = theme.inputs;
+  if (themeData.type === "custom") {
+    keysToSet.SELECTED_THEME_INPUTS = themeData.inputs;
   }
 
   return storageSetByKeys(keysToSet);
