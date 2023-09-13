@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   fetchStylesheetsData,
@@ -42,6 +42,21 @@ const defaultStyleInput: TStyleInput = {
 
 const saveShortcut = getSaveShortcut();
 
+function getIsModified(
+  stylesheetId?: string,
+  savedInputs?: TThemeInputs,
+  unsavedInputs?: TSelectedThemeInputs,
+) {
+  const savedTemplate =
+    savedInputs?.style.stylesheets.find((s) => s.id === stylesheetId)
+      ?.template ?? "";
+  const unsavedTemplate =
+    unsavedInputs?.style?.stylesheets.find((s) => s.id === stylesheetId)
+      ?.template ?? "";
+
+  return savedTemplate !== unsavedTemplate;
+}
+
 export default function StyleInput() {
   const [initialized, setInitialized] = useState(false);
   const [selectedStylesheet, setSelectedStylesheet] = useState<TStylesheet>();
@@ -49,6 +64,15 @@ export default function StyleInput() {
   const [unsavedThemeInputs, setUnsavedThemeInputs] =
     useState<TSelectedThemeInputs>();
   const { notify } = useToastContext();
+  const canDiscard = useMemo(
+    () =>
+      getIsModified(
+        selectedStylesheet?.id,
+        savedThemeInputs,
+        unsavedThemeInputs,
+      ),
+    [savedThemeInputs, selectedStylesheet, unsavedThemeInputs],
+  );
 
   const codeEditorValue =
     unsavedThemeInputs?.style?.stylesheets.find(
@@ -102,21 +126,39 @@ export default function StyleInput() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newDarkMode = event.target.checked;
-    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
-    const newStyleValue: TStyleInput = {
-      ...defaultStyleInput,
-      ...unsavedThemeInputs?.style,
-    };
 
-    newStyleValue.options.darkMode = newDarkMode;
-
-    if (customThemes && selectedCustomThemeIndex > -1) {
-      customThemes[selectedCustomThemeIndex].inputs.style = newStyleValue;
+    if (!savedThemeInputs) {
+      return notify("Error updating options");
     }
 
-    setSavedThemeInputs(customThemes?.[selectedCustomThemeIndex].inputs);
-    setUnsavedThemeInputs(customThemes?.[selectedCustomThemeIndex].inputs);
-    storageSetByKeys({ CUSTOM_THEMES: customThemes });
+    const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
+
+    const newSavedThemeInputs = { ...savedThemeInputs };
+    newSavedThemeInputs.style.options.darkMode = newDarkMode;
+
+    if (customThemes && selectedCustomThemeIndex > -1) {
+      customThemes[selectedCustomThemeIndex].inputs = newSavedThemeInputs;
+    }
+
+    setSavedThemeInputs(newSavedThemeInputs);
+
+    const newUnsavedThemeInputs: TSelectedThemeInputs = {
+      ...unsavedThemeInputs,
+      style: {
+        ...defaultStyleInput,
+        ...unsavedThemeInputs?.style,
+        options: {
+          ...unsavedThemeInputs?.style?.options,
+          darkMode: newDarkMode,
+        },
+      },
+    };
+
+    setUnsavedThemeInputs(newUnsavedThemeInputs);
+    storageSetByKeys({
+      CUSTOM_THEMES: customThemes,
+      SELECTED_THEME_INPUTS: newUnsavedThemeInputs,
+    });
   };
 
   const handleDiscardChanges = () => {
@@ -241,32 +283,29 @@ export default function StyleInput() {
               <Stack spacing={1}>
                 <Stack>
                   <Typography variant="caption">Stylesheets</Typography>
-                  {savedThemeInputs?.style.stylesheets.map(
-                    ({ id, template, type }) => {
-                      const isSelected = selectedStylesheet?.id === id;
-                      const modified =
-                        selectedStylesheet !== undefined &&
-                        template !== selectedStylesheet.template;
+                  {savedThemeInputs?.style.stylesheets.map(({ id, type }) => {
+                    const isSelected = selectedStylesheet?.id === id;
+                    const modified = getIsModified(
+                      id,
+                      savedThemeInputs,
+                      unsavedThemeInputs,
+                    );
 
-                      return (
-                        <Box
-                          key={id}
-                          sx={{ position: "relative", whiteSpace: "nowrap" }}
-                        >
-                          <ListItemButton
-                            selected={isSelected}
-                            sx={{ cursor: "default" }}
-                          >
-                            index.{type}
-                          </ListItemButton>
-                          <ModifiedIndicator
-                            modified={modified}
-                            sx={{ right: "1rem" }}
-                          />
-                        </Box>
-                      );
-                    },
-                  )}
+                    return (
+                      <Box
+                        key={id}
+                        sx={{ position: "relative", whiteSpace: "nowrap" }}
+                      >
+                        <ListItemButton selected={isSelected}>
+                          index.{type}
+                        </ListItemButton>
+                        <ModifiedIndicator
+                          modified={modified}
+                          sx={{ right: "1rem" }}
+                        />
+                      </Box>
+                    );
+                  })}
                 </Stack>
                 <Stack>
                   <Typography variant="caption">Options</Typography>
@@ -302,14 +341,7 @@ export default function StyleInput() {
             <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
               <Button
                 color="warning"
-                disabled={
-                  savedThemeInputs?.style?.stylesheets?.find(
-                    (c) => c.id === selectedStylesheet?.id,
-                  )?.template ===
-                  unsavedThemeInputs?.style?.stylesheets?.find(
-                    (c) => c.id === selectedStylesheet?.id,
-                  )?.template
-                }
+                disabled={!canDiscard}
                 startIcon={<RemoveCircleOutlineIcon />}
                 variant="text"
                 onClick={handleDiscardChanges}

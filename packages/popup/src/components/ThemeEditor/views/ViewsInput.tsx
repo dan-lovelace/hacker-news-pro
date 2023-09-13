@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { fetchThemeData, storageGetByKey, storageSetByKeys } from "@hnp/core";
 import {
@@ -15,6 +15,8 @@ import { ViewItem, viewOptions } from ".";
 import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from "..";
 import { useToastContext } from "../../../contexts/toast";
 import CodeEditor from "../../CodeEditor";
+
+const saveShortcut = getSaveShortcut();
 
 function getIsModified(
   selectedView: TView,
@@ -34,11 +36,9 @@ export default function ViewsInput() {
   const [unsavedThemeInputs, setUnsavedThemeInputs] =
     useState<TSelectedThemeInputs>();
   const { notify } = useToastContext();
-  const saveShortcut = getSaveShortcut();
-  const canDiscard = getIsModified(
-    selectedView,
-    savedThemeInputs,
-    unsavedThemeInputs,
+  const canDiscard = useMemo(
+    () => getIsModified(selectedView, savedThemeInputs, unsavedThemeInputs),
+    [savedThemeInputs, selectedView, unsavedThemeInputs],
   );
 
   // state references to use when handling save by keyboard shortcut

@@ -48,6 +48,8 @@ import CodeEditor from "../../CodeEditor";
 import { Modal } from "../../Modal";
 import ModifiedIndicator from "../ModifiedIndicator";
 
+const saveShortcut = getSaveShortcut();
+
 function getIsModified(
   componentId?: string,
   savedInputs?: TThemeInputs,
@@ -61,8 +63,6 @@ function getIsModified(
 
   return savedTemplate !== unsavedTemplate;
 }
-
-const saveShortcut = getSaveShortcut();
 
 export default function ComponentsInput() {
   const [editComponent, setEditComponent] = useState<TComponentInput>();
