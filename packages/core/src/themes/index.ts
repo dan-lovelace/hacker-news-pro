@@ -56,8 +56,9 @@ export async function applyTheme(theme?: TTheme) {
 
   const { currentTheme, selectedThemeInputs } = await fetchThemeData();
   const themeData = { ...theme };
+  const isCurrentTheme = theme.id === currentTheme?.id;
 
-  if (theme.id === currentTheme?.id) {
+  if (isCurrentTheme) {
     // applying current theme, use any selected theme inputs
     themeData.inputs = {
       ...themeData.inputs,
@@ -73,10 +74,12 @@ export async function applyTheme(theme?: TTheme) {
   } = themeData;
   const firstComponentId = components.length ? components[0].id : undefined;
   const firstStylesheetId = stylesheets.length ? stylesheets[0].id : undefined;
-  const keysToRemove: Array<keyof TStorageKeyMap> = [
-    "SELECTED_THEME_INPUTS",
-    "SELECTED_VIEW",
-  ];
+  const keysToRemove: Array<keyof TStorageKeyMap> = [];
+
+  if (!isCurrentTheme) {
+    // changing themes, reset certain selections
+    keysToRemove.push("SELECTED_TAB", "SELECTED_THEME_INPUTS", "SELECTED_VIEW");
+  }
 
   if (!firstComponentId) {
     keysToRemove.push("SELECTED_COMPONENT_ID");
@@ -86,21 +89,17 @@ export async function applyTheme(theme?: TTheme) {
     keysToRemove.push("SELECTED_STYLESHEET_ID");
   }
 
-  if (themeData.type === "premade") {
-    keysToRemove.push("SELECTED_THEME_INPUTS");
-  }
-
   await storageRemoveByKeys(keysToRemove);
 
   const keysToSet: TStorage = {
     SELECTED_THEME_ID: themeData.id,
   };
 
-  if (firstComponentId) {
+  if (!isCurrentTheme && firstComponentId) {
     keysToSet.SELECTED_COMPONENT_ID = firstComponentId;
   }
 
-  if (firstStylesheetId) {
+  if (!isCurrentTheme && firstStylesheetId) {
     keysToSet.SELECTED_STYLESHEET_ID = firstStylesheetId;
   }
 
