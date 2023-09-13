@@ -128,7 +128,7 @@ export async function fetchComponentsData() {
   };
 }
 
-export async function fetchStylesheetsData() {
+export async function fetchStyleData() {
   const { currentTheme } = await fetchThemeData();
   const selectedStylesheetId = await storageGetByKey("SELECTED_STYLESHEET_ID");
   const selectedStylesheetIndex =

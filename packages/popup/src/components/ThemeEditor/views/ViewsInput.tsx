@@ -51,8 +51,7 @@ export default function ViewsInput() {
 
   useEffect(() => {
     async function init() {
-      const { currentTheme, selectedThemeInputs: storedSelectedThemeInputs } =
-        await fetchThemeData();
+      const { currentTheme, selectedThemeInputs } = await fetchThemeData();
       const view = await storageGetByKey("SELECTED_VIEW");
 
       if (view) {
@@ -60,7 +59,7 @@ export default function ViewsInput() {
       }
 
       setSavedThemeInputs(currentTheme?.inputs);
-      setUnsavedThemeInputs(storedSelectedThemeInputs);
+      setUnsavedThemeInputs(selectedThemeInputs);
       setInitialized(true);
     }
 
