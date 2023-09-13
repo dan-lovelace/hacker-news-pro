@@ -87,12 +87,6 @@ export default function ComponentsInput() {
   );
 
   const canSave = () => modifyValue?.id?.trim() && modifyValue?.label?.trim();
-  const codeEditorValue =
-    unsavedThemeInputs?.components?.find((c) => c.id === selectedComponent?.id)
-      ?.template ??
-    savedThemeInputs?.components?.find((c) => c.id === selectedComponent?.id)
-      ?.template ??
-    "";
   const menuOpen = Boolean(menuAnchorEl);
   const modifyText = isCreating ? "Create" : "Edit";
 
@@ -112,9 +106,14 @@ export default function ComponentsInput() {
         return notify("Error loading current theme");
       }
 
+      const initialSelectedComponent =
+        selectedThemeInputs?.components?.find(
+          (c) => c.id === storedSelectedComponent?.id,
+        ) ?? storedSelectedComponent;
+
       setSavedThemeInputs(currentTheme?.inputs);
       setUnsavedThemeInputs(selectedThemeInputs);
-      setSelectedComponent(storedSelectedComponent);
+      setSelectedComponent(initialSelectedComponent);
       setInitialized(true);
     }
 
@@ -244,6 +243,7 @@ export default function ComponentsInput() {
       components: newComponents,
     };
 
+    setSelectedComponent(originalComponent);
     setUnsavedThemeInputs(newSelectedThemeInputs);
     storageSetByKeys({
       SELECTED_THEME_INPUTS: newSelectedThemeInputs,
@@ -627,7 +627,7 @@ export default function ComponentsInput() {
             </Typography>
             <CodeEditor
               language="handlebars"
-              value={codeEditorValue}
+              value={selectedComponent.template}
               handleChange={handleTemplateChange}
               handleSave={handleTemplateSave}
             />

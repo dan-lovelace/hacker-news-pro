@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import {
-  fetchStylesheetsData,
-  fetchThemeData,
-  storageSetByKeys,
-} from "@hnp/core";
+import { fetchStyleData, fetchThemeData, storageSetByKeys } from "@hnp/core";
 import {
   TSelectedThemeInputs,
   TStyleInput,
@@ -74,18 +70,7 @@ export default function StyleInput() {
     [savedThemeInputs, selectedStylesheet, unsavedThemeInputs],
   );
 
-  const codeEditorValue =
-    unsavedThemeInputs?.style?.stylesheets.find(
-      (c) => c.id === selectedStylesheet?.id,
-    )?.template ??
-    savedThemeInputs?.style?.stylesheets.find(
-      (c) => c.id === selectedStylesheet?.id,
-    )?.template ??
-    "";
-
   // state references to use when handling save by keyboard shortcut
-  const inputValueRef = useRef<TStyleInput>();
-  inputValueRef.current = unsavedThemeInputs?.style;
   const savedThemeInputsRef = useRef<TThemeInputs>();
   savedThemeInputsRef.current = savedThemeInputs;
   const selectedStylesheetRef = useRef<TStylesheet>();
@@ -94,17 +79,21 @@ export default function StyleInput() {
   useEffect(() => {
     async function init() {
       const { selectedStylesheet: storedSelectedStylesheet } =
-        await fetchStylesheetsData();
-      const { currentTheme, selectedThemeInputs: storedSelectedThemeInputs } =
-        await fetchThemeData();
+        await fetchStyleData();
+      const { currentTheme, selectedThemeInputs } = await fetchThemeData();
 
       if (!currentTheme) {
         return notify("Error loading current theme");
       }
 
+      const initialSelectedStylesheet =
+        selectedThemeInputs?.style?.stylesheets.find(
+          (s) => s.id === storedSelectedStylesheet?.id,
+        ) ?? storedSelectedStylesheet;
+
       setSavedThemeInputs(currentTheme?.inputs);
-      setUnsavedThemeInputs(storedSelectedThemeInputs);
-      setSelectedStylesheet(storedSelectedStylesheet);
+      setUnsavedThemeInputs(selectedThemeInputs);
+      setSelectedStylesheet(initialSelectedStylesheet);
       setInitialized(true);
     }
 
@@ -186,6 +175,7 @@ export default function StyleInput() {
       },
     };
 
+    setSelectedStylesheet(originalStylesheet);
     setUnsavedThemeInputs(newSelectedThemeInputs);
     storageSetByKeys({
       SELECTED_THEME_INPUTS: newSelectedThemeInputs,
@@ -213,9 +203,9 @@ export default function StyleInput() {
     const { currentTheme, customThemes, selectedCustomThemeIndex } =
       await fetchThemeData();
 
-    if (!currentTheme || !customThemes || !inputValueRef.current) {
+    if (!currentTheme || !customThemes) {
       return notify(
-        "Error saving. Missing one of: currentTheme, customThemes or inputValueRef.",
+        "Error saving. Missing one of: currentTheme or customThemes.",
       );
     } else if (selectedCustomThemeIndex < 0) {
       return notify("Error locating custom theme");
@@ -325,38 +315,40 @@ export default function StyleInput() {
               </Stack>
             </List>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              flex: "1 1 auto",
-            }}
-          >
-            <CodeEditor
-              language="css"
-              value={codeEditorValue}
-              handleChange={handleTemplateChange}
-              handleSave={handleSave}
-            />
-            <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
-              <Button
-                color="warning"
-                disabled={!canDiscard}
-                startIcon={<RemoveCircleOutlineIcon />}
-                variant="text"
-                onClick={handleDiscardChanges}
-              >
-                Discard changes
-              </Button>
-              <Button
-                startIcon={<SaveIcon />}
-                variant="contained"
-                onClick={handleSave}
-              >
-                Save ({saveShortcut})
-              </Button>
-            </Stack>
-          </Box>
+          {selectedStylesheet && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                flex: "1 1 auto",
+              }}
+            >
+              <CodeEditor
+                language="css"
+                value={selectedStylesheet.template}
+                handleChange={handleTemplateChange}
+                handleSave={handleSave}
+              />
+              <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
+                <Button
+                  color="warning"
+                  disabled={!canDiscard}
+                  startIcon={<RemoveCircleOutlineIcon />}
+                  variant="text"
+                  onClick={handleDiscardChanges}
+                >
+                  Discard changes
+                </Button>
+                <Button
+                  startIcon={<SaveIcon />}
+                  variant="contained"
+                  onClick={handleSave}
+                >
+                  Save ({saveShortcut})
+                </Button>
+              </Stack>
+            </Box>
+          )}
         </Stack>
       )}
     </>
