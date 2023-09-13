@@ -56,7 +56,7 @@ export async function applyTheme(theme?: TTheme) {
 
   const { currentTheme, selectedThemeInputs } = await fetchThemeData();
   const themeData = { ...theme };
-  const isCurrentTheme = theme.id === currentTheme?.id;
+  const isCurrentTheme = themeData.id === currentTheme?.id;
 
   if (isCurrentTheme) {
     // applying current theme, use any selected theme inputs

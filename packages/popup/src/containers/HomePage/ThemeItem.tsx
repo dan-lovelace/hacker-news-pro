@@ -211,20 +211,7 @@ export default function ThemeItem({
         </Stack>
       </Stack>
       <Modal open={confirmingApply} onClose={handleModalClose}>
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            border: "1px solid",
-            borderColor: "primary.main",
-            borderRadius: 1,
-            left: "50%",
-            padding: 2,
-            position: "absolute",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 300,
-          }}
-        >
+        <Box>
           <Typography
             variant="h6"
             sx={{ display: "flex", alignItems: "center", mb: 2 }}

@@ -41,7 +41,7 @@ window.addEventListener("message", (message) => {
       const {
         components,
         style: { stylesheets },
-      } = inputs ?? [];
+      } = inputs;
       for (const component of components) {
         Handlebars.registerPartial(component.id, component.template);
       }

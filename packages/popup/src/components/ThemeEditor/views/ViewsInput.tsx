@@ -143,7 +143,7 @@ export default function ViewsInput() {
     <>
       {initialized && (
         <Stack
-          className="template-input"
+          className="views-input"
           direction="row"
           spacing={1}
           sx={{ height: "100%" }}
@@ -154,7 +154,7 @@ export default function ViewsInput() {
                 {viewOptions.map(({ label, options }) => (
                   <Stack key={label}>
                     <Typography variant="caption">{label}</Typography>
-                    {options.map(({ hidden, label, routes, value }) => {
+                    {options.map(({ hidden, label, value }) => {
                       if (hidden) return false;
 
                       const isModified = getIsModified(
@@ -167,7 +167,6 @@ export default function ViewsInput() {
                         <ViewItem
                           key={value}
                           modified={isModified}
-                          routes={routes}
                           selected={selectedView === value}
                           onClick={handleViewChange(value)}
                         >

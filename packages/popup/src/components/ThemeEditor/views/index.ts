@@ -5,7 +5,6 @@ export const viewOptions: Array<{
   options: Array<{
     hidden?: boolean;
     label: string;
-    routes: string[];
     value: TView;
   }>;
 }> = [
@@ -14,17 +13,14 @@ export const viewOptions: Array<{
     options: [
       {
         label: "Story",
-        routes: [],
         value: "storyList",
       },
       {
         label: "Comment",
-        routes: [],
         value: "commentList",
       },
       {
         label: "Job",
-        routes: [],
         value: "jobList",
       },
     ],
@@ -34,22 +30,18 @@ export const viewOptions: Array<{
     options: [
       {
         label: "Story",
-        routes: [],
         value: "storyItem",
       },
       {
         label: "Comment",
-        routes: [],
         value: "commentItem",
       },
       {
         label: "Job",
-        routes: [],
         value: "jobItem",
       },
       {
         label: "Poll",
-        routes: [],
         value: "pollItem",
       },
     ],
@@ -59,18 +51,15 @@ export const viewOptions: Array<{
     options: [
       {
         label: "Reply",
-        routes: [],
         value: "reply",
       },
       {
         label: "Submit",
-        routes: [],
         value: "submit",
       },
       {
         hidden: true,
         label: "User",
-        routes: [],
         value: "user",
       },
     ],
