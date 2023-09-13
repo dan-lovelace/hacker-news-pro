@@ -1,4 +1,11 @@
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   fetchComponentsData,
@@ -33,13 +40,27 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { snakeCase } from "lodash";
+import { cloneDeep, snakeCase } from "lodash";
 
 import { LEFT_COLUMN_WIDTH, getSaveShortcut, saveListener } from "..";
 import { useToastContext } from "../../../contexts/toast";
 import CodeEditor from "../../CodeEditor";
 import { Modal } from "../../Modal";
 import ModifiedIndicator from "../ModifiedIndicator";
+
+function getIsModified(
+  componentId?: string,
+  savedInputs?: TThemeInputs,
+  unsavedInputs?: TSelectedThemeInputs,
+) {
+  const savedTemplate =
+    savedInputs?.components.find((c) => c.id === componentId)?.template ?? "";
+  const unsavedTemplate =
+    unsavedInputs?.components?.find((c) => c.id === componentId)?.template ??
+    "";
+
+  return savedTemplate !== unsavedTemplate;
+}
 
 const saveShortcut = getSaveShortcut();
 
@@ -55,6 +76,15 @@ export default function ComponentsInput() {
   const [unsavedThemeInputs, setUnsavedThemeInputs] =
     useState<TSelectedThemeInputs>();
   const { notify } = useToastContext();
+  const canDiscard = useMemo(
+    () =>
+      getIsModified(
+        selectedComponent?.id,
+        savedThemeInputs,
+        unsavedThemeInputs,
+      ),
+    [savedThemeInputs, selectedComponent, unsavedThemeInputs],
+  );
 
   const canSave = () => modifyValue?.id?.trim() && modifyValue?.label?.trim();
   const codeEditorValue =
@@ -305,7 +335,7 @@ export default function ComponentsInput() {
 
       const newComponent: TComponentInput = {
         label,
-        id: id,
+        id,
         template: "",
       };
 
@@ -330,15 +360,21 @@ export default function ComponentsInput() {
         sortedComponents;
     }
 
+    setSavedThemeInputs({
+      ...savedThemeInputs,
+
+      /**
+       * Deeply clone `sortedComponents` to avoid setting child references in
+       * unsaved inputs.
+       */
+      components: cloneDeep(sortedComponents),
+    });
+
     const newUnsavedThemeInputs = {
       ...unsavedThemeInputs,
       components: sortedComponents,
     };
 
-    setSavedThemeInputs({
-      ...savedThemeInputs,
-      components: sortedComponents,
-    });
     setUnsavedThemeInputs(newUnsavedThemeInputs);
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
@@ -443,14 +479,13 @@ export default function ComponentsInput() {
       >
         <Box>
           <List dense sx={{ width: LEFT_COLUMN_WIDTH }}>
-            {savedThemeInputs?.components.map(({ label, id, template }) => {
+            {savedThemeInputs?.components.map(({ label, id }) => {
               const isSelected = selectedComponent?.id === id;
-              const selectedThemeInput = unsavedThemeInputs?.components?.find(
-                (c) => c.id === id,
+              const modified = getIsModified(
+                id,
+                savedThemeInputs,
+                unsavedThemeInputs,
               );
-              const modified =
-                selectedThemeInput !== undefined &&
-                template !== selectedThemeInput.template;
 
               return (
                 <Stack
@@ -569,14 +604,7 @@ export default function ComponentsInput() {
             <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
               <Button
                 color="warning"
-                disabled={
-                  savedThemeInputs?.components?.find(
-                    (c) => c.id === selectedComponent.id,
-                  )?.template ===
-                  unsavedThemeInputs?.components?.find(
-                    (c) => c.id === selectedComponent.id,
-                  )?.template
-                }
+                disabled={!canDiscard}
                 startIcon={<RemoveCircleOutlineIcon />}
                 variant="text"
                 onClick={handleDiscardChanges}
