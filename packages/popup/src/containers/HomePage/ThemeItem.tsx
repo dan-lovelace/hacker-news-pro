@@ -47,8 +47,8 @@ export default function ThemeItem({
   const { notify } = useToastContext();
   const navigate = useNavigate();
 
-  const applySelectedTheme = (navigateAfter = false) => {
-    applyTheme(themeData);
+  const applySelectedTheme = async (navigateAfter = false) => {
+    await applyTheme(themeData);
     setCurrentTheme(themeData);
 
     if (navigateAfter) {
@@ -77,7 +77,7 @@ export default function ThemeItem({
 
     if (currentTheme?.id === themeData.id) {
       // apply an empty theme if the current one was deleted
-      applyTheme();
+      await applyTheme();
     }
 
     storageSetByKeys({

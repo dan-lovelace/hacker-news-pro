@@ -4,7 +4,7 @@ import { TThemeInputs, TView } from "@hnp/types";
  * Compares saved and unsaved theme inputs to determine if changes exist. We
  * need to consider inputs that may not have a template or may not exist at
  * all due to the user not having made any changes yet.
- * @param currentThemeInputs The selected theme's saved inputs
+ * @param currentThemeInputs The selected theme's currently-saved inputs
  * @param selectedThemeInputs The user's input changes to the selected theme
  * @returns Whether differences exist
  */
