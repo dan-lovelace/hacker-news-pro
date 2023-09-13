@@ -107,7 +107,7 @@ export type TComment = {
     /** User interactions. */
     interactions: Pick<
       TInteractions,
-      "next" | "parent" | "prev" | "toggle" | "voteDown" | "voteUp"
+      "next" | "parent" | "prev" | "root" | "toggle" | "voteDown" | "voteUp"
     >;
 
     /**
@@ -219,8 +219,11 @@ export type TInteractions = {
   /** The item's parent, typically a comment. */
   parent?: string;
 
-  /** Previous instances of the linked item. */
+  /** Previous instances of the linked item or the previous comment. */
   prev?: string;
+
+  /** The item's root, typically a comment. */
+  root?: string;
 
   /** Collapses the item, typically a comment. */
   toggle?: string;

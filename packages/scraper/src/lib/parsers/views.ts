@@ -157,7 +157,8 @@ export function getComments(parent?: Element | null) {
       switch (node.textContent) {
         case "next":
         case "parent":
-        case "prev": {
+        case "prev":
+        case "root": {
           const href = node?.getAttribute("href") ?? "";
           node.setAttribute("href", `#${getRowId(href)}`);
           interactions[node.textContent] = getNodeHTML(node.cloneNode());
