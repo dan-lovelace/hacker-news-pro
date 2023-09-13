@@ -15,10 +15,10 @@ import { useAppContext } from "../../contexts/app";
 import { useToastContext } from "../../contexts/toast";
 
 export default function EditorPage() {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState(0);
   const [label, setLabel] = useState("");
   const [currentTheme, setCurrentTheme] = useState<TTheme>();
-  const [initialized, setInitialized] = useState<boolean>(false);
+  const [initialized, setInitialized] = useState(false);
   const { popout } = useAppContext();
   const theme = useTheme();
   const { notify } = useToastContext();
