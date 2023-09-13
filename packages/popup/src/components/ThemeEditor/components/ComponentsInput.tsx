@@ -169,38 +169,57 @@ export default function ComponentsInput() {
 
   const handleDeleteClick = async () => {
     const id = getMenuAnchorElName();
-    const componentIdx =
+    const savedComponentIdx =
       savedThemeInputs?.components?.findIndex((c) => c.id === id) ?? -1;
+    const unsavedComponentIdx =
+      unsavedThemeInputs?.components?.findIndex((c) => c.id === id) ?? -1;
 
-    if (!savedThemeInputs || componentIdx < 0) {
+    if (!savedThemeInputs || savedComponentIdx < 0 || unsavedComponentIdx < 0) {
       return notify("Error deleting component");
     }
 
-    const newComponentsValue = [...savedThemeInputs.components];
-    newComponentsValue.splice(componentIdx, 1);
+    const newSavedComponents = [...savedThemeInputs.components];
+    const newUnsavedComponents = [...(unsavedThemeInputs?.components || [])];
+
+    newSavedComponents.splice(savedComponentIdx, 1);
+    newUnsavedComponents.splice(unsavedComponentIdx, 1);
 
     if (selectedComponent?.id === id) {
-      setSelectedComponent(undefined);
-      storageRemoveByKeys("SELECTED_COMPONENT_ID");
+      // user is deleting the selected component
+      const firstUnsavedComponent = unsavedThemeInputs?.components?.[0];
+
+      setSelectedComponent(firstUnsavedComponent);
+
+      if (firstUnsavedComponent) {
+        storageSetByKeys({
+          SELECTED_COMPONENT_ID: firstUnsavedComponent.id,
+        });
+      } else {
+        storageRemoveByKeys("SELECTED_COMPONENT_ID");
+      }
     }
 
     const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
     if (customThemes && selectedCustomThemeIndex > -1) {
       customThemes[selectedCustomThemeIndex].inputs.components =
-        newComponentsValue;
+        newSavedComponents;
     }
 
-    const newThemeInputs: TThemeInputs = {
+    setMenuAnchorEl(null);
+    setSavedThemeInputs({
       ...savedThemeInputs,
-      components: newComponentsValue,
+      components: newSavedComponents,
+    });
+
+    const newUnsavedThemeInputs = {
+      ...unsavedThemeInputs,
+      components: newUnsavedComponents,
     };
 
-    setMenuAnchorEl(null);
-    setSavedThemeInputs(newThemeInputs);
-    setUnsavedThemeInputs(newThemeInputs);
+    setUnsavedThemeInputs(newUnsavedThemeInputs);
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
-      SELECTED_THEME_INPUTS: newThemeInputs,
+      SELECTED_THEME_INPUTS: newUnsavedThemeInputs,
     });
   };
 
@@ -282,12 +301,13 @@ export default function ComponentsInput() {
 
     const label = modifyValue?.label?.trim() ?? "";
     const id = snakeCase(label) ?? "";
-    const newComponentsValue = [...(unsavedThemeInputs?.components || [])];
+    const newSavedComponents = [...savedThemeInputs.components];
+    const newUnsavedComponents = [...(unsavedThemeInputs?.components || [])];
 
     if (isEditing) {
       // user is editing an existing component
       if (
-        newComponentsValue.some(
+        newSavedComponents.some(
           (c) => c.id !== editComponent?.id && c.id === id,
         )
       ) {
@@ -296,11 +316,14 @@ export default function ComponentsInput() {
         });
       }
 
-      const componentIdx = newComponentsValue.findIndex(
+      const savedComponentIdx = newSavedComponents.findIndex(
+        (c) => c.id === editComponent?.id,
+      );
+      const unsavedComponentIdx = newUnsavedComponents.findIndex(
         (c) => c.id === editComponent?.id,
       );
 
-      if (!editComponent || componentIdx < 0) {
+      if (!editComponent || savedComponentIdx < 0 || unsavedComponentIdx < 0) {
         return notify("Error editing component");
       }
 
@@ -309,8 +332,12 @@ export default function ComponentsInput() {
         id,
       };
 
-      newComponentsValue[componentIdx] = {
-        ...newComponentsValue[componentIdx],
+      newSavedComponents[savedComponentIdx] = {
+        ...newSavedComponents[savedComponentIdx],
+        ...updatedFields,
+      };
+      newUnsavedComponents[unsavedComponentIdx] = {
+        ...newUnsavedComponents[unsavedComponentIdx],
         ...updatedFields,
       };
 
@@ -327,7 +354,7 @@ export default function ComponentsInput() {
       }
     } else {
       // user is creating a new component
-      if (newComponentsValue?.some((c) => c.id === id)) {
+      if (newSavedComponents?.some((c) => c.id === id)) {
         return notify(`A component with the name '${id}' already exists`, {
           severity: "warning",
         });
@@ -339,10 +366,11 @@ export default function ComponentsInput() {
         template: "",
       };
 
-      newComponentsValue.push(newComponent);
+      newSavedComponents.push(newComponent);
+      newUnsavedComponents.push(newComponent);
 
       // only select the new component if no others exist
-      if (newComponentsValue.length === 1) {
+      if (newSavedComponents.length === 1) {
         setSelectedComponent(newComponent);
         storageSetByKeys({
           SELECTED_COMPONENT_ID: newComponent.id,
@@ -350,29 +378,31 @@ export default function ComponentsInput() {
       }
     }
 
-    const sortedComponents = newComponentsValue.sort((a, b) =>
+    const sortedNewSavedComponents = newSavedComponents.sort((a, b) =>
+      a.label.localeCompare(b.label),
+    );
+    const sortedNewUnsavedComponents = newUnsavedComponents.sort((a, b) =>
       a.label.localeCompare(b.label),
     );
     const { customThemes, selectedCustomThemeIndex } = await fetchThemeData();
 
     if (customThemes && selectedCustomThemeIndex > -1) {
       customThemes[selectedCustomThemeIndex].inputs.components =
-        sortedComponents;
+        sortedNewSavedComponents;
     }
 
     setSavedThemeInputs({
       ...savedThemeInputs,
 
       /**
-       * Deeply clone `sortedComponents` to avoid setting child references in
-       * unsaved inputs.
+       * Deeply clone to avoid setting child references in unsaved inputs.
        */
-      components: cloneDeep(sortedComponents),
+      components: cloneDeep(sortedNewSavedComponents),
     });
 
     const newUnsavedThemeInputs = {
       ...unsavedThemeInputs,
-      components: sortedComponents,
+      components: sortedNewUnsavedComponents,
     };
 
     setUnsavedThemeInputs(newUnsavedThemeInputs);
