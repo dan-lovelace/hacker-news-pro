@@ -53,7 +53,7 @@ export type TAge = {
    * `timestampDate` - Renders the date portion of the given timestamp.
    * `timestampTime` - Renders the time portion.
    * @example
-   * ```
+   * ```hbs
    * <span>{{timestampDate age.timestamp}}</span>
    * ```
    */
