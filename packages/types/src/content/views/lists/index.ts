@@ -1,6 +1,6 @@
 /**
  * @group Views
- * @module lists
+ * @module Lists
  */
 
 export * from "./commentList";

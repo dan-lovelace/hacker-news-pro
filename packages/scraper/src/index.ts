@@ -1,6 +1,6 @@
 /**
  * Hacker News Pro page scraper.
- * @module scraper
+ * @module Scraper
  */
 
 export interface IParsable<T> {

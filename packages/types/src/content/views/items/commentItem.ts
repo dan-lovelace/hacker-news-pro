@@ -13,7 +13,7 @@ export type TCommentItem = TCommentListItem & {
 
   /**
    * Links to other pages.
-   * @example "item?id=37392676&p=2"
+   * @example ```item?id=37392676&p=2```
    * */
   links: Pick<TLinks, "more">;
 };

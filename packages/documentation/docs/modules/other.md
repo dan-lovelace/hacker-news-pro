@@ -1,20 +1,18 @@
-[Home](../README.md) / other
-
-# Module: other
+# Module: Other
 
 ## Table of contents
 
 ### Type Aliases
 
-- [TReply](other.md#treply)
-- [TSubmit](other.md#tsubmit)
-- [TUnknown](other.md#tunknown)
+- [TReply](Other.md#treply)
+- [TSubmit](Other.md#tsubmit)
+- [TUnknown](Other.md#tunknown)
 
 ## Type Aliases
 
 ### TReply
 
-Ƭ **TReply**: [`TCommentListItem`](shared.md#tcommentlistitem) & { `forms`: `Pick`<[`TForms`](shared.md#tforms), ``"comment"``\>  }
+Ƭ **TReply**: [`TCommentListItem`](Shared.md#tcommentlistitem) & { `forms`: `Pick`<[`TForms`](Shared.md#tforms), ``"comment"``\>  }
 
 Page to reply to a comment.
 
@@ -24,7 +22,7 @@ Sample page: https://news.ycombinator.com/reply?id=37373376&goto=item%3Fid%3D373
 
 #### Defined in
 
-[types/src/content/views/other/reply.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/442f6cf/packages/types/src/content/views/other/reply.ts#L7)
+[types/src/content/views/other/reply.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/other/reply.ts#L7)
 
 ___
 
@@ -42,11 +40,11 @@ Sample page: https://news.ycombinator.com/submit
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `forms` | `Pick`<[`TForms`](shared.md#tforms), ``"submit"``\> | Any associated forms such as the submit form. |
+| `forms` | `Pick`<[`TForms`](Shared.md#tforms), ``"submit"``\> | Any associated forms such as the submit form. |
 
 #### Defined in
 
-[types/src/content/views/other/submit.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/442f6cf/packages/types/src/content/views/other/submit.ts#L7)
+[types/src/content/views/other/submit.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/other/submit.ts#L7)
 
 ___
 
@@ -62,4 +60,4 @@ Sample page: https://news.ycombinator.com/user?id=pg
 
 #### Defined in
 
-[types/src/content/views/other/unknown.ts:5](https://github.com/dan-lovelace/hacker-news-pro/blob/442f6cf/packages/types/src/content/views/other/unknown.ts#L5)
+[types/src/content/views/other/unknown.ts:5](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/other/unknown.ts#L5)
