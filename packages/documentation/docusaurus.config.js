@@ -13,10 +13,10 @@ const config = {
   favicon: "img/logo_16.png",
 
   // Set the production url of your site here
-  url: "https://dan-lovelace.github.io/",
+  url: "https://hackernewspro.com/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/hacker-news-pro/",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -54,6 +54,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       image: "img/social_card.jpg",
+      colorMode: {
+        defaultMode: "dark",
+      },
       navbar: {
         title: "Hacker News Pro",
         logo: {
