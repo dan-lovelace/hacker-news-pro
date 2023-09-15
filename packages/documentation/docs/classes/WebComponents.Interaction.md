@@ -1,17 +1,17 @@
-# Class: Interaction
+# Interaction
 
 [WebComponents](../modules/WebComponents.md).Interaction
 
 Some actions taken by users on Hacker News perform an inline document update
-without refreshing the page. When upvoting a comment, for example, the
-display of the vote button immediately changes to reflect the user's action.
-This works in the default Hacker News pages through use of Javascript that
-gets executed whenever a document click event occurs. Their JS looks for
-elements with the `clicky` class to know when to do an inline update.
+without refreshing the page. When upvoting a comment, for example, the display
+of the vote button immediately changes to reflect the user's action. This works
+in the default Hacker News pages through use of Javascript that gets executed
+whenever a document click event occurs. Their JS looks for elements with the
+`clicky` class to know when to do an inline update.
 
-The `Interaction` component leverages the default JS by creating a new
-element from an HTML string that retains its attributes, including the
-`clicky` class. Children are stripped away so users may supply their own.
+The `Interaction` component leverages the default JS by creating a new element
+from an HTML string that retains its attributes, including the `clicky` class.
+Children are stripped away so users may supply their own.
 
 **`Example`**
 
@@ -50,7 +50,7 @@ HTMLElement.constructor
 
 #### Defined in
 
-[content/src/web-components/Interaction.ts:20](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/content/src/web-components/Interaction.ts#L20)
+[content/src/web-components/Interaction.ts:20](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/content/src/web-components/Interaction.ts#L20)
 
 ## Accessors
 
@@ -78,9 +78,9 @@ HTMLElement.className
 
 #### Defined in
 
-[content/src/web-components/Interaction.ts:67](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/content/src/web-components/Interaction.ts#L67)
+[content/src/web-components/Interaction.ts:67](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/content/src/web-components/Interaction.ts#L67)
 
-___
+---
 
 ### from
 
@@ -95,9 +95,12 @@ HTML string to generate the interaction.
 **`Example`**
 
 ```hbs
-<a href="hide?id=37190743&amp;auth=abcd1234&amp;goto=news" class="clicky hider"></a>
+<a
+  href="hide?id=37190743&amp;auth=abcd1234&amp;goto=news"
+  class="clicky hider"
+></a>
 ```
 
 #### Defined in
 
-[content/src/web-components/Interaction.ts:78](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/content/src/web-components/Interaction.ts#L78)
+[content/src/web-components/Interaction.ts:78](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/content/src/web-components/Interaction.ts#L78)

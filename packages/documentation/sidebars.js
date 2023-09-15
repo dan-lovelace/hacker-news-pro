@@ -36,6 +36,11 @@ const sidebars = {
       id: "modules/Shared",
     },
     {
+      type: "doc",
+      label: "Handlebars Helpers",
+      id: "modules/HandlebarsHelpers",
+    },
+    {
       type: "category",
       label: "Web Components",
       collapsible: false,

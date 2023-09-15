@@ -3,7 +3,6 @@
 *.log
 coverage
 dist
-docs
 node_modules
 packages/**/*.d.ts
 packages/**/*.js

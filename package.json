@@ -17,7 +17,7 @@
     "docs": "typedoc --hideBreadcrumbs true",
     "lint": "eslint .",
     "package": "ts-node --esm scripts/package.ts",
-    "postdocs": "ts-node --esm scripts/docs/preprocess.ts",
+    "postdocs": "ts-node --esm scripts/docs/postprocess.ts",
     "start": "yarn clean && lerna run start",
     "test": "lerna run test"
   },
