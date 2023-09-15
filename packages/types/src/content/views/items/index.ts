@@ -1,6 +1,6 @@
 /**
  * @group Views
- * @module items
+ * @module Items
  */
 
 export * from "./commentItem";

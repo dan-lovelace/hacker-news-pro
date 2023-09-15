@@ -1,6 +1,21 @@
 /**
+ * The context object is the entrypoint for all data available to templates.
+ * The {@link TContext} type describes this object and all its properties. See
+ * its `pageData` property for the result of scraping the current page and
+ * `config` for other information such as the page's current
+ * {@link Shared.TView | view}. A number of assets are made available through
+ * its `assets` property.
+ * @example
+ * ```hbs
+ * <img src={{assets.images.hnLogo}} />
+ * <div>{{config.view}}</div>
+ * {{#each pageData.items}}
+ *   <div>{{this.title}}</div>
+ * {{/each}}
+ * ```
+ *
  * @group Template
- * @module context
+ * @module Context
  */
 
 import { TView } from ".";
@@ -8,7 +23,8 @@ import { TView } from ".";
 /**
  * Assets available to templates.
  * @example
- * // in CSS using asset's full URL
+ * ```hbs
+ * {{! in CSS using asset's full URL }}
  * {{#with assets.icons}}
  *   .accordion {
  *     --bs-accordion-btn-icon: url('{{expandDown}}');
@@ -20,14 +36,20 @@ import { TView } from ".";
  *     --bs-accordion-btn-active-icon: url('{{expandDown_dark}}');
  *   }
  * {{/with}}
+ * ```
  * @example
- * // in HTML using baseURL
+ * ```hbs
+ * {{! in HTML using baseURL }}
  * <img src="{{assets.baseURL}}/images/hn_logo.svg" />
+ * ```
  */
 export type TAssets = {
   /**
    * The assets directory's base URL.
-   * @example "chrome-extension://ihcblehlmbfeecfaiomaihjkeedjepoc/assets/img/content"
+   * @example
+   * ```
+   * chrome-extension://ihcblehlmbfeecfaiomaihjkeedjepoc/assets/img/content
+   * ```
    * @see [packages/content/public/assets/img/content](https://github.com/dan-lovelace/hacker-news-pro/tree/main/packages/content/public/assets/img/content)
    */
   baseURL: string;
@@ -62,27 +84,27 @@ export type TAssets = {
 export type TConfig = {
   /**
    * Current page's hostname.
-   * @example "news.ycombinator.com"
+   * @example ```news.ycombinator.com```
    */
   hostname: string;
 
   /**
    * Current page's pathname.
-   * @example "/newcomments"
+   * @example ```/newcomments```
    */
   pathname: string;
 
   /**
    * Current page's view.
-   * @example "storyList"
+   * @example ```storyList```
    */
   view: TView;
 };
 
 /**
  * The main context object supplied to all views.
- * @typeParam T - The result of parsing the current page. See the
- * {@link scraper} package's classes for return types.
+ * @typeParam T - The result of parsing the current page. See the various views
+ * for return types: {@link Lists}, {@link Items} and {@link Other}.
  */
 export type TContext<T> = {
   /**
@@ -96,12 +118,14 @@ export type TContext<T> = {
   /**
    * Data associated with the current page's view.
    * @example
+   * ```
    * {
    *   bodyHTML: "<p>Lorem ipsum</p>",
    *   comments: [],
    *   currentUser: { ... },
    *   id: "37390184"
    * }
+   * ```
    */
   pageData: T & TPageDataExtension;
 };
@@ -122,26 +146,26 @@ export type TPageDataExtension = {
     links: {
       /**
        * User's path to login.
-       * @example "login?auth=abcd1234&goto=news"
+       * @example ```login?auth=abcd1234&goto=news```
        */
       login?: string;
 
       /**
        * User's path to logout.
-       * @example "logout?auth=abcd1234&goto=news"
+       * @example ```logout?auth=abcd1234&goto=news```
        */
       logout?: string;
 
       /**
        * User's profile.
-       * @example "user?id=pg"
+       * @example ```user?id=pg```
        */
       profile?: string;
     };
 
     /**
      * User's identifier.
-     * @example "pg"
+     * @example ```pg```
      */
     id?: string;
   };

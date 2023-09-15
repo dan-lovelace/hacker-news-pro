@@ -1,6 +1,6 @@
 /**
  * @group Views
- * @module other
+ * @module Other
  */
 
 export * from "./reply";

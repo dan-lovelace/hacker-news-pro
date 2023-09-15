@@ -15,6 +15,7 @@
       "@hnp/background": ["packages/background"],
       "@hnp/content": ["packages/content"],
       "@hnp/core": ["packages/core"],
+      "@hnp/documentation": ["packages/documentation"],
       "@hnp/popup": ["packages/popup"],
       "@hnp/sandbox": ["packages/sandbox"],
       "@hnp/scraper": ["packages/scraper"],

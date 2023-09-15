@@ -2,7 +2,6 @@
   "entryPoints": [
     "packages/content/src/web-components",
     "packages/sandbox/src/helpers.ts",
-    "packages/scraper/src",
     "packages/types/src/content/views/context.ts",
     "packages/types/src/content/views/items",
     "packages/types/src/content/views/lists",
@@ -28,15 +27,7 @@
     "Accessors",
     "Methods"
   ],
-  "hideGenerator": true,
-  "name": "Home",
-  "navigation": true,
-  "sidebarLinks": {
-    "README": "https://github.com/dan-lovelace/hacker-news-pro#readme"
-  },
   "out": "packages/documentation/docs",
   "plugin": ["typedoc-plugin-markdown"],
-  "readme": "none",
-  "searchInComments": true,
-  "theme": "default"
+  "readme": "none"
 }

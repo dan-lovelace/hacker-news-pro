@@ -10,7 +10,7 @@ export type TJobList = {
 
   /**
    * Links to other pages.
-   * @example "jobs?next=37196872"
+   * @example ```jobs?next=37196872```
    */
   links: Pick<TLinks, "more">;
 };

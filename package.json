@@ -14,9 +14,10 @@
   "scripts": {
     "build": "yarn clean && ts-node --esm scripts/build.ts",
     "clean": "rimraf dist",
-    "docs": "typedoc",
+    "docs": "typedoc --hideBreadcrumbs true",
     "lint": "eslint .",
     "package": "ts-node --esm scripts/package.ts",
+    "postdocs": "ts-node --esm scripts/docs/preprocess.ts",
     "start": "yarn clean && lerna run start",
     "test": "lerna run test"
   },

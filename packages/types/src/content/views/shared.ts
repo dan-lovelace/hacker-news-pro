@@ -1,7 +1,7 @@
 /**
- * Types shared across the various views.
+ * Types shared across the various {@link Shared.TView | page views}.
  * @group Template
- * @module shared
+ * @module Shared
  */
 
 /**
@@ -41,19 +41,21 @@ export const voteDirections = ["down", "up"] as const;
 export type TAge = {
   /**
    * Human-readable creation time.
-   * @example "2 hours ago"
+   * @example ```2 hours ago```
    */
   humanized?: string;
 
   /**
    * Timestamp in UTC format.
-   * @example "2023-09-03T14:53:21Z"
+   * @example ```2023-09-03T14:53:21Z```
    * @remarks
    * There are Handlebars helpers to display formatted timestamps:
-   * - `timestampDate` - Renders the date portion of the given timestamp
-   * - `timestampTime` - Renders the time portion
+   * `timestampDate` - Renders the date portion of the given timestamp.
+   * `timestampTime` - Renders the time portion.
    * @example
+   * ```
    * <span>{{timestampDate age.timestamp}}</span>
+   * ```
    */
   timestamp?: string;
 };
@@ -100,7 +102,7 @@ export type TComment = {
 
     /**
      * The Hacker News identifier.
-     * @example "2921983"
+     * @example ```2921983```
      */
     id: string;
 
@@ -112,7 +114,7 @@ export type TComment = {
 
     /**
      * Links to other pages.
-     * @example "item?id=37369826"
+     * @example ```item?id=37369826```
      */
     links: Pick<TLinks, "item" | "reply">;
 
@@ -142,7 +144,7 @@ export type TCommentListItem = {
 
   /**
    * The Hacker News identifier.
-   * @example "2921983"
+   * @example ```2921983```
    */
   id?: string;
 
@@ -151,7 +153,7 @@ export type TCommentListItem = {
 
   /**
    * Links to other pages.
-   * @example "item?id=37369826"
+   * @example ```item?id=37369826```
    */
   links: Pick<
     TLinks,
@@ -175,7 +177,7 @@ export type TCommentListItem = {
 export type TForm = {
   /**
    * The endpoint of the submit action.
-   * @example "comment"
+   * @example ```comment```
    */
   action?: string;
 
@@ -189,7 +191,7 @@ export type TForm = {
 
   /**
    * The HTTP method associated with the form.
-   * @example "post"
+   * @example ```post```
    */
   method?: string;
 };
@@ -207,7 +209,9 @@ export type TForms = {
  * These are HTML strings that must be used with a `<hnp-interaction>` web
  * component.
  * @example
+ * ```hbs
  * <hnp-interaction from="{{interactions.hide}}">hide</hnp-interaction>
+ * ```
  */
 export type TInteractions = {
   /** Hides the selected item from view. */
@@ -242,7 +246,7 @@ export type TJobListItem = {
 
   /**
    * Links to other pages.
-   * @example "item?id=37286598"
+   * @example ```item?id=37286598```
    */
   links: Pick<TLinks, "from" | "hide" | "item">;
 
@@ -270,8 +274,8 @@ export type TLinks = {
   /**
    * Removes an item from view.
    * @remarks
-   * While this is named the same as `hide` on `TInteraction`, not all items
-   * perform an inline hide and reload the page instead. Such examples may be
+   * While this is named the same as `hide` on `TInteraction`, some items
+   * reload the page instead of performing an inline hide. Such examples may be
    * seen on job item pages: https://news.ycombinator.com/item?id=37320729.
    */
   hide?: string;
@@ -305,7 +309,7 @@ export type TLinks = {
 export type TPollOptionItem = {
   /**
    * The Hacker News identifier.
-   * @example "126812"
+   * @example ```126812```
    */
   id?: string;
 
@@ -326,13 +330,13 @@ export type TPollOptionItem = {
 export type TSite = {
   /**
    * Short version of the linked site.
-   * @example "nature.com"
+   * @example ```nature.com```
    */
   name: string;
 
   /**
    * Full URL of the linked article.
-   * @example "https://www.nature.com/articles/s41612-023-00427-x"
+   * @example ```https://www.nature.com/articles/s41612-023-00427-x```
    */
   url: string;
 };
@@ -376,7 +380,7 @@ export type TStoryListItem = {
 
   /**
    * The Hacker News identifier.
-   * @example "37371084"
+   * @example ```37371084```
    */
   id?: string;
 
@@ -385,7 +389,7 @@ export type TStoryListItem = {
 
   /**
    * Links to other pages.
-   * @example "item?id=37371084"
+   * @example ```item?id=37371084```
    */
   links: Pick<
     TLinks,
@@ -415,17 +419,30 @@ export type TStoryListItem = {
 export type TUser = {
   /**
    * The user's Hacker News identifier.
-   * @example "pg"
+   * @example ```pg```
    */
   id?: string;
 
   /**
    * Link to the user's profile page.
-   * @example "user?id=pg"
+   * @example ```user?id=pg```
    */
   link?: string;
 };
 
+/**
+ * Page categories.
+ * @remarks
+ * Pages fall into one of three categories in Hacker News Pro: **List**,
+ * **Item** and **Other**. A **List** page shows a list of items such as the
+ * homepage or `/jobs` pages. **Item** pages show detailed information about a
+ * particular item such as the comments page for a given submission. Another
+ * example of an item page might be a comment's reply page. You can discern
+ * item pages by their URL; they always begin with `/item` followed by a query
+ * string containing the item's identifier (i.e. `/item?id=123456`). Page types
+ * in the **Other** category describe any page that is not a List or Item such
+ * as a user's profile.
+ */
 export type TView =
   | "commentItem"
   | "commentList"
@@ -443,13 +460,13 @@ export type TView =
 export type TViewRoute = {
   /**
    * The pathname to the given route.
-   * @example "/news"
+   * @example ```/news```
    */
   path: string;
 
   /**
    * The route's associated view.
-   * @example "storyList"
+   * @example ```storyList```
    */
   view: TView;
 };

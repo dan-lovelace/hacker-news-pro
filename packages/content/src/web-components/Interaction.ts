@@ -10,9 +10,11 @@
  * element from an HTML string that retains its attributes, including the
  * `clicky` class. Children are stripped away so users may supply their own.
  * @example
+ * ```hbs
  * <hnp-interaction from="{{interactions.voteUp}}">
  *   <i class="material-icons">arrow_up</i>
  * </hnp-interaction>
+ * ```
  */
 export class Interaction extends HTMLElement {
   constructor() {
@@ -55,8 +57,8 @@ export class Interaction extends HTMLElement {
 
   /**
    * Class name to append to the original element's class list.
-   * @remarks Sample usage:
-   * ```
+   * @example
+   * ```hbs
    * <hnp-interaction className="fw-bold" from="{{interactions.hide}}">
    *   Hide
    * </hnp-interaction>
@@ -68,7 +70,10 @@ export class Interaction extends HTMLElement {
 
   /**
    * HTML string to generate the interaction.
-   * @example `<a href="hide?id=37190743&amp;auth=abcd1234&amp;goto=news" class="clicky hider"></a>`
+   * @example
+   * ```hbs
+   * <a href="hide?id=37190743&amp;auth=abcd1234&amp;goto=news" class="clicky hider"></a>
+   * ```
    */
   get from() {
     return this.getAttribute("from") || "";
