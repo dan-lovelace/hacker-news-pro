@@ -41,11 +41,11 @@ Age information for a specific item.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `humanized?` | `string` | Human-readable creation time. **`Example`** ```2 hours ago``` |
-| `timestamp?` | `string` | Timestamp in UTC format. **`Example`** ```2023-09-03T14:53:21Z``` **`Remarks`** There are Handlebars helpers to display formatted timestamps: `timestampDate` - Renders the date portion of the given timestamp. `timestampTime` - Renders the time portion. **`Example`** ``` <span>{{timestampDate age.timestamp}}</span> ``` |
+| `timestamp?` | `string` | Timestamp in UTC format. **`Example`** ```2023-09-03T14:53:21Z``` **`Remarks`** There are Handlebars helpers to display formatted timestamps: `timestampDate` - Renders the date portion of the given timestamp. `timestampTime` - Renders the time portion. **`Example`** ```hbs <span>{{timestampDate age.timestamp}}</span> ``` |
 
 #### Defined in
 
-[types/src/content/views/shared.ts:41](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L41)
+[types/src/content/views/shared.ts:41](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L41)
 
 ___
 
@@ -60,14 +60,14 @@ User comment and its replies.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `comments` | [`TComment`](Shared.md#tcomment)[] | List of replies. |
-| `data` | { `age`: [`TAge`](Shared.md#tage) ; `bodyHTML?`: `string` ; `collapsed`: { `count?`: `number` ; `value`: `boolean`  } ; `id`: `string` ; `interactions`: `Pick`<[`TInteractions`](Shared.md#tinteractions), ``"next"`` \| ``"parent"`` \| ``"prev"`` \| ``"toggle"`` \| ``"voteDown"`` \| ``"voteUp"``\> ; `links`: `Pick`<[`TLinks`](Shared.md#tlinks), ``"item"`` \| ``"reply"``\> ; `user?`: [`TUser`](Shared.md#tuser) ; `voted?`: [`TVoteDirection`](Shared.md#tvotedirection)  } | Comment information. |
+| `data` | { `age`: [`TAge`](Shared.md#tage) ; `bodyHTML?`: `string` ; `collapsed`: { `count?`: `number` ; `value`: `boolean`  } ; `id`: `string` ; `interactions`: `Pick`<[`TInteractions`](Shared.md#tinteractions), ``"next"`` \| ``"parent"`` \| ``"prev"`` \| ``"root"`` \| ``"toggle"`` \| ``"voteDown"`` \| ``"voteUp"``\> ; `links`: `Pick`<[`TLinks`](Shared.md#tlinks), ``"item"`` \| ``"reply"``\> ; `user?`: [`TUser`](Shared.md#tuser) ; `voted?`: [`TVoteDirection`](Shared.md#tvotedirection)  } | Comment information. |
 | `data.age` | [`TAge`](Shared.md#tage) | When the comment was created. |
 | `data.bodyHTML?` | `string` | HTML of the body. **`Remarks`** Should be used with Handlebar's triple-brace escape syntax: `{{{bodyHTML}}}`. |
 | `data.collapsed` | { `count?`: `number` ; `value`: `boolean`  } | Information about the comment's collapsed status. |
 | `data.collapsed.count?` | `number` | Number of collapsed items. **`Remarks`** When a comment is collapsed in Hacker News, the toggle element is replaced to show the number of collapsed children such as `[17 more]`. We capture the number of children as the `count` value only when a comment is collapsed. Its count will be `undefined` when expanded. |
 | `data.collapsed.value` | `boolean` | Whether the comment is collapsed. **`Remarks`** A `value` of `true` indicates the comment is collapsed. When a comment is collapsed, access to its voting buttons is lost which must be taken into account when writing comment tree components. |
 | `data.id` | `string` | The Hacker News identifier. **`Example`** ```2921983``` |
-| `data.interactions` | `Pick`<[`TInteractions`](Shared.md#tinteractions), ``"next"`` \| ``"parent"`` \| ``"prev"`` \| ``"toggle"`` \| ``"voteDown"`` \| ``"voteUp"``\> | User interactions. |
+| `data.interactions` | `Pick`<[`TInteractions`](Shared.md#tinteractions), ``"next"`` \| ``"parent"`` \| ``"prev"`` \| ``"root"`` \| ``"toggle"`` \| ``"voteDown"`` \| ``"voteUp"``\> | User interactions. |
 | `data.links` | `Pick`<[`TLinks`](Shared.md#tlinks), ``"item"`` \| ``"reply"``\> | Links to other pages. **`Example`** ```item?id=37369826``` |
 | `data.user?` | [`TUser`](Shared.md#tuser) | User that created the comment. |
 | `data.voted?` | [`TVoteDirection`](Shared.md#tvotedirection) | Whether the current user has voted on the comment and how. |
@@ -75,7 +75,7 @@ User comment and its replies.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:64](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L64)
+[types/src/content/views/shared.ts:64](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L64)
 
 ___
 
@@ -101,7 +101,7 @@ Single comment item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:133](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L133)
+[types/src/content/views/shared.ts:133](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L133)
 
 ___
 
@@ -121,7 +121,7 @@ HTML form.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:177](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L177)
+[types/src/content/views/shared.ts:177](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L177)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[types/src/content/views/shared.ts:199](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L199)
+[types/src/content/views/shared.ts:199](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L199)
 
 ___
 
@@ -163,14 +163,15 @@ component.
 | `hide?` | `string` | Hides the selected item from view. |
 | `next?` | `string` | Navigates to the next item. |
 | `parent?` | `string` | The item's parent, typically a comment. |
-| `prev?` | `string` | Previous instances of the linked item. |
+| `prev?` | `string` | Previous instances of the linked item or the previous comment. |
+| `root?` | `string` | The item's root, typically a comment. |
 | `toggle?` | `string` | Collapses the item, typically a comment. |
 | `voteDown?` | `string` | Downvotes an item. |
 | `voteUp?` | `string` | Upvotes an item. |
 
 #### Defined in
 
-[types/src/content/views/shared.ts:216](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L216)
+[types/src/content/views/shared.ts:216](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L216)
 
 ___
 
@@ -191,7 +192,7 @@ Single job item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:240](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L240)
+[types/src/content/views/shared.ts:243](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L243)
 
 ___
 
@@ -221,7 +222,7 @@ Elements that only perform a redirect when clicked.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:258](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L258)
+[types/src/content/views/shared.ts:261](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L261)
 
 ___
 
@@ -243,7 +244,7 @@ Single option in a poll.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:306](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L306)
+[types/src/content/views/shared.ts:309](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L309)
 
 ___
 
@@ -262,7 +263,7 @@ Item's linked site or article.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:327](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L327)
+[types/src/content/views/shared.ts:330](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L330)
 
 ___
 
@@ -294,7 +295,7 @@ Sample page: https://news.ycombinator.com/item?id=37371084
 
 #### Defined in
 
-[types/src/content/views/shared.ts:371](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L371)
+[types/src/content/views/shared.ts:374](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L374)
 
 ___
 
@@ -321,7 +322,7 @@ Descriptions:
 
 #### Defined in
 
-[types/src/content/views/shared.ts:357](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L357)
+[types/src/content/views/shared.ts:360](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L360)
 
 ___
 
@@ -340,7 +341,7 @@ User that submitted an item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:416](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L416)
+[types/src/content/views/shared.ts:419](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L419)
 
 ___
 
@@ -364,7 +365,7 @@ as a user's profile.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:443](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L443)
+[types/src/content/views/shared.ts:446](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L446)
 
 ___
 
@@ -383,7 +384,7 @@ Maps a route to a particular view.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:457](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L457)
+[types/src/content/views/shared.ts:460](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L460)
 
 ___
 
@@ -400,7 +401,7 @@ If `undefined`, the user has not yet voted. If they have, will be either
 
 #### Defined in
 
-[types/src/content/views/shared.ts:477](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L477)
+[types/src/content/views/shared.ts:480](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L480)
 
 ## Variables
 
@@ -412,7 +413,7 @@ Map of routes and their related view.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:10](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L10)
+[types/src/content/views/shared.ts:10](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L10)
 
 ___
 
@@ -424,4 +425,4 @@ How an item may be voted upon.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:38](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/shared.ts#L38)
+[types/src/content/views/shared.ts:38](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/shared.ts#L38)

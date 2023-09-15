@@ -22,7 +22,7 @@ Sample page: https://news.ycombinator.com/reply?id=37373376&goto=item%3Fid%3D373
 
 #### Defined in
 
-[types/src/content/views/other/reply.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/other/reply.ts#L7)
+[types/src/content/views/other/reply.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/other/reply.ts#L7)
 
 ___
 
@@ -44,7 +44,7 @@ Sample page: https://news.ycombinator.com/submit
 
 #### Defined in
 
-[types/src/content/views/other/submit.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/other/submit.ts#L7)
+[types/src/content/views/other/submit.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/other/submit.ts#L7)
 
 ___
 
@@ -60,4 +60,4 @@ Sample page: https://news.ycombinator.com/user?id=pg
 
 #### Defined in
 
-[types/src/content/views/other/unknown.ts:5](https://github.com/dan-lovelace/hacker-news-pro/blob/8eb90fe/packages/types/src/content/views/other/unknown.ts#L5)
+[types/src/content/views/other/unknown.ts:5](https://github.com/dan-lovelace/hacker-news-pro/blob/91217b3/packages/types/src/content/views/other/unknown.ts#L5)
