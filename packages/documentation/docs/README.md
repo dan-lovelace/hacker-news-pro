@@ -1,5 +1,6 @@
 ---
 hide_title: true
+slug: /readme
 ---
 
 <h1>
@@ -125,7 +126,7 @@ several methods are available for defining styles:
 ## Template reference
 
 See the full
-[reference documentation here](https://dan-lovelace.github.io/hacker-news-pro)
+[reference documentation here](https://hackernewspro.com/docs/modules/Context)
 or read below for a high-level overview.
 
 ### Context
@@ -135,7 +136,7 @@ Templates in Hacker News Pro are written using
 extension works quietly in the background, scraping page contents and
 transforming them into an object internally known as the page's "context." You
 can explore the comprehensive types reference for the
-[context object here](https://dan-lovelace.github.io/hacker-news-pro/types/context.TContext.html).
+[context object here](https://hackernewspro.com/docs/modules/Context).
 
 When you're just starting, consider enabling "Developer mode" on the extension's
 **Options** page. This mode prints the context object to the console each time
@@ -147,13 +148,13 @@ to your templates without frequent trips to the documentation.
 In addition to the context object, a number of
 [Handlebars helpers](https://handlebarsjs.com/guide/block-helpers.html#basic-blocks)
 are available to your templates.
-[Check out our documentation](https://dan-lovelace.github.io/hacker-news-pro/modules/handlebars_helpers.html)
+[Check out our documentation](https://hackernewspro.com/docs/modules/HandlebarsHelpers)
 for more details.
 
 ### Web components
 
 Refer to the
-[web components](https://dan-lovelace.github.io/hacker-news-pro/modules/web_components.html)
+[web components](https://hackernewspro.com/docs/modules/WebComponents)
 documentation to get more information about custom elements such as
 `<hnp-interaction>`.
 

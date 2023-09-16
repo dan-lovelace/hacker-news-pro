@@ -1,5 +1,4 @@
 /**
- * @group Views
  * @module Lists
  */
 

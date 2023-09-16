@@ -1,6 +1,6 @@
 /**
  * Types shared across the various {@link Shared.TView | page views}.
- * @group Template
+ *
  * @module Shared
  */
 

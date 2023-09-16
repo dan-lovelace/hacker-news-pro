@@ -47,6 +47,7 @@ readmeMarkdown = readmeMarkdown.replace(/#\s/g, (val) => `#${val}`);
 // prepend header fields
 readmeMarkdown = `---
 hide_title: true
+slug: /readme
 ---
 
 ${readmeMarkdown}`;

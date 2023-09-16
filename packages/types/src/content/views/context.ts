@@ -1,8 +1,8 @@
 /**
- * The context object is the entrypoint for all data available to templates.
- * The {@link TContext} type describes this object and all its properties. See
- * its `pageData` property for the result of scraping the current page and
- * `config` for other information such as the page's current
+ * The context object is the entrypoint for all data available to your
+ * templates. The {@link TContext} type describes this object and all its
+ * properties. See its `pageData` property for the result of scraping the
+ * current page and `config` for other information such as the page's current
  * {@link Shared.TView | view}. A number of assets are made available through
  * its `assets` property.
  * @example
@@ -14,7 +14,6 @@
  * {{/each}}
  * ```
  *
- * @group Template
  * @module Context
  */
 

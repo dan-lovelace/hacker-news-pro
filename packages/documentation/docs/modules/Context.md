@@ -1,9 +1,9 @@
 # Context
 
-The context object is the entrypoint for all data available to templates.
-The [TContext](Context.md#tcontext) type describes this object and all its properties. See
-its `pageData` property for the result of scraping the current page and
-`config` for other information such as the page's current
+The context object is the entrypoint for all data available to your
+templates. The [TContext](Context.md#tcontext) type describes this object and all its
+properties. See its `pageData` property for the result of scraping the
+current page and `config` for other information such as the page's current
 [view](Shared.md#tview). A number of assets are made available through
 its `assets` property.
 
@@ -74,7 +74,7 @@ Assets available to templates.
 
 #### Defined in
 
-[types/src/content/views/context.ts:46](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/context.ts#L46)
+[types/src/content/views/context.ts:45](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/context.ts#L45)
 
 ___
 
@@ -94,7 +94,7 @@ Context configuration for the current page.
 
 #### Defined in
 
-[types/src/content/views/context.ts:84](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/context.ts#L84)
+[types/src/content/views/context.ts:83](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/context.ts#L83)
 
 ___
 
@@ -120,7 +120,7 @@ The main context object supplied to all views.
 
 #### Defined in
 
-[types/src/content/views/context.ts:109](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/context.ts#L109)
+[types/src/content/views/context.ts:108](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/context.ts#L108)
 
 ___
 
@@ -145,4 +145,4 @@ Additional properties that are not specific to any one view.
 
 #### Defined in
 
-[types/src/content/views/context.ts:136](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/context.ts#L136)
+[types/src/content/views/context.ts:135](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/context.ts#L135)
