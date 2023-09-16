@@ -10,7 +10,7 @@ import {
   TView,
   TViewRoute,
   TVoteDirection,
-  viewRouteMap,
+  routeViewMap,
   voteDirections,
 } from "@hnp/types";
 import { matchRoutes } from "react-router-dom";
@@ -409,9 +409,9 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
 }
 
 export function getView(): TView {
-  const viewRoutes: TViewRoute[] = Object.keys(viewRouteMap).map((key) => ({
+  const viewRoutes: TViewRoute[] = Object.keys(routeViewMap).map((key) => ({
     path: key,
-    view: viewRouteMap[key],
+    view: routeViewMap[key],
   }));
 
   if (window.location.pathname === "/item") {

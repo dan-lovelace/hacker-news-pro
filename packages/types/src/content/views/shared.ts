@@ -7,14 +7,16 @@
 /**
  * Map of routes and their related view.
  * @remarks
- * Most views can be determined by their pathname. One exception are
- * {@link Items | item} types since they all begin with the same path of
- * `/item`. For those, custom logic is needed that parses the page scraper
- * result to come to a best-guess conclusion. See the
+ * Most views can be determined by the page's pathname. For example, we can
+ * easily look at the homepage pathname of `/` and know it is a `storyList`
+ * view and we know `/newcomments` is always of type `commentList`. One
+ * exception are {@link Items | item} types since they all begin with the same
+ * path of `/item`. For those, custom logic is needed that parses the page
+ * scraper result to come to a conclusion. See the
  * [getView](https://github.com/dan-lovelace/hacker-news-pro/blob/main/packages/scraper/src/lib/parsers/views.ts)
  * method in the scraper package for how Hacker News Pro does this.
  */
-export const viewRouteMap: Record<string, TView> = {
+export const routeViewMap: Record<string, TView> = {
   "/": "storyList",
   "/active": "storyList",
   "/ask": "storyList",
@@ -438,7 +440,8 @@ export type TUser = {
 };
 
 /**
- * Page categories.
+ * Page categories. Check out {@link routeViewMap} for more information about
+ * how these are determined.
  * @remarks
  * Pages fall into one of three categories in Hacker News Pro: **List**,
  * **Item** and **Other**. A **List** page shows a list of items such as the
@@ -448,7 +451,14 @@ export type TUser = {
  * item pages by their URL; they always begin with `/item` followed by a query
  * string containing the item's identifier (i.e. `/item?id=123456`). Page types
  * in the **Other** category describe any page that is not a **List** or
- * **Item** such as a user's profile: `/user?id=pg`.
+ * **Item** such as the submission page `/submit`.
+ *
+ * If a view resolves to `unknown`, then Hacker News Pro does not currently
+ * support it. An example of an unsupported page would be a user's profile
+ * page: `/user?id=pg`. It is the goal of Hacker News Pro to eventually support
+ * all pages. If you need one supported right away, don't hesitate to let us
+ * know by
+ * [opening a feature request](https://github.com/dan-lovelace/hacker-news-pro/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=).
  */
 export type TView =
   | "commentItem"

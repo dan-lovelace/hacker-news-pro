@@ -25,7 +25,7 @@ Types shared across the various [page views](Shared.md#tview).
 
 ### Variables
 
-- [viewRouteMap](Shared.md#viewroutemap)
+- [routeViewMap](Shared.md#routeviewmap)
 - [voteDirections](Shared.md#votedirections)
 
 ## Type Aliases
@@ -45,7 +45,7 @@ Age information for a specific item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:48](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L48)
+[types/src/content/views/shared.ts:50](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L50)
 
 ___
 
@@ -75,7 +75,7 @@ User comment and its replies.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:71](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L71)
+[types/src/content/views/shared.ts:73](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L73)
 
 ___
 
@@ -101,7 +101,7 @@ Single comment item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:140](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L140)
+[types/src/content/views/shared.ts:142](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L142)
 
 ___
 
@@ -121,7 +121,7 @@ HTML form.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:184](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L184)
+[types/src/content/views/shared.ts:186](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L186)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[types/src/content/views/shared.ts:206](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L206)
+[types/src/content/views/shared.ts:208](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L208)
 
 ___
 
@@ -171,7 +171,7 @@ component.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:223](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L223)
+[types/src/content/views/shared.ts:225](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L225)
 
 ___
 
@@ -192,7 +192,7 @@ Single job item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:250](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L250)
+[types/src/content/views/shared.ts:252](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L252)
 
 ___
 
@@ -222,7 +222,7 @@ Elements that only perform a redirect when clicked.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:268](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L268)
+[types/src/content/views/shared.ts:270](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L270)
 
 ___
 
@@ -244,7 +244,7 @@ Single option in a poll.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:316](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L316)
+[types/src/content/views/shared.ts:318](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L318)
 
 ___
 
@@ -263,7 +263,7 @@ Item's linked site or article.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:337](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L337)
+[types/src/content/views/shared.ts:339](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L339)
 
 ___
 
@@ -295,7 +295,7 @@ Sample page: https://news.ycombinator.com/item?id=37371084
 
 #### Defined in
 
-[types/src/content/views/shared.ts:381](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L381)
+[types/src/content/views/shared.ts:383](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L383)
 
 ___
 
@@ -322,7 +322,7 @@ Descriptions:
 
 #### Defined in
 
-[types/src/content/views/shared.ts:367](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L367)
+[types/src/content/views/shared.ts:369](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L369)
 
 ___
 
@@ -341,7 +341,7 @@ User that submitted an item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:426](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L426)
+[types/src/content/views/shared.ts:428](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L428)
 
 ___
 
@@ -349,7 +349,8 @@ ___
 
 Ƭ **TView**: ``"commentItem"`` \| ``"commentList"`` \| ``"jobItem"`` \| ``"jobList"`` \| ``"pollItem"`` \| ``"reply"`` \| ``"storyItem"`` \| ``"storyList"`` \| ``"submit"`` \| ``"unknown"`` \| ``"user"``
 
-Page categories.
+Page categories. Check out [routeViewMap](Shared.md#routeviewmap) for more information about
+how these are determined.
 
 **`Remarks`**
 
@@ -361,11 +362,18 @@ example of an item page might be a comment's reply page. You can discern
 item pages by their URL; they always begin with `/item` followed by a query
 string containing the item's identifier (i.e. `/item?id=123456`). Page types
 in the **Other** category describe any page that is not a **List** or
-**Item** such as a user's profile: `/user?id=pg`.
+**Item** such as the submission page `/submit`.
+
+If a view resolves to `unknown`, then Hacker News Pro does not currently
+support it. An example of an unsupported page would be a user's profile
+page: `/user?id=pg`. It is the goal of Hacker News Pro to eventually support
+all pages. If you need one supported right away, don't hesitate to let us
+know by
+[opening a feature request](https://github.com/dan-lovelace/hacker-news-pro/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=).
 
 #### Defined in
 
-[types/src/content/views/shared.ts:453](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L453)
+[types/src/content/views/shared.ts:463](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L463)
 
 ___
 
@@ -384,7 +392,7 @@ Maps a route to a particular view.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:467](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L467)
+[types/src/content/views/shared.ts:477](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L477)
 
 ___
 
@@ -401,28 +409,30 @@ If `undefined`, the user has not yet voted. If they have, will be either
 
 #### Defined in
 
-[types/src/content/views/shared.ts:487](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L487)
+[types/src/content/views/shared.ts:497](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L497)
 
 ## Variables
 
-### viewRouteMap
+### routeViewMap
 
-• `Const` **viewRouteMap**: `Record`<`string`, [`TView`](Shared.md#tview)\>
+• `Const` **routeViewMap**: `Record`<`string`, [`TView`](Shared.md#tview)\>
 
 Map of routes and their related view.
 
 **`Remarks`**
 
-Most views can be determined by their pathname. One exception are
-[item](Items.md) types since they all begin with the same path of
-`/item`. For those, custom logic is needed that parses the page scraper
-result to come to a best-guess conclusion. See the
+Most views can be determined by the page's pathname. For example, we can
+easily look at the homepage pathname of `/` and know it is a `storyList`
+view and we know `/newcomments` is always of type `commentList`. One
+exception are [item](Items.md) types since they all begin with the same
+path of `/item`. For those, custom logic is needed that parses the page
+scraper result to come to a conclusion. See the
 [getView](https://github.com/dan-lovelace/hacker-news-pro/blob/main/packages/scraper/src/lib/parsers/views.ts)
 method in the scraper package for how Hacker News Pro does this.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:17](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L17)
+[types/src/content/views/shared.ts:19](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L19)
 
 ___
 
@@ -434,4 +444,4 @@ How an item may be voted upon.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:45](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/shared.ts#L45)
+[types/src/content/views/shared.ts:47](https://github.com/dan-lovelace/hacker-news-pro/blob/bdc735c/packages/types/src/content/views/shared.ts#L47)
