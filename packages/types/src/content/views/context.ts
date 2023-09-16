@@ -7,7 +7,7 @@
  * its `assets` property.
  * @example
  * ```hbs
- * <img src={{assets.images.hnLogo}} />
+ * <img src="{{assets.images.hnLogo}}" />
  * <div>{{config.view}}</div>
  * {{#each pageData.items}}
  *   <div>{{this.title}}</div>

@@ -22,16 +22,16 @@ Sample page: https://news.ycombinator.com/newcomments
 
 #### Type declaration
 
-| Name    | Type                                               | Description                                |
-| :------ | :------------------------------------------------- | :----------------------------------------- |
-| `items` | [`TCommentListItem`](Shared.md#tcommentlistitem)[] | List of comment items.                     |
-| `links` | `Pick`<[`TLinks`](Shared.md#tlinks), `"more"`\>    | Links to other pages. **`Example`** `?p=2` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `items` | [`TCommentListItem`](Shared.md#tcommentlistitem)[] | List of comment items. |
+| `links` | `Pick`<[`TLinks`](Shared.md#tlinks), ``"more"``\> | Links to other pages. **`Example`** ```?p=2``` |
 
 #### Defined in
 
-[types/src/content/views/lists/commentList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/types/src/content/views/lists/commentList.ts#L7)
+[types/src/content/views/lists/commentList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/lists/commentList.ts#L7)
 
----
+___
 
 ### TJobList
 
@@ -45,16 +45,16 @@ Sample page: https://news.ycombinator.com/jobs
 
 #### Type declaration
 
-| Name    | Type                                            | Description                                              |
-| :------ | :---------------------------------------------- | :------------------------------------------------------- |
-| `items` | [`TJobListItem`](Shared.md#tjoblistitem)[]      | List of job items.                                       |
-| `links` | `Pick`<[`TLinks`](Shared.md#tlinks), `"more"`\> | Links to other pages. **`Example`** `jobs?next=37196872` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `items` | [`TJobListItem`](Shared.md#tjoblistitem)[] | List of job items. |
+| `links` | `Pick`<[`TLinks`](Shared.md#tlinks), ``"more"``\> | Links to other pages. **`Example`** ```jobs?next=37196872``` |
 
 #### Defined in
 
-[types/src/content/views/lists/jobList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/types/src/content/views/lists/jobList.ts#L7)
+[types/src/content/views/lists/jobList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/lists/jobList.ts#L7)
 
----
+___
 
 ### TStoryList
 
@@ -68,11 +68,11 @@ Sample page: https://news.ycombinator.com/newest
 
 #### Type declaration
 
-| Name    | Type                                            | Description                                |
-| :------ | :---------------------------------------------- | :----------------------------------------- |
-| `items` | [`TStoryListItem`](Shared.md#tstorylistitem)[]  | List of story items.                       |
-| `links` | `Pick`<[`TLinks`](Shared.md#tlinks), `"more"`\> | Links to other pages. **`Example`** `?p=2` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `items` | [`TStoryListItem`](Shared.md#tstorylistitem)[] | List of story items. |
+| `links` | `Pick`<[`TLinks`](Shared.md#tlinks), ``"more"``\> | Links to other pages. **`Example`** ```?p=2``` |
 
 #### Defined in
 
-[types/src/content/views/lists/storyList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/types/src/content/views/lists/storyList.ts#L7)
+[types/src/content/views/lists/storyList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/types/src/content/views/lists/storyList.ts#L7)

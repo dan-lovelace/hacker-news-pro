@@ -6,6 +6,13 @@
 
 /**
  * Map of routes and their related view.
+ * @remarks
+ * Most views can be determined by their pathname. One exception are
+ * {@link Items | item} types since they all begin with the same path of
+ * `/item`. For those, custom logic is needed that parses the page scraper
+ * result to come to a best-guess conclusion. See the
+ * [getView](https://github.com/dan-lovelace/hacker-news-pro/blob/main/packages/scraper/src/lib/parsers/views.ts)
+ * method in the scraper package for how Hacker News Pro does this.
  */
 export const viewRouteMap: Record<string, TView> = {
   "/": "storyList",
@@ -435,13 +442,13 @@ export type TUser = {
  * @remarks
  * Pages fall into one of three categories in Hacker News Pro: **List**,
  * **Item** and **Other**. A **List** page shows a list of items such as the
- * homepage or `/jobs` pages. **Item** pages show detailed information about a
+ * homepage or `/jobs` page. **Item** pages show detailed information about a
  * particular item such as the comments page for a given submission. Another
  * example of an item page might be a comment's reply page. You can discern
  * item pages by their URL; they always begin with `/item` followed by a query
  * string containing the item's identifier (i.e. `/item?id=123456`). Page types
- * in the **Other** category describe any page that is not a List or Item such
- * as a user's profile.
+ * in the **Other** category describe any page that is not a **List** or
+ * **Item** such as a user's profile: `/user?id=pg`.
  */
 export type TView =
   | "commentItem"

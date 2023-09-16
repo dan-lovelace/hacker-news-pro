@@ -609,7 +609,12 @@ export default function ComponentsInput() {
               Delete
             </MenuItem>
           </Menu>
-          <IconButton aria-label="add new component" onClick={handleNewClick}>
+          <IconButton
+            aria-label="add new component"
+            color="primary"
+            title="New component"
+            onClick={handleNewClick}
+          >
             <AddIcon />
           </IconButton>
         </Box>

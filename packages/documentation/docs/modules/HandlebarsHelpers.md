@@ -28,10 +28,10 @@ Adds two numbers.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
-| `b`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 
 #### Returns
 
@@ -45,9 +45,9 @@ Adds two numbers.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:21](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L21)
+[sandbox/src/helpers.ts:21](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L21)
 
----
+___
 
 ### capitalize
 
@@ -57,9 +57,9 @@ Capitalizes the first character of a string.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
 
 #### Returns
 
@@ -73,9 +73,9 @@ Capitalizes the first character of a string.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:123](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L123)
+[sandbox/src/helpers.ts:123](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L123)
 
----
+___
 
 ### divide
 
@@ -85,10 +85,10 @@ Divides two numbers.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
-| `b`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 
 #### Returns
 
@@ -102,25 +102,25 @@ Divides two numbers.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:33](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L33)
+[sandbox/src/helpers.ts:33](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L33)
 
----
+___
 
 ### humanizeUnixTime
 
-▸ **humanizeUnixTime**(`a`): `string` \| `false`
+▸ **humanizeUnixTime**(`a`): `string` \| ``false``
 
 Humanizes a Unix timestamp.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
 
 #### Returns
 
-`string` \| `false`
+`string` \| ``false``
 
 **`Example`**
 
@@ -130,23 +130,23 @@ Humanizes a Unix timestamp.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:135](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L135)
+[sandbox/src/helpers.ts:135](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L135)
 
----
+___
 
 ### ifeq
 
 ▸ **ifeq**(`a`, `b`, `options`): `string`
 
-Performs a strict equality check between two items to conditionally render based
-on the result.
+Performs a strict equality check between two items to conditionally render
+based on the result.
 
 #### Parameters
 
-| Name      | Type            |
-| :-------- | :-------------- |
-| `a`       | `any`           |
-| `b`       | `any`           |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 | `options` | `HelperOptions` |
 
 #### Returns
@@ -177,9 +177,9 @@ on the result.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:84](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L84)
+[sandbox/src/helpers.ts:84](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L84)
 
----
+___
 
 ### ifnoteq
 
@@ -190,10 +190,10 @@ based on the result.
 
 #### Parameters
 
-| Name      | Type            |
-| :-------- | :-------------- |
-| `a`       | `any`           |
-| `b`       | `any`           |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 | `options` | `HelperOptions` |
 
 #### Returns
@@ -224,9 +224,9 @@ based on the result.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:111](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L111)
+[sandbox/src/helpers.ts:111](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L111)
 
----
+___
 
 ### mod
 
@@ -236,10 +236,10 @@ Performs a modulo operation between two numbers.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
-| `b`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 
 #### Returns
 
@@ -253,9 +253,9 @@ Performs a modulo operation between two numbers.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:147](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L147)
+[sandbox/src/helpers.ts:147](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L147)
 
----
+___
 
 ### multiply
 
@@ -265,10 +265,10 @@ Multiplies two numbers.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
-| `b`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 
 #### Returns
 
@@ -282,9 +282,9 @@ Multiplies two numbers.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:45](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L45)
+[sandbox/src/helpers.ts:45](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L45)
 
----
+___
 
 ### subtract
 
@@ -294,10 +294,10 @@ Subtracts two numbers.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
-| `b`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
+| `b` | `any` |
 
 #### Returns
 
@@ -311,9 +311,9 @@ Subtracts two numbers.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:57](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L57)
+[sandbox/src/helpers.ts:57](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L57)
 
----
+___
 
 ### timestampDate
 
@@ -323,9 +323,9 @@ Returns the date portion of a timestamp.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
 
 #### Returns
 
@@ -339,9 +339,9 @@ Returns the date portion of a timestamp.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:159](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L159)
+[sandbox/src/helpers.ts:159](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L159)
 
----
+___
 
 ### timestampTime
 
@@ -351,9 +351,9 @@ Returns the time portion of a timestamp.
 
 #### Parameters
 
-| Name | Type  |
-| :--- | :---- |
-| `a`  | `any` |
+| Name | Type |
+| :------ | :------ |
+| `a` | `any` |
 
 #### Returns
 
@@ -367,4 +367,4 @@ Returns the time portion of a timestamp.
 
 #### Defined in
 
-[sandbox/src/helpers.ts:171](https://github.com/dan-lovelace/hacker-news-pro/blob/a512a6b/packages/sandbox/src/helpers.ts#L171)
+[sandbox/src/helpers.ts:171](https://github.com/dan-lovelace/hacker-news-pro/blob/dde3b68/packages/sandbox/src/helpers.ts#L171)
