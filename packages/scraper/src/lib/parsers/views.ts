@@ -7,9 +7,13 @@ import {
   TPollOptionItem,
   TStoryListItem,
   TStoryType,
+  TView,
+  TViewRoute,
   TVoteDirection,
+  viewRouteMap,
   voteDirections,
 } from "@hnp/types";
+import { matchRoutes } from "react-router-dom";
 
 import {
   SELECTORS,
@@ -402,6 +406,48 @@ export function getStoryListItem(parent?: Element | null): TStoryListItem {
     user,
     voted,
   };
+}
+
+export function getView(): TView {
+  const viewRoutes: TViewRoute[] = Object.keys(viewRouteMap).map((key) => ({
+    path: key,
+    view: viewRouteMap[key],
+  }));
+
+  if (window.location.pathname === "/item") {
+    /**
+     * For item routes, we need to parse the document to make a determination
+     * of item type.
+     */
+
+    /**
+     * The number of voting elements is a good indicator when determining poll
+     * and job item types.
+     */
+    const voteElements = document.querySelectorAll(
+      ".fatitem .athing > .votelinks",
+    );
+    if (voteElements.length > 1) {
+      return "pollItem";
+    } else if (voteElements.length === 0) {
+      return "jobItem";
+    }
+
+    if (document.querySelector(".fatitem .athing .titleline") !== null) {
+      return "storyItem";
+    }
+
+    return "commentItem";
+  }
+
+  /**
+   * Non-item routes are easier to infer type since they're 1:1.
+   */
+  const route = matchRoutes(viewRoutes, window.location.pathname);
+
+  if (!route) return "unknown";
+
+  return route[0].route.view;
 }
 
 export function getVoteInteractions(parent?: Element | null) {
