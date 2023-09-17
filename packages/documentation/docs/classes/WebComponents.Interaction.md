@@ -50,7 +50,7 @@ HTMLElement.constructor
 
 #### Defined in
 
-[content/src/web-components/Interaction.ts:20](https://github.com/dan-lovelace/hacker-news-pro/blob/7efaa07/packages/content/src/web-components/Interaction.ts#L20)
+[content/src/web-components/Interaction.ts:20](https://github.com/dan-lovelace/hacker-news-pro/blob/e071a8e/packages/content/src/web-components/Interaction.ts#L20)
 
 ## Accessors
 
@@ -78,7 +78,7 @@ HTMLElement.className
 
 #### Defined in
 
-[content/src/web-components/Interaction.ts:67](https://github.com/dan-lovelace/hacker-news-pro/blob/7efaa07/packages/content/src/web-components/Interaction.ts#L67)
+[content/src/web-components/Interaction.ts:67](https://github.com/dan-lovelace/hacker-news-pro/blob/e071a8e/packages/content/src/web-components/Interaction.ts#L67)
 
 ___
 
@@ -100,4 +100,4 @@ HTML string to generate the interaction.
 
 #### Defined in
 
-[content/src/web-components/Interaction.ts:78](https://github.com/dan-lovelace/hacker-news-pro/blob/7efaa07/packages/content/src/web-components/Interaction.ts#L78)
+[content/src/web-components/Interaction.ts:78](https://github.com/dan-lovelace/hacker-news-pro/blob/e071a8e/packages/content/src/web-components/Interaction.ts#L78)
