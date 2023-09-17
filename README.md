@@ -189,11 +189,11 @@ browser for testing. The following build commands are available:
 | `yarn build 2` | Creates a build using Manifest v2                                                |
 | `yarn build 3` | Creates a build using Manifest v3                                                |
 
-<sup>+</sup> If you'd instead like to develop using v2, you'll need to copy the
-contents of
-<a href="https://github.com/dan-lovelace/hacker-news-pro/blob/main/assets/manifest-v2.json">assets/manifest-v2.json</a>
+[+] If you'd instead like to develop using v2, you'll need to copy the contents
+of
+[assets/manifest-v2.json](https://github.com/dan-lovelace/hacker-news-pro/blob/main/assets/manifest-v2.json)
 into
-<a href="https://github.com/dan-lovelace/hacker-news-pro/blob/main/packages/content/public/manifest.json">packages/content/public/manifest.json</a>
+[packages/content/public/manifest.json](https://github.com/dan-lovelace/hacker-news-pro/blob/main/packages/content/public/manifest.json)
 and run a clean build. Be sure to remove the `$schema` property after doing so.
 
 ## Add unpacked extension
@@ -235,7 +235,7 @@ To create and package a new version for publishing:
 1. Run `yarn package <manifest version>` - Target either Manifest version `2` or
    `3` (i.e. `yarn package 3`).
 1. Inspect the output zip file in the `versions` directory to make sure
-   everything looks right.
+   everything looks right and that the file size has not ballooned unexpectedly.
 
 Log in to either the [Chrome Web Store](https://chrome.google.com/webstore/)
 (Manifest v3) or [Firefox Addon Hub](https://addons.mozilla.org/en-US/firefox/)
