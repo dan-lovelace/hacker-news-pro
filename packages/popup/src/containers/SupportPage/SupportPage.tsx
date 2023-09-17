@@ -38,7 +38,7 @@ export default function SupportPage() {
         <Typography variant="caption">Contact</Typography>
         <Section heading="Need help or have a suggestion? Drop us a line by opening a GitHub issue. We're here to listen and make things better!">
           <a
-            href="https://github.com/dan-lovelace/hacker-news-pro/issues/new"
+            href="https://github.com/dan-lovelace/hacker-news-pro/issues/new/choose"
             target="_blank"
           >
             <Button variant="outlined">Create GitHub issue</Button>
