@@ -29,7 +29,7 @@ Sample page: https://news.ycombinator.com/newcomments
 
 #### Defined in
 
-[types/src/content/views/lists/commentList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/lists/commentList.ts#L7)
+[types/src/content/views/lists/commentList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/7efaa07/packages/types/src/content/views/lists/commentList.ts#L7)
 
 ___
 
@@ -52,7 +52,7 @@ Sample page: https://news.ycombinator.com/jobs
 
 #### Defined in
 
-[types/src/content/views/lists/jobList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/lists/jobList.ts#L7)
+[types/src/content/views/lists/jobList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/7efaa07/packages/types/src/content/views/lists/jobList.ts#L7)
 
 ___
 
@@ -75,4 +75,4 @@ Sample page: https://news.ycombinator.com/newest
 
 #### Defined in
 
-[types/src/content/views/lists/storyList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/078f267/packages/types/src/content/views/lists/storyList.ts#L7)
+[types/src/content/views/lists/storyList.ts:7](https://github.com/dan-lovelace/hacker-news-pro/blob/7efaa07/packages/types/src/content/views/lists/storyList.ts#L7)
