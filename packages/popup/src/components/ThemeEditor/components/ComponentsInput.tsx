@@ -207,7 +207,7 @@ export default function ComponentsInput() {
     setMenuAnchorEl(null);
     setSavedThemeInputs({
       ...savedThemeInputs,
-      components: newSavedComponents,
+      components: cloneDeep(newSavedComponents),
     });
 
     const newUnsavedThemeInputs = {
@@ -475,7 +475,7 @@ export default function ComponentsInput() {
 
     setSavedThemeInputs({
       ...savedThemeInputsRef.current,
-      components: newComponents,
+      components: cloneDeep(newComponents),
     });
     storageSetByKeys({
       CUSTOM_THEMES: customThemes,
