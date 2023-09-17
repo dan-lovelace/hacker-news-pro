@@ -1,6 +1,7 @@
 import {
   TComment,
   TCommentListItem,
+  TConfig,
   TForm,
   TJobListItem,
   TLinks,
@@ -226,6 +227,15 @@ export function getCommentsCount(parent?: Element | null) {
   );
 }
 
+export function getConfig(): TConfig {
+  const {
+    location: { hostname, pathname },
+  } = window;
+  const view = getView();
+
+  return { hostname, pathname, view };
+}
+
 export function getForm(form?: Element | null): TForm {
   const action = form?.getAttribute("action") ?? undefined;
   const hiddenInputsHTML = pipe(
@@ -441,7 +451,7 @@ export function getView(): TView {
   }
 
   /**
-   * Non-item routes are easier to infer type since they're 1:1.
+   * Non-item routes are easier to infer view type since they're 1:1.
    */
   const route = matchRoutes(viewRoutes, window.location.pathname);
 

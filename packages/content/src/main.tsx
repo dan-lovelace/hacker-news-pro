@@ -11,10 +11,10 @@ import {
   storageSetByKeys,
   waitForElement,
 } from "@hnp/core";
+import { getConfig } from "@hnp/scraper";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
-import { getConfig } from "./lib/config";
 
 import "./style/main.scss";
 

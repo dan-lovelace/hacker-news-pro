@@ -5,10 +5,9 @@ import {
   MESSAGE_ACTIONS,
   storageGetByKey,
 } from "@hnp/core";
-import { getPageData } from "@hnp/scraper";
+import { getConfig, getPageData } from "@hnp/scraper";
 import { TConfig, TPageDataExtension, TContext } from "@hnp/types";
 
-import { getConfig } from "./config";
 import { sendSandboxMessage, startContentListeners } from "./message";
 
 const assetsBaseURL = getAssetURL("img/content");
@@ -44,8 +43,7 @@ export function handleSandboxLoad() {
 
 export async function renderContent() {
   const config = getConfig();
-  const { view } = config;
-  const pageData = getPageData(view);
+  const pageData = getPageData(config.view);
   const context = getTemplateContext(config, pageData);
   const themeToApply = await getCurrentTheme(config);
   const options = await storageGetByKey("OPTIONS");
