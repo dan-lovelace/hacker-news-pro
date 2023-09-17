@@ -40,7 +40,6 @@ and running quickly.
    - [Requirements](#requirements)
    - [Install](#install)
    - [Build](#build)
-     - [Build commands](#build-commands)
    - [Add unpacked extension](#add-unpacked-extension)
    - [Tips](#tips)
      - [Clearing storage](#clearing-storage)
@@ -162,6 +161,16 @@ documentation to get more information about custom elements such as
 
 ## Install
 
+This project uses
+[Yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to
+manage dependencies. The various packages can be found in the `packages`
+directory and they all have their own `package.json`. When dependencies are
+installed, a `node_modules` directory gets created at the project root. If you
+need to add a dependency to a particular package, use the `workspace` command
+like so: `yarn workspace @hnp/content add lodash`.
+
+Installing is as easy as running the following commands:
+
 ```bash
 $ git clone https://github.com/dan-lovelace/hacker-news-pro.git
 $ cd hacker-news-pro
@@ -170,19 +179,17 @@ $ yarn
 
 ## Build
 
-Once complete, build assets can be located in the `dist` directory at the
-project root. Keep this in mind when adding the unpacked version to your browser
-for testing.
-
-### Build commands
+Once a build is complete, its assets can be located in the `dist` directory at
+the project root. Keep this in mind when adding the unpacked version to your
+browser for testing. The following build commands are available:
 
 | Command        | Description                                                                      |
 | -------------- | -------------------------------------------------------------------------------- |
-| `yarn start`   | Creates a Manifest V3 build and starts file watchers on all packages<sup>+</sup> |
-| `yarn build 2` | Creates a build using Manifest V2                                                |
-| `yarn build 3` | Creates a build using Manifest V3                                                |
+| `yarn start`   | Creates a Manifest v3 build and starts file watchers on all packages<sup>+</sup> |
+| `yarn build 2` | Creates a build using Manifest v2                                                |
+| `yarn build 3` | Creates a build using Manifest v3                                                |
 
-<sup>+</sup> If you'd instead like to develop using V2, you'll need to copy the
+<sup>+</sup> If you'd instead like to develop using v2, you'll need to copy the
 contents of [assets/manifest-v2.json](./assets/manifest-v2.json) into
 [packages/content/public/manifest.json](./packages/content/public/manifest.json)
 and run a clean build. Be sure to remove the `$schema` property after doing so.
@@ -191,11 +198,13 @@ and run a clean build. Be sure to remove the `$schema` property after doing so.
 
 After starting or building, the extension's distribution is located in the
 `dist` directory at the root of the project. Add the unpacked assets to your
-browser of choice. For now, Manifest V3 builds are only supported by Chrome.
+browser of choice using the guides below. For now, Manifest v3 builds are only
+supported by Chrome.
 
-Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
+**Chrome**:
+https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
 
-Firefox:
+**Firefox**:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing
 
 ## Tips
@@ -212,21 +221,24 @@ chrome.storage.local.get((result) => {
 });
 ```
 
+⚠️ This will delete any custom themes you've created so be sure to back them up
+first!
+
 # Creating and publishing versions
 
 To create and package a new version for publishing:
 
 1. Increment the version in `package.json` - Use
-   [Semantic Versioning](https://semver.org/) standards
+   [Semantic Versioning](https://semver.org/) standards.
 1. Run `yarn package <manifest version>` - Target either Manifest version `2` or
-   `3` (i.e. `yarn package 3`)
+   `3` (i.e. `yarn package 3`).
 1. Inspect the output zip file in the `versions` directory to make sure
-   everything looks right
+   everything looks right.
 
 Log in to either the [Chrome Web Store](https://chrome.google.com/webstore/)
-(Manifest V3) or [Firefox Addon Hub](https://addons.mozilla.org/en-US/firefox/)
-(Manifest V2), upload the new version and submit for review.
+(Manifest v3) or [Firefox Addon Hub](https://addons.mozilla.org/en-US/firefox/)
+(Manifest v2), upload the new version and submit for review.
 
 When complete, create a new release in GitHub with a tag that matches the new
-version (i.e. `v0.0.1`). Highlight changes under a "Changes" heading as seen in
-previous releases.
+version (i.e. `v0.0.1`). Highlight changes under a "What's new" heading as seen
+in previous releases and include any bug fixes separately.
