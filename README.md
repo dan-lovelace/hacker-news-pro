@@ -190,8 +190,10 @@ browser for testing. The following build commands are available:
 | `yarn build 3` | Creates a build using Manifest v3                                                |
 
 <sup>+</sup> If you'd instead like to develop using v2, you'll need to copy the
-contents of [assets/manifest-v2.json](./assets/manifest-v2.json) into
-[packages/content/public/manifest.json](./packages/content/public/manifest.json)
+contents of
+<a href="https://github.com/dan-lovelace/hacker-news-pro/blob/main/assets/manifest-v2.json">assets/manifest-v2.json</a>
+into
+<a href="https://github.com/dan-lovelace/hacker-news-pro/blob/main/packages/content/public/manifest.json">packages/content/public/manifest.json</a>
 and run a clean build. Be sure to remove the `$schema` property after doing so.
 
 ## Add unpacked extension
