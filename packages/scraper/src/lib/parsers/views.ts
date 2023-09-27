@@ -215,7 +215,7 @@ export function getCommentsCount(parent?: Element | null) {
       nodes.forEach((node) => {
         const { textContent } = node;
 
-        if (/(comments|discuss)/g.test(textContent ?? "")) {
+        if (/(comments?|discuss)/g.test(textContent ?? "")) {
           const count = parseInt(textContent?.replace(/\Wcomments/g, "") ?? "");
 
           if (!isNaN(count)) found = count;
