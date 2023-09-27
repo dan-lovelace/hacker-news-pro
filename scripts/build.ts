@@ -48,11 +48,12 @@ function main() {
     path.join(__dirname, "package.json"),
     "utf-8",
   );
-  const packageVersion = JSON.parse(packageJson).version;
-  const json = JSON.parse(manifestJson);
 
-  json.version = packageVersion;
-  delete json["$schema"];
+  const packageVersion = JSON.parse(packageJson).version;
+  const buildManifestJson = JSON.parse(manifestJson);
+
+  buildManifestJson.version = packageVersion;
+  delete buildManifestJson.$schema;
 
   exec("lerna run build", (error, stdout) => {
     if (error) {
@@ -62,7 +63,7 @@ function main() {
 
     fs.writeFileSync(
       path.join(__dirname, "dist", "manifest.json"),
-      JSON.stringify(json, undefined, 2),
+      JSON.stringify(buildManifestJson, undefined, 2),
       "utf-8",
     );
 
