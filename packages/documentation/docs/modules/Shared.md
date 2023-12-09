@@ -45,7 +45,7 @@ Age information for a specific item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:50](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L50)
+[types/src/content/views/shared.ts:50](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L50)
 
 ___
 
@@ -75,7 +75,7 @@ User comment and its replies.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:73](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L73)
+[types/src/content/views/shared.ts:73](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L73)
 
 ___
 
@@ -101,7 +101,7 @@ Single comment item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:142](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L142)
+[types/src/content/views/shared.ts:142](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L142)
 
 ___
 
@@ -121,7 +121,7 @@ HTML form.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:186](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L186)
+[types/src/content/views/shared.ts:186](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L186)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[types/src/content/views/shared.ts:208](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L208)
+[types/src/content/views/shared.ts:208](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L208)
 
 ___
 
@@ -171,7 +171,7 @@ component.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:225](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L225)
+[types/src/content/views/shared.ts:225](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L225)
 
 ___
 
@@ -192,7 +192,7 @@ Single job item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:252](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L252)
+[types/src/content/views/shared.ts:252](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L252)
 
 ___
 
@@ -222,7 +222,7 @@ Elements that only perform a redirect when clicked.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:270](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L270)
+[types/src/content/views/shared.ts:270](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L270)
 
 ___
 
@@ -244,7 +244,7 @@ Single option in a poll.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:318](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L318)
+[types/src/content/views/shared.ts:318](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L318)
 
 ___
 
@@ -263,7 +263,7 @@ Item's linked site or article.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:339](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L339)
+[types/src/content/views/shared.ts:339](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L339)
 
 ___
 
@@ -295,7 +295,7 @@ Sample page: https://news.ycombinator.com/item?id=37371084
 
 #### Defined in
 
-[types/src/content/views/shared.ts:383](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L383)
+[types/src/content/views/shared.ts:383](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L383)
 
 ___
 
@@ -322,7 +322,7 @@ Descriptions:
 
 #### Defined in
 
-[types/src/content/views/shared.ts:369](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L369)
+[types/src/content/views/shared.ts:369](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L369)
 
 ___
 
@@ -341,7 +341,7 @@ User that submitted an item.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:428](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L428)
+[types/src/content/views/shared.ts:428](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L428)
 
 ___
 
@@ -373,7 +373,7 @@ know by
 
 #### Defined in
 
-[types/src/content/views/shared.ts:463](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L463)
+[types/src/content/views/shared.ts:463](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L463)
 
 ___
 
@@ -392,7 +392,7 @@ Maps a route to a particular view.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:477](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L477)
+[types/src/content/views/shared.ts:477](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L477)
 
 ___
 
@@ -409,7 +409,7 @@ If `undefined`, the user has not yet voted. If they have, will be either
 
 #### Defined in
 
-[types/src/content/views/shared.ts:497](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L497)
+[types/src/content/views/shared.ts:497](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L497)
 
 ## Variables
 
@@ -432,7 +432,7 @@ method in the scraper package for how Hacker News Pro does this.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:19](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L19)
+[types/src/content/views/shared.ts:19](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L19)
 
 ___
 
@@ -444,4 +444,4 @@ How an item may be voted upon.
 
 #### Defined in
 
-[types/src/content/views/shared.ts:47](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/shared.ts#L47)
+[types/src/content/views/shared.ts:47](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/shared.ts#L47)

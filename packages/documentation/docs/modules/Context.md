@@ -74,7 +74,7 @@ Assets available to templates.
 
 #### Defined in
 
-[types/src/content/views/context.ts:45](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/context.ts#L45)
+[types/src/content/views/context.ts:45](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/context.ts#L45)
 
 ___
 
@@ -94,7 +94,7 @@ Context configuration for the current page.
 
 #### Defined in
 
-[types/src/content/views/context.ts:83](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/context.ts#L83)
+[types/src/content/views/context.ts:83](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/context.ts#L83)
 
 ___
 
@@ -120,7 +120,7 @@ The main context object supplied to all views.
 
 #### Defined in
 
-[types/src/content/views/context.ts:108](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/context.ts#L108)
+[types/src/content/views/context.ts:108](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/context.ts#L108)
 
 ___
 
@@ -145,4 +145,4 @@ Additional properties that are not specific to any one view.
 
 #### Defined in
 
-[types/src/content/views/context.ts:135](https://github.com/dan-lovelace/hacker-news-pro/blob/52d9d67/packages/types/src/content/views/context.ts#L135)
+[types/src/content/views/context.ts:135](https://github.com/dan-lovelace/hacker-news-pro/blob/dc12d01/packages/types/src/content/views/context.ts#L135)

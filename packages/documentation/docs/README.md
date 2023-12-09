@@ -3,18 +3,7 @@ hide_title: true
 slug: /readme
 ---
 
-<h1>
-   <span>
-      Hacker News Pro
-   </span>
-   <a href="https://www.buymeacoffee.com/danlovelace" target="_blank">
-      <img
-         src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-         alt="Buy Me A Coffee"
-         style={{"aspectRatio":"1 / .276","height":"38px","float":"right"}}
-      />
-   </a>
-</h1>
+## Hacker News Pro
 
 Welcome to Hacker News Pro, a browser extension designed for developers to
 create their own unique, fully-customized
